@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::header">
+</head>
+<body>
+
+	
+		<div id="wrapper">
+		
+		<div align="right">
+			<input type="button" name="findId" id="findId" value="아이디찾기">
+			<input type="button" name="findPwd" id="findPwd" value="비밀번호찾기">
+		</div>
+		
+			<h2>아이디찾기</h2>
+			<br />
+			아이디 찾는 방법을 선택해 주세요
+				<hr width="300" align="left">
+		
+		
+				<form id="getIdFrm" method="post">	
+				<input type="radio" name="getIdWay" id="getIdByEmail" >이메일로 찾기<br />
+				 <input type="text" name="name" id="name" placeholder="이름">
+				<div id="nameErrorMsg"></div>
+				
+				
+				
+				<input type="text" name="email" id="email" placeholder="이메일">						
+				<span class=certification></span>
+				<div id="emailErrorMsg"></div>
+
+			
+				<hr width="300" align="left">
+		
+			
+					
+				<input type="radio" name="getIdWay" id="getIdByPhone">등록된 연락처로 인증<br />
+			
+				<div>
+				<input type="text" name="name" id="name" placeholder="이름">
+				</div>
+				<div id="nameErrorMsg"></div>
+				
+				
+				
+				<input type="text" placeholder="연락처 '-'없이 입력" name="phone" id="phone">					
+				<span class=certification></span>						
+				<div id="phoneErrorMsg"></div>		
+			
+
+			
+				<hr width="300" align="left">
+			
+					
+				<input type="radio" name="getIdWay" id="getIdByYours">본인 명의 휴대전화로 인증<br />			
+								
+				<div>
+					<h4><b>
+					<input type="checkbox"  id="chk_all" class="chk">
+					이용 약관에 모두 동의
+					</b></h4>
+							<input type="checkbox" class="chk" name="chk" required>  인증사 개인정보 이용 
+							<a href="#">보기</a>							
+							<input type="checkbox" class="chk" name="chk" required>  인증사 고유 식별 처리
+							<a href="#">보기</a>
+							<br />
+							<input type="checkbox" class="chk" name="chk" required>  통신사 이용 약관
+							<a href="#">보기</a>
+							<input type="checkbox" class="chk" name="chk" required>  인증사 이용 약관 처리
+							<a href="#">보기</a>
+							<br />
+							<input type="checkbox" class="chk" name="chk" required>  애니멀 살롱 개인정보 수집
+							<a href="#">보기</a>
+				</div>
+					<input type="text" name="name" id="name" placeholder="이름">
+					<div id="nameErrorMsg"></div>
+					<select name="foreigners">
+						<option value="dmst" selected>내국인
+						<option value="frgn">외국인
+					</select>
+					<input type="button" id="m" class="sex" value="남자">
+					<input type="button" id="f" class="sex" value="여자">
+					<br />
+					<!-- <select name="YEAR" id="YEAR" title="년도" ></select> -->
+					<input placeholder="생일'년'(4자리) ex. 1985" maxlength="4" width="50">    
+            		<select name="MONTH" id="MONTH" title="월" ></select>
+            		<select name="DAY" id="DAY" title="일" ></select>
+            		<br />
+            		<select name="telecom">
+            			<option value="SKT">SKT
+            			<option value="KT">KT
+            			<option value="LGU+">LGU+
+            			<option value="알뜰폰">알뜰폰            			
+            		</select>
+					<input type="text" placeholder="'-'없이 입력" name="phone" id="phone" >
+					<span class=certification></span>
+					<div id="phoneErrorMsg"></div>
+					<br />
+					<input type="submit" value="확인">	<input type="button" id="goBack" value="뒤로가기">	
+			</form>							
+		</div>
+		
+	<!-- footer 영역 -->
+<div th:replace="fragments/footer::footer" ></div>
+</body>
+</html>

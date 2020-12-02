@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>예약시간변경</title>
+</head>
+<body>
+
+	<!-- 디자이너 및 시간 선택 -->
+	<div style="float: left;">
+		<img width="75px" height="75px" name="디자이너사진" /> 디자이너명(디자이너추가정보)<br/>
+		<button>시간</button><button>나열</button><button>예정</button><button>좌우</button><button>스크롤</button><button>가능하게</button>
+		<br/>
+		<img width="75px" height="75px" name="디자이너사진" /> 디자이너명(디자이너추가정보)<br/>
+		<button disabled="disabled">정기휴무</button>
+		
+		<a th:href="@{/bookingTimeChage.do}">예약시간변경</a>
+	</div>
+	
+</body>
+</html>

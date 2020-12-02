@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::header">
+</head>
+<body>
+				<div id="wrapper" align="center">
+					<div id="logo" >
+						<a th:href="@{/}"><img alt="애니멀살롱로고" src="#"></a>
+					</div>	
+					<br />
+					[[${id}]]가입을 축하드립니다!
+					
+					<div>
+						<form method="post" th:action="@{/updateImg}"enctype="multipart/form-data" id="fileUploadForm">
+							
+								
+								
+								
+								<div id="profile_IMG">
+									프로필 이미지 default 영역
+								</div>
+								<div align="right">														
+									<input type="file" name="profile" id="profile">
+								</div>
+								<div align="center">
+									애니멀 살롱으로<br />
+									어울리는 스타일 찾고<br />
+									간편하게 예약하세요<br />
+									<input type="submit" value="서비스 이용하기" id="btnSubmit" >
+								</div>													
+						</form>
+						
+					</div>
+					
+				</div>
+				
+				<script type="text/javascript" th:src="@{/js/fileupload.js}"></script>
+
+<div th:replace="fragments/footer::footer" ></div>
+</body>
+</html>
