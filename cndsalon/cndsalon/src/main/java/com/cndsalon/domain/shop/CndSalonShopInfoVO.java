@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data//(geter,seter)
 @NoArgsConstructor// 기본생성자 자동주입(lombok)
 public class CndSalonShopInfoVO {
-
+	private String userLocalX;
+	private String userLocalY;
 	// schemas:CNDSALON tbl:SHOP_INFO_TBL
 	// 매장 코드
 	private String sCode;

@@ -22,9 +22,9 @@ public class ShopServiceImpl implements ShopListService {
 	
 	@Transactional
 	@Override
-	public List<CndSalonShopInfoVO> getAll(){
+	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY){
 		log.info("----------------getAll-------------------");
-		return dao.getAll();
+		return dao.getAll(userLocalX,userLocalY);
 	}
 	
 	@Transactional

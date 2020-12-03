@@ -17,9 +17,9 @@ public class CndSalonDaoImpl implements CndSalonDao {
 	
 
 	@Override
-	public List<CndSalonShopInfoVO> getAll() {
+	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY) {
 		
-		return sqlSession.getMapper(CndSalonMapper.class).getAll();
+		return sqlSession.getMapper(CndSalonMapper.class).getAll(userLocalX,userLocalY);
 	}
 
 	@Override
