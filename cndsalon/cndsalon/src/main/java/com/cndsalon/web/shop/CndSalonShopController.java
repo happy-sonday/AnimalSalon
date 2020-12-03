@@ -2,6 +2,7 @@ package com.cndsalon.web.shop;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cndsalon.domain.shop.CndSalonShopInfoVO;
 import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.java.Log;
@@ -26,13 +28,17 @@ public class CndSalonShopController {
 	}
 	@RequestMapping("/search")
 	public String searchShop() {
-		log.info("Main Start");
+		log.info("---- Main Start ----");
+		
 		return "/shop/test.html";
 	}
 	
-	@RequestMapping("/getAll")
-	public String getAll(Model model) {
+	@RequestMapping(value="/getAll")
+	public String getAll(@RequestParam("sGpsX") String sGpsX,
+			@RequestParam("sGpsY") String sGpsY, Model model) {
+		log.info("---좌표 계산 ---"+sGpsX+sGpsY);
 		log.info("---------getAll Start--------------------");
+		
 		model.addAttribute("list", service.getAll());
 		return "/shop/test2.html";
 	}

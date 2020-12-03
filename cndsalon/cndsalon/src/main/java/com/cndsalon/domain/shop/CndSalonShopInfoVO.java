@@ -41,5 +41,12 @@ public class CndSalonShopInfoVO {
 	private boolean sBigdog;
 	// 디자이너 평점 종합 평균
 	private double sAvgScore;
-	
+	// 자기 위치 대비 거리
+	private double sLocale;
+	// 매장 사진 경로
+	private String sPhotopath;
+	// 매장 사진 파일이름
+	private String sPhotoname;
+	// 매장 사진 파일 원래 이름
+	private String sPhotonameOrigin;
 }// Class END

@@ -77,17 +77,12 @@
             <td>매장 코드</td>
             <td>매장 이름</td>
             <td>매장 주소</td>
-            <td>매장 전화번호</td>
             <td>매장 운영 시간</td>
             <td>매장 소개글 제목</td>
-            <td>매장 소개글 내용</td>
             <td>주차가능 여부</td>
-            <td>Free wifi</td>
-            <td>지하철근처</td>
-            <td>추가요금 없음</td>
-            <td>픽업 가능</td>
-            <td>대형견 가능</td>
+            <td>사진 파일(원래)</td>
             <td>디자이너 평점 총합 의 평균</td>
+            <td>거리순</td>
         </tr>
        
         <tr th:each="shoplist : ${list}"><!-- shoplist ==> shop변경 -->
@@ -97,37 +92,17 @@
 						   [[${shoplist.sCode}]]</a></td>
             <td th:text="${shoplist.sName}"></td>
             <td th:text="${shoplist.sAddr}"></td>
-            <td th:text="${shoplist.sPhone}"></td>
             <input type="hidden" th:value="${shoplist.sGpsX}" />            
             <input type="hidden" th:value="${shoplist.sGpsY}" />
             <td th:text="${shoplist.sTime}"></td>
-            <td th:text="${shoplist.sTitle}"></td>
-            <td th:text="${shoplist.sContent}"></td>            
+            <td th:text="${shoplist.sTitle}"></td>           
             <th:block>
             <td th:if="${shoplist.sParking==true}">가능</td>
             <td th:unless="${shoplist.sParking==true}">불가</td>
             </th:block>
-            <th:block>
-            <td th:if="${shoplist.sWifi==true}">가능</td>
-            <td th:unless="${shoplist.sWifi==true}">불가</td>
-            </th:block>
-            <th:block>
-            <td th:if="${shoplist.sSubway==true}">가능</td>
-            <td th:unless="${shoplist.sSubway==true}">불가</td>
-            </th:block>
-            <th:block>
-            <td th:if="${shoplist.sCharge==true}">가능</td>
-            <td th:unless="${shoplist.sCharge==true}">불가</td>
-            </th:block>
-            <th:block>
-            <td th:if="${shoplist.sPickup==true}">가능</td>
-            <td th:unless="${shoplist.sPickup==true}">불가</td>
-            </th:block>
-            <th:block>
-            <td th:if="${shoplist.sBigdog==true}">가능</td>
-            <td th:unless="${shoplist.sBigdog==true}">불가</td>
-            </th:block>           
-            <td th:text="${shoplist.sAvgScore}"></td>                                   
+            <td th:text="${shoplist.sPhotopath}+${shoplist.sPhotoname}+${shoplist.sPhotonameOrigin}"></td>
+            <td th:text="${shoplist.sAvgScore}"></td>
+            <td th:text="${shoplist.sLocale}"></td>                                   
         </tr>
     </table>
 </body>
