@@ -1,0 +1,22 @@
+-- 매장 상품 사진의 대한 CREATE TABLE --
+
+-- 2-1. 매장 상품 사진 정보 TABLE(1202에 추가)
+
+CREATE TABLE SHOP_PRODUCT_PHOTO_TBL (
+-- 상품 코드
+P_CODE VARCHAR2(30) NOT NULL,
+-- 매장 사진 파일 경로 
+P_PHOTOPATH VARCHAR2(500) NOT NULL,
+-- 매장 사진 파일 이름(파일이름 중복되지 않는 규칙 부여 필요)
+P_PHOTONAME VARCHAR2(100) NOT NULL,
+-- 매장 사진의 원래 파일명
+P_PHOTONAME_ORIGIN VARCHAR2(100) NOT NULL); 
+
+commit;
+
+-- 2-1. 매장 상품 사진의 상품 코드 외래키 생성
+
+ALTER TABLE SHOP_PRODUCT_PHOTO_TBL ADD CONSTRAINT
+FK_SHOP_PRODUCT_PHOTO_CODE FOREIGN KEY(P_CODE)REFERENCES SHOP_PRODUCT_TBL(P_CODE);
+commit;
+

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>메뉴 선택 화면</title>
+</head>
+<body>
+	<div class="wholeContainer">
+		<div class="header">
+			<ul>
+				<li><a href="#" class="headerMenu">뒤로가기</a></li>
+				<li><a href="#" class="headerMenu">메인홈</a></li>
+				<li><a href="#" class="headerMenu">업체이름</a></li>
+				<li><a href="#" class="headerMenu">검색</a></li>
+			</ul>
+		</div>
+		
+		<div class="content">
+			<div class="petChoice">
+				<ul>
+					<li><a href="/Booking/choice/dog" class="pet">강아지</a></li>
+					<li><a href="/Booking/choice/cat" class="pet">고양이</a></li>
+				</ul>
+			</div>
+			
+			<div class="styleChoice">
+				<ul>
+					<li>
+						<div class="style">
+							<form id="frm" method="get">
+								<table border="1">
+									<tr>
+										<td rowspan="4"><img src="#" alt="menuImg" /></td>
+										<td>전체 미용 + 목욕</td>
+									</tr>
+									<tr>
+										<td>50000원 ~ 70000원 * 체중 별 상이</td>
+									</tr>
+									<tr>
+										<td>소요시간 120분 ~ 180분</td>
+									</tr>
+									<tr>
+										<td><a href="/Booking/detail" class="btn">예약</a></td>
+								<!-- 	<td><a href="#this" id="wholeCut" class="btn">예약</a></td> -->
+									</tr>
+								</table>
+							</form>
+						</div>
+					</li>
+					<li>
+						<div class="style">
+							<table border="1">
+								<tr>
+									<td rowspan="4"><img src="#" alt="menuImg" /></td>
+									<td>부분 미용 + 목욕</td>
+								</tr>
+								<tr>
+									<td>30000원 ~ 50000원 * 체중 별 상이</td>
+								</tr>
+								<tr>
+									<td>소요시간 90분 ~ 150분</td>
+								</tr>
+								<tr>
+									<td><a href="/Booking/detail">예약</a></td>
+							<!-- 	<td><a href="#this" id="partCut" class="btn">예약</a></td> -->
+								</tr>
+							</table>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="footer">
+			<!-- footer 내용 -->
+			Footer 내용 추가 예정
+		</div>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			$("#wholeCut").on("click", function(){
+				
+				var frm = $("#frm")[0];
+				frm.action = "/Booking/detail/";
+				frm.submit();
+			});
+			
+			$("#partCut").on("click", function(){
+				
+				var frm = $("#frm")[0];
+				frm.action = "/Booking/detail/";
+				frm.submit();
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::header">
+</head>
+<body>
+				
+				
+				<div id="wrapper" align="center">
+					
+						<!-- 로고 -->
+						<div id="logo" >
+							<a th:href="@{/}"><img alt="애니멀살롱로고" src="#"></a>
+						</div>
+					
+					
+						
+						<h3>
+						<input type="checkbox"  id="chk_all" class="chk" checked>
+						이용 약관 전체 동의</h3>
+						<form th:action="@{/signup}" method="get">
+						
+						<!-- 약관 조항-->
+						
+						
+						<div>							
+							<div>
+							선택항목에 대한 동의를 거부하시는 경우에도 
+							서비스 이용이 가능합니다.
+							</div>
+						</div>
+						
+						<div>
+							<span>
+								<input type="checkbox" class="chk" name="chk" checked required>
+								[필수] 만 14세 이상입니다.														
+							</span>
+						</div>						
+						
+						<div>
+							<span>
+								<input type="checkbox" class="chk" name="chk" checked required>
+								[필수] 애니멀살롱 서비스 이용약관 동의 >
+							</span>						
+						</div>
+						
+						<div>
+							<span>
+								<input type="checkbox" class="chk" name="chk" checked required>
+								[필수] 개인정보 처리방침 동의 >
+							</span>						
+						</div>
+						
+						<div>
+							<span>
+								<input type="checkbox" class="chk" name="chk" checked>
+								[선택] 위치정보 수집 및 이용동의 >
+							</span>						
+						</div>
+						<div>
+							<span>
+								<input type="checkbox" class="chk" name="chk" checked >
+								[선택] 프로모션 정보 수신 동의 >
+							</span>						
+						</div>
+						
+						<!-- AlertMsg -->
+						<div id=termsErrorMsg></div>
+						
+						<input type="submit" value="확인" id="terms_submitBtn"><input type="button" id="goBack" value="뒤로가기">						
+						</form>										
+				</div>
+
+	<!-- footer 영역 -->
+	
+<div th:replace="fragments/footer::footer" ></div>
+</body>
+</html>
