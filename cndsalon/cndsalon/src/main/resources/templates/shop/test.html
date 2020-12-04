@@ -10,8 +10,9 @@
 <!-- jQuery -->
 <script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
 
-<script th:src="@{'../static/shop/js/geolocation.js'}" charset="UTF-8"></script>
-<script th:src="@{'../static/shop/js/jquery_cookie.js'}" charset="UTF-8"></script>
+<script th:src="@{'/static/js/shop/geolocation(ex).js'}" charset="UTF-8"></script>
+<script th:src="@{'/static/js/shop/jquery_cookie.js'}" charset="UTF-8"></script>
+<script th:src="@{'/static/js/shop/shopsearchmain.js'}" charset="UTF-8"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
 <!-- <a th:href="@{/getAll}" >getAll</a><p><p> -->
 <a href="@{/getAll_ajax}" >getAll_ajax</a>
@@ -22,23 +23,6 @@
 	<input id="longitude_1" name="userLocalY" type="hidden" />
 	<input type="submit"/>
 	</form>
-<script>
 
-$(function() {        
-    // Geolocation API에 액세스할 수 있는지를 확인
-    if (navigator.geolocation) {
-        //위치 정보를 얻기
-        navigator.geolocation.getCurrentPosition (function(pos) {
-            $('#latitude').html(pos.coords.latitude);     // 위도
-            $('#latitude_1').val(pos.coords.latitude);
-            $('#longitude').html(pos.coords.longitude); // 경도
-            $('#longitude_1').val(pos.coords.longitude);
-        });
-    } else {
-        alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
-    }
-});
-
-</script>
 </body>
 </html>

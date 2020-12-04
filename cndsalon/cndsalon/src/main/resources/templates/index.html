@@ -10,6 +10,9 @@
         <link rel="stylesheet" th:href="@{css/main/style.css}">
         <link rel="shortcut icon" type="image/png" th:href="@{img/main/favicon.ico}">
         
+        <script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
+        <script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
         <title>C&D | 애견 전문 헤어샵  </title>
     </head>
     <body>
@@ -23,7 +26,9 @@
                     <span class="heading-primary--main">C&D Hairshop</span>
                     <span class="heading-primary--sub">give you better life</span>
                 </h1>
-
+				<input type="button" id="searchshop" onclick='shop_search()' value="샵검색"/>
+				<input type="hidden" name="userLocalX" id="latitude_my_x"/>
+				<input type="hidden" name="userLocalY" id="latitude_my_y"/>
                 <a th:href="@{/search}" class="btn btn--white">샵검색</a>
                  <a th:href="@{/login}" class="btn btn--white">로그인</a>
             </div>
