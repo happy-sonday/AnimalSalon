@@ -36,11 +36,20 @@ public class CndSalonShopController {
 	@RequestMapping(value="/getAll")
 	public String getAll(@RequestParam("userLocalX") String userLocalX,
 			@RequestParam("userLocalY") String userLocalY, Model model) {
-		log.info("---좌표 계산 ---"+userLocalX+userLocalY);
+		log.info("---좌표 계산 ---   "+userLocalX+"  &&&&&  "+userLocalY+"   ");
 		log.info("---------getAll Start--------------------");
 		
-		
-		model.addAttribute("list", service.getAll(userLocalX,userLocalY));
+		if (!userLocalX.equals("") && !userLocalY.equals("")) {
+			log.info("---좌표확인---"+userLocalX+"++++"+userLocalY);
+			model.addAttribute("list", service.getAll(userLocalX,userLocalY));
+			
+		}else{
+			userLocalX+="37.62843";
+			userLocalY+="127.07184";
+			log.info("---기본 좌표확인---   "+userLocalX+"  &&&&&  "+userLocalY+"   ");
+			model.addAttribute("list", service.getAll(userLocalX,userLocalY));
+		}
+				
 		return "/shop/test2.html";
 	}
 	
