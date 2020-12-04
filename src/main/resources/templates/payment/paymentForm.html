@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 페이지</title>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+ 
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
 	<div class="wholeContainer">
@@ -15,7 +20,6 @@
 				<li>
 						<a href="#">이전페이지로</a>
 						<img src="#" alt="goPrevPage_Img">
-					</a>
 				</li>
 				<li>
 					<h3>예약 요청</h3>
@@ -51,7 +55,7 @@
 		</div>
 		
 		<div class="content_right">
-			결제폼?
+			<button onclick="requestPay()" >결제하기</button>
 		</div>
 		
 		<div class="footer">
@@ -59,5 +63,59 @@
 			Footer 내용 추가 예정
 		</div>
 	</div>
+<script>
+	function requestPay(){
+		
+		var IMP = window.IMP; 
+		IMP.init("imp96423462"); // "가맹점 식별코드"
+		
+		// IMP.request_pay(param, callback) 호출
+		IMP.request_pay({ // param
+			// 아임포트 관리자페이지에서 설정한 PG사 1개만 테스트가 가능하고, 2개이상 하려면 돈을 지불해야함
+			// 테스트 결제는 가능하지만, 실제결제는 PG사와 직접 계약후 부여받은 고유번호(?)를 아임포트에 제출해야함
+			pg: "kakaopay",		 		
+			pay_method: "card",
+			merchant_uid: "ORD20180131-0000013",
+			name: "매장이름_메뉴이름_옵션이름",
+			amount: 1000,
+			buyer_email: "inulee0213@gmail.com",
+			buyer_name: "이찬우 [선택사항]",
+			buyer_tel: "010-8977-6151 [필수사항]",
+			buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호 [선택항목]",
+			buyer_postcode: "10310 [선택사항]"
+		}, function (rsp) { // callback
+			 if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			      // jQuery로 HTTP 요청
+			      jQuery.ajax({
+			          url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+			          method: "POST",
+			          headers: { "Content-Type": "application/json" },
+			          data: {
+			              imp_uid: rsp.imp_uid,
+			              merchant_uid: rsp.merchant_uid
+			          }
+			      }).done(function (data) {
+			        // 가맹점 서버 결제 API 성공시 로직
+			        if ( sibal ) {
+                        msg = '결제가 완료되었습니다.';
+//                         msg += '\n고유ID : ' + rsp.imp_uid;
+//                         msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+//                         msg += '\결제 금액 : ' + rsp.paid_amount;
+//                         msg += '카드 승인번호 : ' + rsp.apply_num;
+                        
+                        alert(msg);
+                    } else {
+                        //[3] 아직 제대로 결제가 되지 않았습니다.
+                        //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+                    }
+			      });
+					location.href="/cndsalon/paySuccess"
+			    } else {
+			      alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+			      location.href="/cndsalon/payFail"
+			    }
+		});
+	}
+</script>
 </body>
 </html>

@@ -25,12 +25,15 @@ public class PaymentController {
 		return mv;
 	}
 	
-	
-	// 확인용)))) 메인 페이지로 이동하는 컨트롤러
-	@GetMapping("/main")
-	public String moveMainPage() throws Exception{
-		return "/mainPage";
+	// 결제성공 페이지로 이동하는 컨트롤러
+	@RequestMapping(value="/paySuccess", method=RequestMethod.GET)
+	public String moveSuccessPage() throws Exception{
+		return "/payment/afterPaySuccescc";
 	}
-	
-	// 결제폼 생성 컨트롤러?
+					
+	// 결제실패페이지로 이동하는 컨트롤러
+	@RequestMapping(value="/payFail", method=RequestMethod.GET)
+	public String moveFailPage() throws Exception{
+	return "/payment/afterPayFailed";
+	}
 }
