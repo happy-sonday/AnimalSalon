@@ -271,10 +271,24 @@
 
 	});
 
-	
-	
-	
-	
+	//상세 주소 유효성 검증
+	$("#detailAddress").keyup(function(){
+		
+	 	var addrRgx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\s@\-_~*()/,.:]+$/; //한글+영문+공백+일부 특수문자만 허용
+
+		
+		
+		
+		if($(this).val()==null||$(this).val()==""){
+	       	$('#detailAddressErrorMsg').html("<b style='color: red'>필수입력사항입니다:)</b>");        		
+	    }else if(addrRgx.test( $(this).val() )){
+	    		$('#detailAddressErrorMsg').text("");
+	    }else{
+	    		$('#detailAddressErrorMsg').html("<b style='color: red'>유효하지 않은 주소입니다.</b>");	
+	    }  		    	
+	});				          
+		
+
 
 	
 	//전화번호 유효성 테스트
@@ -294,16 +308,38 @@
 		
 	});
 	
-	//별명중복 검증
-	$('#nickname').keyup(function() {
-						
-		$('#nicknameErrorMsg').text('');  	    
-		if($(this).val()==null||$(this).val()==""){
-			$('#nicknameErrorMsg').html("<b style='color: red'>별명을 확인해주세요.</b>");
-		}else{
+		
+	
+	//별명유효성 검사
+  $( "#actNickname" ).click(function() {  
+
+  	if($(this).is(":checked")){
+
+			$("#nickname").focus();
+			$("#nickname").keyup(function(){
+				
+				var nicknameRgx = /^[가-힣a-zA-Z0-9]{2,10}$/; //2자이상 한글+영문+숫자
+					$('#nicknameErrorMsg').text("");
+					if(nicknameRgx.test( $(nickname).val() )){//test가 검증되면 별명 중복여부 확인
+											
+					}else if($("#nickname").val().search(/\s/) != -1){//공백이 있을시 alert
+						$('#nicknameErrorMsg').html("<b style='color: red'>공백은 사용이 불가능 합니다.</b>");
+					}else{
+						$('#nicknameErrorMsg').html("<b style='color: red'>유효하지 않은 별명입니다.</b>");
+					}
+			});
+
+
+	 }else{//체크해제시 초기화
+			$('#nicknameErrorMsg').text("");
+			$('#nickname').val("");
 			
-		}
-	});
+	 }
+  	  	  
+  });
+  
+
+		
 	
 	//전체 유효성 검증
 	
