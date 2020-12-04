@@ -13,8 +13,6 @@
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
        
-        <file>K:/final_project/log/CndSalon/lab_SpringBootBoard.log</file>
-       
         <prudent>true</prudent>
         
         <!-- <append>true</append> -->
