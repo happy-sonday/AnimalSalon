@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -75,7 +76,11 @@ public class CndSalonShopController {
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(@RequestParam("userLocalX") String userLocalX,
 			@RequestParam("userLocalY") String userLocalY) {
 		List<CndSalonShopInfoVO> list = null;
+		log.info("userLocalX :::::"+userLocalX);
+		
 		log.info("---------getAll_ajax_list Start--------------------");
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
 		if (!userLocalX.equals("") || !userLocalY.equals("")) {
 			log.info("---입력 좌표확인---" + userLocalX + "++++" + userLocalY);
 			list= service.getAll(userLocalX, userLocalY);
@@ -86,7 +91,8 @@ public class CndSalonShopController {
 			log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
 			list= service.getAll(userLocalX, userLocalY);
 		}
-		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.BAD_REQUEST);
+		log.info("---------last get_all_ajax ------");
+		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/getOne")
