@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Main Page</h1>
+
+<!-- jQuery -->
+<script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
+
+<script th:src="@{'/static/js/shop/geolocation(ex).js'}" charset="UTF-8"></script>
+<script th:src="@{'/static/js/shop/jquery_cookie.js'}" charset="UTF-8"></script>
+<script th:src="@{'/static/js/shop/shopsearchmain.js'}" charset="UTF-8"></script>
+<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
+<!-- <a th:href="@{/getAll}" >getAll</a><p><p> -->
+<a href="@{/getAll_ajax}" >getAll_ajax</a>
+	<h1>위도 : <span id="latitude"></span></h1>
+	<h1>경도 : <span id="longitude"></span></h1>
+	<form action="/cndsalon/getAll" method="GET">
+	<input id="latitude_1" name="userLocalX" type="hidden" />
+	<input id="longitude_1" name="userLocalY" type="hidden" />
+	<input type="submit"/>
+	</form>
+
+</body>
+</html>

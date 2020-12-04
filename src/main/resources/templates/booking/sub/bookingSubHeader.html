@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>subHeader</title>
+
+<style type="text/css">
+
+ul{
+	list-style: none;
+	font-size: 25px;
+}
+
+li{
+	float:left;
+	margin-left: 15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+	<div th:fragment="bookingSubHeader">
+	
+		<button style="float: left;">예약하기</button>
+	
+		<nav>
+			<ul>
+				<li><a th:href="@{/bookinghome/all}">전체</a></li>
+				<li><a th:href="@{/bookinghome/ing}">예약</a></li>
+				<li><a th:href="@{/bookinghome/complete}">완료</a></li>
+				<li><a th:href="@{/bookinghome/cancel}">취소</a></li>
+			</ul>
+		</nav>
+		<br/><br/><br/><br/><br/>
+		<hr>
+	</div>
+	
+</body>
+</html>
