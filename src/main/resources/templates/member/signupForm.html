@@ -1,83 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header::header">
-<script type="stylesheet">
-.ul{
 
-
-}
-</script>
 </head>
 <body>
-				<div id="wrapper" align="center">
-				<div id="logo" >
-					<a th:href="@{/}"><img alt="애니멀살롱로고" src="#"></a>
-				</div>	
-					
-					
-					<div>
-						<form th:action="@{/join}" method="post">
-							<div>아이디 
-								<input type="text" id="id" name="id" required>
-							</div>
-							<div id="idErrorMsg"></div>
-							<div>비밀번호
-								 <input type="password" name="pwd" id="pwd" required>
-							</div>
-							<div id="pwdErrorMsg"></div>
-							<div>비밀번호 재확인 
-								<input type="password" name="2ndPwd" id="2ndPwd" required>
-							</div>
-							<div id="2ndPwdErrorMsg"></div>
-							<div>이름 
-								<input type="text" name="name" id="name" required>
-							</div>
-							<div id="nameErrorMsg"></div>
-							<div>주소<br />
-								<input type="text" id="zip" placeholder="우편번호" readonly>
-								<input type="button"  id="findZip" value="우편번호 찾기" readonly><br />
-								<input type="text" id="roadAddress" placeholder="도로명주소" readonly width="200"><br />
-								<input type="text" id="detailAddress" placeholder="상세주소">		
-							</div>
-							<span>
-								연락처
-								<input type="text" placeholder="'-'없이 입력" name="phone" id="phone">								
-							</span>
-															
-							<!-- 인증번호 영역 user.js에 통일 -->
-							<span class=certification></span>																			
-							<div id="phoneErrorMsg"></div>
-							
-							<div>
-								이메일
-								<input type="text" name="email_id" id="email_id" required>
-								<input id="txtDomain">
-								<select name=domain id="domain" required>
-									<option selected>----직접입력----
-									<option value="@naver.com">네이버
-									<option value="@gamil.com">구글
-									<option value="@hanmail.net">한메일
-									<option value="@kakao.com">카카오
-									<option value="@nate.com">네이트
-									<option value="@outlook.com">아웃룩
-								</select>								
-							</div>
-							<div id="emailErrorMsg"></div>
-							
-							<div>
-								<input type="text" name="nickname" id="nickname" required>
-								<input type="checkbox" name="actNickname" checked> 별명으로 활동하기								  
-							</div>
-							<div id="nicknameErrorMsg"></div>
-							
-							<input type="submit" value="가입하기"> <input type="reset" value="취소">						
-						</form>
-					</div>
-					
-				</div>
-				
-				
+	<div id="wrapper" align="center">
+		<div id="logo">
+			<a th:href="@{/}"><img alt="애니멀살롱로고" src="#"></a>
+		</div>
 
-<div th:replace="fragments/footer::footer" ></div>
+
+		<div>
+			<form th:action="@{/join}" method="post">
+				<div>
+					아이디 <input type="text" id="id" name="id" required>
+				</div>
+				<div id="idErrorMsg"></div>
+				<div>
+					비밀번호 <input type="password" name="pwd" id="pwd" required>
+				</div>
+				<div id="pwdErrorMsg"></div>
+				<div>
+					비밀번호 재확인 <input type="password" name="2ndPwd" id="2ndPwd" required>
+				</div>
+				<div id="2ndPwdErrorMsg"></div>
+				<div>
+					이름 <input type="text" name="name" id="name" required>
+				</div>
+				<div id="nameErrorMsg"></div>
+				<div>
+					주소<br /> <input type="text" id="zip" placeholder="우편번호" readonly>
+					<input type="button" id="findZip" value="우편번호 찾기" readonly><br />
+					<input type="text" id="roadAddress" placeholder="도로명주소" readonly
+						width="200"><br /> <input type="text" id="detailAddress"
+						placeholder="상세주소" required maxlength="20">
+				</div>
+				<div id="detailAddressErrorMsg"></div>
+				<span> 연락처 <input type="text" placeholder="'-'없이 입력"
+					name="phone" id="phone">
+				</span>
+
+				<!-- 인증번호 영역 user.js에 통일 -->
+				<span class=certification></span>
+				<div id="phoneErrorMsg"></div>
+
+				<div>
+					이메일 <input type="text" name="email_id" id="email_id" required>
+					<input id="txtDomain"> <select name=domain id="domain"
+						required>
+						<option selected>----직접입력----
+						<option value="@naver.com">네이버
+						<option value="@gamil.com">구글
+						<option value="@hanmail.net">한메일
+						<option value="@kakao.com">카카오
+						<option value="@nate.com">네이트
+						<option value="@outlook.com">아웃룩
+					</select>
+				</div>
+				<div id="emailErrorMsg"></div>
+
+				<div>
+					<input type="text" name="nickname" id="nickname" required	maxlength="12" placeholder="한글+영문+숫자 10자리">
+					<input type="checkbox" id="actNickname" name="actNickname"> 별명으로 활동하기
+				</div>
+				<div id="nicknameErrorMsg"></div>
+
+				<input type="submit" value="가입하기">
+				<input type="reset"	value="취소">
+			</form>
+		</div>
+
+	</div>
+
+
+<div th:replace="fragments/footer::footer"></div>
 </body>
 </html>
