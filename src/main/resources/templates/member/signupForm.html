@@ -13,15 +13,15 @@
 		<div>
 			<form th:action="@{/join}" method="post">
 				<div>
-					아이디 <input type="text" id="id" name="id" required>
+					아이디 <input type="text" id="id" name="id" required >
 				</div>
 				<div id="idErrorMsg"></div>
 				<div>
-					비밀번호 <input type="password" name="pwd" id="pwd" required>
+					비밀번호 <input type="password" name="pwd" id="pwd" required placeholder="최소 8자리 이상 영문 대소문자와 특수문자 포함" width="100">
 				</div>
 				<div id="pwdErrorMsg"></div>
 				<div>
-					비밀번호 재확인 <input type="password" name="2ndPwd" id="2ndPwd" required>
+					비밀번호 재확인 <input type="password" name="2ndPwd" id="2ndPwd" required width="100">
 				</div>
 				<div id="2ndPwdErrorMsg"></div>
 				<div>
@@ -36,7 +36,7 @@
 						placeholder="상세주소" required maxlength="20">
 				</div>
 				<div id="detailAddressErrorMsg"></div>
-				<span> 연락처 <input type="text" placeholder="'-'없이 입력"
+				<span> 휴대번호 <input type="text" placeholder="'-'없이 입력"
 					name="phone" id="phone">
 				</span>
 
@@ -46,8 +46,8 @@
 
 				<div>
 					이메일 <input type="text" name="email_id" id="email_id" required>
-					<input id="txtDomain"> <select name=domain id="domain"
-						required>
+					<input id="txtDomain" name="txtDomain">
+					 <select name=domain id="domain"	required>
 						<option selected>----직접입력----
 						<option value="@naver.com">네이버
 						<option value="@gamil.com">구글
@@ -60,7 +60,7 @@
 				<div id="emailErrorMsg"></div>
 
 				<div>
-					<input type="text" name="nickname" id="nickname" required	maxlength="12" placeholder="한글+영문+숫자 10자리">
+					<input type="text" name="nickname" id="nickname" required	maxlength="12" placeholder="최대 10자 영어 한글 숫자만 가능">
 					<input type="checkbox" id="actNickname" name="actNickname"> 별명으로 활동하기
 				</div>
 				<div id="nicknameErrorMsg"></div>
@@ -74,5 +74,14 @@
 
 
 <div th:replace="fragments/footer::footer"></div>
+
+<!-- 네이버 SENS 본인인증 서비스 관련 스크립트 -->
+<script type="text/javascript" th:src="@{/js/member/sens.js}" ></script>
+
+
+
+
+
+
 </body>
 </html>
