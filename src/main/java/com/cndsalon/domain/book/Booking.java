@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 
 import lombok.Data;
 
-@Entity
-@Data
+//@Entity
+//@Data
 public class Booking {
 	
 
