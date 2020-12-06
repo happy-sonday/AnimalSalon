@@ -44,12 +44,6 @@ dependencies {
     implementation "org.logback-extensions:logback-ext-spring:0.1.2"
 	implementation files("${System.properties['java.home']}/../lib/tools.jar")
     
-    // jQuery
-    //implementation 'org.webjars:jquery:3.5.1'
-    
-    // jQueryUI
-    //implementation 'org.webjars:jquery-ui:1.12.1'
-    
     // bootstrap
     implementation 'org.webjars:bootstrap:4.5.2'
     
