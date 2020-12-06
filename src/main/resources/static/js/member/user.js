@@ -12,35 +12,29 @@
  
   //뒤로가기
   $("#goBack").click(function(){
-
 	window.history.back();
-
 	});
 
   
  
   // 전체 선택 체크박스_약관
-  $( "#chk_all" ).click(function() {
-  
+  $( "#chk_all" ).click(function() {  
   	//alert( "Handler for .click() called." );
   	if($("#chk_all").is(":checked")){
   		$(".chk").prop("checked", true);
   	}else{
   		$(".chk").prop("checked",false);
-  	}
-  	  	  
+  	}  	  	  
   });
   
   
-  $(".chk").click(function() {
-  
+  $(".chk").click(function() {  
 	if($("input[name='chk']:checked").length==$("input:checkbox[name='chk']").length){
 	//checked된 갯수와 전체 체크박스 갯수가 일치할때	
 		$("#chk_all").prop("checked",true)
 	}else{
 	$("#chk_all").prop("checked",false);
-	}
-			
+	}			
   });
   
 
@@ -50,36 +44,36 @@
   //아이디 유효성 검사
   $('#id').keyup(function() {
 
-        	
-   		var idJ = /^[a-z0-9]{5,12}$/;
+        //영소문으로 시작, 최소 5자리이상 20자리 제한 영소문자 숫자로만구성
+   		var idJ = /^[a-z]+[a-z0-9]{5,19}$/g;;
 
 
    		if($("input:text").val()==null||$("input:text").val()==""){
    			$('#idErrorMsg').html("<b style='color: red'>필수입력사항입니다:)</b>");
    
-   		}else{
-   			/*
-   			if(idJ.test( $(this).val() )){
- 			
- 			
- 			var request=$.ajax({
- 				url:"LB?command=idConfirm", method:"GET", data: {idConfirm : $('#idConfirm').val()}, dataType: "json"	
- 				//호출될 url,           메서드 type:전송방식,   전송되는 파라미터,   응답타입
- 				});
- 			
- 			request.done(function(data) {					
- 				$('#idError').html(data.msg);	
- 			});
- 			
- 			request.fail(function(jqXHR, textStatus) {				
- 				alert("Request failed:"+textStatus);
- 			});
- 		}else{
- 			$('#idError').html("<b style='color: red'>영어 소문자 및 숫자로 최소 5자리 이상으로 만들어주세요.</b>");	
- 		}
- 		*/
- 		$('#idError').html("<b style='color: red'>영어 소문자 및 숫자로 최소 5자리 이상으로 만들어주세요.</b>");					
-   	} 	
+		//아이디 유효성 테스트 통과시 중복검사
+   		}else	 if(idJ.test( $(this).val() )){					
+					//$('#idErrorMsg').text('');//클리어
+					
+					var sendObj = {										
+					id : $(this).val()									
+					}			
+										
+					$.ajax({
+					contentType: "application/json; charset=utf-8",
+					type: "post",
+					url: contextPath+"/checkId",
+					data: JSON.stringify(sendObj),
+					success: function(result) {		
+							$('#idErrorMsg').html(result);
+						},
+							error: function(jqXHR, textStatu) {
+							console.log("failed to communicate:"+textStatu);
+						}
+					});
+		}else{
+				$('#idErrorMsg').html("<b style='color: red'>최소 5자리 이상 영어 소문자와 숫자로 만들어주세요.</b>");	
+		}
 	});
 	
 	//패스워드 유효성 검사
@@ -88,8 +82,7 @@
      	if($("input:password").val()==null||$("input:password").val()==""){
  			$('#pwdErrorMsg').html("<b style='color: red'>필수입력사항입니다:)</b>");
  		}else{
- 			
- 			
+ 			 			
  			var pwd = $(this).val();
  			 var num = pwd.search(/[0-9]/g);
  			 var eng = pwd.search(/[a-z]/ig);
@@ -126,96 +119,9 @@
 	});
 	
 	
-	//도메인 선택박스에 따른 자동완성
-	
-	
-	$('#domain').change(function() {			
-		
-		var selectedText = $("#domain option:selected").val();
-		var selectedIndex= $('#domain option').index($('#domain option:selected'));		 
-
-		
-		if(selectedIndex==0){
-			$('#txtDomain').val("").prop("readonly",false).focus();														
-		}else{
-			$('#txtDomain').val(selectedText).prop("readonly",true);			
-			$('#email_id').focus();	
-		}						
-	});
- 		 
- 			 
- 			
-	//이메일 검증 			 
- 	$( "#domain" ).blur(function() {	
-		
-
-		var emailPattern =/^[a-zA-Z0-9._-]+@[a-zA-z0-9.-]+\.[a-zA-Z]{2,4}$/;//정규식 조건 
-		var email_id= $('#email_id').val();
-		var txtDomain=$('#txtDomain').val();
-		var email=email+txtDomain;
-		
-		if(email_id==null||email_id==""||txtDomain==null||txtDomain==""){
-			$('#emailErrorMsg').html("<b style='color: red'>필수 입력 사항입니다</b>");			
-			
-		}else if(!email.match(emailPattern)){
-			$('#emailErrorMsg').val("");
-			$('#emailErrorMsg').html("<b style='color: red'>유효하지 않은 이메일 주소입니다.</b>");							
-		}else{
-			/*
-			var request=$.ajax({
-  					url:"LB?command=emailConfirm", method:"GET", data: {email_cs : email_cs}, dataType: "json"	
-  					//호출될 url,           메서드 type:전송방식,   전송되는 파라미터,   응답타입
-  					});
-  				
-  				request.done(function(data) {					
-  					$('#emailError').html(data.msg);	
-  				});
-  				
-  				request.fail(function(jqXHR, textStatus) {				
-  					alert("Request failed:"+textStatus);					
-				});
-			*/						
-		}						
-	});
- 			 
-	/* 			 
- 	$( "#email_id,#txtDomain" ).keyup(function() {	
-			
- 				
-		var emailPattern =/^[a-zA-Z0-9._-]+@[a-zA-z0-9.-]+\.[a-zA-Z]{2,4}$/;//정규식 조건 
-		var email_id= $('#email_id').val();
-		var txtDomain=$('#txtDomain').val();
-		var email_cs=email_id+"@"+txtDomain;
-		
-		if(email_id==null||email_id==""||txtDomain==null||txtDomain==""){
-			$('#emailError').html("<b style='color: red'>필수 입력 사항입니다</b>");			
-			
-		}else if(!email_cs.match(emailPattern)){
-			$('#emailError').html("<b style='color: red'>유효하지 않은 이메일 입니다.</b>");							
-		}else{
-			
-			
-			var request=$.ajax({
-	  			url:"LB?command=emailConfirm", method:"GET", data: {email_cs : email_cs}, dataType: "json"	
-	  			//호출될 url,           메서드 type:전송방식,   전송되는 파라미터,   응답타입
-	  			});
-	  		
-	  		request.done(function(data) {					
-	  			$('#emailError').html(data.msg);	
-	  		});
-	  		
-	  		request.fail(function(jqXHR, textStatus) {				
-	  			alert("Request failed:"+textStatus);					
-			});
-							
-		}
-			
- 	});
- 	*/
-	
 	//이름 유효성 검증
-	$('#name').keyup(function() {			 
-				
+	$('#name').keyup(function() {			 	
+					
 		var nameJ = /^[가-힣]{2,6}$/;//한글테스트		
 		
 	       if($(this).val()==null||$(this).val()==""){
@@ -267,17 +173,14 @@
         }).open();
 		
 		$("#detailAddress").focus();	
-	
-
 	});
+	
+	
 
 	//상세 주소 유효성 검증
 	$("#detailAddress").keyup(function(){
 		
 	 	var addrRgx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\s@\-_~*()/,.:]+$/; //한글+영문+공백+일부 특수문자만 허용
-
-		
-		
 		
 		if($(this).val()==null||$(this).val()==""){
 	       	$('#detailAddressErrorMsg').html("<b style='color: red'>필수입력사항입니다:)</b>");        		
@@ -288,26 +191,61 @@
 	    }  		    	
 	});				          
 		
-
-
 	
-	//전화번호 유효성 테스트
-	 $('#phone').keyup(function() {
-						
-			    
-		 if(isNaN($(this).val())){
-				$('#phoneErrorMsg').html("<b style='color: red'>숫자만 입력해주세요</b>");
-		 }else if($(this).val().search(/\s/) != -1){
-				$('#phoneErrorMsg').html("<b style='color: red'>공백 없이 입력해주세요.</b>");
-		}else if($(this).val()==null||$(this).val()==""||$(this).val()==null||$(this).val()==""){
-				$('#phoneErrorMsg').html("<b style='color: red'>필수 입력사항입니다:)</b>");
-		}else{
-				$('#phoneErrorMsg').text('');
-				//중복검사 ajax , 완료되면 인증번호 받기 실행
-		}
+	//휴대번호나는 sens.js로 통합
+	//도메인 선택박스에 따른 자동완성	
+	
+	$('#domain').change(function() {			
 		
+		var selectedText = $("#domain option:selected").val();
+		var selectedIndex= $('#domain option').index($('#domain option:selected'));		 
+
+		
+		if(selectedIndex==0){
+			$('#txtDomain').val("").prop("readonly",false).focus();														
+		}else{
+			$('#txtDomain').val(selectedText).prop("readonly",true);			
+			$('#email_id').focus();	
+		}						
 	});
+ 		 
+ 			 
+ 			
+	//이메일 검증 			 
+ 	$( "#email_id" ).blur(function() {			
+
+		var emailPattern =/^[a-zA-Z0-9._-]+@[a-zA-z0-9.-]+\.[a-zA-Z]{2,4}$/;//정규식 조건 
+		var email_id= $('#email_id').val();
+		var txtDomain=$('#txtDomain').val();
+		var email=email_id+txtDomain;	
+		
+		if(email_id==null||email_id==""||txtDomain==null||txtDomain==""){
+			$('#emailErrorMsg').html("<b style='color: red'>필수 입력 사항입니다</b>");			
+		}else if(!email.match(emailPattern)){
+			$('#emailErrorMsg').html("<b style='color: red'>유효하지 않은 이메일 주소입니다.</b>");							
+		}else{
 	
+			$('#emailErrorMsg').text('');//클리어
+					
+					var sendObj = {										
+					email : email							
+					}			
+										
+					$.ajax({
+					contentType: "application/json; charset=utf-8",
+					type: "post",
+					url: contextPath+"/checkEmail",
+					data: JSON.stringify(sendObj),
+					success: function(result) {		
+							$('#emailErrorMsg').html(result);
+						},
+							error: function(jqXHR, textStatu) {
+							console.log("failed to communicate:"+textStatu);
+						}
+					});
+			
+		}						
+	});
 		
 	
 	//별명유효성 검사
@@ -321,6 +259,27 @@
 				var nicknameRgx = /^[가-힣a-zA-Z0-9]{2,10}$/; //2자이상 한글+영문+숫자
 					$('#nicknameErrorMsg').text("");
 					if(nicknameRgx.test( $(nickname).val() )){//test가 검증되면 별명 중복여부 확인
+					
+					var sendObj = {					
+					
+					nickname : $(this).val()			
+					
+					}			
+						
+					$.ajax({
+						
+					contentType: "application/json; charset=utf-8",
+					type: "post",
+					url: contextPath+"/checkNickname",
+					data: JSON.stringify(sendObj),
+					success: function(result) {		
+							$('#nicknameErrorMsg').html(result);
+						},
+							error: function(jqXHR, textStatu) {
+							console.log("failed to communicate:"+textStatu);
+						}
+					});
+					
 											
 					}else if($("#nickname").val().search(/\s/) != -1){//공백이 있을시 alert
 						$('#nicknameErrorMsg').html("<b style='color: red'>공백은 사용이 불가능 합니다.</b>");
@@ -332,10 +291,8 @@
 
 	 }else{//체크해제시 초기화
 			$('#nicknameErrorMsg').text("");
-			$('#nickname').val("");
-			
-	 }
-  	  	  
+			$('#nickname').val("");			
+	 }  	  	  
   });
   
 
@@ -345,92 +302,13 @@
 	
     
     
-    //생년월일 년월 출력   
-    	/*
-    	// 년 뿌려주기
-        var dt = new Date();
-        var year = "";
-        var com_year = dt.getFullYear();        
-        $("#YEAR").append("<option value=''>년도</option>");
-        // 올해 기준으로 -1년부터 +5년을 보여준다.
-        for(var y = (com_year-1); y <= (com_year+5); y++){
-            $("#YEAR").append("<option value='"+ y +"'>"+ y + " 년" +"</option>");
-        }
-        */
-        // 월 뿌려주기(1월부터 12월)
-        var month;
-        $("#MONTH").append("<option value=''>월</option>");
-        for(var i = 1; i <= 12; i++){
-            $("#MONTH").append("<option value='"+ i +"'>"+ i + " 월" +"</option>");
-        }
-        //일 뿌려주기(1일부터 31일)
-        var day;
-        $("#DAY").append("<option value=''>일</option>");
-        for(var i = 1; i <= 31; i++){
-            $("#DAY").append("<option value='"+ i +"'>"+ i + " 일" +"</option>");
-        }
-        
-        
-        $("#DAY").append("<option value=''>일</option>");
-        for(var i = 1; i <= 31; i++){
-            $("#DAY").append("<option value='"+ i +"'>"+ i + " 일" +"</option>");
-        }
-        
-        //인증번호 받기
-        /*
-        $("#getCrftNum").click(function() {
-	
-		//
-		window.open(contextPath+'/getCrftNum', '인증번호받기', 'width=700px,height=800px,scrollbars=yes');
-		});
-		*/	
+   		
 		
-		//인증번호 영역
-		//<input type="button" value="인증번호 받기" id="getCrftNum" th:onclick="|location.href='@{/getCrftNum}'|">
-		$(".certification").append("<input type='button' value='인증번호 받기' id='getCrftNum'><br />"
-		+"<input type='text' id='chk_crftNum' placeholder='인증번호 6자리 입력'>"
-		+"<span id='countdown'></span>"
-		+"<br /><div id='crftNumErrorMsg'></div>"
-		);
+		
         
         
    
-        $("#getCrftNum").click(function(e) {
-        	
-   	        	
-		 	$('#crftNumErrorMsg').text('');
-		   //var time = 180; //기준 시간 3분
-		   var time = 10; //10초 테스트용
-		   var min = "";
-		   var sec = "";
-	   
-   
-   			//var x =setInterval(함수, 시간) 내부에서 clearInterval(x)호출하여 정지
-		    var x = setInterval(function(){
-		   	min = parseInt(time/60);
-		   	sec = time%60;
-		   	
-		   	document.getElementById("countdown").innerHTML="0"+min+":"+twoDigits(sec);
-		   	time--;
-		  
-		   	//타임아웃 시
-		   	if(time < 0){
-		   		clearInterval(x);//setInterval() 실행 종료
-		   		document.getElementById("countdown").innerHTML="<b style='color: red'>00:00</b>";
-		   		$('#crftNumErrorMsg').html("<b style='color: red'>인증 번호 입력시간이 초과했습니다</b>");
-		   	}
-	   	},1000);
-	   	
-	   	//끝자리 수 계산
-	   	function twoDigits(sec){	   	
-	   		if(sec==0)
-	   			return sec+"0";
-	   		else if(sec<=9)
-	   			return "0"+sec;	   			
-	   			return sec;	   	
-	   	}
-	   	
-	}); 
+        
 	
 	
 	//heade에서 contextPath정보를 읽어옴
