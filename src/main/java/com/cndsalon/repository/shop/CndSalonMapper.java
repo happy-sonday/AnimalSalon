@@ -26,7 +26,7 @@ public interface CndSalonMapper {
 			+ "B.S_PHOTOPATH, B.S_PHOTONAME, B.S_PHOTONAME_ORIGIN \r\n"
 			+ "FROM SHOP_INFO_TBL A, SHOP_PHOTO_TBL B\r\n"
 			+ "WHERE A.S_CODE = B.S_CODE(+)\r\n"
-			+ ")C WHERE NO <2 ORDER BY S_LOCALE")
+			+ ")C WHERE NO <2 AND ROWNUM BETWEEN 1 AND 10 ORDER BY S_LOCALE")
 	List<CndSalonShopInfoVO> getAll(@Param("userLocalX") String userLocalX, @Param("userLocalY") String userLocalY);
 	
 	
