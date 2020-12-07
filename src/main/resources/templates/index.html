@@ -12,13 +12,13 @@
         
         <script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
-        <script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
+        <script th:src="@{'js/shop/shop_search_my.js'}" charset="UTF-8"></script>
         <title>C&D | 애견 전문 헤어샵  </title>
     </head>
     <body>
         <header class="header">
             <div class="header__logo-box">
-                <img src="img/logo.png" alt="Logo" class="header__logo">
+                <img src="img/main/logo.png" alt="Logo" class="header__logo">
             </div>
 
             <div class="header__text-box">
@@ -26,10 +26,7 @@
                     <span class="heading-primary--main">C&D Hairshop</span>
                     <span class="heading-primary--sub">give you better life</span>
                 </h1>
-				<input type="button" id="searchshop" onclick='shop_search()' value="샵검색"/>
-				<input type="hidden" name="userLocalX" id="latitude_my_x" value=""/>
-				<input type="hidden" name="userLocalY" id="latitude_my_y" value=""/>
-                <a th:href="@{/search}" class="btn btn--white">샵검색</a>
+				<a onclick='shop_search_ajax()' class="btn btn--white">샵검색</a>
                  <a th:href="@{/login}" class="btn btn--white">로그인</a>
             </div>
         </header>
@@ -59,9 +56,9 @@
                     </div>
                     <div class="col-1-of-2">
                         <div class="composition">
-                            <img src="img/dog3.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
-                            <img src="img/dog2.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
-                            <img src="img/dog1.jpg" alt="Photo 3" class="composition__photo composition__photo--p3">
+                            <img src="img/main/dog3.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
+                            <img src="img/main/dog2.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
+                            <img src="img/main/dog1.jpg" alt="Photo 3" class="composition__photo composition__photo--p3">
                         </div>
                     </div>
                 </div>
@@ -245,7 +242,6 @@
                     Col 1 of 3
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-1-of-3">
                     Col 1 of 3
@@ -254,7 +250,6 @@
                     Col 2 of 3
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of 4
@@ -269,7 +264,6 @@
                     Col 1 of 4
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of  4
@@ -281,7 +275,6 @@
                     Col 1 of 4
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of 4
@@ -293,7 +286,6 @@
                     Col 1 of 4
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of 4
@@ -302,7 +294,6 @@
                     Col 3 of 4
                 </div>
             </div>
-
         </section> -->
         
         
