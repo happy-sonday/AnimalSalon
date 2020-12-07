@@ -181,7 +181,7 @@ body {
     .card__picture--2 {
       background-image: linear-gradient(to right bottom, #2f3640, #1e272e), url(../../img/main/designer2.jpg); }
     .card__picture--3 {
-      background-image: linear-gradient(to right bottom, #2f3640, #1e272e), url(../../static/img/main/designer3.jpg); }
+      background-image: linear-gradient(to right bottom, #2f3640, #1e272e), url(../../img/main/designer3.jpg); }
   .card__heading {
     font-size: 2.8rem;
     font-weight: 300;
