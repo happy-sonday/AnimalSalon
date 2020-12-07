@@ -41,7 +41,7 @@ $(function () {
 					//+"<td>"+list.saddr+"</td>"
 					+"<td>"+list.stime+"</td>"
 					+"<td>"+list.sparking+"</td>"
-					+"<td>"+"<img src='"+list.sphotopath+list.sphotoname+"'/>"+"</td>"
+					+"<td>"+"<img th:src=\"@{'/upload_image/"+list.sphotoname+"'}\" width=100 height=100 />"+"</td>"
 					+"<td>"+list.savgScore+"</td>"
 					+"<td>"+list.slocale+"</td></tr>"
 					
