@@ -1,18 +1,11 @@
 package com.cndsalon.web.member;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @RestController//JSON타입으로 데이터를 주고받아오면서 ResponseBobdy를 빼고 사용할 수 있다
 public class CertificationController {
@@ -29,7 +22,6 @@ public class CertificationController {
 		return msg;	
 	}
 		
-
 	@PostMapping("/checkPhone")
 	public String checkPhone(@RequestBody Map<String, String> map) {
 		
@@ -43,7 +35,7 @@ public class CertificationController {
 		}
 		return msg;	
 	}
-	
+		
 	@PostMapping("/checkEmail")
 	public String checkEmail(@RequestBody Map<String, String> map) {
 		
@@ -58,8 +50,7 @@ public class CertificationController {
 		}
 		return msg;	
 	}
-	
-	
+		
 	
 	@PostMapping("/checkNickname")
 	public String checkNickname(@RequestBody Map<String, String> map) {
