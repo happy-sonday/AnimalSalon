@@ -22,6 +22,8 @@ import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 @Controller
 @Slf4j
 public class CndSalonShopController {
@@ -31,7 +33,6 @@ public class CndSalonShopController {
 
 	@RequestMapping("/")
 	public String home() {
-		log.info("Main Start");
 		return "index";
 	}
 
@@ -61,6 +62,7 @@ public class CndSalonShopController {
 
 		return "/shop/test2.html";
 	}
+	
 
 	@RequestMapping(value = "/getAll_ajax")
 	public String getAll_ajax(Model model) {
@@ -70,15 +72,28 @@ public class CndSalonShopController {
 		return "/shop/test3_getall_ajax.html";
 	}
 	
+	/**
+	 * 
+	 * <pre>
+	 * 샵 검색 메인
+	 * </pre>
+	 * @author <a href="simhyung777@naver.com">심현종</a></br>
+	 * @date ${date}
+	 * @version 1.0
+	 * @since 2020-12-07
+	 * @param 
+	 * @return 
+	 *  
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAll_ajax_list", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(@RequestParam("userLocalX") String userLocalX,
 			@RequestParam("userLocalY") String userLocalY) {
 		List<CndSalonShopInfoVO> list = null;
-		log.info("userLocalX :::::"+userLocalX);
 		
-		log.info("---------getAll_ajax_list Start--------------------");
+		
+		//log.info("---------getAll_ajax_list Start--------------------");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
 		if (!userLocalX.equals("") || !userLocalY.equals("")) {
@@ -91,7 +106,7 @@ public class CndSalonShopController {
 			log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
 			list= service.getAll(userLocalX, userLocalY);
 		}
-		log.info("---------last get_all_ajax ------");
+		
 		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
 	}
 
@@ -120,7 +135,7 @@ public class CndSalonShopController {
 	}
 
 	public CndSalonShopController() {
-		// TODO Auto-generated constructor stub
+		
 	}// 기본 생성자 END
 
 }// Class END
