@@ -6,19 +6,21 @@
         
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 
-        <link rel="stylesheet" th:href="@{css/main/icon-font.css}">
-        <link rel="stylesheet" th:href="@{css/main/style.css}">
+        <link rel="stylesheet" th:href="@{'/static/css/main/icon-font.css'}">
+        <link rel="stylesheet" th:href="@{'/static/css/main/style.css'}">
         <link rel="shortcut icon" type="image/png" th:href="@{img/main/favicon.ico}">
         
         <script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
-        <script th:src="@{'js/shop/shop_search_my.js'}" charset="UTF-8"></script>
+        <script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
         <title>C&D | 애견 전문 헤어샵  </title>
     </head>
     <body>
         <header class="header">
             <div class="header__logo-box">
-                <img src="img/main/logo.png" alt="Logo" class="header__logo">
+                <img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="header__logo">
+                
+                
             </div>
 
             <div class="header__text-box">
@@ -56,9 +58,9 @@
                     </div>
                     <div class="col-1-of-2">
                         <div class="composition">
-                            <img src="img/main/dog3.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
-                            <img src="img/main/dog2.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
-                            <img src="img/main/dog1.jpg" alt="Photo 3" class="composition__photo composition__photo--p3">
+                            <img th:src="@{'/static/img/main/dog3.jpg'}" alt="Photo 1" class="composition__photo composition__photo--p1">
+                            <img th:src="@{'/static/img/main/dog2.jpg'}" alt="Photo 2" class="composition__photo composition__photo--p2">
+                            <img th:src="@{'/static/img/main/dog1.jpg'}" alt="Photo 3" class="composition__photo composition__photo--p3">
                         </div>
                     </div>
                 </div>
