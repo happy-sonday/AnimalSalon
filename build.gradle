@@ -37,6 +37,10 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	//booking 팀 추가
 	//annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	
+	//20.12.07 member
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	testImplementation 'org.springframework.security:spring-security-test'
 
     
     // log4jdbc
