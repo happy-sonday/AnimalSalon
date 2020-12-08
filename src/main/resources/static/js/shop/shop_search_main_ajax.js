@@ -1,5 +1,14 @@
-
-// 접속시 위치 정보를 허용 하면 hidden 값에 위치 정보를 저장 한다
+function filterClick(){
+	var click = true;
+		$(this).val(click);
+		if(click){
+			$(this).val(click);
+			
+		}else{
+			beark;
+		}
+	}
+// 접속시 위치 정보를 허용 위치 정보를 저장 한다
 $(function () {        
 	var userLocalX;
 	var userLocalY;
@@ -36,7 +45,7 @@ $(function () {
 			var makerY=[];
 			var makerName=[];
 	        	$.each(data,function(index,list){
-	        		$('#resultlist').append("<tr><td>"+list.scode+"</td>"
+	        		$('#resultlist').append("<tr><td><a href='/cndsalon/getOne?sCode="+list.scode+"' >"+list.scode+"</a></td>"
 					+"<td>"+list.sname+"</td>"
 					//+"<td>"+list.saddr+"</td>"
 					+"<td>"+list.stime+"</td>"
@@ -62,10 +71,10 @@ $(function () {
 	}
 	function map_load(makerX,makerY,makerName){
 		var mapContainer = document.getElementById('map');
-		console.log("map_load -- start"+ makerName);
+		//console.log("map_load -- start"+ makerName);
 		var positions=[];
 		for (a=0;a<makerName.length;a++){
-			console.log(a+":::"+makerX[a]+"::"+makerY[a]+":::"+makerName[a]+":::"+makerName.length)
+			//console.log(a+":::"+makerX[a]+"::"+makerY[a]+":::"+makerName[a]+":::"+makerName.length)
 			positions.push({content:'<div>'+makerName[a]+'</div>',
 			 latlng: new kakao.maps.LatLng(makerX[a],makerY[a])})
 		}
@@ -107,4 +116,5 @@ $(function () {
 		    };
 		}
 	}
+
 });
