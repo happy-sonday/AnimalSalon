@@ -16,8 +16,6 @@ $(function () {
     if (navigator.geolocation) {
         //위치 정보를 얻기
         navigator.geolocation.getCurrentPosition (function(pos) {
-            //$('#latitude_my_x').val(pos.coords.latitude);// 위도
-            //$('#latitude_my_y').val(pos.coords.longitude);// 경도
 			userLocalX=(pos.coords.latitude);
 			userLocalY=(pos.coords.longitude);
 			search_ajax_list();
@@ -26,11 +24,8 @@ $(function () {
 
 	    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
     }
-			//userLocalX=("37.62843");
-			//userLocalY=("127.07184");
-			//search_ajax_list();
+	
 	function search_ajax_list(){
-		 //console.log(userLocalX+":::"+userLocalY);
 	
 		 $.ajax({
 	    	type : "GET",
@@ -40,7 +35,43 @@ $(function () {
 	        data : {'userLocalX' : userLocalX , 'userLocalY' : userLocalY},
 			       	        
 	        success : function(data) {
-				//console.log("data : "+data);
+			var makerX=[];
+			var makerY=[];
+			var makerName=[];
+	        	$.each(data,function(index,list){
+	        		$('#resultlist').append("<tr><td><a href='/cndsalon/getOne?sCode="+list.scode+"' >"+list.scode+"</a></td>"
+					+"<td>"+list.sname+"</td>"
+					//+"<td>"+list.saddr+"</td>"
+					+"<td>"+list.stime+"</td>"
+					+"<td>"+list.sparking+"</td>"
+					+"<td>"+"<img th:src=\"@{'/upload_image/"+list.sphotoname+"'}\" width=100 height=100 />"+"</td>"
+					+"<td>"+list.savgScore+"</td>"
+					+"<td>"+list.slocale+"</td></tr>"					
+					);
+					makerX.push(list.sgpsX);
+					makerY.push(list.sgpsY);
+					makerName.push(list.sname);		
+	        	})
+				map_load(makerX,makerY,makerName);
+	        },
+			error : function(data, status){
+				console.log("Error:"+data+":"+status);
+			}
+			
+		});	
+	}
+	
+		function search_ajax_filter(){
+		var filter = [];
+		
+		
+		$.ajax({
+	    	type : "GET",
+	    	url : "/cndsalon/getAll_ajax_filter",
+	    	contentType : "application/json",
+			async : true,
+	        data : {filterAll},
+	        success : function(data) {
 			var makerX=[];
 			var makerY=[];
 			var makerName=[];
@@ -74,7 +105,6 @@ $(function () {
 		//console.log("map_load -- start"+ makerName);
 		var positions=[];
 		for (a=0;a<makerName.length;a++){
-			//console.log(a+":::"+makerX[a]+"::"+makerY[a]+":::"+makerName[a]+":::"+makerName.length)
 			positions.push({content:'<div>'+makerName[a]+'</div>',
 			 latlng: new kakao.maps.LatLng(makerX[a],makerY[a])})
 		}
