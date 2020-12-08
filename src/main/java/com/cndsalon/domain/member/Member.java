@@ -19,9 +19,48 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Member {
 
+	 	@Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+
+	    @Column(nullable = false)
+	    private String name;
+
+	    @Column(nullable = false)
+	    private String email;
+
+	    @Column
+	    private String picture;
+
+	    @Enumerated(EnumType.STRING)
+	    @Column(nullable = false)
+	    private Role role;
+
+	    @Builder
+	    public Member(String name, String email, String picture, Role role) {
+	        this.name = name;
+	        this.email = email;
+	        this.picture = picture;
+	        this.role = role;
+	    }
+
+	    public Member update(String name, String picture) {
+	        this.name = name;
+	        this.picture = picture;
+
+	        return this;
+	    }
+
+	    public String getRoleKey() {
+	        return this.role.getKey();
+	    }
+	
+	
+	
+	/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private long id;
 	
 	
 	private String pwd;
@@ -31,14 +70,14 @@ public class Member {
 	private String phone;
 	private String email;
 	private String nickname;
-	private int act_nickname;
+	private Integer  actNickname;
 	
 	@Enumerated(EnumType.STRING)
 	@Column
 	private Role role;
 	private Timestamp indate;
-	private int agreeLocation;
-	private int agreePromotion;
+	private Integer agreeLocation;
+	private Integer agreePromotion;
 	private String profile;
 
 	@Builder
@@ -48,6 +87,7 @@ public class Member {
 		this.profile = profile;
 		this.role = role;
 	}
+	
 
 	public Member update(String name, String picture) {
 		this.name = name;
@@ -59,4 +99,5 @@ public class Member {
 	public String getRoleKey() {
 		return this.role.getKey();
 	}
+	*/
 }

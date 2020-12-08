@@ -1,12 +1,8 @@
 package com.cndsalon.web.member;
 
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +18,7 @@ public class MemberController {
 	@GetMapping("/login")
 	 public String index() {
 	
-		
+
 			
 		return "/member/login";
 	}
