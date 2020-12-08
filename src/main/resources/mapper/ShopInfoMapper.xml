@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cndsalon.repository.shop.CndSalonMapper">
+
+
+	<select id="getAll" resultType="CndSalonShopInfoVO">
+<![CDATA[
+SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,C.* FROM
+(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
+round((( ACOS(SIN(37.5605672 * 3.14159265359 / 180) * SIN(S_GPS_X * 3.14159265359 / 180) +
+COS(37.5605672 * 3.14159265359 / 180) * COS(S_GPS_X * 3.14159265359 / 180) * COS((126.94334859999998 - S_GPS_Y)
+* 3.14159265359 / 180)) * 180 / 3.14159265359) * 60 * 1.1515),3) AS S_LOCALE,
+A.*,B.S_PHOTOPATH, B.S_PHOTONAME, B.S_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A, SHOP_PHOTO_TBL B WHERE A.S_CODE = B.S_CODE(+))C
+WHERE NO <2 ORDER BY S_LOCALE)D WHERE RNUM BETWEEN (1-1)*10+1 AND 1*10
+]]>
+	</select>
+<select id="getOne" resultType="CndSalonShopInfoVO" >
+
+SELECT * FROM shop_info_tbl WHERE s_code = #{sCode}
+</select>
+</mapper>
