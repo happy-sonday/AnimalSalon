@@ -74,8 +74,8 @@ public class CndSalonShopController {
 	public String getAll_ajax(Model model) {
 		
 		log.info("---------getAll_ajax Start--------------------");
-		
-		return "/shop/shop_main.html";
+		return "/shop/test3_getall_ajax.html";
+		//return "/shop/shop_main.html";
 	}
 	
 	/**
