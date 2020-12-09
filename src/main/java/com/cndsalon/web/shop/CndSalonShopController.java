@@ -43,6 +43,7 @@ public class CndSalonShopController {
 		return "/shop/test.html";
 	}
 
+	// 전체검색 TEST
 	@RequestMapping(value = "/getAll")
 	public String getAll(@RequestParam("userLocalX") String userLocalX, @RequestParam("userLocalY") String userLocalY,
 			Model model) {
@@ -63,6 +64,39 @@ public class CndSalonShopController {
 		return "/shop/test2.html";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getAll_ajax_filter", method = { RequestMethod.GET },
+			produces="application/json; charset=UTF-8")
+	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(
+			@RequestParam("sParking") String sParking,
+			@RequestParam("sWifi") String sWifi,
+			@RequestParam("sSubway") String sSubway,
+			@RequestParam("sCharge") String sCharge,
+			@RequestParam("sPickup") String sPickup,
+			@RequestParam("sBigdog") String sBigdog,
+			@RequestParam("userLocalX") String userLocalX,
+			@RequestParam("userLocalY") String userLocalY) {
+		log.info("----- getAll_ajax_filter Start ---");
+		List<CndSalonShopInfoVO> list = null;
+		
+		
+		//log.info("---------getAll_ajax_list Start--------------------");
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		if (!userLocalX.equals("") || !userLocalY.equals("")) {
+			log.info("---search Start ---"  +sParking);
+			list= service.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog, userLocalX, userLocalY);
+
+		} else {
+			userLocalX += "37.62843";
+			userLocalY += "127.07184";
+			log.info("---search Start ---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
+			list= service.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog, userLocalX, userLocalY);
+		}
+		
+		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
+		
+	}
 
 	@RequestMapping(value = "/getAll_ajax")
 	public String getAll_ajax(Model model) {
@@ -118,6 +152,8 @@ public class CndSalonShopController {
 		return "/shop/test4_shop_detail.html";
 	}
 
+	
+	// 중복방지 TEST
 	@RequestMapping("/getLocation")
 	public String getAll() {
 		log.info("---------getLocation Start--------------------");
