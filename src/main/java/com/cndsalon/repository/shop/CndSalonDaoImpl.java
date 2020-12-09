@@ -27,10 +27,16 @@ public class CndSalonDaoImpl implements CndSalonDao {
 		
 		return sqlSession.getMapper(CndSalonMapper.class).getOne(sCode);
 	}
-	
+
+	@Override
+	public List<CndSalonShopInfoVO> searchShop(String sParking, String sWifi, String sSubway, String sCharge,
+			String sPickup, String sBigdog,String userLocalX,String userLocalY) {
+		
+		return sqlSession.getMapper(CndSalonMapper.class).searchShop(
+				sParking,sWifi,sSubway,sCharge,sPickup,sBigdog,userLocalX,userLocalY);
+	}
+
 	public CndSalonDaoImpl() {
 		
 	}// 기본 생성자 END
-
-	
 }// Class END
