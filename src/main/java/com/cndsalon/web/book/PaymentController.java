@@ -4,9 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cndsalon.web.shop.CndSalonShopController;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class PaymentController {
 
 	
@@ -28,9 +34,20 @@ public class PaymentController {
 	// 결제성공 페이지로 이동하는 컨트롤러
 	@RequestMapping(value="/paySuccess", method=RequestMethod.GET)
 	public String moveSuccessPage() throws Exception{
-		return "/payment/afterPaySuccescc";
+		return "/payment/afterPaySuccess";
 	}
-					
+	
+	// 결제성공 시 DB에 데이터 저장
+	@RequestMapping(value="/paySuccess", method = RequestMethod.POST)
+	public  String insertPaymentInfo(@RequestParam("merchant_uid") String pCode, @RequestParam("pg") String pg,
+			@RequestParam("pay_method") String pMethod, @RequestParam("amount") Integer pPrice,
+			@RequestParam("buyer_email") String buyerEmail, @RequestParam("buyer_tel") String buyerTel) {
+		log.info("===Insert PaymentInfo start===");
+		
+		return null;
+	}
+	
+	
 	// 결제실패페이지로 이동하는 컨트롤러
 	@RequestMapping(value="/payFail", method=RequestMethod.GET)
 	public String moveFailPage() throws Exception{

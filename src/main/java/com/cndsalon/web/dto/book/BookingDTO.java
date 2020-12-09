@@ -7,12 +7,12 @@ import lombok.Data;
 
 @Data
 public class BookingDTO {
-	private Integer bookingCode;						// 예약코드
+	private String bookingCode;							// 예약코드
 	private String userId;									// 예약자ID
-	private Integer shopCode;							// 매장코드
-	private Integer menuCode;							// 메뉴코드
-	private Integer optionCode;							// 옵션코드
-	private Integer designerCode;						// 디자이너코드
+	private String shopCode;								// 매장코드
+	private String menuCode;								// 메뉴코드
+	private String optionCode;							// 옵션코드
+	private String designerCode;							// 디자이너코드
 	private LocalDate bookingDate;						// 일정(년월일)
 	private LocalTime bookingTime;						// 일정(시간)
 	private LocalTime totalBeautyTime;				// 총소요시간

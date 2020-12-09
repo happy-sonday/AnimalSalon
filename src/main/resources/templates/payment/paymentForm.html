@@ -71,32 +71,35 @@
 		
 		// IMP.request_pay(param, callback) 호출
 		IMP.request_pay({ // param
-			// 아임포트 관리자페이지에서 설정한 PG사 1개만 테스트가 가능하고, 2개이상 하려면 돈을 지불해야함
-			// 테스트 결제는 가능하지만, 실제결제는 PG사와 직접 계약후 부여받은 고유번호(?)를 아임포트에 제출해야함
-			pg: "kakaopay",		 		
-			pay_method: "card",
-			merchant_uid: "ORD20180131-0000013",
-			name: "매장이름_메뉴이름_옵션이름",
-			amount: 1000,
-			buyer_email: "inulee0213@gmail.com",
-			buyer_name: "이찬우 [선택사항]",
-			buyer_tel: "010-8977-6151 [필수사항]",
-			buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호 [선택항목]",
-			buyer_postcode: "10310 [선택사항]"
+			pg: "kakaopay",		 		// pg사
+			pay_method: "card",		// 결제수단
+			merchant_uid: 'merchant_' + new Date().getTime(),	// 결제코드
+			name: "[주문이름]",		// 주문명
+			amount: 1000,			// 결제금액
+			buyer_email: "inulee0213@gmail.com",		// 구매자이메일
+			buyer_name: "이찬우 [선택사항]",					// 구매자명
+			buyer_tel: "010-8977-6151 [필수사항]",			// 구매자전화번호
+			buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호 [선택항목]",	// 구매자주소
+			buyer_postcode: "10310 [선택사항]"											// 구매자우편번호
 		}, function (rsp) { // callback
-			 if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			console.log(rsp);
+			 if (rsp.success) { // 결제 성공 시: 결제 승인에 성공한 경우
 			      // jQuery로 HTTP 요청
 			      jQuery.ajax({
-			          url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+			          url: "/cndsalon/paySuccess", // 가맹점 서버
 			          method: "POST",
 			          headers: { "Content-Type": "application/json" },
 			          data: {
-			              imp_uid: rsp.imp_uid,
-			              merchant_uid: rsp.merchant_uid
+			              merchant_uid: rsp.merchant_uid,
+			              pg : "kakaopay",
+			              pay_method : rsp.pay_method,
+			              amount : rsp.paid_amount,
+			              buyer_email : rsp.buyer_email,
+			              buyer_tel : rsp.buyer_tel
 			          }
 			      }).done(function (data) {
 			        // 가맹점 서버 결제 API 성공시 로직
-			        if ( sibal ) {
+			        if ( everythings_fine ) {
                         msg = '결제가 완료되었습니다.';
 //                         msg += '\n고유ID : ' + rsp.imp_uid;
 //                         msg += '\n상점 거래ID : ' + rsp.merchant_uid;

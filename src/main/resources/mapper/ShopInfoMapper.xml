@@ -3,7 +3,7 @@
 <mapper namespace="com.cndsalon.repository.shop.CndSalonMapper">
 
 	<!-- ShopInfoMain : 기본 조건 검색(자기 위치 기반 10개) -->
-	<select id="getAll" resultType="CndSalonShopInfoVO">
+	<select id="getAll" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO">
 	
 		SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,
 		C.* FROM(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
@@ -18,7 +18,7 @@
 	</select>
 	
 		<!-- SearchShop : 부가서비스 선택 검색 -->
-	<select id="searchShop" resultType="CndSalonShopInfoVO">
+	<select id="searchShop" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO">
 	
 		SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,C.* FROM
 		(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
@@ -37,7 +37,7 @@
 	</select>
 	
 	<!-- ShopDetail : sCode로 업체정보 상세검색 -->
-	<select id="getOne" resultType="CndSalonShopInfoVO" >
+	<select id="getOne" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO" >
 
 		SELECT * FROM shop_info_tbl WHERE s_code = #{sCode}
 	</select>
