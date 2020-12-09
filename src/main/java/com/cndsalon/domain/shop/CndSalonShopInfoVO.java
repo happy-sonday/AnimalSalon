@@ -3,53 +3,63 @@ package com.cndsalon.domain.shop;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// 매장정보 VO
-@Data//(geter,seter)
-@NoArgsConstructor// 기본생성자 자동주입(lombok)
+
+/**
+ * 
+ * <pre>
+ * ShopInfoVO : 매장 정보 VO
+ * </pre>
+ * @author <a href="simhyung777@naver.com">심현종</a></br>
+ * @date ${date}
+ * @version 1.0
+ * @since 2020-12-07
+ * @param 
+ * userLocalX[String] : 접속 사용자 위도
+ * userLocalY[String] : 접속 사용자 경도
+ * sCode[String] : 매장 코드
+ * sName[String] : 매장 이름
+ * sAddr[String] : 매장 주소
+ * sPhone[String] : 매장 전화번호
+ * sGpsX[String] : 매장 위도
+ * sGpsY[String] : 매장 경도
+ * sTime[String] : 매장 운영시간
+ * sTitle[String] : 매장 소개 제목
+ * sContent[String] : 매장 소개 내용
+ * sParking[boolean] : 주차가능 여부
+ * sWifi[boolean] : wifi 가능 여부
+ * sSubway[boolean] : 지하철 역근처
+ * sCharge[boolean] : 추가요금 없음
+ * sPickup[boolean] : 픽업여부
+ * sBigdog[boolean] : 대형견 가능여부
+ * sAvgScore[boolean] : 매장 평점
+ * sLocale[boolean] : 거리 연산 결과
+ * sPhotopath[String] : 매장 사진 경로
+ * sPhotoname[String] : 매장 사진 이름
+ * sPhotonameOrigin[String] : 매장 사진 원래 이름
+ */
+@Data
+@NoArgsConstructor
 public class CndSalonShopInfoVO {
-	// 접속자의 위도
 	private String userLocalX;
-	// 접속자의 경도
 	private String userLocalY;
-	// schemas:CNDSALON tbl:SHOP_INFO_TBL
-	// 매장 코드
 	private String sCode;
-	// 매장 이름
 	private String sName;
-	// 매장 주소
 	private String sAddr;
-	// 매장 전화번호
 	private String sPhone;
-	// 매장 x축좌표
 	private String sGpsX;
-	// 매장 y축좌표
 	private String sGpsY;
-	// 매장 운영 시간
 	private String sTime;
-	// 매장 소개글 제목
 	private String sTitle;
-	// 매장 소개글 내용
 	private String sContent;
-	// 매장 주차가능
 	private boolean sParking;
-	// 매장 wifi
 	private boolean sWifi;
-	// 지하철 근처
 	private boolean sSubway;
-	// 추가요금 여부
 	private boolean sCharge;
-	// 픽업여부
 	private boolean sPickup;
-	// 대형견 가능
 	private boolean sBigdog;
-	// 디자이너 평점 종합 평균
 	private double sAvgScore;
-	// 자기 위치 대비 거리
 	private double sLocale;
-	// 매장 사진 경로
 	private String sPhotopath;
-	// 매장 사진 파일이름
 	private String sPhotoname;
-	// 매장 사진 파일 원래 이름
 	private String sPhotonameOrigin;
 }// Class END

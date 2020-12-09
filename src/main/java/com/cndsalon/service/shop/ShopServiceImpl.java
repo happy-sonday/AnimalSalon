@@ -23,14 +23,14 @@ public class ShopServiceImpl implements ShopListService {
 	@Transactional
 	@Override
 	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY){
-		log.info("----------------getAll-------------------");
+
 		return dao.getAll(userLocalX,userLocalY);
 	}
 	
 	@Transactional
 	@Override
 	public CndSalonShopInfoVO getOne(String sCode){
-		log.info("----------------getOne-------------------");
+
 		return dao.getOne(sCode);
 	}
 }

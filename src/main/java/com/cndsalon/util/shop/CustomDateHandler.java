@@ -11,7 +11,17 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
 
-// Mybatis TimeStamp Handler(Mybatis <=> Oracle 간 DATE 정확성 Bug로 인한 등록 필요)
+/**
+ * 
+ * <pre>
+ * ShopInfoVO : 매장 정보 VO
+ * </pre>
+ * @author <a href="simhyung777@naver.com">심현종</a></br>
+ * @date ${date}
+ * @version 1.0
+ * @since 2020-12-07
+ * Mybatis TimeStamp Handler(Mybatis <=> Oracle 간 DATE 정확성 Bug로 인한 등록 필요)
+ */
 @MappedTypes(Date.class)
 public class CustomDateHandler extends BaseTypeHandler<Date> {
 
