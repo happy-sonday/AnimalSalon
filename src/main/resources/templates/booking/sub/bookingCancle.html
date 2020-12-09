@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>예약취소</title>
+</head>
+<body>
+
+	<div align="center">
+		<div>
+			환불규정내용 들어갈 예정
+		</div>
+		
+		<select name="reasonForCancle" id="reasonForCancle">
+			<option value="reason1">사유1</option>
+			<option value="reason2">사유2</option>
+			<option value="reason3">사유3</option>
+		</select>
+		<a th:href="@{/bookingCancel.do}">예약/결재취소</a>
+		<button onclick="cancelPay()">환불하기</button> <!-- 일단 테스트용 -->
+	</div>
+	
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script><!-- jQuery CDN --->
+  <script>  	
+    function cancelPay() {
+      jQuery.ajax({
+        "url": "http://www.myservice.com/payments/cancel",
+        "type": "POST",
+        "contentType": "application/json",
+        "data": JSON.stringify({
+          "merchant_uid": "mid_" + new Date().getTime(),				// 주문번호
+          "cancel_request_amount": 2000, 										// 환불금액
+          "reason": $("#reasonForCancle option:selected").val()		// 환불사유
+          //"refund_holder": "홍길동",										// [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
+          //"refund_bank": "88",		 									// [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(ex. KG이니시스의 경우 신한은행은 88번)
+          //"refund_account": "56211105948400" 					// [가상계좌 환불시 필수입력] 환불 수령계좌 번호
+        }),
+        "dataType": "json"
+      });
+    }
+  </script>
+</body>
+</html>
