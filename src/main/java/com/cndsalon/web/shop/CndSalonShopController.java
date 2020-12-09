@@ -36,34 +36,6 @@ public class CndSalonShopController {
 		return "index";
 	}
 
-	@RequestMapping("/search")
-	public String searchShop() {
-		log.info("---- Main Start ----");
-
-		return "/shop/test.html";
-	}
-
-	// 전체검색 TEST
-	@RequestMapping(value = "/getAll")
-	public String getAll(@RequestParam("userLocalX") String userLocalX, @RequestParam("userLocalY") String userLocalY,
-			Model model) {
-		log.info("---좌표 계산 ---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
-		log.info("---------getAll Start--------------------");
-
-		if (!userLocalX.equals("") && !userLocalY.equals("")) {
-			log.info("---입력 좌표확인---" + userLocalX + "++++" + userLocalY);
-			model.addAttribute("list", service.getAll(userLocalX, userLocalY));
-
-		} else {
-			userLocalX += "37.62843";
-			userLocalY += "127.07184";
-			log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
-			model.addAttribute("list", service.getAll(userLocalX, userLocalY));
-		}
-
-		return "/shop/test2.html";
-	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/getAll_ajax_filter", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
@@ -103,7 +75,7 @@ public class CndSalonShopController {
 		
 		log.info("---------getAll_ajax Start--------------------");
 		
-		return "/shop/test3_getall_ajax.html";
+		return "/shop/shop_main.html";
 	}
 	
 	/**
