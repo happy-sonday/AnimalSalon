@@ -1,0 +1,101 @@
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #d1d0d0;
+  align-items: center;
+  color: color-black;
+  position: fixed;
+  width: 100%;
+  z-index: 30; }
+
+.navbar__menu {
+  display: flex;
+  font-size: 1.5rem;
+  cursor: pointer; }
+  .navbar__menu__item {
+    padding: 1rem;
+    margin: 1rem; }
+    .navbar__menu__item.active {
+      border: 1px solid #000;
+      border-radius: 10px; }
+
+.navbar__logo {
+  font-size: 2.5rem;
+  font-weight: weight-semi-bold;
+  cursor: pointer; }
+  .navbar__logo__image {
+    width: 2rem; }
+
+#footer {
+  background-color: #d1d0d0; }
+
+#locations {
+  padding: 9rem 1rem 4rem 1rem;
+  background-color: #fff;
+  margin-bottom: -5rem;
+  position: fixed;
+  width: 100%;
+  z-index: 20;
+  border-bottom: 1px solid #000; }
+
+.location__select {
+  font-size: 2rem; }
+
+.location__change {
+  margin-left: 50rem; }
+
+.filter__menu {
+  margin-top: 2rem; }
+  .filter__menu__item {
+    margin-right: 1rem; }
+
+#maps {
+  padding: 15rem 1rem;
+  border-bottom: 1px solid #000; }
+
+.map {
+  font-size: 7rem;
+  background-color: #e2a76f;
+  margin-top: 20rem; }
+
+#shops {
+  padding: 2rem 1rem; }
+
+.shop__info {
+  padding: 1rem; }
+
+.line {
+  position: absolute;
+  bottom: -20rem;
+  left: 0;
+  right: 0px;
+  height: 4px;
+  background-color: #000;
+  content: ""; }
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%;
+  background-color: #fff;
+  color: #000;
+  overflow-x: hidden; }
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: weight-regular; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+
+ul {
+  list-style: none; }
+
+dt {
+  display: inline-block;
+  vertical-align: top; }
