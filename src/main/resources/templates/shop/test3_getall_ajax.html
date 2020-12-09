@@ -16,15 +16,19 @@
 		<div id="map" style="width:500px;height:400px;"></div>
 		<br /><input type="button" onclick='filterClick()' value="검색필터 테스트" />
 		<br />
-		<form action = "/cndsalon/getAll_ajax_filter">
-		<input name="sParking" type="text" value="true" >
-		<input name="sWifi" type="text" value="true" >
-		<input name="sSubway" type="text" value="true" >
-		<input type="submit" />
+		
+		<form id="searchFilter" method="GET">
+		<input name="sParking" type="text" value="1" >
+		<input name="sWifi" type="text" value="0" >
+		<input name="sSubway" type="text" value="1" >
+		<input name="sCharge" type="text" value="0" >
+		<input name="sPickup" type="text" value="1" >
+		<input name="sBigdog" type="text" value="0" >
+		<input id="userLocalX" name="userLocalX" type="hidden" value="" >
+		<input id="userLocalY" name="userLocalY" type="hidden" value="" > 
+		<input type="button" onclick='search_ajax_filter()' value="검색"/>
 		</form>
-		<img th:src="@{'/static/img/main/dog3.jpg'}" alt="Photo 1" class="composition__photo composition__photo--p1">
-	    <table id="resultlist" border="1">
-	    
+	    <table border="1">
         <tr>
             <td>매장 코드</td>
             <td>매장 이름</td>
@@ -34,11 +38,11 @@
             <td>디자이너 평점 총합 의 평균</td>
             <td>거리순</td>
         </tr>
- 		<tr id="resultlist" >
+        </table>
+        <table id="resultlist" border="1">
  		
- 		</tr>
-	ssss
-    </table>
+ 		
+    	</table>
     
 </body>
 </html>

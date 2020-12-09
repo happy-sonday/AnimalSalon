@@ -1,40 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <title>C&D | 애견 전문 헤어샵  </title>
 
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
         <link rel="stylesheet" th:href="@{'/static/css/main/icon-font.css'}">
         <link rel="stylesheet" th:href="@{'/static/css/main/style.css'}">
-        <link rel="shortcut icon" type="image/png" th:href="@{img/main/favicon.ico}">
-        
-        <script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
+        <link rel="shortcut icon" type="image/png" th:href="@{/static/img/main/favicon.ico}">
+        <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
         <script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
-        <title>C&D | 애견 전문 헤어샵  </title>
+        <script th:src="@{'/static/js/main.js'}" defer></script>
     </head>
     <body>
-        <header class="header">
-            <div class="header__logo-box">
-                <img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="header__logo">
-                
-                
+
+        <!-- 메뉴 상단 -->
+        <nav class="navbar">
+            <div class="navbar__logo-box">
+                <img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="navbar__logo">
+                <a href="#">C&D</a>
             </div>
+
+            <div class="navbar__menu">
+                <ul class="navbar__menu">
+                    <a style="cursor:pointer" onclick='shop_search_ajax()'>
+                    <li class="navbar__menu__item">내 주변</li></a>
+                    <a href="#"><li class="navbar__menu__item">입점 문의</li></a>
+                    <a href="#"><li class="navbar__menu__item">예약</li></a> 
+                    <a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
+                </ul>
+            </div>
+
+            <!-- 토글 버튼 -->
+            <button class="navbar__toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </nav>
+           
+        <!-- 헤더 -->
+        <header class="header">
 
             <div class="header__text-box">
                 <h1 class="heading-primary">
                     <span class="heading-primary--main">C&D Hairshop</span>
                     <span class="heading-primary--sub">give you better life</span>
                 </h1>
-				<a style="cursor:pointer" onclick='shop_search_ajax()' class="btn btn--white">샵검색</a>
-                 <a th:href="@{/login}" class="btn btn--white">로그인</a>
+
+                <a href="#" class="btn btn--white">예약하기</a>
             </div>
         </header>
 
-        <!--Main-->
+        <!--메인-->
         <main>
+
+            <!-- 소개 -->
             <section class="section-about">
                 <div class="u-center-text u-margin-bottom-big">
                     <h2 class="heading-secondary">
@@ -66,6 +88,7 @@
                 </div>
             </section>
 
+            <!-- 특징 -->
             <section class="section-features">
 
                 <div class="row">
@@ -113,7 +136,7 @@
                 </div>
             </section>
 
-            <section class="section-tours">
+            <section class="section-designers">
                 <div class="u-center-text u-margin-bottom-big">
                     <h2 class="heading-secondary">
                         이달의 베스트 디자이너
@@ -215,12 +238,138 @@
                     <a href="#" class="btn btn--grey">전체 둘러보기</a>
                 </div>
 
+            </section>
+
+            <section class="section-stories">
+
+                <div class="bg-video">
+                    <video class="bg-video__content" autoplay muted loop>
+                        <source th:src="@{'/static/img/main/video.mp4'}" type="video/mp4">
+                            지원하지 않는 동영상 형식입니다!
+                    </video>
+                </div>
+
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">
+                        We make people genuinely happy
+                    </h2>
+                </div>
+
+                <div class="row">
+                    <div class="story">
+                        <figure class="story__shape">
+                            <img th:src="@{'/static/img/main/dog1.jpg'}" alt="review" class="story__img">
+                            <figcaption class="story__caption">
+                                Mary Smith
+                            </figcaption>
+                        </figure>
+                        <div class="story__text">
+                            <h3 class="heading-teritary u-margin-bottom-small">I had the best week ever with my family</h3>
+                            <p>
+                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="story">
+                        <figure class="story__shape">
+                            <img th:src="@{'/static/img/main/dog2.jpg'}" alt="review" class="story__img">
+                            <figcaption class="story__caption">
+                                Jack Wilson
+                            </figcaption>
+                        </figure>
+                        <div class="story__text">
+                            <h3 class="heading-teritary u-margin-bottom-small">WOW! My life is completely different now</h3>
+                            <p>
+                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="u-center-text u-margin-top-huge">
+                    <a href="#" class="btn-text">리뷰 전체보기 &rarr;</a>
+                </div>
 
             </section>
 
+            <section class="section-business">
+                <div class="row">
+                    <div class="business">
+                        <div class="business__form">
+                            <form action="#" class="form">
+                                <div class="u-center-text u-margin-bottom-medium">
+                                    <h2 class="heading-secondary">
+                                        입점 문의
+                                    </h2>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="text" class="form__input" placeholder="이름" id="name" required>
+                                    <label for="name" class="form__label">이름</label>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="email" class="form__input" placeholder="이메일 주소" id="email" required>
+                                    <label for="email" class="form__label">이메일 주소</label>
+                                </div>
+
+                                <div class="form__group u-margin-bottom-medium">
+                                    <div class="form__radio-group">
+                                        <input type="radio" class="form__radio-input" id="small" name="size">
+                                        <label for="small" class="form__radio-label">
+                                            <span class="form__radio-button"></span>
+                                            *개인정보 수집 및 이용에 대해 동의합니다.
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form__group">
+                                    <button class="btn btn--grey">제출 &rarr;</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
+        <footer class="footer">
 
+            <div class="footer__logo-box">
+                <a href="#">
+                    <img th:src="@{'/static/img/main/logo.png'}" alt="logo" class="footer__logo">
+                    <h1 class="footer__font">C&D</h1>
+                </a>
+              
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-2">
+                    <div class="footer__navigation">
+                        <ul class="footer__list">
+                            <li class="footer__item"><a href="#" class="footer__link">Company</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Contact us</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Careers</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Privacy policy</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-1-of-2">
+                    <p class="footer__copyright">
+                        This is our final project called C&D Hairshop, Enjoy it! <br/><a href="#" class="footer__link">Copyright &copy; by KJH SWS SHJ LCW JJK</a> 
+                    </p>
+                </div>
+
+            </div>
+            
+        </footer>
 
         <!-- <section class="grid-test">
             
@@ -244,6 +393,7 @@
                     Col 1 of 3
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-1-of-3">
                     Col 1 of 3
@@ -252,6 +402,7 @@
                     Col 2 of 3
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of 4
@@ -266,6 +417,7 @@
                     Col 1 of 4
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of  4
@@ -277,6 +429,7 @@
                     Col 1 of 4
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of 4
@@ -288,6 +441,7 @@
                     Col 1 of 4
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-1-of-4">
                     Col 1 of 4
@@ -296,6 +450,7 @@
                     Col 3 of 4
                 </div>
             </div>
+
         </section> -->
         
         
