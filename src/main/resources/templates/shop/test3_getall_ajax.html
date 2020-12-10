@@ -14,21 +14,26 @@
 		<input type="hidden" id="latitude_my_x" />
 		<input type="hidden" id="latitude_my_y" />
 		<div id="map" style="width:500px;height:400px;"></div>
-		<br /><input type="button" onclick='filterClick()' value="검색필터 테스트" />
-		<br />
 		
 		<form id="searchFilter" method="GET">
-		<input name="sParking" type="text" value="1" >
-		<input name="sWifi" type="text" value="0" >
-		<input name="sSubway" type="text" value="1" >
-		<input name="sCharge" type="text" value="0" >
-		<input name="sPickup" type="text" value="1" >
-		<input name="sBigdog" type="text" value="0" >
+		<input id="sParking" name="sParking" type="hidden" value="0" >
+		<input id="sWifi" name="sWifi" type="hidden" value="0" >
+		<input id="sSubway" name="sSubway" type="hidden" value="0" >
+		<input id="sCharge" name="sCharge" type="hidden" value="0" >
+		<input id="sPickup" name="sPickup" type="hidden" value="0" >
+		<input id="sBigdog" name="sBigdog" type="hidden" value="0" >
 		<input id="userLocalX" name="userLocalX" type="hidden" value="" >
 		<input id="userLocalY" name="userLocalY" type="hidden" value="" > 
 		<input id="searchButton" type="button"  value="검색"/>
-		<!-- <input type="button" onclick='search_ajax_filter()' value="검색"/> -->
 		</form>
+		<input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" >
+		<input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" >
+		<input class="sSubway" type="button" onclick='filterClick(sSubway.value,"sSubway")' value="지하철 주변" >
+		<input class="sCharge" type="button" onclick='filterClick(sCharge.value,"sCharge")' value="추가요금 없음" >
+		<input class="sPickup" type="button" onclick='filterClick(sPickup.value,"sPickup")' value="픽업 가능" >
+		<input class="sBigdog" type="button" onclick='filterClick(sBigdog.value,"sBigdog")' value="대형견 가능" >
+		
+		
 	    <table border="1">
         <tr>
             <td>매장 코드</td>
