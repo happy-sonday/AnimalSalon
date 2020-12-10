@@ -1,7 +1,18 @@
 package com.cndsalon.domain.shop;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.cndsalon.domain.book.Menu;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 
 /**
@@ -37,11 +48,15 @@ import lombok.NoArgsConstructor;
  * sPhotoname[String] : 매장 사진 이름
  * sPhotonameOrigin[String] : 매장 사진 원래 이름
  */
+@Entity
+@Table(name = "SHOP_INFO_TBL")
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class CndSalonShopInfoVO {
 	private String userLocalX;
 	private String userLocalY;
+	@Id
+	@Column(name = "S_CODE")
 	private String sCode;
 	private String sName;
 	private String sAddr;
@@ -62,4 +77,8 @@ public class CndSalonShopInfoVO {
 	private String sPhotopath;
 	private String sPhotoname;
 	private String sPhotonameOrigin;
+	
+	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Menu.class)
+	private List<Menu> menus = new ArrayList<>();
+	
 }// Class END
