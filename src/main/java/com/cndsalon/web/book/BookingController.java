@@ -27,7 +27,6 @@ public class BookingController {
 	@Autowired
 	private MenuService menuService;
 	
-	@Autowired
 //	@GetMapping("/choice")
 //	public @ResponseBody List<Menu> moveBookingMenu(String sCode) throws Exception{
 //		sCode = "CNDSHOP_1";
@@ -55,6 +54,13 @@ public class BookingController {
 //		return this.menuService.getDogMenu(sCode);
 //		return "/booking/bookingMenu";
 //	}
+	@GetMapping("/choice")
+	public @ResponseBody List<Menu> moveBookingMenu() throws Exception{
+		String sCode = "CNDSHOP_1";
+		log.info("업체코드번호 : " + sCode +" - 메뉴 조회 후 메뉴선택화면으로 이동");
+		return this.menuService.getDogMenu(sCode);
+//		return "/booking/bookingMenu";
+	}
 
 	// bookingMenu.html 에서 강아지 선택시 화면 출력하는 컨트롤러
 	@GetMapping("/choice/dog")
