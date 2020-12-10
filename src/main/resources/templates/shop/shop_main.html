@@ -49,8 +49,25 @@
                 <i class="icon-basic-paperplane"></i></a>
             </strong>
             <a href="#" class="location__change">지역변경</a>
-      
-
+            
+   		<form class="filter__menu" id="searchFilter" method="GET">
+		<input id="sParking" name="sParking" type="hidden" value="0" >
+		<input id="sWifi" name="sWifi" type="hidden" value="0" >
+		<input id="sSubway" name="sSubway" type="hidden" value="0" >
+		<input id="sCharge" name="sCharge" type="hidden" value="0" >
+		<input id="sPickup" name="sPickup" type="hidden" value="0" >
+		<input id="sBigdog" name="sBigdog" type="hidden" value="0" >
+		<input id="userLocalX" name="userLocalX" type="hidden" value="" >
+		<input id="userLocalY" name="userLocalY" type="hidden" value="" > 
+		<input id="searchButton" type="button"  value="검색"/>
+		</form>
+		<input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" >
+		<input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" >
+		<input class="sSubway" type="button" onclick='filterClick(sSubway.value,"sSubway")' value="지하철 주변" >
+		<input class="sCharge" type="button" onclick='filterClick(sCharge.value,"sCharge")' value="추가요금 없음" >
+		<input class="sPickup" type="button" onclick='filterClick(sPickup.value,"sPickup")' value="픽업 가능" >
+		<input class="sBigdog" type="button" onclick='filterClick(sBigdog.value,"sBigdog")' value="대형견 가능" >
+				  
         <div class="filter__menu">
             <select class="filter__menu__item">
                 <option>종분류<i class="fas fa-chevron-down"></i></option>
@@ -95,84 +112,12 @@
 
     <!--헤어샵 목록-->
     <section id="shops">
-
-        <div class="shop__infos">
-            <a class="shop__info" href="상세페이지">
-                <div class="shop__info__detail">
-                    <img th:src="@{'/static/img/main/dog1.jpg'}" alt="" class="shop__info__detail__image" >
-                </div>
-                <div class="shop__title">
-                    <div class="shop__title__detail">
-                    <strong class="shop__title__detail">네이처헤어 미아2호점</strong>
-                </div>
-                <span class="shop__distance">0.1km</span>
-                <dl class="shop__star">
-                    <dt><span class="ico_hair ico_star">별점</span></dt>
-                    <dd>4.9</dd>
-                    <dt><span class="ico_hair ico_review">리뷰수</span></dt>
-                    <dd>424</dd>
-                </dl>
-                <p class="desc__info__card">수유방면 미아역버스정류장앞, 미아역 4번출구 보도 3분거리 </p>
-                <p class="desc__info__card">커트 15,300원</p>
-                <div class="tags"><span class="tag__shop">타임세일</span>
-                    <span class="tag__shop">쿠폰</span>
-                </div>
-                <span class="line"></span>
-            </a>
-        </div>
-
-        <div class="shop__infos">
-            <a class="shop__info" href="상세페이지">
-                <div class="shop__info__detail">
-                    <img th:src="@{'/static/img/main/dog1.jpg'}"
-                     alt="" class="shop__info__detail__image" >
-                </div>
-                <div class="shop__title">
-                    <div class="shop__title__detail">
-                    <strong class="shop__title__detail">네이처헤어 미아2호점</strong>
-                </div>
-                <span class="shop__distance">0.1km</span>
-                <dl class="shop__star">
-                    <dt><span class="ico_hair ico_star">별점</span></dt>
-                    <dd>4.9</dd>
-                    <dt><span class="ico_hair ico_review">리뷰수</span></dt>
-                    <dd>424</dd>
-                </dl>
-                <p class="desc__info__card">수유방면 미아역버스정류장앞, 미아역 4번출구 보도 3분거리 </p>
-                <p class="desc__info__card">커트 15,300원</p>
-                <div class="tags"><span class="tag__shop">타임세일</span>
-                    <span class="tag__shop">쿠폰</span>
-                </div>
-                <span class="line"></span>
-            </a>
-        </div>
-
-        <div class="shop__info">
-            <a class="shop__info" href="상세페이지">
-                <div class="shop__info__detail">
-                    <img th:src="@{'/static/img/main/dog1.jpg'}" alt="" class="shop__info__detail__image" >
-                </div>
-                <div class="shop__title">
-                    <div class="shop__title__detail">
-                    <strong class="shop__title__detail">네이처헤어 미아2호점</strong>
-                </div>
-                <span class="shop__distance">0.1km</span>
-                <dl class="shop__star">
-                    <dt><span class="ico_hair ico_star">별점</span></dt>
-                    <dd>4.9</dd>
-                    <dt><span class="ico_hair ico_review">리뷰수</span></dt>
-                    <dd>424</dd>
-                </dl>
-                <p class="desc__info__card">수유방면 미아역버스정류장앞, 미아역 4번출구 보도 3분거리 </p>
-                <p class="desc__info__card">커트 15,300원</p>
-                <div class="tags"><span class="tag__shop">타임세일</span>
-                    <span class="tag__shop">쿠폰</span>
-                </div>
-                <span class="line"></span>
-            </a>
-
-        </div>
-
+    
+        <table id="resultlist" border="1">
+ 		
+ 		
+    	</table>
+        
         <div class="shop__infos">
             <a class="shop__info" href="상세페이지">
                 <div class="shop__info__detail">
