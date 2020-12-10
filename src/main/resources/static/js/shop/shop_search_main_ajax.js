@@ -1,12 +1,13 @@
-function filterClick(){
-	var click = true;
-		$(this).val(click);
-		if(click){
-			$(this).val(click);
-			
-		}else{
-			beark;
-		}
+function filterClick($inSearch, inSearchVar){
+		var inSearch = $inSearch;
+		var inSearchVar = inSearchVar;
+	if (inSearch == 1){
+	$("#"+inSearchVar).val('0')
+	$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});	
+	}else{
+	$("#"+inSearchVar).val('1').css('background-color','green');	
+	$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
+	}
 }
 
 // 접속시 위치 정보를 허용 위치 정보를 저장 한다
