@@ -29,11 +29,11 @@ public class CndSalonDaoImpl implements CndSalonDao {
 	}
 
 	@Override
-	public List<CndSalonShopInfoVO> searchShop(String sParking, String sWifi, String sSubway, String sCharge,
-			String sPickup, String sBigdog,String userLocalX,String userLocalY) {
+	public List<CndSalonShopInfoVO> searchShop(
+			CndSalonShopInfoVO ShopInfoVO) {
 		
 		return sqlSession.getMapper(CndSalonMapper.class).searchShop(
-				sParking,sWifi,sSubway,sCharge,sPickup,sBigdog,userLocalX,userLocalY);
+				ShopInfoVO);
 	}
 
 	public CndSalonDaoImpl() {

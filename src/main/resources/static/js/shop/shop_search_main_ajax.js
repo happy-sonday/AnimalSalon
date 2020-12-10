@@ -81,7 +81,8 @@ $(function () {
 		});	
 	}
 	
-	$('#searchButton').click(function (){		
+	$('#searchButton').click(function (){	
+	
 	filter = $('#searchFilter').serialize();
 	$.ajax({
 	   	type : "GET",
@@ -101,7 +102,8 @@ $(function () {
 				+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotoname+"\" width=100 height=100 />"+"</td>"
 				+"<td>"+list.savgScore+"</td>"
 				+"<td>"+list.slocale+"</td></tr>"			
-				);					
+				);
+					
 				makerX.push(list.sgpsX);
 				makerY.push(list.sgpsY);
 				makerName.push(list.sname);					
@@ -115,6 +117,7 @@ $(function () {
 	})
 	
 	function map_load(makerX,makerY,makerName){
+		 
 		var mapContainer = document.getElementById('map');
 		//console.log("map_load -- start"+ makerName);
 		var positions=[];
@@ -129,7 +132,7 @@ $(function () {
 			level: 6
 		};
 		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
+			
 		for (var i = 0; i < positions.length; i ++) {			
 		    // 마커를 생성합니다
 		    var marker = new kakao.maps.Marker({
@@ -146,7 +149,9 @@ $(function () {
 		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+			
 		}
+		
 		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 		function makeOverListener(map, marker, infowindow) {
 		    return function() {

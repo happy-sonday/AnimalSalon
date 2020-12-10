@@ -37,10 +37,8 @@ public class ShopServiceImpl implements ShopListService {
 	@Transactional
 	@Override
 	public List<CndSalonShopInfoVO> searchShop
-	(String sParking, String sWifi, String sSubway, String sCharge,
-			String sPickup, String sBigdog,String userLocalX,String userLocalY) {
-
-		return dao.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog,userLocalX,userLocalY);
+	(CndSalonShopInfoVO ShopInfoVO) {
+		return dao.searchShop(ShopInfoVO);
 	}
 	
 

@@ -36,6 +36,13 @@ import lombok.NoArgsConstructor;
  * sPhotopath[String] : 매장 사진 경로
  * sPhotoname[String] : 매장 사진 이름
  * sPhotonameOrigin[String] : 매장 사진 원래 이름
+ * pCat[boolean] : 고양이 매장
+ * pDog[boolean] : 강아지 매장
+ * pShort[boolean] : 고양이 단모
+ * pLong[boolean] : 고양이 장모
+ * pSmall[boolean] : 소형견
+ * pMedium[boolean] : 중현견
+ * pLarge[boolean] : 대형견
  */
 @Data
 @NoArgsConstructor
@@ -62,4 +69,11 @@ public class CndSalonShopInfoVO {
 	private String sPhotopath;
 	private String sPhotoname;
 	private String sPhotonameOrigin;
+	private boolean pCat;
+	private boolean pDog;
+	private boolean pShort;
+	private boolean pLong;
+	private boolean pSmall;
+	private boolean pMedium;
+	private boolean pLarge;
 }// Class END

@@ -25,14 +25,7 @@ public interface CndSalonMapper {
 
 
 	List<CndSalonShopInfoVO> searchShop(
-			@Param("sParking") String sParking,
-			@Param("sWifi") String sWifi,
-			@Param("sSubway") String sSubway,
-			@Param("sCharge") String sCharge,
-			@Param("sPickup") String sPickup,
-			@Param("sBigdog") String sBigdog,
-			@Param("userLocalX") String userLocalX,
-			@Param("userLocalY") String userLocalY);
+			CndSalonShopInfoVO ShopInfoVO);
 	
 
 }

@@ -10,7 +10,7 @@ public interface ShopListService {
 
 	public CndSalonShopInfoVO getOne(String sCode);
 
-	public List<CndSalonShopInfoVO> searchShop(String sParking, String sWifi, String sSubway, String sCharge,
-			String sPickup, String sBigdog,String userLocalX, String userLocalY);
+	public List<CndSalonShopInfoVO> searchShop
+	(CndSalonShopInfoVO ShopInfoVO);
 
 }

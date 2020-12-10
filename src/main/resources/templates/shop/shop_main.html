@@ -13,7 +13,6 @@
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
 		<script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
 		
-		<script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
     	<script th:src="@{'/static/js/shop/shop_search_main_ajax.js'}" charset="UTF-8"></script>
 	
     </head>
@@ -51,23 +50,52 @@
             <a href="#" class="location__change">지역변경</a>
             
    		<form class="filter__menu" id="searchFilter" method="GET">
+   		<!-- 고양이 히든 -->
+   		<input id="pCat" name="pCat" type="hidden" value="0" >
+		<input id="pShort" name="pShort" type="hidden" value="0" >
+		<input id="pLong" name="pLong" type="hidden" value="0" >
+		<!-- 강아지 히든 -->
+		<input id="pDog" name="sCharge" type="hidden" value="0" >
+		<input id="pSmall" name="pSmall" type="hidden" value="0" >
+		<input id="pMedium" name="pMedium" type="hidden" value="0" >
+		<input id="pLarge" name="pLarge" type="hidden" value="0" >
+		<!-- 매장부가조건 히든 -->
 		<input id="sParking" name="sParking" type="hidden" value="0" >
 		<input id="sWifi" name="sWifi" type="hidden" value="0" >
 		<input id="sSubway" name="sSubway" type="hidden" value="0" >
 		<input id="sCharge" name="sCharge" type="hidden" value="0" >
 		<input id="sPickup" name="sPickup" type="hidden" value="0" >
 		<input id="sBigdog" name="sBigdog" type="hidden" value="0" >
+		<!-- 자기위치 히든 -->
 		<input id="userLocalX" name="userLocalX" type="hidden" value="" >
 		<input id="userLocalY" name="userLocalY" type="hidden" value="" > 
 		<input id="searchButton" type="button"  value="검색"/>
 		</form>
-		<input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" >
-		<input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" >
-		<input class="sSubway" type="button" onclick='filterClick(sSubway.value,"sSubway")' value="지하철 주변" >
-		<input class="sCharge" type="button" onclick='filterClick(sCharge.value,"sCharge")' value="추가요금 없음" >
-		<input class="sPickup" type="button" onclick='filterClick(sPickup.value,"sPickup")' value="픽업 가능" >
-		<input class="sBigdog" type="button" onclick='filterClick(sBigdog.value,"sBigdog")' value="대형견 가능" >
-				  
+		<table border ="1">
+		<tr>
+		<td><input class="pCat" type="button" onclick='filterClick(pCat.value,"pCat")' value="고양이" ></td>
+		</tr>
+		<tr>
+		<td><input class="pShort" type="button" onclick='filterClick(pShort.value,"pShort")' value="단모" ></td>
+		<td><input class="pLong" type="button" onclick='filterClick(pLong.value,"pLong")' value="장모" ></td>
+		</tr>
+		<tr>
+		<td><input class="pDog" type="button" onclick='filterClick(pDog.value,"pDog")' value="강아지" ></td>
+		</tr>
+		<tr>
+		<td><input class="pSmall" type="button" onclick='filterClick(pSmall.value,"pSmall")' value="소형견" ></td>
+		<td><input class="pMedium" type="button" onclick='filterClick(pMedium.value,"pMedium")' value="중형견" ></td>
+		<td><input class="pLarge" type="button" onclick='filterClick(pLarge.value,"pLarge")' value="대형견" ></td>
+		</tr>
+		<tr>
+		<td><input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" ></td>
+		<td><input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" ></td>
+		<td><input class="sSubway" type="button" onclick='filterClick(sSubway.value,"sSubway")' value="지하철 주변" ></td>
+		<td><input class="sCharge" type="button" onclick='filterClick(sCharge.value,"sCharge")' value="추가요금 없음" ></td>
+		<td><input class="sPickup" type="button" onclick='filterClick(sPickup.value,"sPickup")' value="픽업 가능" ></td>
+		<td><input class="sBigdog" type="button" onclick='filterClick(sBigdog.value,"sBigdog")' value="대형견 가능" ></td>
+		</tr>
+		</table>  
         <div class="filter__menu">
             <select class="filter__menu__item">
                 <option>종분류<i class="fas fa-chevron-down"></i></option>

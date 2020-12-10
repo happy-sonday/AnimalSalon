@@ -39,28 +39,23 @@ public class CndSalonShopController {
 	@ResponseBody
 	@RequestMapping(value = "/getAll_ajax_filter", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
-	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(@RequestParam("sParking") String sParking,
-			@RequestParam("sWifi") String sWifi,
-			@RequestParam("sSubway") String sSubway,
-			@RequestParam("sCharge") String sCharge,
-			@RequestParam("sPickup") String sPickup,
-			@RequestParam("sBigdog") String sBigdog,
-			@RequestParam("userLocalX") String userLocalX,
-			@RequestParam("userLocalY") String userLocalY) {
+	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(
+			CndSalonShopInfoVO ShopInfoVO
+			) {
 		log.info("----- getAll_ajax_filter Start ---");
 		List<CndSalonShopInfoVO> list = null;
-		//log.info("---------getAll_ajax_list Start--------------------");
+		
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
-		if (!userLocalX.equals("") || !userLocalY.equals("")) {
-			log.info("---search Start ---"  +sParking);
-			list= service.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog, userLocalX, userLocalY);
+		if (!ShopInfoVO.getUserLocalX().equals("") || !ShopInfoVO.getUserLocalY().equals("")) {
+			//log.info("---search Start ---"  +ShopInfoVO.isSParking());
+			list= service.searchShop(ShopInfoVO);
 
 		} else {
-			userLocalX += "37.62843";
-			userLocalY += "127.07184";
-			log.info("---search Start ---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
-			list= service.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog, userLocalX, userLocalY);
+			ShopInfoVO.setUserLocalX("37.62843");
+			ShopInfoVO.setUserLocalY("127.07184");
+			//log.info("---search Start ---   " + ShopInfoVO.getUserLocalX() + "  &&&&&  " + ShopInfoVO.getUserLocalY() + "   ");
+			list= service.searchShop(ShopInfoVO);
 		}
 		
 		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
@@ -96,17 +91,17 @@ public class CndSalonShopController {
 		List<CndSalonShopInfoVO> list = null;
 		
 		
-		//log.info("---------getAll_ajax_list Start--------------------");
+		log.info("---------getAll_ajax_list Main Start--------------------");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
 		if (!userLocalX.equals("") || !userLocalY.equals("")) {
-			log.info("---입력 좌표확인---" + userLocalX + "++++" + userLocalY);
+			//log.info("---입력 좌표확인---" + userLocalX + "++++" + userLocalY);
 			list= service.getAll(userLocalX, userLocalY);
 
 		} else {
 			userLocalX += "37.62843";
 			userLocalY += "127.07184";
-			log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
+			//log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
 			list= service.getAll(userLocalX, userLocalY);
 		}
 		
