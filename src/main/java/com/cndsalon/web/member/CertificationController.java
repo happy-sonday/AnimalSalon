@@ -6,13 +6,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @RestController//JSON타입으로 데이터를 주고받아오면서 ResponseBobdy를 빼고 사용할 수 있다
+@Slf4j
 public class CertificationController {
 	
-	@PostMapping("/checkId")
+	@PostMapping("/check/id")
 	public String checkId(@RequestBody Map<String, String> map) {
 				
+		log.debug("id 체킹중:"+map.get("id"));
 		String msg = "";		
 		if(map.get("id").equals("mrson1212")) {			
 			msg="<b style='color: red'>이미 가입된 아이디입니다.</b>";
@@ -22,7 +26,7 @@ public class CertificationController {
 		return msg;	
 	}
 		
-	@PostMapping("/checkPhone")
+	@PostMapping("/check/phone")
 	public String checkPhone(@RequestBody Map<String, String> map) {
 		
 		
@@ -36,7 +40,7 @@ public class CertificationController {
 		return msg;	
 	}
 		
-	@PostMapping("/checkEmail")
+	@PostMapping("/check/email")
 	public String checkEmail(@RequestBody Map<String, String> map) {
 		
 		
@@ -52,7 +56,7 @@ public class CertificationController {
 	}
 		
 	
-	@PostMapping("/checkNickname")
+	@PostMapping("/check/nickname")
 	public String checkNickname(@RequestBody Map<String, String> map) {
 		
 		

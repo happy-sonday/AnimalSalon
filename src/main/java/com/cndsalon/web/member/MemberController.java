@@ -1,13 +1,17 @@
 package com.cndsalon.web.member;
 
 
-import javax.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.cndsalon.domain.member.DemoMember;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,47 +20,50 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 
-	//private final HttpSession httpSession;
 		
-	//Main(전체 글 목록)
-	@GetMapping("/login")
-	 public String index() {
-	
+	@GetMapping("/member/login")
+	 public String checkId() {
 		
-			
 		return "/member/login";
 	}
 	
 	//약관
-	@GetMapping("/terms")
+	@GetMapping("/member/terms")
 	public String terms() {
 	
 		return "/member/terms";
 	}
 	
 	//아이디 비밀번호 찾기
-	@GetMapping("/findIdPwd")
+	@GetMapping("/member/findIdPwd")
 	public String findIdPwd() {
 		return "/member/findIdPwd";
 	}
 	
 	//회원가입 양식폼
-	@GetMapping("/signup")
-	public String signUp() {
+	@GetMapping("/member/signup")
+	public String signUp(Model model) {
+		
+		/*다음 페이지에서 th:object 속성을 사용하려면 비어있는 개체를 던져줘야한다*/		
+		model.addAttribute("demoMember", new DemoMember());
+		
 		return "/member/signupForm";
 	}
 	
-	//회원가입 양식 저장 요청
-	@PostMapping("/join")
-	public String  resultJoin() {
-		return "/member/join";
-	}
+
 	
 	//아이디회원가입양식 폼 요청
-	@GetMapping("/findInfo")
+	@GetMapping("/member/findInfo")
 	public String findInfo() {
 		
 		return "/member/findInfoForm";
+	}
+	
+	@GetMapping("/member/welcome")
+	public String welcome() {
+		
+		
+		return "/member/join";
 	}
 	
 	//인증번호 받기

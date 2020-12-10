@@ -39,9 +39,17 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	//booking 팀 추가
 	//annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	
+	//20.12.07 member
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+
 	// QueryDSL 
 	implementation 'com.querydsl:querydsl-jpa'
 	implementation 'com.querydsl:querydsl-apt'
+
     
     // log4jdbc
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'

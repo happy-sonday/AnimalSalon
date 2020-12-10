@@ -56,13 +56,13 @@
 					//$('#idErrorMsg').text('');//클리어
 					
 					var sendObj = {										
-					id : $(this).val()									
+					id : $("#id").val()					
 					}			
 										
 					$.ajax({
 					contentType: "application/json; charset=utf-8",
 					type: "post",
-					url: contextPath+"/checkId",
+					url: contextPath+"/check/id",
 					data: JSON.stringify(sendObj),
 					success: function(result) {		
 							$('#idErrorMsg').html(result);
@@ -208,6 +208,9 @@
 			$('#email_id').focus();	
 		}						
 	});
+	
+	
+	
  		 
  			 
  			
@@ -234,7 +237,7 @@
 					$.ajax({
 					contentType: "application/json; charset=utf-8",
 					type: "post",
-					url: contextPath+"/checkEmail",
+					url: contextPath+"/check/email",
 					data: JSON.stringify(sendObj),
 					success: function(result) {		
 							$('#emailErrorMsg').html(result);
@@ -270,7 +273,7 @@
 						
 					contentType: "application/json; charset=utf-8",
 					type: "post",
-					url: contextPath+"/checkNickname",
+					url: contextPath+"/check/nickname",
 					data: JSON.stringify(sendObj),
 					success: function(result) {		
 							$('#nicknameErrorMsg').html(result);
@@ -298,10 +301,51 @@
 
 		
 	
-	//전체 유효성 검증
+	
 	
     
     
+		//전체 유효성 검증
+		 $("#mamber_save").click(function() {
+						
+					//등록
+					//alert($("#roadAddress").val()+" " + $("#detailAddress").val());
+			    	//alert($("#profile").val()==null? "noImg": $("#profile").val());
+
+				var data={
+			    			id : $("#id").val(),			
+							pwd : $("#pwd").val(),
+							name :  $("#name").val(),
+							zip : $("#zip").val(),
+							address : $("#roadAddress").val()+" " + $("#detailAddress").val(),
+							phone : $("#phone").val(),
+							email :  $("#email_id").val()+$("#txtDomain").val(),
+							//profile : $("profile").val()==null? "noImg": $("#profile").val(),//따로 저장하자
+							//role : "CLIENT"//데이터베이스 저장할때 저장하자	    		
+			    	}
+
+
+				   $.ajax({
+						
+					contentType: "application/json; charset=utf-8",
+					type: "post",
+					url: contextPath+"/member/join",
+					data: JSON.stringify(data),
+					success: function(result) {		
+							alert("회원가입이 완료되었습니다.");							
+						
+							window.location.href=contextPath+"/member/welcome";
+						},
+							error: function(jqXHR, textStatu) {
+							alert("failed to communicate:"+textStatu);
+						}
+					});
+		});
+			    	
+					
+					
+			
+
    		
 		
 		
