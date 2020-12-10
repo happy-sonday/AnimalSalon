@@ -1,9 +1,7 @@
 package com.cndsalon.domain.book;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.Embeddable;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -16,19 +14,19 @@ import lombok.Getter;
  * @date 2020. 12. 8. 
  * @version 1.0
  * @since 
+ * 임베디드로 설정해놓고 작업했음. 진행하면서 크게 문제될 것 같아보이진 않으나
+ * 임베디드 사용에 어려움이 있을 경우 옵션코드(PK)를 넣어서 다대일 방식으로 사용할 예정 
  */
-@Entity
+@Embeddable
 @Getter
 @Table(name = "SHOP_MENU_OPTION")
 public class MenuOption {
 	
-	@OneToMany
-	@JoinColumn(name = "M_CODE")
-    private String mCode; // 메뉴코드
+//	@Column(name = "M_CODE")
+//    private String mCode; // 메뉴코드
 
-	@OneToMany
-    @JoinColumn(name = "S_CODE")
-	private String sCode; // 매장코드
+//	@Column(name = "S_CODE")
+//	private String sCode; // 매장코드
     
     @Column(name = "O_NAME")
 	private String oCode; // 옵션명

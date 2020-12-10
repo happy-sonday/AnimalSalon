@@ -1,9 +1,10 @@
 package com.cndsalon.domain.book;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -12,7 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.cndsalon.domain.shop.CndSalonShopInfoVO;
+
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * <pre>
@@ -28,14 +32,15 @@ import lombok.Getter;
 @Entity
 @Table(name = "SHOP_MENU")
 @Getter
+@RequiredArgsConstructor
 public class Menu {
 	@Id
 	@Column(name = "M_CODE")
     private String mCode;    // 메뉴코드
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = com.cndsalon.domain.shop.CndSalonShopInfoVO.class)
 	@JoinColumn(name = "S_CODE")
-    private String sCode;    // 매장코드
+    private CndSalonShopInfoVO shopInfo;    // 매장테이블
 	
 	@Column(name = "M_TYPE")
     private String mType;    // 종분류 / 강아지 OR 고양이
@@ -52,9 +57,11 @@ public class Menu {
 	@Column(name = "M_INFO")
     private String mInfo;    // 상품부가정보
 	
-	@OneToMany(mappedBy = "menu")
-	private List<MenuOption> menuOptions = new ArrayList<>();
+	@ElementCollection
+	@CollectionTable(name = "MenuOption", joinColumns = @JoinColumn(name="M_CODE"))
+	private List<MenuOption> menuOptions;
 	
 	@OneToMany(mappedBy = "menu")
-	private List<MenuPhoto> menuPhotos = new ArrayList<>();
+	private List<MenuPhoto> menuPhotos;
+
 }
