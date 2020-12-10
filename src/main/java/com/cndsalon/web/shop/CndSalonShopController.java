@@ -39,8 +39,7 @@ public class CndSalonShopController {
 	@ResponseBody
 	@RequestMapping(value = "/getAll_ajax_filter", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
-	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(
-			@RequestParam("sParking") String sParking,
+	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(@RequestParam("sParking") String sParking,
 			@RequestParam("sWifi") String sWifi,
 			@RequestParam("sSubway") String sSubway,
 			@RequestParam("sCharge") String sCharge,
@@ -50,8 +49,6 @@ public class CndSalonShopController {
 			@RequestParam("userLocalY") String userLocalY) {
 		log.info("----- getAll_ajax_filter Start ---");
 		List<CndSalonShopInfoVO> list = null;
-		
-		
 		//log.info("---------getAll_ajax_list Start--------------------");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
