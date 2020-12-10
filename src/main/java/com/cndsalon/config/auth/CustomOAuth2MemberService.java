@@ -53,7 +53,7 @@ public class CustomOAuth2MemberService implements OAuth2UserService<OAuth2UserRe
 
     private Member saveOrUpdate(OAuthAttributes attributes) {
     	Member user = memberRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
+                .map(entity -> entity.update(attributes.getName(), attributes.getProfile()))
                 .orElse(attributes.toEntity());
 
         return memberRepository.save(user);

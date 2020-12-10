@@ -30,23 +30,23 @@ public class Member {
 	    private String email;
 
 	    @Column
-	    private String picture;
+	    private String profile;
 
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false)
 	    private Role role;
 
 	    @Builder
-	    public Member(String name, String email, String picture, Role role) {
+	    public Member(String name, String email, String profile, Role role) {
 	        this.name = name;
 	        this.email = email;
-	        this.picture = picture;
+	        this.profile = profile;
 	        this.role = role;
 	    }
 
-	    public Member update(String name, String picture) {
+	    public Member update(String name, String profile) {
 	        this.name = name;
-	        this.picture = picture;
+	        this.profile = profile;
 
 	        return this;
 	    }

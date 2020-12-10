@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cndsalon.repository.member.MemberDemoMapper">
+
+	<insert id="save" parameterType="demoMember">
+	INSERT INTO member
+	VALUES
+	( #{id}, #{pwd}, #{name}, #{zip}, #{address}, #{phone}, #{email}, 'noimg', 'CLIENT' )
+	</insert>
+</mapper>

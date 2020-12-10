@@ -34,7 +34,7 @@ $(function() {
 			$.ajax({
 				contentType: "application/json; charset=utf-8",
 				type: "post",
-				url: contextPath+"/checkPhone",
+				url: contextPath+"/check/phone",
 				data: JSON.stringify(sendObj),
 				success: function(result) {		
 						$('#phoneErrorMsg').html(result);
