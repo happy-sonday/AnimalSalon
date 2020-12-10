@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.cndsalon.domain.book.Menu;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 
@@ -51,7 +53,8 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "SHOP_INFO_TBL")
 @Data
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
+@NoArgsConstructor
 public class CndSalonShopInfoVO {
 	private String userLocalX;
 	private String userLocalY;
@@ -73,6 +76,7 @@ public class CndSalonShopInfoVO {
 	private boolean sPickup;
 	private boolean sBigdog;
 	private double sAvgScore;
+	@Transient
 	private double sLocale;
 	private String sPhotopath;
 	private String sPhotoname;
@@ -80,5 +84,5 @@ public class CndSalonShopInfoVO {
 	
 	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Menu.class)
 	private List<Menu> menus = new ArrayList<>();
-	
+
 }// Class END

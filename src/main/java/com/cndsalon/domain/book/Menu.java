@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import com.cndsalon.domain.shop.CndSalonShopInfoVO;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -32,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "SHOP_MENU")
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Menu {
 	@Id
 	@Column(name = "M_CODE")
@@ -63,5 +64,16 @@ public class Menu {
 	
 	@OneToMany(mappedBy = "menu")
 	private List<MenuPhoto> menuPhotos;
+	
+	 // 테스트 생성자
+	public Menu(String mCode, String mType, String mName, Integer mTime, Integer mPrice, String mInfo, CndSalonShopInfoVO shopInfo) {
+		this.mCode = mCode;
+		this.mType = mType;
+		this.mName = mName;
+		this.mTime = mTime;
+		this.mPrice = mPrice;
+		this.mInfo = mInfo;
+		this.shopInfo = shopInfo;
+	}
 
 }
