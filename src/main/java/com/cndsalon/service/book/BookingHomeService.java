@@ -1,4 +1,4 @@
 package com.cndsalon.service.book;
 
-public interface BookingService {
+public interface BookingHomeService {
 }
