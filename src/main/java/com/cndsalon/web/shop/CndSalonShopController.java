@@ -65,8 +65,6 @@ public class CndSalonShopController {
 	@RequestMapping(value = "/getAll_ajax")
 	public String getAll_ajax(Model model) {
 		
-		log.info("---------getAll_ajax Start--------------------");
-		//return "/shop/test3_getall_ajax.html";
 		return "/shop/shop_main.html";
 	}
 	
@@ -86,7 +84,8 @@ public class CndSalonShopController {
 	@ResponseBody
 	@RequestMapping(value = "/getAll_ajax_list", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
-	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(@RequestParam("userLocalX") String userLocalX,
+	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(
+			@RequestParam("userLocalX") String userLocalX,
 			@RequestParam("userLocalY") String userLocalY) {
 		List<CndSalonShopInfoVO> list = null;
 		
@@ -111,9 +110,12 @@ public class CndSalonShopController {
 	@RequestMapping(value = "/getOne")
 	public String getOne(@RequestParam("sCode") String sCode, Model model) {
 		log.info("--------getOne Start---------" + sCode);
-		model.addAttribute("shop", service.getOne(sCode));
-
-		return "/shop/test4_shop_detail.html";
+		
+		model.addAttribute("shopinfo", service.getShopDetail(sCode));
+		model.addAttribute("shopphoto", service.getShopProductPhoto(sCode));
+		model.addAttribute("deginerinfo", service.getShopDesignerInfo(sCode));
+		model.addAttribute("review", service.getReview(sCode));
+		return "/shop/shop_detail.html";
 	}
 
 	

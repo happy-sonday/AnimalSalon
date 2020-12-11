@@ -64,10 +64,17 @@ $(function () {
 					//+"<td>"+list.saddr+"</td>"
 					+"<td>"+list.stime+"</td>"
 					+"<td>"+list.sparking+"</td>"
-					+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotoname+"\" width=100 height=100 />"+"</td>"
+					+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 />"+"</td>"
 					+"<td>"+list.savgScore+"</td>"
-					+"<td>"+list.slocale+"</td></tr>"					
+					+"<td>"+list.slocale+"</td>"		
+									
 					);
+					if(list.sparking==true){
+						$('#resultlist').append("<td>주차가능</td></tr>");
+					}else{
+						$('#resultlist').append("<td></td></tr>");
+					}
+					
 					makerX.push(list.sgpsX);
 					makerY.push(list.sgpsY);
 					makerName.push(list.sname);		
@@ -99,10 +106,17 @@ $(function () {
 				//+"<td>"+list.saddr+"</td>"
 				+"<td>"+list.stime+"</td>"
 				+"<td>"+list.sparking+"</td>"
-				+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotoname+"\" width=100 height=100 />"+"</td>"
+				+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 />"+"</td>"
 				+"<td>"+list.savgScore+"</td>"
-				+"<td>"+list.slocale+"</td></tr>"			
+				+"<td>"+list.slocale+"</td>"
+				+"<td>"
+						
 				);
+				if(list.sparking==true){
+						$('#resultlist').append("주차가능</td></tr>");
+					}else{
+						$('#resultlist').append("</td></tr>");
+					}
 					
 				makerX.push(list.sgpsX);
 				makerY.push(list.sgpsY);

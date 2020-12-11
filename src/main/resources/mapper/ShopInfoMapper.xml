@@ -43,10 +43,24 @@
       	<if test="pLarge == 1" >AND P_LARGE = 1</if> 
 		
 	</select>
-	
 	<!-- ShopDetail : sCode로 업체정보 상세검색 -->
-	<select id="getOne" resultType="CndSalonShopInfoVO" >
-
-		SELECT * FROM shop_info_tbl WHERE s_code = #{sCode}
+	<select id="getShopDetail" resultType="CndSalonShopInfoVO" >
+		SELECT A.*, B.P_CAT,B.P_DOG,B.P_SHORT,B.P_LONG,B.P_SMALL,B.P_MEDIUM,B.P_LARGE FROM SHOP_INFO_TBL A
+		INNER JOIN SHOP_PRODUCT_TBL B ON A.S_CODE = B.S_CODE WHERE A.S_CODE = #{sCode}
+	</select>
+	<!-- ShopProductPhoto : sCode로 업체상품사진 검색 -->
+	<select id="getShopProductPhoto" resultType="CndSalonShopProductPhotoVO" >
+		SELECT A.S_CODE, B.P_PHOTOPATH,B.P_PHOTONAME,B.P_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A
+		INNER JOIN SHOP_PRODUCT_PHOTO_TBL B ON A.S_CODE = B.S_CODE
+		WHERE A.S_CODE = #{sCode}
+	</select>
+		<!-- ShopDesignerInfo : sCode로 디자이너INFO 검색 -->
+	<select id="getShopDesignerInfo" resultType="CndSalonShopDesignerVO" >
+		SELECT A.*, B.D_PHOTOPATH,B.D_PHOTONAME,B.D_PHOTONAME_ORIGIN FROM SHOP_DESIGNER_TBL A
+		INNER JOIN SHOP_DESIGNER_PHOTO_TBL B ON A.D_CODE = B.D_CODE
+		WHERE A.S_CODE = #{sCode}
+	</select>
+	<select id="getReview" resultType="CndSalonReviewVO">
+		SELECT * FROM REVIEW_DETAIL_TBL WHERE S_CODE = #{sCode} ORDER BY R_DATE
 	</select>
 </mapper>
