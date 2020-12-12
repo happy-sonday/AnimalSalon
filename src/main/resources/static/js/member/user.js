@@ -342,9 +342,92 @@
 					});
 		});
 			    	
+
+
+				
+				
+				//profile 이미지
+  				$("#profile").change(function(e){                   
+	
+				
+				var ext=$(this).val().split(".").pop().toLowerCase();
+				var fileSize=this.files[0].size;
+				var maxSize= 1*1024*1024;
+				
+				//확장자 체크
+				if($.inArray(ext,["jpg","jpeg","png", "bmp"])==-1){
+					$('#profileErrorMsg').html("<b style='color: red'>jpg, jpeg, png, bmp 확장자만 업로드 가능합니다.</b>");
+					$(this).val('');//업로드한 파일 clear
+					return;
+				}else if(fileSize>maxSize){//파일 크기 확인					
+					$('#profileErrorMsg').html("<b style='color: red'>업로드 제한 용량 1MB를 초과했습니다.</b>");
+					$(this).val('');//업로드한 파일 clear
+					return;
+				} 
 					
+					//위 필터 통과하면 업로드 시작			
+					$('#profileErrorMsg, #preview').empty();//없으면 에러 표시와 함께 누적됨
+					
+						
+					
+				 	var files = e.target.files;
+				    var arr =Array.prototype.slice.call(files);
+			      	arr.forEach(function(f){       
+			    	     
+			                 
+			        var str = '<div style="display: inline-flex; padding: 5px;">';
+			              
+			        
+			        if(f.type.match('image.*')){
+			            var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+			            reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+			              //str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
+			              str += '<img src="'+e.target.result+'" width=150 height=150 />';
+			              str += '</div>';					
+			              $(str).appendTo('#preview');
+			            } 
+			            reader.readAsDataURL(f);
+			        }else{
+			        	//이미지 없음 넣기
+			            str += '<img src="/resources/img/fileImg.png" width=150 height=150 />';
+			            $(str).appendTo('#preview');
+			        }
+			     });//arr.forEach      
+      
+   			 });//file change END
+
+
+
 					
 			
+$('#selectProfile').click(function (e) {
+    //document.profile.target_url.value = document.getElementById( 'target_img' ).src;
+    //e.preventDefault();
+    $('#profile').click();
+});        
+
+
+function changeValue(obj){
+   document.profile.submit();
+}
+
+
+
+
+ 
+ /*
+<div>
+    <img id = "target_img" src="target_img_name.png">
+</div>
+ 
+ 
+<form name="signform" method="POST" ENCTYPE="multipart/form-data" action="./design_update.htm">
+    <input type="file" id="file" name="file" style="display:none;" onchange="changeValue(this)">
+    <input type="hidden" name = "target_url">
+</form>
+*/
+
+
 
    		
 		

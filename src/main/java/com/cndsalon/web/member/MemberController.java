@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.cndsalon.domain.member.DemoMember;
 
@@ -96,4 +98,11 @@ public class MemberController {
     }
     */
 
+	
+	@RequestMapping("/member/demo")
+	public String test() {
+		
+		return"/member/DemoUpload";
+	}
+	
 }
