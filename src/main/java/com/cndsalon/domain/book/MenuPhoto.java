@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,14 +24,14 @@ import lombok.Getter;
 @Entity
 @Getter
 @Table(name = "SHOP_MENU_PHOTO")
-public class MenuPhoto {	
+@IdClass(MenuId.class)
+public class MenuPhoto {
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "M_CODE")
-	private Menu menu;
+	@Id
+	private String mCode; // 메뉴코드
 	
-	@Column(name = "S_CODE")
-	private String sCode;                // 매장코드
+	@Id
+	private String sCode; // 매장코드
 	
 	@Column(name = "M_P_PATH")
 	private String mpPath;    // 사진파일경로
@@ -40,4 +42,14 @@ public class MenuPhoto {
 	@Id
 	@Column(name = "M_P_ORGNAME")
 	private String mpOrgName; // 사진파일원본이름
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns(value = {
+		@JoinColumn(name = "mCode", updatable = false, insertable = false),
+		@JoinColumn(name = "sCode", updatable = false, insertable = false)	
+	})
+	private Menu menu;
+	
+	
+
 }

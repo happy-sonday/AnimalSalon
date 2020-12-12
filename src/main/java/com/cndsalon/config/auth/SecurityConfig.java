@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomOAuth2MemberService customOAuth2UserService;
+	private final CustomOAuth2MemberService customOAuth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

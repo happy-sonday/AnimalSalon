@@ -1,4 +1,4 @@
-package com.cndsalon.util.shop;
+package com.cndsalon.util.book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -6,15 +6,17 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.cndsalon.domain.book.Designer;
 import com.cndsalon.domain.book.Menu;
+import com.cndsalon.domain.book.MenuOption;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 
 /**
@@ -53,13 +55,12 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "SHOP_INFO_TBL")
 @Data
-//@RequiredArgsConstructor
 @NoArgsConstructor
+@IdClass(ShopInfoId.class)
 public class CndSalonShopInfoVO {
 	private String userLocalX;
 	private String userLocalY;
 	@Id
-	@Column(name = "S_CODE")
 	private String sCode;
 	private String sName;
 	private String sAddr;
@@ -84,5 +85,11 @@ public class CndSalonShopInfoVO {
 	
 	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Menu.class)
 	private List<Menu> menus = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.MenuOption.class)
+	private List<MenuOption> menuOptions = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Designer.class)
+	private List<Designer> designers = new ArrayList<>();
 
 }// Class END

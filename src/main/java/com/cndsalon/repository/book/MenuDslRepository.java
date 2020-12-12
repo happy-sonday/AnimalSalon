@@ -11,23 +11,22 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.cndsalon.domain.book.QMenu.*;
 import static com.cndsalon.domain.shop.QCndSalonShopInfoVO.*;
 
-
 @Repository
-public class MenuDSLRepositorySupport extends QuerydslRepositorySupport{
+public class MenuDslRepository extends QuerydslRepositorySupport{
 	private final JPAQueryFactory queryFactory;
 	
-	public MenuDSLRepositorySupport(JPAQueryFactory queryFactory) { // Bean으로 등록된 queryFactory를 생성자 인젝션 주입.
+	public MenuDslRepository(JPAQueryFactory queryFactory) { // Bean으로 등록된 queryFactory를 생성자 인젝션 주입.
 		super(Menu.class);
 		this.queryFactory = queryFactory;
 	}
 	
-	public List<Menu> findBySCode(String sCode){
+	public List<Menu> findBySCode(String sCode, String mType){
+		
 		return queryFactory.selectFrom(menu)
 				.innerJoin(menu.shopInfo, cndSalonShopInfoVO)
-				.where(cndSalonShopInfoVO.sCode.eq(sCode))
+				.where(cndSalonShopInfoVO.sCode.eq(sCode), menu.mType.eq(mType))
 				.fetch();
 	}
-	
 	
 
 }
