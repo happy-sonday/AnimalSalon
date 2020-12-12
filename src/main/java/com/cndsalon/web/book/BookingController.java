@@ -1,17 +1,16 @@
 package com.cndsalon.web.book;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cndsalon.domain.book.Menu;
 import com.cndsalon.service.book.BookingService;
-import com.cndsalon.service.book.MenuService;
+import com.cndsalon.service.book.BookingService;
+import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,18 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 public class BookingController {
 	
 	@Autowired
-	private BookingService bookingService;
+	private ShopListService shopService;
 	
 	@Autowired
-	private MenuService menuService;
-	
-//	@GetMapping("/choice")
-//	public @ResponseBody List<Menu> moveBookingMenu(String sCode) throws Exception{
-//		sCode = "CNDSHOP_1";
-//		log.info("업체코드번호 : " + sCode +" - 메뉴 조회 후 메뉴선택화면으로 이동");
-//		return this.menuService.getDogMenu(sCode);
-////		return "/booking/bookingMenu";
-//	}
+	private BookingService bookingService;
 	
 	// 메뉴 관련 요청사항
 	/**
@@ -43,26 +34,61 @@ public class BookingController {
 	  * </pre>
 	  * @method moveBookingMenu
 	  * @param 변수명 설명[타입]
-	  * @return 메뉴 선택 기본값인 강아지메뉴 및 bookingMenu.html을 반환 [BookingController]
+	  * @return 해당 업체, 강아지 타입메뉴 조회 / bookingMenu.html 반환 [BookingController]
 	  * @exception 발생예외
 	  *
 	 */
-	@GetMapping("/choice")
-	public List<Menu> moveBookingMenu() throws Exception{
-		String sCode = "CNDSHOP_1";
-		log.info("업체코드번호 : " + sCode +" - 메뉴 조회 후 메뉴선택화면으로 이동");
-		List<Menu> menus = this.menuService.getDogMenu(sCode);
-		log.info("Menu List : " + menus.get(0).getMCode());
-		log.info("Menu List : " + menus.get(1).getMCode());
-		log.info("Menu List : " + menus.get(2).getMCode());
-		log.info("Menu List : " + menus.get(3).getMCode());
-		log.info("Menu List : " + menus.get(4).getMCode());
-		log.info("Menu List : " + menus.get(5).getMCode());
-		log.info("Menu List : " + menus.get(6).getMCode());
-		log.info("Menu Size : " + menus.size());
-		return menus;
-//		return "/booking/bookingMenu";
+	@GetMapping("/shop")
+	public String showMenu(
+			@RequestParam("sCode")String sCode,
+			Model model) {
+		
+		log.info("업체코드 : " + sCode + " - 업체 및 메뉴 조회 후 메뉴선택화면으로 이동");
+		String mType = "강아지"; // Menu의 default 값 강아지
+		
+		model.addAttribute("menu", this.bookingService.getMenuList(sCode, mType));
+		model.addAttribute("shop", this.shopService.getOne(sCode));
+		
+		return "/booking/bookingMenu";
 	}
+	
+	/**
+	  *
+	  * <pre>
+	  * 개요: bookingMenu.html 에서 해당메뉴 예약 클릭 시
+	  * </pre>
+	  * @method goBooking
+	  * @param 변수명 설명[타입]
+	  * @return 업체정보 및 디자이너 정보, 메뉴 및 옵션 정보 조회 및 bookingDetail.html 반환 [BookingController]
+	  * @exception 발생예외
+	  *
+	 */
+	@GetMapping("/go-booking")
+	public String goBooking(
+			@RequestParam("sCode")String sCode,
+			@RequestParam("mCode")String mCode,
+			@RequestParam("mType")String mType,
+			Model model) {
+		
+		log.info("업체 정보 조회");
+		model.addAttribute("shop", this.shopService.getOne(sCode));
+		
+		log.info("메뉴코드 : " + mCode + "로 메뉴조회");
+		model.addAttribute("menu", this.bookingService.getMenu(mCode));
+		
+		log.info("메뉴옵션 : " + mType + "타입으로 옵션조회");
+		model.addAttribute("menuOptions", this.bookingService.getMenuOptionList(sCode, mCode, mType));
+		
+		log.info("디자이너 정보 조회");
+		model.addAttribute("designers", this.bookingService.getDesignerList(sCode));
+		model.addAttribute("todaysDay", this.bookingService.getTodaysDay());
+		
+		log.info("테스트1 : 디자이너 휴무일 " + this.bookingService.getDesignerList(sCode).get(0).getDDayOff());
+		log.info("테스트2 : 오늘의 요일 " + this.bookingService.getTodaysDay());
+
+		return "/booking/bookingDetail";
+	}
+
 
 	// bookingMenu.html 에서 강아지 선택시 화면 출력하는 컨트롤러
 	@GetMapping("/choice/dog")
@@ -84,6 +110,7 @@ public class BookingController {
 	@GetMapping("/detail")
 	public ModelAndView moveBookingDetail() throws Exception{
 		ModelAndView mv = new ModelAndView("/booking/bookingDetail");
+		log.info("bookingDetail로 이동");
 		
 		return mv;
 	}

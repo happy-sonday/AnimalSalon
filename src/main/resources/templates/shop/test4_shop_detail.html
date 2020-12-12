@@ -69,8 +69,7 @@
             </th:block>           
             <td th:text="${shop.sAvgScore}"></td>                                   
         </tr>
-	
 </table>
-<input type="button" value="예약하기" th:onclick="'window.location.href = \'' + @{/booking} + '\''" />
+<a th:href="@{/booking/shop(sCode=${shop.sCode})}">예약하기</a>
 </body>
 </html>
