@@ -27,6 +27,7 @@ public class DemoMember {
 	private String address;
 	private String phone;
 	private String email;
+	private String profile;
 	
 
 }
