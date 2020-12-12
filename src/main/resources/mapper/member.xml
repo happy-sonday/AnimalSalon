@@ -7,4 +7,9 @@
 	VALUES
 	( #{id}, #{pwd}, #{name}, #{zip}, #{address}, #{phone}, #{email}, 'noimg', 'CLIENT' )
 	</insert>
+	
+	<select id="findById" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM member WHERE ID = #{id}
+	</select>
+	
 </mapper>

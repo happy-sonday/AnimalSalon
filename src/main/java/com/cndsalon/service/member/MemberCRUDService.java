@@ -2,6 +2,8 @@ package com.cndsalon.service.member;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.cndsalon.domain.member.DemoMember;
 
 public interface MemberCRUDService {
@@ -17,4 +19,7 @@ public interface MemberCRUDService {
 	
 	//member 전체 리스트 조회	
 	public List<DemoMember> allList(DemoMember reqDto);
+	
+	//member 사진 업데이트
+	public void updateProfile(MultipartFile pFile);
 }
