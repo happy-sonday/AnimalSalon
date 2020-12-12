@@ -12,4 +12,8 @@
 	SELECT COUNT(*) FROM member WHERE ID = #{id}
 	</select>
 	
+	<select id = "hashedPwdById" parameterType="String" resultType="String">
+	SELECT pwd FROM MEMBER WHERE ID = #{id}
+	</select>
+	
 </mapper>

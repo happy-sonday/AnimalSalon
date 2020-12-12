@@ -2,6 +2,7 @@ package com.cndsalon.repository.member;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,11 @@ public class MemberDemoRepositoryImpl implements MemberDemoRepository{
 	
 	@Override
 	public void save(DemoMember demoMember) {
+		
+		
+		//db 저장전 사용자 비밀번호 암호화
+		String hasPwd = BCrypt.hashpw(demoMember.getPwd(), BCrypt.gensalt());
+		demoMember.setPwd(hasPwd);
 		
 		log.debug("MemberDemoRepositoryImple >>>> save() DemoMember {}", demoMember);
 		this.sqlSession.getMapper(MemberDemoMapper.class).save(demoMember);

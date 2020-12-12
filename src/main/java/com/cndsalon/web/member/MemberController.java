@@ -6,14 +6,18 @@ import java.net.http.HttpRequest;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.RequestScope;
 
 import com.cndsalon.domain.member.DemoMember;
+import com.cndsalon.service.member.CertificationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 
+	
+	@Autowired
+	CertificationService chkService;
 		
 	@GetMapping("/member/login")
 	 public String checkId() {
@@ -103,6 +110,18 @@ public class MemberController {
 	public String test() {
 		
 		return"/member/DemoUpload";
+	}
+	
+	
+	@RequestMapping("/member/login_chk")
+	public String loginChk(@RequestParam String id, @RequestParam String pwd) {
+		
+		String landingPage="";
+		
+		
+		chkService.loginChk(id, pwd);
+		
+		return landingPage;
 	}
 	
 }
