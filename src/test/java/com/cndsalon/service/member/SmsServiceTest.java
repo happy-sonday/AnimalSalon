@@ -22,5 +22,7 @@ public class SmsServiceTest {
 	void sendSms() throws InvalidKeyException, RestClientException, JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, URISyntaxException {
 		smsService.sendSms("01096558120", "애니멀 살롱 본인 인증 암호 전송합니다");
 	}
+	
+	//test 추가
 
 }
