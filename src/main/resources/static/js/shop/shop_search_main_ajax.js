@@ -59,6 +59,15 @@ $(function () {
 	        success : function(data) {
 
 	        	$.each(data,function(index,list){
+					
+					$('.testshopmain').append(
+						"<div><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=200 height=200 />"+"</div>"
+						+"<div width='700px' height='100px'>"+list.sname+"</div>"		
+						
+						
+						
+					)
+		
 	        		$('#resultlist').append("<tr><td><a href='/cndsalon/getOne?sCode="+list.scode+"' >"+list.scode+"</a></td>"
 					+"<td>"+list.sname+"</td>"
 					//+"<td>"+list.saddr+"</td>"
@@ -79,6 +88,7 @@ $(function () {
 					makerY.push(list.sgpsY);
 					makerName.push(list.sname);		
 	        	})
+
 				map_load(makerX,makerY,makerName);
 	        },
 			error : function(data, status){
@@ -99,6 +109,7 @@ $(function () {
 	    data :  filter ,
 	    success : function(data) {
 		$('#resultlist *').remove();
+		$('.testshopmain').remove();
 			search_ajax_filter();
 	       	$.each(data,function(index,list){
 	       		$('#resultlist').append("<tr><td><a href='/cndsalon/getOne?sCode="+list.scode+"' >"+list.scode+"</a></td>"
@@ -109,11 +120,11 @@ $(function () {
 				+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 />"+"</td>"
 				+"<td>"+list.savgScore+"</td>"
 				+"<td>"+list.slocale+"</td>"
-				+"<td>"
+			
 						
 				);
 				if(list.sparking==true){
-						$('#resultlist').append("주차가능</td></tr>");
+						$('#resultlist').append("<td>주차가능</td></tr>");
 					}else{
 						$('#resultlist').append("</td></tr>");
 					}
@@ -149,10 +160,9 @@ $(function () {
 			
 		for (var i = 0; i < positions.length; i ++) {			
 		    // 마커를 생성합니다
-		    var marker = new kakao.maps.Marker({
-		        map: map, // 마커를 표시할 지도
-		        position: positions[i].latlng // 마커의 위치
-		    });
+		    var marker = new kakao.maps.Marker({map: map, // 마커를 표시할 지도
+			position: positions[i].latlng // 마커의 위치
+			   });
 		    // 마커에 표시할 인포윈도우를 생성합니다 
 		    var infowindow = new kakao.maps.InfoWindow({
 		        content: positions[i].content // 인포윈도우에 표시할 내용
