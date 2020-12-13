@@ -13,6 +13,7 @@ import com.cndsalon.domain.shop.CndSalonShopInfoVO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * <pre>
@@ -51,12 +52,6 @@ public class MenuOption {
 	})
 	private Menu menu;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns(value = {
-			@JoinColumn(name = "sCode", updatable = false, insertable = false)	
-		})
-	private CndSalonShopInfoVO shopInfo;
-	
 	public void setMenu(Menu menu) {
 		if(menu != null) {
 			menu.getMenuOptions().remove(this);
@@ -64,14 +59,11 @@ public class MenuOption {
 		this.menu = menu;
 		this.menu.getMenuOptions().add(this);
 	}
-	
-	public void setShopInfo(CndSalonShopInfoVO shopInfo) {
-		if(shopInfo != null) {
-			shopInfo.getMenuOptions().remove(this);
-		}
-		this.shopInfo = shopInfo;
-		this.shopInfo.getMenuOptions().add(this);
+
+	@Override
+	public String toString() {
+		return "MenuOption [mCode=" + mCode + ", sCode=" + sCode + ", oName=" + oName + ", oTime=" + oTime + ", oPrice="
+				+ oPrice + "]";
 	}
-    
 
 }

@@ -2,6 +2,7 @@ package com.cndsalon.domain.book;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 
 import lombok.EqualsAndHashCode;

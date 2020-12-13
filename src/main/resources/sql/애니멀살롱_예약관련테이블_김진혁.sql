@@ -35,9 +35,7 @@ CREATE TABLE SHOP_MENU_OPTION (
     S_CODE VARCHAR2(30), -- 매장코드
     O_NAME VARCHAR2(30), -- 옵션명
     O_TIME NUMBER,         -- 추가 소요시간
-    O_PRICE NUMBER,       -- 추가 금액
-    FOREIGN KEY (M_CODE) REFERENCES SHOP_MENU(M_CODE),
-    FOREIGN KEY (S_CODE) REFERENCES SHOP_INFO_TBL(S_CODE)
+    O_PRICE NUMBER       -- 추가 금액
     );
 
 ------ 메뉴사진테이블

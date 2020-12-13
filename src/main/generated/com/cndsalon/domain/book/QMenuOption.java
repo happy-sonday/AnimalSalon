@@ -34,8 +34,6 @@ public class QMenuOption extends EntityPathBase<MenuOption> {
 
     public final StringPath sCode = createString("sCode");
 
-    public final com.cndsalon.domain.shop.QCndSalonShopInfoVO shopInfo;
-
     public QMenuOption(String variable) {
         this(MenuOption.class, forVariable(variable), INITS);
     }
@@ -55,7 +53,6 @@ public class QMenuOption extends EntityPathBase<MenuOption> {
     public QMenuOption(Class<? extends MenuOption> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.menu = inits.isInitialized("menu") ? new QMenu(forProperty("menu"), inits.get("menu")) : null;
-        this.shopInfo = inits.isInitialized("shopInfo") ? new com.cndsalon.domain.shop.QCndSalonShopInfoVO(forProperty("shopInfo")) : null;
     }
 
 }
