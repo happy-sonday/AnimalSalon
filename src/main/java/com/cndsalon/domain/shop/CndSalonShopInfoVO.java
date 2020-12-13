@@ -86,9 +86,6 @@ public class CndSalonShopInfoVO {
 	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Menu.class)
 	private List<Menu> menus = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.MenuOption.class)
-	private List<MenuOption> menuOptions = new ArrayList<>();
-	
 	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Designer.class)
 	private List<Designer> designers = new ArrayList<>();
 

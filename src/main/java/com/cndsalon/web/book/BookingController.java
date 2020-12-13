@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cndsalon.service.book.BookingService;
-import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class BookingController {
 	  *
 	 */
 	@GetMapping("/shop")
-	public String showMenu(
+	public String showMenu (
 			@RequestParam("sCode")String sCode,
 			Model model) {
 		
@@ -64,7 +63,7 @@ public class BookingController {
 	  *
 	 */
 	@GetMapping("/go-booking")
-	public String goBooking(
+	public String goBooking (
 			@RequestParam("sCode")String sCode,
 			@RequestParam("mCode")String mCode,
 			@RequestParam("mType")String mType,
@@ -82,9 +81,6 @@ public class BookingController {
 		log.info("디자이너 정보 조회");
 		model.addAttribute("designers", this.bookingService.getDesignerList(sCode));
 		model.addAttribute("todaysDay", this.bookingService.getTodaysDay());
-		
-		log.info("테스트1 : 디자이너 휴무일 " + this.bookingService.getDesignerList(sCode).get(0).getDDayOff());
-		log.info("테스트2 : 오늘의 요일 " + this.bookingService.getTodaysDay());
 
 		return "/booking/bookingDetail";
 	}

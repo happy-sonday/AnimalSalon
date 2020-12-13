@@ -22,17 +22,18 @@ $(document).ready(function() {
 		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],	// 한글 요일 표시 부분
 		showMonthAfterYear: true,	// true : 년 월  false : 월 년 순으로 보여줌
 		yearSuffix: '년',
-		// 	        showButtonPanel: true,	// 오늘로 가는 버튼과 달력 닫기 버튼 보기 옵션
-		// 	        closeText: '닫기', // 닫기 버튼 텍스트 변경
-		// 	        currentText: '오늘', // 오늘 텍스트 변경
 	});
 
-	$('#booking_date').datepicker({
+	$('#bookingDate').datepicker({
+		dateFormat: 'yy-mm-dd',
 		maxDate: '+2m',
-		minDate: '0'	// 예약가능 날짜는 당일부터 2달 뒤 까지
-	});
+		minDate: '0'	
+	}).datepicker('setDate', "0"); // 오늘날짜 세팅 및 예약은 2달 뒤까지만 가능
 
-	$('#booking_date').datepicker("setDate", "today"); // 기본값 세팅
+
+
+// document ready
+
 
 });
 
