@@ -65,5 +65,5 @@ public class Booking {
 	
 	@Column(name = "B_CANCEL_REASON")
     private String cancelReason; // 예약 취소 사유
-    
+    //23
 }
