@@ -17,25 +17,25 @@ import lombok.Getter;
  * @version 1.0
  * @since 
  */
-//@Entity
-//@Getter
-//@Table(name = "SHOP_MENU_OPTION")
+@Entity
+@Getter
+@Table(name = "SHOP_MENU_OPTION")
 public class MenuOption {
 	
-//	@OneToMany
-//	@JoinColumn(name = "M_CODE")
-//    private String mCode; // 메뉴코드
-//
-//	@OneToMany
-//    @JoinColumn(name = "S_CODE")
-//	private String sCode; // 매장코드
-//    
-//    @Column(name = "O_NAME")
-//	private String oCode; // 옵션명
-//    
-//    @Column(name = "O_TIME")
-//	private Integer oTime;  // 추가 소요시간
-//    
-//    @Column(name = "O_PRICE")
-//	private Integer oPrice; // 추가 금액
+	@OneToMany
+	@JoinColumn(name = "M_CODE")
+    private String mCode; // 메뉴코드
+
+	@OneToMany
+    @JoinColumn(name = "S_CODE")
+	private String sCode; // 매장코드
+    
+    @Column(name = "O_NAME")
+	private String oCode; // 옵션명
+    
+    @Column(name = "O_TIME")
+	private Integer oTime;  // 추가 소요시간
+    
+    @Column(name = "O_PRICE")
+	private Integer oPrice; // 추가 금액
 }

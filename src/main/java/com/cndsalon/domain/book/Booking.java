@@ -23,47 +23,47 @@ import lombok.Setter;
  * 일단, 찾아본 레퍼런스 중에서 지정해놨다.
  * 추가로, booking테이블은 view테이블을 사용할 가능성이 있음.(예약 외에 다른 파트는 큰 문제 없을 것으로 보이니 신경쓰지 않아도 괜찮을듯.)
  */
-//@Entity
-//@Table(name = "BOOKING")
-//@Getter
-//@Setter
+@Entity
+@Table(name = "BOOKING")
+@Getter
+@Setter
 public class Booking {
 	
-//	@Id
-//	@Column(name = "B_CODE")
-//    private String bCode;    // 예약코드
-//	
-//	@Column(name = "ID")
-//    private String id;        // 아이디
-//	
-//	@Column(name = "O_CODE")
-//    private String oCode;    // 옵션코드
-//	
-//	@Column(name = "M_CODE")
-//    private String mCode;    // 메뉴코드
-//	
-//	@Column(name = "D_CODE")
-//    private String dCode;    // 디자이너코드
-//	
-//	@Column(name = "S_CODE")
-//    private String sCode;    // 매장코드
-//	
-//	@Column(name = "B_DATE", columnDefinition = "DATE")
-//    private LocalDate bDate; // 예약일정(년월일,요일)
-//	
-//	@Column(name = "B_TIME", columnDefinition = "TIME")
-//    private LocalTime bTime; // 예약일정(시간)
-//	
-//	@Column(name = "B_BEATY_TIME")
-//    private Integer beautyTime; // 시술 소요시간
-//	
-//	@Column(name = "B_PRICE")
-//    private Integer price;  // 예약 금액
-//	
-//	@Column(name = "B_STATUS")
-//    private char status;    // 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제 / default 0
-//	
-//	@Column(name = "B_CANCEL_REASON")
-//    private String cancelReason; // 예약 취소 사유
+	@Id
+	@Column(name = "B_CODE")
+    private String bCode;    // 예약코드
+	
+	@Column(name = "ID")
+    private String id;        // 아이디
+	
+	@Column(name = "O_CODE")
+    private String oCode;    // 옵션코드
+	
+	@Column(name = "M_CODE")
+    private String mCode;    // 메뉴코드
+	
+	@Column(name = "D_CODE")
+    private String dCode;    // 디자이너코드
+	
+	@Column(name = "S_CODE")
+    private String sCode;    // 매장코드
+	
+	@Column(name = "B_DATE", columnDefinition = "DATE")
+    private LocalDate bDate; // 예약일정(년월일,요일)
+	
+	@Column(name = "B_TIME", columnDefinition = "TIME")
+    private LocalTime bTime; // 예약일정(시간)
+	
+	@Column(name = "B_BEATY_TIME")
+    private Integer beautyTime; // 시술 소요시간
+	
+	@Column(name = "B_PRICE")
+    private Integer price;  // 예약 금액
+	
+	@Column(name = "B_STATUS")
+    private char status;    // 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제 / default 0
+	
+	@Column(name = "B_CANCEL_REASON")
+    private String cancelReason; // 예약 취소 사유
     
 }
