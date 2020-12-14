@@ -10,7 +10,7 @@ import com.cndsalon.domain.shop.CndSalonShopProductPhotoVO;
 
 public interface ShopListService {
 
-	public List<CndSalonShopInfoVO> getAll(String userLocalX, String userLocalY);
+	public List<CndSalonShopInfoVO> getAll(String userLocalX, String userLocalY,int pageNum);
 
 	public CndSalonShopInfoVO getShopDetail(String sCode);
 	
@@ -22,5 +22,7 @@ public interface ShopListService {
 	
 	public List<CndSalonShopInfoVO> searchShop
 	(CndSalonShopInfoVO ShopInfoVO);
-
+	public int getPageNum();
+	
+	public int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
 }

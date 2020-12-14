@@ -11,7 +11,23 @@ function filterClick($inSearch, inSearchVar){
 }
 
 // 접속시 위치 정보를 허용 위치 정보를 저장 한다
-$(function () {      
+$(function () {
+	var pageNum = 1;
+	var pageMax ;
+	var searchKind="default";
+	$(window).scroll(function() {
+    	if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="default"){
+			console.log("default Document end")
+			console.log(pageNum+"::::"+pageMax)
+			search_ajax_list();
+		}else if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="filter"){
+			console.log("filter Document end")
+			console.log(pageNum+"::::"+pageMax)
+			search_filter_ajax_list();		
+							
+		}
+        
+    });      
 	
 	var userLocalX;
 	var userLocalY;
@@ -27,6 +43,7 @@ $(function () {
 			userLocalY=(pos.coords.longitude);
 			$('#userLocalX').val(pos.coords.latitude);
 			$('#userLocalY').val(pos.coords.longitude);
+			get_page_num();
 			search_ajax_list();
 			});
     } else {// 지원 불가   	
@@ -47,49 +64,76 @@ $(function () {
 	    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
     }
 	}
+	function get_page_num(){
+		 $.ajax({
+	    	type : "GET",
+	    	url : "/cndsalon/getPage",
+			async : true,       	        
+	        success : function(data) {
+				pageMax=data+1;	
+				console.log(pageMax);        	
+	        },
+			error : function(data, status){
+				console.log("Error:"+data+":"+status);
+			}
+		});	
+	}
+	function get_filter_page_num(){
+		filter = $('#searchFilter').serialize();
+		$("#shops *").remove();
+		 $.ajax({
+	    	type : "GET",
+	    	url : "/cndsalon/getFilterPage",
+			async : true,       	 
+	   		contentType : "application/json",
+	    	data :  filter ,       
+	        success : function(data) {
+				pageMax=data+1;	
+				console.log(pageMax); 
+				searchKind="filter";
+				console.log(searchKind+"검색버튼 내부 search page num"+pageNum)
+				pageNum=1;
+				console.log(pageNum)
+				search_filter_ajax_list();       	
+	        },
+			error : function(data, status){
+				console.log("Error:"+data+":"+status);
+			}
+		});	
+	}
 	function search_ajax_list(){
-	
+		console.log("search_ajax_list 시작"+pageNum);
 		 $.ajax({
 	    	type : "GET",
 	    	url : "/cndsalon/getAll_ajax_list",
 	    	contentType : "application/json",
 			async : true,
-	        data : {'userLocalX' : userLocalX , 'userLocalY' : userLocalY},
+	        data : {'userLocalX' : userLocalX , 'userLocalY' : userLocalY,'pageNum' : pageNum},
 			       	        
 	        success : function(data) {
-
-	        	$.each(data,function(index,list){
-					
-					$('.testshopmain').append(
-						"<div><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=200 height=200 />"+"</div>"
-						+"<div width='700px' height='100px'>"+list.sname+"</div>"		
-						
-						
-						
-					)
 		
-	        		$('#resultlist').append("<tr><td><a href='/cndsalon/getOne?sCode="+list.scode+"' >"+list.scode+"</a></td>"
-					+"<td>"+list.sname+"</td>"
-					//+"<td>"+list.saddr+"</td>"
-					+"<td>"+list.stime+"</td>"
-					+"<td>"+list.sparking+"</td>"
-					+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 />"+"</td>"
-					+"<td>"+list.savgScore+"</td>"
-					+"<td>"+list.slocale+"</td>"		
-									
-					);
-					if(list.sparking==true){
-						$('#resultlist').append("<td>주차가능</td></tr>");
-					}else{
-						$('#resultlist').append("<td></td></tr>");
-					}
+	        	$.each(data,function(index,list){
+					$("#shops").append(
 					
+						"<div class='testshop_content' width='400px' height='100px'>"
+						+"<a href='/cndsalon/getOne?sCode="+list.scode+"' >"
+						+"<div width='200px' height='100px'><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
+						+"<div width='200px' height='100px'><p>"+list.sname+"</p><p>별점 : "+list.savgScore+"</p><p>거리 : "+list.slocale+"M</p><p>운영시간 : "+list.stime+"<p id='tttt"+index+"'></p></div></a></div>"			
+					
+					)
+					list.sparking==true ? $('#tttt'+index).append("주차가능") : $('#tttt').append("")
+					list.swifi==true ? $('#tttt'+index).append("Wifi") : $('#tttt').append("")
+					list.ssubway==true ? $('#tttt'+index).append("지하철역근처") : $('#tttt').append("")
+					list.scharge==true ? $('#tttt'+index).append("추가요금없음") : $('#tttt').append("")
+					list.spickup==true ? $('#tttt'+index).append("픽업가능") : $('#tttt').append("")
+					list.sbigdog==true ? $('#tttt'+index).append("대형견가능") : $('#tttt').append("")
 					makerX.push(list.sgpsX);
 					makerY.push(list.sgpsY);
 					makerName.push(list.sname);		
 	        	})
 
 				map_load(makerX,makerY,makerName);
+				pageNum++;
 	        },
 			error : function(data, status){
 				console.log("Error:"+data+":"+status);
@@ -98,9 +142,21 @@ $(function () {
 		});	
 	}
 	
-	$('#searchButton').click(function (){	
 	
-	filter = $('#searchFilter').serialize();
+	$('#searchButton').click(function (){
+	console.log("검색버튼 시작")	
+	get_filter_page_num();
+	//searchKind="filter";
+	//console.log(searchKind+"검색버튼::::"+pageNum)
+	//pageNum=1;
+	//search_filter_ajax_list();
+	});
+	
+	function search_filter_ajax_list(){
+	
+	filter = $('#searchFilter').serialize()+"&pageNum="+pageNum;
+	console.log(filter)
+	//filter.push({name:"pageNum",value:pageNum});
 	$.ajax({
 	   	type : "GET",
 	   	url : "/cndsalon/getAll_ajax_filter",
@@ -108,38 +164,44 @@ $(function () {
 		async : true,
 	    data :  filter ,
 	    success : function(data) {
-		$('#resultlist *').remove();
-		$('.testshopmain').remove();
+		
+		
 			search_ajax_filter();
 	       	$.each(data,function(index,list){
-	       		$('#resultlist').append("<tr><td><a href='/cndsalon/getOne?sCode="+list.scode+"' >"+list.scode+"</a></td>"
-				+"<td>"+list.sname+"</td>"
-				//+"<td>"+list.saddr+"</td>"
-				+"<td>"+list.stime+"</td>"
-				+"<td>"+list.sparking+"</td>"
-				+"<td>"+"<img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 />"+"</td>"
-				+"<td>"+list.savgScore+"</td>"
-				+"<td>"+list.slocale+"</td>"
-			
-						
-				);
-				if(list.sparking==true){
-						$('#resultlist').append("<td>주차가능</td></tr>");
-					}else{
-						$('#resultlist').append("</td></tr>");
-					}
+					$("#shops").append(
+					
+						"<div class='testshop_content' width='400px' height='100px'>"
+						+"<a href='/cndsalon/getOne?sCode="+list.scode+"' >"
+						+"<div width='200px' height='100px'><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
+						+"<div width='200px' height='100px'><p>"+list.sname+"</p><p>별점 : "+list.savgScore+"</p><p>거리 : "+list.slocale+"M</p><p>운영시간 : "+list.stime+"<p id='tttt"+index+"'></p></div></a></div>"			
+					
+					)
+					list.sparking==true ? $('#tttt'+index).append("주차가능") : $('#tttt').append("")
+					list.swifi==true ? $('#tttt'+index).append("Wifi") : $('#tttt').append("")
+					list.ssubway==true ? $('#tttt'+index).append("지하철역근처") : $('#tttt').append("")
+					list.scharge==true ? $('#tttt'+index).append("추가요금없음") : $('#tttt').append("")
+					list.spickup==true ? $('#tttt'+index).append("픽업가능") : $('#tttt').append("")
+					list.sbigdog==true ? $('#tttt'+index).append("대형견가능") : $('#tttt').append("")
+					list.pcat==true ? $('#tttt'+index).append("고양이") : $('#tttt').append("")
+					list.pshort==true ? $('#tttt'+index).append("단모") : $('#tttt').append("")
+					list.plong==true ? $('#tttt'+index).append("장모") : $('#tttt').append("")
+					list.pdog==true ? $('#tttt'+index).append("강아지") : $('#tttt').append("")
+					list.psmall==true ? $('#tttt'+index).append("소형견") : $('#tttt').append("")
+					list.pmedium==true ? $('#tttt'+index).append("중형견") : $('#tttt').append("")
+					list.plarge==true ? $('#tttt'+index).append("대형견") : $('#tttt').append("")
 					
 				makerX.push(list.sgpsX);
 				makerY.push(list.sgpsY);
 				makerName.push(list.sname);					
 	        	})
+				pageNum++
 				map_load(makerX,makerY,makerName);
 	        },
 			error : function(data, status){
 				console.log("Error:"+data+":"+status);
 			}			
 		});		
-	})
+	}
 	
 	function map_load(makerX,makerY,makerName){
 		 

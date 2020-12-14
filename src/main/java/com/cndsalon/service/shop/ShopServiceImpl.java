@@ -25,9 +25,9 @@ public class ShopServiceImpl implements ShopListService {
 	
 	@Transactional
 	@Override
-	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY){
+	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY,int pageNum){
 
-		return dao.getAll(userLocalX,userLocalY);
+		return dao.getAll(userLocalX,userLocalY,pageNum);
 	}
 	
 	@Transactional
@@ -64,6 +64,18 @@ public class ShopServiceImpl implements ShopListService {
 	public List<CndSalonShopInfoVO> searchShop
 	(CndSalonShopInfoVO ShopInfoVO) {
 		return dao.searchShop(ShopInfoVO);
+	}
+
+	@Override
+	public int getPageNum() {
+
+		return dao.getPageNum();
+	}
+
+	@Override
+	public int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO) {
+
+		return dao.getFilterPageNum(ShopInfoVO);
 	}
 	
 

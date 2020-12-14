@@ -12,7 +12,12 @@
         <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
 		<script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
-	
+    <!--jQeury&Bootstrap-->
+    <script type="text/javascript" th:src="@{'/static/js/jquery-3.3.1.min.js'}"></script>
+    <script type="text/javascript" th:src="@{'/static/js/bootstrap.bundle.min.js'}"></script>
+    <link rel="stylesheet" th:href="@{'/static/css/main/style_shop_review.css'}">
+    <link rel="stylesheet" th:href="@{'/static/css/main/bootstrap.min.css'}">
+
     </head>
 <body>
     <!--메뉴바-->
@@ -35,6 +40,7 @@
     </nav>
 
     <section id="shops">
+    <br /><br /><br /><br /><br />
     <input type="button" value="예약하기" th:onclick="'window.location.href = \'' + @{/booking} + '\''" />
 <table border='1'>
         <tr>
@@ -105,16 +111,46 @@
      <td th:text="${dinfo.dName}"></td>
   </tr>
 </table>
-<table border ="1">
-<tr>
-	<tr th:each="reviewlist : ${review}">
-    <td th:text="${reviewlist.rCode}"></td>
-     <td th:text="${reviewlist.rWriter}"></td>
-     <td th:text="${reviewlist.rTitle}"></td>
-     <td th:text="${reviewlist.rDate}"></td>
-  </tr>
-</table>
+<div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="h4 text-white bg-dark mb-0 p-3 rounded-top">리뷰 게시판</h2>
+            <table class="table table-striped table-bordered table-responsive-lg">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="number-col">번호</th>
+                  <th scope="col" class="topic-col">제목</th>
+                  <th scope="col" class="created-col">작성자</th>
+                  <th scope="col" class="created-date-col">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><h3 class="h6"><span class="badge badge-primary">Best</span> <a href="#">강아지가 솜사탕으로 변했어요!</a></h3></td>
+                  <td>심현종</td>
+                  <td>2020-12-08 13:46</td>
+                </tr>           
+                <tr th:each="reviewlist : ${review}">
+                  <td th:text="${reviewlist.rCode}"></td>
+                  <td th:text="${reviewlist.rTitle}"><h3 class="h6"><a href="#"></a></h3></td>
+                  <td th:text="${reviewlist.rWriter}"></td>
+                  <td th:text="${reviewlist.rDate}"></td>
+                </tr>             
+                </tbody>
+            </table>
+          </div>
+        </div>
+
  </section>
-        
+    <!--Footer-->
+    <footer class="small bg-dark text-white">
+      <div class="container py-4">
+        <ul class="list-inline">
+            <li class="list-inline-item">&copy; 2020 C&D Comapny, Inc</li>
+            <li class="list-inline-item">All rights reserved.</li>
+        </ul>
+      </div>  
+    </footer>
 </body>
 </html>

@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 2020-12-07
  * @param 
+ * 
+ * pageNum[int] : 현재 페이지
+ * pageMax[int] : 최대 페이지
  * userLocalX[String] : 접속 사용자 위도
  * userLocalY[String] : 접속 사용자 경도
  * sCode[String] : 매장 코드
@@ -47,6 +50,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CndSalonShopInfoVO {
+	private int pageNum;
+	private int pageMax;
 	private String userLocalX;
 	private String userLocalY;
 	private String sCode;

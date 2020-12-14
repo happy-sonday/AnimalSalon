@@ -22,9 +22,9 @@ public class CndSalonDaoImpl implements CndSalonDao {
 	
 
 	@Override
-	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY) {
+	public List<CndSalonShopInfoVO> getAll(String userLocalX,String userLocalY,int pageNum) {
 		
-		return sqlSession.getMapper(CndSalonMapper.class).getAll(userLocalX,userLocalY);
+		return sqlSession.getMapper(CndSalonMapper.class).getAll(userLocalX,userLocalY,pageNum);
 	}
 
 	@Override
@@ -57,5 +57,17 @@ public class CndSalonDaoImpl implements CndSalonDao {
 	public List<CndSalonReviewVO> getReview(String sCode) {
 		
 		return sqlSession.getMapper(CndSalonMapper.class).getReview(sCode);
+	}
+
+	@Override
+	public int getPageNum() {
+		
+		return sqlSession.getMapper(CndSalonMapper.class).getPageNum();
+	}
+
+	@Override
+	public int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(CndSalonMapper.class).getFilterPageNum(ShopInfoVO);
 	}
 }// Class END

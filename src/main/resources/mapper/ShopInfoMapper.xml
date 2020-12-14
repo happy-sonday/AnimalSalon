@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cndsalon.repository.shop.CndSalonMapper">
-
+	
+	<!-- (default)PageNum -->
+	<select id="getPageNum" resultType="int">
+		SELECT TRUNC(COUNT(*)/10) FROM SHOP_INFO_TBL
+	</select>
+	<!-- (Filter)PageNum -->
+	<select id="getFilterPageNum" resultType="int">
+		SELECT TRUNC(COUNT(*)/10) 
+        FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_CODE) AS RNUM,C.* FROM (SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO,
+        A.* ,B.S_PHOTOPATH, B.S_PHOTONAME, P.P_CAT,P.P_DOG,P.P_SHORT,P.P_LONG,P.P_SMALL,P.P_MEDIUM,P.P_LARGE 
+        FROM SHOP_INFO_TBL A INNER JOIN SHOP_PHOTO_TBL B ON A.S_CODE = B.S_CODE INNER JOIN SHOP_PRODUCT_TBL P ON A.S_CODE = P.S_CODE)C
+		WHERE NO <![CDATA[ < ]]> 2 ORDER BY S_CODE)D WHERE NO <![CDATA[ >=]]> 1
+		
+		<if test="sParking == 1" >AND S_PARKING = 1</if>
+      	<if test="sWifi == 1" >AND S_WIFI = 1</if>
+      	<if test="sSubway == 1" >AND S_SUBWAY = 1</if>
+      	<if test="sCharge == 1" >AND S_CHARGE = 1</if>
+      	<if test="sPickup == 1" >AND S_PICKUP = 1</if>
+      	<if test="sBigdog == 1" >AND S_BIGDOG = 1</if>
+      	<if test="pCat == 1" >AND P_CAT = 1</if>
+      	<if test="pDog == 1" >AND P_DOG = 1</if>
+      	<if test="pShort == 1" >AND P_SHORT = 1</if>
+      	<if test="pLong == 1" >AND P_LONG = 1</if>
+      	<if test="pSmall == 1" >AND P_SMALL = 1</if>
+      	<if test="pMedium == 1" >AND P_MEDIUM = 1</if>
+      	<if test="pLarge == 1" >AND P_LARGE = 1</if> 
+		
+	</select>
 	<!-- ShopInfoMain : 기본 조건 검색(자기 위치 기반 10개) -->
 	<select id="getAll" resultType="CndSalonShopInfoVO">
 	
@@ -13,13 +40,13 @@
 		COS((${userLocalY} - S_GPS_Y)* 3.14159265359 / 180)) * 180 / 3.14159265359) * 60 * 1.1515),3) AS S_LOCALE,
 		A.*,B.S_PHOTOPATH, B.S_PHOTONAME, B.S_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A, SHOP_PHOTO_TBL B 
 		WHERE A.S_CODE = B.S_CODE(+))C WHERE NO <![CDATA[ < ]]> 2 ORDER BY S_LOCALE)D 
-		WHERE RNUM BETWEEN (1-1)*10+1 AND 1*10 
+		WHERE RNUM BETWEEN (${pagaNum}-1)*10+1 AND ${pagaNum}*10 
 		
 	</select>
 	
-		<!-- SearchShop : 부가서비스 선택 검색 -->
+	<!-- SearchShop : 부가서비스 선택 검색 -->
 	<select id="searchShop" resultType="CndSalonShopInfoVO">
-		SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,C.* FROM 
+		SELECT E.* FROM(SELECT ROWNUM AS R_NUM,D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,C.* FROM 
 		(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
 		round((( ACOS(SIN(${userLocalX} * 3.14159265359 / 180) * SIN(S_GPS_X * 3.14159265359 / 180) +
 		COS(${userLocalX} * 3.14159265359 / 180) * COS(S_GPS_X * 3.14159265359 / 180) * COS((${userLocalY} - S_GPS_Y)
@@ -42,6 +69,7 @@
       	<if test="pMedium == 1" >AND P_MEDIUM = 1</if>
       	<if test="pLarge == 1" >AND P_LARGE = 1</if> 
 		
+		)E WHERE R_NUM BETWEEN (${pageNum}-1)*10+1 AND ${pageNum}*10
 	</select>
 	<!-- ShopDetail : sCode로 업체정보 상세검색 -->
 	<select id="getShopDetail" resultType="CndSalonShopInfoVO" >
@@ -60,6 +88,7 @@
 		INNER JOIN SHOP_DESIGNER_PHOTO_TBL B ON A.D_CODE = B.D_CODE
 		WHERE A.S_CODE = #{sCode}
 	</select>
+		<!-- ShopReviewVO : sCode로 리뷰 검색 -->
 	<select id="getReview" resultType="CndSalonReviewVO">
 		SELECT * FROM REVIEW_DETAIL_TBL WHERE S_CODE = #{sCode} ORDER BY R_DATE
 	</select>

@@ -11,7 +11,7 @@ import com.cndsalon.domain.shop.CndSalonShopProductPhotoVO;
 public interface CndSalonMapper {
 
 	List<CndSalonShopInfoVO> getAll(@Param("userLocalX") String userLocalX,
-			@Param("userLocalY") String userLocalY);
+			@Param("userLocalY") String userLocalY,@Param("pagaNum") int pageNum);
 	
 	CndSalonShopInfoVO getShopDetail(@Param("sCode") String sCode);
 
@@ -24,5 +24,7 @@ public interface CndSalonMapper {
 	List<CndSalonShopInfoVO> searchShop(
 			CndSalonShopInfoVO ShopInfoVO);
 	
+	int getPageNum();
+	int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
 
 }
