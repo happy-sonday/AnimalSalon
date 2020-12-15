@@ -1,10 +1,12 @@
 package com.cndsalon.service.book;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cndsalon.domain.book.Designer;
 import com.cndsalon.domain.book.Menu;
 import com.cndsalon.domain.book.MenuOption;
+import com.cndsalon.web.dto.book.DateTimeDTO;
 
 public interface BookingService {
 	List<Menu> getMenuList(String sCode, String mType);
@@ -15,5 +17,5 @@ public interface BookingService {
 	
 	List<Designer> getDesignerList(String sCode);
 	
-	String getTodaysDay();
+	Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate);
 }

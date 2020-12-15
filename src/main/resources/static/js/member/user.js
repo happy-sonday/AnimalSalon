@@ -446,7 +446,6 @@ var main = {
 	
 init : function () {
 var _this = this;//함수의 변수화    
-
 $('#btn-save').click(function () {
            
            _this.save();//변수 선언
@@ -457,15 +456,12 @@ $('#btn-save').click(function () {
             content: $('#content').val()
           };
     });//$('#btn-save').click(function ()END
-
  save : function () {  	
-
         var data = {
             title: $('#title').val(),
             author: $('#author').val(),
             content: $('#content').val()
         };
-
         $.ajax({
             type: 'POST',
            
@@ -484,7 +480,6 @@ $('#btn-save').click(function () {
         });
     }//save:function()END
 };//init:function()END
-
 main.init();
 	
 	
@@ -526,15 +521,9 @@ main.init();
  				}
  				
    			 });
-
-
 		$('#idConfirm').keyup(function() {
-
         	
         		var idJ = /^[a-z0-9]{5,12}$/;
-
-
-
         		if($("input:text").val()==null||$("input:text").val()==""){
         			$('#idError').html("<b style='color: red'>필수입력사항입니다:)</b>");
         
@@ -561,10 +550,8 @@ main.init();
         	} 	
 		});
    });
-
 	
 	*/
     
   
 });
-
