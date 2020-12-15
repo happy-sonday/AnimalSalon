@@ -1,15 +1,22 @@
 package com.cndsalon.web.book;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
+import com.cndsalon.web.dto.book.DateTimeDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,12 +87,27 @@ public class BookingController {
 		
 		log.info("디자이너 정보 조회");
 		model.addAttribute("designers", this.bookingService.getDesignerList(sCode));
-		model.addAttribute("todaysDay", this.bookingService.getTodaysDay());
 
 		return "/booking/bookingDetail";
 	}
 
+	@ResponseBody
+	@GetMapping("/create-work-time")
+	public ResponseEntity<Map<String, List<DateTimeDTO>>> createWorkTime(
+			@RequestParam("sTime") String sTime,
+			@RequestParam("getDate") String getDate) {
+		
+		log.info("매장영업시간 : " + sTime + " / 선택한 날짜 : " + getDate +"-> 기준으로 예약 가능 시간 생성");
 
+		Map<String, List<DateTimeDTO>> timeMap = this.bookingService.getWorkTimeList(sTime, getDate);
+		
+		return new ResponseEntity<Map<String, List<DateTimeDTO>>>(timeMap, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 	// bookingMenu.html 에서 강아지 선택시 화면 출력하는 컨트롤러
 	@GetMapping("/choice/dog")
 	public ModelAndView choiceDog() {

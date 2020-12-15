@@ -1,6 +1,7 @@
 package com.cndsalon.service.book;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +16,7 @@ import com.cndsalon.repository.book.DesignerDslRepository;
 import com.cndsalon.repository.book.MenuDslRepository;
 import com.cndsalon.repository.book.MenuRepository;
 import com.cndsalon.util.book.TimeUtil;
+import com.cndsalon.web.dto.book.DateTimeDTO;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -52,15 +54,15 @@ public class BookingServiceImpl implements BookingService {
 		return this.designerDslRepository.findDesignerBySCode(sCode);
 	}
 
-	@Override
-	public String getTodaysDay() {
-		return this.timeUtil.TodaysDay();
-	}
-
 	@Transactional
 	@Override
 	public List<MenuOption> getMenuOptionList(String sCode, String mCode, String mType) {
 		return this.bookingDao.getMenuOptionList(sCode, mCode);
+	}
+
+	@Override
+	public Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate) {
+		return this.timeUtil.createTimeList(sTime, getDate);
 	}
 
 	
