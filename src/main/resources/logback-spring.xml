@@ -3,7 +3,7 @@
 <configuration debug="true">
 <!--  에러 방지 : java.lang.NoClassDefFoundError: ch/qos/logback/classic/spi/ThrowableProxy -->
 
-    <property name="LOGS_PATH" value="K:/data/cndsalon/log" />
+    <property name="LOGS_PATH" value="C:/data/cndsalon/log" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

@@ -13,7 +13,7 @@
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
 		<script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
 		<script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
-    	<script th:src="@{'/static/js/shop/shop_search_main_ajax.js'}" charset="UTF-8"></script>
+    	<script th:src="@{'/static/js/shop/shop_search_main.js'}" charset="UTF-8"></script>
 	
     </head>
 <body>
@@ -23,12 +23,12 @@
     <nav id="navbar">
         
         <div class="navbar__logo">
-            <a href="#"></a><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
+            <a onclick='shop_home()'><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
         </div>
 
         <div class="navbar__menu">
             <ul class="navbar__menu">
-                <a style="cursor:pointer" onclick='shop_search_ajax()'>
+                <a style="cursor:pointer" onclick='shop_main_search()'>
                 <li class="navbar__menu__item">내 주변</li></a>
                 <li class="navbar__menu__item">입점 문의</li>
                 <li class="navbar__menu__item">예약</li>
@@ -55,7 +55,7 @@
 		<input id="pShort" name="pShort" type="hidden" value="0" >
 		<input id="pLong" name="pLong" type="hidden" value="0" >
 		<!-- 강아지 히든 -->
-		<input id="pDog" name="sCharge" type="hidden" value="0" >
+		<input id="pDog" name="pDog" type="hidden" value="0" >
 		<input id="pSmall" name="pSmall" type="hidden" value="0" >
 		<input id="pMedium" name="pMedium" type="hidden" value="0" >
 		<input id="pLarge" name="pLarge" type="hidden" value="0" >

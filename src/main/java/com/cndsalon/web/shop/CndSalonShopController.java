@@ -37,13 +37,12 @@ public class CndSalonShopController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/getAll_ajax_filter", method = { RequestMethod.GET },
+	@RequestMapping(value = "/shopmain_search", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(
 			CndSalonShopInfoVO ShopInfoVO
-			
 			) {
-		log.info("----- getAll_ajax_filter Start ---"+ShopInfoVO.getPageNum());
+		//log.info("----- shopmain_search Start ---"+ShopInfoVO.getPageNum());
 		List<CndSalonShopInfoVO> list = null;
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -63,7 +62,7 @@ public class CndSalonShopController {
 		
 	}
 
-	@RequestMapping(value = "/getAll_ajax")
+	@RequestMapping(value = "/shopmain")
 	public String getAll_ajax(Model model) {
 		
 		return "/shop/shop_main.html";
@@ -83,7 +82,7 @@ public class CndSalonShopController {
 	 *  
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getAll_ajax_list", method = { RequestMethod.GET },
+	@RequestMapping(value = "/shopmain_list", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(
 			@RequestParam("userLocalX") String userLocalX,
@@ -92,7 +91,7 @@ public class CndSalonShopController {
 		List<CndSalonShopInfoVO> list = null;
 		
 		
-		log.info("---------getAll_ajax_list Main Start--------------------");
+		//log.info("---------shopmain_list Start--------------------");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
 		if (!userLocalX.equals("") || !userLocalY.equals("")) {
@@ -109,7 +108,7 @@ public class CndSalonShopController {
 		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/getOne")
+	@RequestMapping(value = "/shopdetail")
 	public String getOne(@RequestParam("sCode") String sCode, Model model) {
 		log.info("--------getOne Start---------" + sCode);
 		

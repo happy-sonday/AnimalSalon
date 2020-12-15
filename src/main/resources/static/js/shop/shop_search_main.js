@@ -1,3 +1,5 @@
+
+//filter button action
 function filterClick($inSearch, inSearchVar){
 		var inSearch = $inSearch;
 		var inSearchVar = inSearchVar;
@@ -10,17 +12,22 @@ function filterClick($inSearch, inSearchVar){
 	}
 }
 
-// 접속시 위치 정보를 허용 위치 정보를 저장 한다
+//scroll 위치가 마지막을 때 비동기식 리스트 불러오기
 $(function () {
 	var pageNum = 1;
 	var pageMax ;
 	var searchKind="default";
 	$(window).scroll(function() {
-    	if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="default"){
+ 		var scrollTop = $(this).scrollTop();
+        var outerHeight = $(this).outerHeight();
+        var scrollHeight = $(this).prop('scrollHeight');
+		
+    	//if(scrollTop+outerHeight==scrollHeight && pageNum<=pageMax && searchKind=="default"){
+		if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="default"){
 			console.log("default Document end")
 			console.log(pageNum+"::::"+pageMax)
 			search_ajax_list();
-		}else if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="filter"){
+		}else if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="filter"){			
 			console.log("filter Document end")
 			console.log(pageNum+"::::"+pageMax)
 			search_filter_ajax_list();		
@@ -36,6 +43,7 @@ $(function () {
 	var makerName=[];
 	var filter ;
     // Geolocation API에 액세스할 수 있는지를 확인
+	// 접속시 위치 정보를 허용 위치 정보를 저장 한다
     if (navigator.geolocation) {
         //위치 정보를 얻기
         navigator.geolocation.getCurrentPosition (function(pos) {
@@ -50,8 +58,8 @@ $(function () {
 
 	    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
     }
-
-	function search_ajax_filter(){
+	//필터 검색 기능 사용시 내위치 정보를 얻기
+	function search_ajax_filter_location(){
     // Geolocation API에 액세스할 수 있는지를 확인
     if (navigator.geolocation) {
         //위치 정보를 얻기
@@ -64,6 +72,7 @@ $(function () {
 	    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
     }
 	}
+	// 기본 검색 MAX page 얻기
 	function get_page_num(){
 		 $.ajax({
 	    	type : "GET",
@@ -78,6 +87,7 @@ $(function () {
 			}
 		});	
 	}
+	// filter 검색 MAX page 얻기
 	function get_filter_page_num(){
 		filter = $('#searchFilter').serialize();
 		$("#shops *").remove();
@@ -101,11 +111,12 @@ $(function () {
 			}
 		});	
 	}
+	// 기본검색 기능
 	function search_ajax_list(){
 		console.log("search_ajax_list 시작"+pageNum);
 		 $.ajax({
 	    	type : "GET",
-	    	url : "/cndsalon/getAll_ajax_list",
+	    	url : "/cndsalon/shopmain_list",
 	    	contentType : "application/json",
 			async : true,
 	        data : {'userLocalX' : userLocalX , 'userLocalY' : userLocalY,'pageNum' : pageNum},
@@ -116,7 +127,7 @@ $(function () {
 					$("#shops").append(
 					
 						"<div class='testshop_content' width='400px' height='100px'>"
-						+"<a href='/cndsalon/getOne?sCode="+list.scode+"' >"
+						+"<a href='/cndsalon/shopdetail?sCode="+list.scode+"' >"
 						+"<div width='200px' height='100px'><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
 						+"<div width='200px' height='100px'><p>"+list.sname+"</p><p>별점 : "+list.savgScore+"</p><p>거리 : "+list.slocale+"M</p><p>운영시간 : "+list.stime+"<p id='tttt"+index+"'></p></div></a></div>"			
 					
@@ -146,12 +157,10 @@ $(function () {
 	$('#searchButton').click(function (){
 	console.log("검색버튼 시작")	
 	get_filter_page_num();
-	//searchKind="filter";
-	//console.log(searchKind+"검색버튼::::"+pageNum)
-	//pageNum=1;
-	//search_filter_ajax_list();
-	});
+	$('html, body').animate({scrollTop : 0},'slow');
 	
+	});
+	//필터 검색 기능
 	function search_filter_ajax_list(){
 	
 	filter = $('#searchFilter').serialize()+"&pageNum="+pageNum;
@@ -159,19 +168,18 @@ $(function () {
 	//filter.push({name:"pageNum",value:pageNum});
 	$.ajax({
 	   	type : "GET",
-	   	url : "/cndsalon/getAll_ajax_filter",
+	   	url : "/cndsalon/shopmain_search",
 	   	contentType : "application/json",
 		async : true,
 	    data :  filter ,
 	    success : function(data) {
-		
-		
-			search_ajax_filter();
+ 
+			search_ajax_filter_location();
 	       	$.each(data,function(index,list){
 					$("#shops").append(
 					
 						"<div class='testshop_content' width='400px' height='100px'>"
-						+"<a href='/cndsalon/getOne?sCode="+list.scode+"' >"
+						+"<a href='/cndsalon/shopdetail?sCode="+list.scode+"' >"
 						+"<div width='200px' height='100px'><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
 						+"<div width='200px' height='100px'><p>"+list.sname+"</p><p>별점 : "+list.savgScore+"</p><p>거리 : "+list.slocale+"M</p><p>운영시간 : "+list.stime+"<p id='tttt"+index+"'></p></div></a></div>"			
 					
