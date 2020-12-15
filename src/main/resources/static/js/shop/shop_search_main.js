@@ -1,5 +1,5 @@
 
-//filter button action
+//매장 부가옵션 button action
 function filterClick($inSearch, inSearchVar){
 		var inSearch = $inSearch;
 		var inSearchVar = inSearchVar;
@@ -12,8 +12,66 @@ function filterClick($inSearch, inSearchVar){
 	}
 }
 
+//cat button action(중분류 비활성화기능)
+function filterClick_cat_menu($inSearch, inSearchVar){
+		var inSearch = $inSearch;
+		var inSearchVar = inSearchVar;
+	if (inSearch == 1 && inSearchVar=="pCat"){
+	$("#"+inSearchVar).val('0')
+	$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});
+	$('.pShort').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pShort').val('0');
+	$('.pLong').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pLong').val('0');
+	}else if(inSearch == 0 && inSearchVar=="pCat"){
+	$("#"+inSearchVar).val('1').css('background-color','green');	
+	$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
+	$('.pShort').show();
+	$('.pLong').show();
+	$('.pDog').css({background : '#fff2d8', color : '#000000'});
+	$('#pDog').val('0');
+	$('.pSmall').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pSmall').val('0');
+	$('.pMedium').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pMedium').val('0');
+	$('.pLarge').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pLarge').val('0');
+	}
+}
+//dog button action(중분류 비활성화기능)
+function filterClick_dog_menu($inSearch, inSearchVar){
+		var inSearch = $inSearch;
+		var inSearchVar = inSearchVar;
+	if (inSearch == 1 && inSearchVar=="pDog"){
+	$("#"+inSearchVar).val('0')
+	$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});
+	$('.pSmall').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pSmall').val('0');
+	$('.pMedium').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pMedium').val('0');
+	$('.pLarge').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pLarge').val('0');
+	}else if(inSearch == 0 && inSearchVar=="pDog"){
+	$("#"+inSearchVar).val('1').css('background-color','green');	
+	$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
+	$('.pCat').css({background : '#fff2d8', color : '#000000'});
+	$('#pCat').val('0');
+	$('.pShort').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pShort').val('0');
+	$('.pLong').hide().css({background : '#fff2d8', color : '#000000'});
+	$('#pLong').val('0');
+	$('.pSmall').show();
+	$('.pMedium').show();
+	$('.pLarge').show();
+	}
+}
 //scroll 위치가 마지막을 때 비동기식 리스트 불러오기
 $(function () {
+	$('.pShort').hide();
+	$('.pLong').hide();
+	$('.pSmall').hide();
+	$('.pMedium').hide();
+	$('.pLarge').hide();
 	var pageNum = 1;
 	var pageMax ;
 	var searchKind="default";
@@ -162,7 +220,6 @@ $(function () {
 	});
 	//필터 검색 기능
 	function search_filter_ajax_list(){
-	
 	filter = $('#searchFilter').serialize()+"&pageNum="+pageNum;
 	console.log(filter)
 	//filter.push({name:"pageNum",value:pageNum});
@@ -233,6 +290,7 @@ $(function () {
 		    var marker = new kakao.maps.Marker({map: map, // 마커를 표시할 지도
 			position: positions[i].latlng // 마커의 위치
 			   });
+			
 		    // 마커에 표시할 인포윈도우를 생성합니다 
 		    var infowindow = new kakao.maps.InfoWindow({
 		        content: positions[i].content // 인포윈도우에 표시할 내용
@@ -242,10 +300,8 @@ $(function () {
 		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
 		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-			
+		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));			
 		}
-		
 		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 		function makeOverListener(map, marker, infowindow) {
 		    return function() {
@@ -258,6 +314,7 @@ $(function () {
 		        infowindow.close();
 		    };
 		}
+		
 	}
 
 });

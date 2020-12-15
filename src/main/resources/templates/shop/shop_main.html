@@ -51,14 +51,16 @@
             
    		<form class="filter__menu" id="searchFilter" method="GET">
    		<!-- 고양이 히든 -->
-   		<input id="pCat" name="pCat" type="hidden" value="0" >
+   		<input id="pCat" name="pCat" type="hidden" value="0" >   		
 		<input id="pShort" name="pShort" type="hidden" value="0" >
 		<input id="pLong" name="pLong" type="hidden" value="0" >
+		
 		<!-- 강아지 히든 -->
 		<input id="pDog" name="pDog" type="hidden" value="0" >
 		<input id="pSmall" name="pSmall" type="hidden" value="0" >
 		<input id="pMedium" name="pMedium" type="hidden" value="0" >
 		<input id="pLarge" name="pLarge" type="hidden" value="0" >
+		
 		<!-- 매장부가조건 히든 -->
 		<input id="sParking" name="sParking" type="hidden" value="0" >
 		<input id="sWifi" name="sWifi" type="hidden" value="0" >
@@ -73,20 +75,30 @@
 		</form>
 		<table border ="1">
 		<tr>
-		<td><input class="pCat" type="button" onclick='filterClick(pCat.value,"pCat")' value="고양이" ></td>
+		<td><input class="pCat" type="button"
+		 onclick='filterClick_cat_menu(pCat.value,"pCat")'
+		 value="고양이" ></td>
 		</tr>
 		<tr>
+		
 		<td><input class="pShort" type="button" onclick='filterClick(pShort.value,"pShort")' value="단모" ></td>
 		<td><input class="pLong" type="button" onclick='filterClick(pLong.value,"pLong")' value="장모" ></td>
+		
 		</tr>
 		<tr>
-		<td><input class="pDog" type="button" onclick='filterClick(pDog.value,"pDog")' value="강아지" ></td>
+		<td><input class="pDog" type="button"
+		 onclick='filterClick_dog_menu(pDog.value,"pDog")'
+		 value="강아지" ></td>
 		</tr>
+		
 		<tr>
+		
 		<td><input class="pSmall" type="button" onclick='filterClick(pSmall.value,"pSmall")' value="소형견" ></td>
 		<td><input class="pMedium" type="button" onclick='filterClick(pMedium.value,"pMedium")' value="중형견" ></td>
 		<td><input class="pLarge" type="button" onclick='filterClick(pLarge.value,"pLarge")' value="대형견" ></td>
+		
 		</tr>
+		
 		<tr>
 		<td><input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" ></td>
 		<td><input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" ></td>
