@@ -7,7 +7,7 @@ CREATE TABLE BOOKING (
     S_CODE VARCHAR2(30),    -- 매장코드
     B_DATE DATE,            -- 예약일정(년월일,요일)
     B_TIME DATE,            -- 예약일정(시간)
-    B_BEATY_TIME NUMBER,      -- 시술 소요시간
+    B_BEAUTY_TIME NUMBER,      -- 시술 소요시간
     B_PRICE NUMBER,         -- 예약 금액
     B_STATUS CHAR(1) DEFAULT '0',       -- 예약 상태 / 0: 예약진행중, 1: 시술완료, 2: 취소(환불), 3: 삭제
     B_CANCEL_REASON VARCHAR2(20), -- 예약 취소 사유

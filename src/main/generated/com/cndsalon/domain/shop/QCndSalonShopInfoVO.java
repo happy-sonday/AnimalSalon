@@ -24,6 +24,24 @@ public class QCndSalonShopInfoVO extends EntityPathBase<CndSalonShopInfoVO> {
 
     public final ListPath<com.cndsalon.domain.book.Menu, com.cndsalon.domain.book.QMenu> menus = this.<com.cndsalon.domain.book.Menu, com.cndsalon.domain.book.QMenu>createList("menus", com.cndsalon.domain.book.Menu.class, com.cndsalon.domain.book.QMenu.class, PathInits.DIRECT2);
 
+    public final NumberPath<Integer> pageMax = createNumber("pageMax", Integer.class);
+
+    public final NumberPath<Integer> pageNum = createNumber("pageNum", Integer.class);
+
+    public final BooleanPath pCat = createBoolean("pCat");
+
+    public final BooleanPath pDog = createBoolean("pDog");
+
+    public final BooleanPath pLarge = createBoolean("pLarge");
+
+    public final BooleanPath pLong = createBoolean("pLong");
+
+    public final BooleanPath pMedium = createBoolean("pMedium");
+
+    public final BooleanPath pShort = createBoolean("pShort");
+
+    public final BooleanPath pSmall = createBoolean("pSmall");
+
     public final StringPath sAddr = createString("sAddr");
 
     public final NumberPath<Double> sAvgScore = createNumber("sAvgScore", Double.class);

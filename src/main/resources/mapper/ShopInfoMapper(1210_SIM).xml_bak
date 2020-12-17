@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cndsalon.repository.shop.CndSalonMapper">
+
+	<!-- ShopInfoMain : 기본 조건 검색(자기 위치 기반 10개) -->
+	<select id="getAll" resultType="CndSalonShopInfoVO">
+	
+		SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,
+		C.* FROM(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
+		round((( ACOS(SIN(${userLocalX} * 3.14159265359 / 180) * 
+		SIN(S_GPS_X * 3.14159265359 / 180) + COS(${userLocalX} * 3.14159265359 / 180) * 
+		COS(S_GPS_X * 3.14159265359 / 180) * 
+		COS((${userLocalY} - S_GPS_Y)* 3.14159265359 / 180)) * 180 / 3.14159265359) * 60 * 1.1515),3) AS S_LOCALE,
+		A.*,B.S_PHOTOPATH, B.S_PHOTONAME, B.S_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A, SHOP_PHOTO_TBL B 
+		WHERE A.S_CODE = B.S_CODE(+))C WHERE NO <![CDATA[ < ]]> 2 ORDER BY S_LOCALE)D 
+		WHERE RNUM BETWEEN (1-1)*10+1 AND 1*10 
+		
+	</select>
+	
+		<!-- SearchShop : 부가서비스 선택 검색 -->
+	<select id="searchShop" resultType="CndSalonShopInfoVO">
+	
+		SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,C.* FROM
+		(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
+		round((( ACOS(SIN(${userLocalX} * 3.14159265359 / 180) * SIN(S_GPS_X * 3.14159265359 / 180) +
+		COS(${userLocalX} * 3.14159265359 / 180) * COS(S_GPS_X * 3.14159265359 / 180) * COS((${userLocalY} - S_GPS_Y)
+		* 3.14159265359 / 180)) * 180 / 3.14159265359) * 60 * 1.1515),3) AS S_LOCALE, A.*,B.S_PHOTOPATH, 
+		B.S_PHOTONAME, B.S_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A, SHOP_PHOTO_TBL B WHERE A.S_CODE = B.S_CODE(+))C
+		WHERE NO <![CDATA[ < ]]> 2 ORDER BY S_LOCALE)D WHERE NO <![CDATA[ >=]]> 1
+ 		
+      	<if test="sParking == 1" >AND S_PARKING = 1</if>
+      	<if test="sWifi == 1" >AND S_WIFI = 1</if>
+      	<if test="sSubway == 1" >AND S_SUBWAY = 1</if>
+      	<if test="sCharge == 1" >AND S_CHARGE = 1</if>
+      	<if test="sPickup == 1" >AND S_PICKUP = 1</if>
+      	<if test="sBigdog == 1" >AND S_BIGDOG = 1</if> 
+		
+	</select>
+	
+	<!-- ShopDetail : sCode로 업체정보 상세검색 -->
+	<select id="getOne" resultType="CndSalonShopInfoVO" >
+
+		SELECT * FROM shop_info_tbl WHERE s_code = #{sCode}
+	</select>
+</mapper>

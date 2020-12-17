@@ -7,7 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -25,16 +27,15 @@ import lombok.Setter;
 @Entity(name = "BOOKING")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Booking {
 	
 	@Id
     private String bCode;    // 예약코드
 	
     private String id;        // 아이디
-	
-    private String oCode;    // 옵션코드
-	
-    private String mCode;    // 메뉴코드
+
+	private String mCode;    // 메뉴코드
 	
     private String dCode;    // 디자이너코드
 	
@@ -46,12 +47,43 @@ public class Booking {
 	@Column(name = "B_TIME", columnDefinition = "TIME")
     private LocalTime bTime; // 예약일정(시간)
 	
-    private Integer beautyTime; // 시술 소요시간
+    private Integer bBeautyTime; // 시술 소요시간
 	
-    private Integer price;  // 예약 금액
+    private Integer bPrice;  // 예약 금액
 	
-    private char status;    // 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제 / default 0
+    private char bStatus;    // 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제 / default 0
 	
-    private String cancelReason; // 예약 취소 사유
+    private String bCancelReason; // 예약 취소 사유
+    
+    @Builder
+    public Booking(String bCode, String id, String mCode, String dCode, String sCode, LocalDate bDate,
+    		LocalTime bTime, int bBeautyTime, int bPrice, char bStatus, String bCancelReason) {
+    	this.bCode = bCode;
+    	this.id = id;
+    	this.mCode = mCode;
+    	this.dCode = dCode;
+    	this.sCode = sCode;
+    	this.bDate = bDate;
+    	this.bTime = bTime;
+    	this.bBeautyTime = bBeautyTime;
+    	this.bPrice = bPrice;
+    	this.bStatus = bStatus;
+    	this.bCancelReason = bCancelReason;
+    }
+    
+    @Override
+	public String toString() {
+		return "Booking [bCode=" + bCode + ", id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode
+				+ ", bDate=" + bDate + ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice
+				+ ", bStatus=" + bStatus + ", bCancelReason=" + bCancelReason + "]";
+	}
+
+	public void setBDate(String bDate) {
+		this.bDate = LocalDate.parse(bDate);
+	}
+
+	public void setBTime(String bTime) {
+		this.bTime = LocalTime.parse(bTime);
+	}
     
 }

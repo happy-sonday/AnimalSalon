@@ -8,12 +8,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cndsalon.domain.book.Booking;
 import com.cndsalon.domain.book.Designer;
 import com.cndsalon.domain.book.Menu;
 import com.cndsalon.domain.book.MenuOption;
 import com.cndsalon.repository.book.BookingDao;
-import com.cndsalon.repository.book.DesignerDslRepository;
-import com.cndsalon.repository.book.MenuDslRepository;
+import com.cndsalon.repository.book.BookingDslRepository;
+import com.cndsalon.repository.book.BookingRepository;
 import com.cndsalon.repository.book.MenuRepository;
 import com.cndsalon.util.book.TimeUtil;
 import com.cndsalon.web.dto.book.DateTimeDTO;
@@ -25,10 +26,10 @@ public class BookingServiceImpl implements BookingService {
 	private MenuRepository menuRepository;
 	
 	@Autowired
-	private MenuDslRepository menuDslRepository;
+	private BookingRepository bookingRepository;
 	
 	@Autowired
-	private DesignerDslRepository designerDslRepository;
+	private BookingDslRepository bookingDslRepository;
 	
 	@Autowired
 	private BookingDao bookingDao;
@@ -39,7 +40,7 @@ public class BookingServiceImpl implements BookingService {
 	@Transactional
 	@Override
 	public List<Menu> getMenuList(String sCode, String mType) {
-		return this.menuDslRepository.findBySCode(sCode, mType);
+		return this.bookingDslRepository.findBySCode(sCode, mType);
 	}
 
 	@Transactional
@@ -51,19 +52,36 @@ public class BookingServiceImpl implements BookingService {
 	@Transactional
 	@Override
 	public List<Designer> getDesignerList(String sCode) {
-		return this.designerDslRepository.findDesignerBySCode(sCode);
+		return this.bookingDslRepository.findDesignerBySCode(sCode);
 	}
 
-	@Transactional
+	@Transactional()
 	@Override
 	public List<MenuOption> getMenuOptionList(String sCode, String mCode, String mType) {
 		return this.bookingDao.getMenuOptionList(sCode, mCode);
 	}
 
 	@Override
-	public Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate) {
+	public Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate, String sCode, String dCode) {
+		List<Booking> designerWorkTimeList = this.bookingDslRepository.findBTime(getDate, sCode, dCode);
+		if(designerWorkTimeList != null) {
+			System.out.println("BookingServiceImpl에서 테스트 : " + designerWorkTimeList.get(0).toString());
+		}
 		return this.timeUtil.createTimeList(sTime, getDate);
 	}
+
+	@Override
+	public void insertBooking(Booking booking) {
+		this.bookingRepository.save(booking);
+		
+	}
+
+//	@Transactional
+//	@Override
+//	public void insertBooking(String bCode, String id, String mCode, String dCode, String sCode, String bDate,
+//			String bTime, int bBeautyTime, int bPrice) {
+//		this.bookingDslRepository.saveBooking(bCode, id, mCode, dCode, sCode, bDate, bTime, bBeautyTime, bPrice);
+//	}
 
 	
 
