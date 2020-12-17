@@ -46,9 +46,7 @@ public class TimeUtil {
 		List<DateTimeDTO> notWorkTimeList = null;
 		if(nowDate.equals(compareDate) && nowTime.isAfter(startTime)) {
 			notWorkTimeList = this.createNotWorkTime(startTime, nowTime, closeTime);
-			System.out.println("현재시간 초과 시간 목록 : " + notWorkTimeList.toString());
 		}
-		System.out.println("선택가능 시간 목록 : " + workTimeList.toString());
 		
 		Map<String, List<DateTimeDTO>> timeMap = new HashMap<>();
 		timeMap.put("workTime", workTimeList);

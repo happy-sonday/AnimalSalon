@@ -2,37 +2,29 @@ package com.cndsalon.repository.shop;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import com.cndsalon.domain.shop.CndSalonReviewVO;
+import com.cndsalon.domain.shop.CndSalonShopDesignerVO;
 import com.cndsalon.domain.shop.CndSalonShopInfoVO;
+import com.cndsalon.domain.shop.CndSalonShopProductPhotoVO;
 
 public interface CndSalonMapper {
 
-	//@Select("SELECT * FROM shop_info_tbl ORDER BY s_code")
-	
-	
-	
 	List<CndSalonShopInfoVO> getAll(@Param("userLocalX") String userLocalX,
-			@Param("userLocalY") String userLocalY);
+			@Param("userLocalY") String userLocalY,@Param("pagaNum") int pageNum);
 	
+	CndSalonShopInfoVO getShopDetail(@Param("sCode") String sCode);
+
+	List<CndSalonShopProductPhotoVO> getShopProductPhoto(@Param("sCode") String sCode);
 	
+	List<CndSalonShopDesignerVO> getShopDesignerInfo(@Param("sCode") String sCode);
 	
-	CndSalonShopInfoVO getOne(@Param("sCode") String sCode);
-
-
-
+	List<CndSalonReviewVO> getReview(@Param("sCode") String sCode);
+	
 	List<CndSalonShopInfoVO> searchShop(
-			@Param("sParking") String sParking,
-			@Param("sWifi") String sWifi,
-			@Param("sSubway") String sSubway,
-			@Param("sCharge") String sCharge,
-			@Param("sPickup") String sPickup,
-			@Param("sBigdog") String sBigdog,
-			@Param("userLocalX") String userLocalX,
-			@Param("userLocalY") String userLocalY);
+			CndSalonShopInfoVO ShopInfoVO);
 	
+	int getPageNum();
+	int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
 
 }

@@ -58,6 +58,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @IdClass(ShopInfoId.class)
 public class CndSalonShopInfoVO {
+	private int pageNum;
+	private int pageMax;
 	private String userLocalX;
 	private String userLocalY;
 	@Id
@@ -82,6 +84,13 @@ public class CndSalonShopInfoVO {
 	private String sPhotopath;
 	private String sPhotoname;
 	private String sPhotonameOrigin;
+	private boolean pCat;
+	private boolean pDog;
+	private boolean pShort;
+	private boolean pLong;
+	private boolean pSmall;
+	private boolean pMedium;
+	private boolean pLarge;
 	
 	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Menu.class)
 	private List<Menu> menus = new ArrayList<>();

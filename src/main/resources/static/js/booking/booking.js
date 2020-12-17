@@ -5,13 +5,6 @@
 
 /** DatePicker Setting */
 $(document).ready(function() {
-	var date = new Date();
-	var year = date.getFullYear();
-	var month = date.getMonth() + 1; // 1~12가 아니라 0~11로 반환되므로 +1
-	var day = date.getDate();
-	var hours = date.getHours();
-	var minutes = date.getMinutes();
-	var today = year + "-" + month + "-" + day;
 
 	$.datepicker.setDefaults({
 		dateFormat: 'yy-mm-dd',
@@ -92,6 +85,7 @@ var change_sum_price = function(selected_option) {
 	var d_day_off = new Array(d_length);
 	var regular_holiday_tag = "<p>정기휴무</p>";
 	var sTime = $('#sTime').val();
+	var sCode = $('#sCode').val();
 	
 	for(var i=0; i<d_length; i++){
 		d_day_off[i] = $('input[name=dDayOff]')[i].value.trim();
@@ -103,13 +97,17 @@ var change_sum_price = function(selected_option) {
 		} else { 						   // 예약시간
 			$('#designer_work_time'+i).empty();
 			
+			var dCode = $('#dCode'+i).val();
+			
 			$.ajax({
 			
 				contentType : 'application/json; charset=UTF-8',
 				type : 'GET',
 				url : '/cndsalon/booking/create-work-time',
 				data : {'sTime':sTime,
-						'getDate':getDate},
+						'getDate':getDate,
+						'sCode': sCode,
+						'dCode': dCode},
 				async : false,
 				success : function(timeMap) {
 					var w_list = timeMap.workTime;

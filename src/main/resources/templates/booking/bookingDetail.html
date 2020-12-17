@@ -43,8 +43,10 @@
 
 		<!-- 디자이너 및 시간 선택 -->
 		<div style="float: left;">
-		<input type="hidden" th:value="${shop.sTime}" name="sTime" id="sTime">
+		<input type="hidden" th:value="${shop.sCode}" id="sCode">
+		<input type="hidden" th:value="${shop.sTime}" id="sTime">
 			<th:block th:each="dList, i: ${designers}">
+				<input type="hidden" th:value="${dList.dCode}" th:id="dCode + ${i.index}">
 				<img width="75px" height="75px" name="디자이너사진" />
 				<span th:text="${dList.dName}" id="dName"></span>  &nbsp;&nbsp;&nbsp; 
 				<span th:text="${dList.dInfo}"></span>  &nbsp;&nbsp;&nbsp; <br />
