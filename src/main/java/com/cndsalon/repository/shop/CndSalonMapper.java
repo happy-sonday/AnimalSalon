@@ -26,5 +26,7 @@ public interface CndSalonMapper {
 	
 	int getPageNum();
 	int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
+	
+	List<CndSalonReviewVO> getReviewPhoto(@Param("rCode") String rCode);
 
 }

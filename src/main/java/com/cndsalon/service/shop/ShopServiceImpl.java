@@ -77,6 +77,12 @@ public class ShopServiceImpl implements ShopListService {
 
 		return dao.getFilterPageNum(ShopInfoVO);
 	}
+
+	@Override
+	public List<CndSalonReviewVO> getReviewPhoto(String rCode) {
+		
+		return dao.getReviewPhoto(rCode);
+	}
 	
 
 	

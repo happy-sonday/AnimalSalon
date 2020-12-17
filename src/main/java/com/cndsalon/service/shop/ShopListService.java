@@ -25,4 +25,6 @@ public interface ShopListService {
 	public int getPageNum();
 	
 	public int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
+	
+	public List<CndSalonReviewVO> getReviewPhoto(String rCode);
 }

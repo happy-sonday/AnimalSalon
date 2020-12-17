@@ -7,6 +7,6 @@ function shop_main_search(){
 // 아이콘 클릭시 home으로 이동
 function shop_home(){
 	var url = "/cndsalon/";
-	
+		console.log("홈으로이동")	
 		location.href= url;			
 }

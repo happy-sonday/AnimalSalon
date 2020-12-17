@@ -92,4 +92,8 @@
 	<select id="getReview" resultType="CndSalonReviewVO">
 		SELECT * FROM REVIEW_DETAIL_TBL WHERE S_CODE = #{sCode} ORDER BY R_DATE
 	</select>
+	<!-- ShopReviewPhoto : rCode로 리뷰 이미지 검색 -->
+		<select id="getReviewPhoto" resultType="CndSalonReviewVO">
+		SELECT * FROM REVIEW_PHOTO_TBL WHERE R_CODE = #{rCode}
+	</select>
 </mapper>

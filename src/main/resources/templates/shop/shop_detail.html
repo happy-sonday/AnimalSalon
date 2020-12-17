@@ -12,24 +12,27 @@
         <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
 		<script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
-    <!--jQeury&Bootstrap-->
-    <script type="text/javascript" th:src="@{'/static/js/jquery-3.3.1.min.js'}"></script>
-    <script type="text/javascript" th:src="@{'/static/js/bootstrap.bundle.min.js'}"></script>
-    <link rel="stylesheet" th:href="@{'/static/css/main/style_shop_review.css'}">
-    <link rel="stylesheet" th:href="@{'/static/css/main/bootstrap.min.css'}">
+    	<!--jQeury&Bootstrap-->
+    	<script type="text/javascript" th:src="@{'/static/js/jquery-3.3.1.min.js'}"></script>
+    	<script type="text/javascript" th:src="@{'/static/js/bootstrap.bundle.min.js'}"></script>
+    	<link rel="stylesheet" th:href="@{'/static/css/main/style_shop_review.css'}">
+    	<link rel="stylesheet" th:href="@{'/static/css/main/bootstrap.min.css'}">
+    	<script th:src="@{'/static/js/shop/shop_detail.js'}" charset="UTF-8"></script>
+    	<script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
 
     </head>
 <body>
     <!--메뉴바-->
     <nav id="navbar">
-        
-        <div class="navbar__logo">
-            <a href="#"></a><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
-        </div>
+
+		 <div class="navbar__logo">
+            <a onclick='shop_home()'><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
+        </div>        
+
 
         <div class="navbar__menu">
             <ul class="navbar__menu">
-                <a style="cursor:pointer" onclick='shop_search_ajax()'>
+                <a style="cursor:pointer" onclick='shop_main_search()'>
                 <li class="navbar__menu__item">내 주변</li></a>
                 <li class="navbar__menu__item">입점 문의</li>
                 <li class="navbar__menu__item">예약</li>
@@ -130,13 +133,22 @@
                   <td><h3 class="h6"><span class="badge badge-primary">Best</span> <a href="#">강아지가 솜사탕으로 변했어요!</a></h3></td>
                   <td>심현종</td>
                   <td>2020-12-08 13:46</td>
-                </tr>           
-                <tr th:each="reviewlist : ${review}">
+                </tr>
+                <div th:each="reviewlist : ${review}">            
+                <tr>
                   <td th:text="${reviewlist.rCode}"></td>
-                  <td th:text="${reviewlist.rTitle}"><h3 class="h6"><a href="#"></a></h3></td>
+                  
+                  <td ><h3 class="h6"><a style="cursor:pointer" th:onclick="review_detail([[${reviewlist.rCode}]]);" th:text="${reviewlist.rTitle}"></a></h3></td>
                   <td th:text="${reviewlist.rWriter}"></td>
                   <td th:text="${reviewlist.rDate}"></td>
-                </tr>             
+                </tr>
+                <tr style="display:none;" id="testreview_image">
+                </tr>
+                <tr style="display:none;" id="testreview_content">
+                <td th:text="${reviewlist.rContent}" colspan="4"></td>
+                </tr>
+                
+                </div>
                 </tbody>
             </table>
           </div>

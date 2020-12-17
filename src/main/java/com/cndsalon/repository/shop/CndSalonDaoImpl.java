@@ -67,7 +67,13 @@ public class CndSalonDaoImpl implements CndSalonDao {
 
 	@Override
 	public int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.getMapper(CndSalonMapper.class).getFilterPageNum(ShopInfoVO);
+	}
+
+	@Override
+	public List<CndSalonReviewVO> getReviewPhoto(String rCode) {
+		
+		return sqlSession.getMapper(CndSalonMapper.class).getReviewPhoto(rCode);
 	}
 }// Class END

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cndsalon.domain.shop.CndSalonReviewVO;
 import com.cndsalon.domain.shop.CndSalonShopInfoVO;
 import com.cndsalon.service.shop.ShopListService;
 
@@ -36,6 +37,7 @@ public class CndSalonShopController {
 		return "index";
 	}
 
+	// Filter 검색
 	@ResponseBody
 	@RequestMapping(value = "/shopmain_search", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
@@ -62,6 +64,7 @@ public class CndSalonShopController {
 		
 	}
 
+	// 내주변 root path
 	@RequestMapping(value = "/shopmain")
 	public String getAll_ajax(Model model) {
 		
@@ -81,6 +84,8 @@ public class CndSalonShopController {
 	 * @return 
 	 *  
 	 */
+	
+	// 내주변 기본검색
 	@ResponseBody
 	@RequestMapping(value = "/shopmain_list", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
@@ -108,6 +113,7 @@ public class CndSalonShopController {
 		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
 	}
 
+	// 매장 상세정보
 	@RequestMapping(value = "/shopdetail")
 	public String getOne(@RequestParam("sCode") String sCode, Model model) {
 		log.info("--------getOne Start---------" + sCode);
@@ -140,12 +146,20 @@ public class CndSalonShopController {
 		return new ResponseEntity(maxPage,HttpStatus.OK);
 	}
 	
-	//리뷰글 상세 TEST
-	@RequestMapping("/getReviewList")
-	public String getReviewList() {
-		return "/shop/shop_review.html";
+	//리뷰글의 이미지를 불러오기
+	@RequestMapping(value = "/getReviewDetail", method = { RequestMethod.GET },
+			produces="application/json; charset=UTF-8")
+	public ResponseEntity<List<CndSalonReviewVO>> getReviewDetail(
+			@RequestParam("rCode") String rCode
+			) {
+		log.info("review Detail Start ------");
+		List<CndSalonReviewVO> list = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		list=service.getReviewPhoto(rCode);
+		return new ResponseEntity<List<CndSalonReviewVO>>(list,HttpStatus.OK);
 	}
-	// 중복방지 TEST
+	// 중복방지 TEST(IP기반)
 	@RequestMapping("/getLocation")
 	public String getAll() {
 		log.info("---------getLocation Start--------------------");
