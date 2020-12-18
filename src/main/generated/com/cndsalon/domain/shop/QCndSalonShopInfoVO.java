@@ -20,8 +20,6 @@ public class QCndSalonShopInfoVO extends EntityPathBase<CndSalonShopInfoVO> {
 
     public static final QCndSalonShopInfoVO cndSalonShopInfoVO = new QCndSalonShopInfoVO("cndSalonShopInfoVO");
 
-    public final ListPath<com.cndsalon.domain.book.Designer, com.cndsalon.domain.book.QDesigner> designers = this.<com.cndsalon.domain.book.Designer, com.cndsalon.domain.book.QDesigner>createList("designers", com.cndsalon.domain.book.Designer.class, com.cndsalon.domain.book.QDesigner.class, PathInits.DIRECT2);
-
     public final ListPath<com.cndsalon.domain.book.Menu, com.cndsalon.domain.book.QMenu> menus = this.<com.cndsalon.domain.book.Menu, com.cndsalon.domain.book.QMenu>createList("menus", com.cndsalon.domain.book.Menu.class, com.cndsalon.domain.book.QMenu.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> pageMax = createNumber("pageMax", Integer.class);

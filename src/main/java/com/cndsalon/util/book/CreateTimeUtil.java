@@ -1,6 +1,5 @@
 package com.cndsalon.util.book;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.cndsalon.domain.book.Booking;
 import com.cndsalon.web.dto.book.DateTimeDTO;
 
 /**
@@ -22,9 +22,9 @@ import com.cndsalon.web.dto.book.DateTimeDTO;
  * @since 1.0
  */
 @Component
-public class TimeUtil {
+public class CreateTimeUtil {
 	
-	public Map<String, List<DateTimeDTO>> createTimeList(String sTime, String getDate) {
+	public Map<String, List<DateTimeDTO>> createTimeList(String sTime, LocalDate compareDate, List<Booking> designerWorkTimeList) {
 		// 매장 운영시간 오픈, 마감 분리
 		String startTimeStr = sTime.substring(0, sTime.indexOf("~"));
 		String closeTimeStr = sTime.substring(sTime.indexOf("~")+1);
@@ -35,22 +35,23 @@ public class TimeUtil {
 		
 		// 오늘 날짜 및 시간(+1분) 생성
 		LocalDate nowDate = LocalDate.now();
-		LocalTime nowTime = LocalTime.now().plusSeconds(1);
-		
-		// 선택한 날짜 값 핸들링
-		getDate = getDate.substring(0, getDate.indexOf("("));
-		LocalDate compareDate = LocalDate.parse(getDate);
-		
+		LocalTime nowTime = LocalTime.now().plusSeconds(1);	
 		
 		List<DateTimeDTO> workTimeList = this.createWorkTime(startTime, closeTime);
 		List<DateTimeDTO> notWorkTimeList = null;
+		List<DateTimeDTO> degWorkTimeList = null;
 		if(nowDate.equals(compareDate) && nowTime.isAfter(startTime)) {
 			notWorkTimeList = this.createNotWorkTime(startTime, nowTime, closeTime);
+		}
+		
+		if(designerWorkTimeList.size() != 0 && !nowDate.equals(compareDate) && nowTime.isAfter(closeTime)) {
+				degWorkTimeList = this.createDesignerWorkTimeList(designerWorkTimeList);
 		}
 		
 		Map<String, List<DateTimeDTO>> timeMap = new HashMap<>();
 		timeMap.put("workTime", workTimeList);
 		timeMap.put("notWorkTime", notWorkTimeList);
+		timeMap.put("degWorkTime", degWorkTimeList);
 		
 		return timeMap;
 	}
@@ -104,6 +105,46 @@ public class TimeUtil {
 			time = null;
 			if(startTime.isAfter(closeTime))
 				break;
+		}
+		return timeList;
+	}
+	
+	/**
+	  *
+	  * <pre>
+	  * 개요: 해당 샵의 디자이너의 예약내역을 조회하여 소요시간까지 시간 목록 생성
+	  * </pre>
+	  * @method createDesignerWorkTimeList
+	  * @param designerWorkTimeList[List<Booking>] 예약시간과 소요시간을 가지고 있는 booking List
+	  * @return 디자이너 작업시간인 예약불가 시간 목록 반환 [TimeUtil]
+	  *
+	 */
+	public List<DateTimeDTO> createDesignerWorkTimeList(List<Booking> designerWorkTimeList){
+		List<DateTimeDTO> timeList = new ArrayList<>();
+		DateTimeDTO time = null;
+		
+		for(int i=0; i< designerWorkTimeList.size(); i++) {
+			LocalTime dTime = designerWorkTimeList.get(i).getBTime(); // 예약시간
+			int beautyTime = designerWorkTimeList.get(i).getBBeautyTime(); // 소요시간
+			
+			System.out.println("테스트 1 : createDesignerWorkTImeLIst 개수만큼 반복 시작");
+			System.out.println("테스트 1 : 기존 beautyTime : " + beautyTime); // 11
+			System.out.println("테스트 1 : 기존 dTime : " + dTime); // 
+			
+			if(beautyTime==0) {
+				time = new DateTimeDTO();
+				time.setDesignerWorkTime(dTime);
+				timeList.add(time);
+			} else {
+				int tempTime = 0;
+				while(tempTime < beautyTime + 1) {
+					time = new DateTimeDTO();
+					time.setDesignerWorkTime(dTime.plusMinutes(tempTime));
+					timeList.add(time);
+					tempTime = tempTime+30;
+					time = null;
+				}			
+			}
 		}
 		return timeList;
 	}

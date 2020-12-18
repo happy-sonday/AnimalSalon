@@ -23,13 +23,13 @@ public class QBooking extends EntityPathBase<Booking> {
 
     public final StringPath bCancelReason = createString("bCancelReason");
 
-    public final StringPath bCode = createString("bCode");
+    public final NumberPath<Long> bCode = createNumber("bCode", Long.class);
 
     public final DatePath<java.time.LocalDate> bDate = createDate("bDate", java.time.LocalDate.class);
 
     public final NumberPath<Integer> bPrice = createNumber("bPrice", Integer.class);
 
-    public final ComparablePath<Character> bStatus = createComparable("bStatus", Character.class);
+    public final StringPath bStatus = createString("bStatus");
 
     public final TimePath<java.time.LocalTime> bTime = createTime("bTime", java.time.LocalTime.class);
 

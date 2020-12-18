@@ -79,7 +79,7 @@ var change_sum_price = function(selected_option) {
 	}
 	if(selected_day == null) {
 		selected_day = getDate.substring(11, 12);
-	} 
+	}
 	
 	var d_length = $('input[name=dDayOff]').length;
 	var d_day_off = new Array(d_length);
@@ -91,11 +91,11 @@ var change_sum_price = function(selected_option) {
 		d_day_off[i] = $('input[name=dDayOff]')[i].value.trim();
 		
 		if(selected_day == d_day_off[i]) { // 정기휴무
-			$('#designer_work_time'+i).empty();
-			$('#designer_work_time'+i).append(regular_holiday_tag);
+			$('#bookable_time'+i).empty();
+			$('#bookable_time'+i).append(regular_holiday_tag);
 			
 		} else { 						   // 예약시간
-			$('#designer_work_time'+i).empty();
+			$('#bookable_time'+i).empty();
 			
 			var dCode = $('#dCode'+i).val();
 			
@@ -112,18 +112,30 @@ var change_sum_price = function(selected_option) {
 				success : function(timeMap) {
 					var w_list = timeMap.workTime;
 					var n_list = timeMap.notWorkTime;
+					var d_list = timeMap.degWorkTime;
 					
 					$.each(w_list, function(index, wlist){
-						$('#designer_work_time'+i).append(
+						$('#bookable_time'+i).append(
 							"<label><input type='radio' value='" + wlist.workTime + "' name='time_radio' />"
 							+ wlist.workTime + "</label>");
-						if(n_list != null){
-							$.each(n_list, function(index, nlist){
-								$("input[value='"+ nlist.notWorkTime + "']").attr('disabled', true);
-							})	
-						}
+
+					})		
+					if(n_list != null){
+						$.each(n_list, function(index, nlist){
+							$("input[value='"+ nlist.notWorkTime + "']").attr('disabled', true);
+						})	
+					}
+					if(d_list != null){
+						console.log("1. if d_list != null 진입")
+						for(var v=0; v<d_list.length; v++){
+							console.log("2. for문 진입 및 d_list의 사이즈 : " + d_list.length)
+							$('#bookable_time'+i).
+							find("input[value='" + d_list[v].designerWorkTime +"']")
+							.attr('disabled', true);
 						
-					})
+						console.log(d_list[v].designerWorkTime)
+						}
+					}
 				},
 				error: function(jqXHR, textStatu) {
 					alert("failed to communicate : " + textStatu);

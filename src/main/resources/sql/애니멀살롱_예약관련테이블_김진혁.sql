@@ -1,6 +1,6 @@
 ------ 예약내역테이블
 CREATE TABLE BOOKING (
-    B_CODE VARCHAR2(30),    -- 예약코드
+    B_CODE NUMBER,    -- 예약코드
     ID VARCHAR2(50),        -- 아이디
     M_CODE VARCHAR2(30),    -- 메뉴코드
     D_CODE VARCHAR2(30),    -- 디자이너코드
@@ -13,6 +13,15 @@ CREATE TABLE BOOKING (
     B_CANCEL_REASON VARCHAR2(20), -- 예약 취소 사유
     PRIMARY KEY (B_CODE)
     );
+    
+    -- 예약내역 시퀸스
+    CREATE SEQUENCE BOOKING_SEQ
+	START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 99999
+    NOCYCLE; 
+    commit;
+
     
 ------ 메뉴테이블
 CREATE TABLE SHOP_MENU (
