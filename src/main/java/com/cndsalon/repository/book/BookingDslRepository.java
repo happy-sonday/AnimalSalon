@@ -2,6 +2,7 @@ package com.cndsalon.repository.book;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.hibernate.type.TrueFalseType;
@@ -10,13 +11,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.cndsalon.domain.book.Booking;
-import com.cndsalon.domain.book.Designer;
 import com.cndsalon.domain.book.Menu;
 import com.cndsalon.domain.book.QBooking;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import static com.cndsalon.domain.book.QDesigner.designer;
 import static com.cndsalon.domain.book.QMenu.*;
 import static com.cndsalon.domain.shop.QCndSalonShopInfoVO.*;
 import static com.cndsalon.domain.book.QBooking.*;
@@ -36,15 +35,6 @@ public class BookingDslRepository {
 				.fetch();
 	}
 	
-	public List<Designer> findDesignerBySCode(String sCode){
-		return queryFactory.select(designer)
-				.from(designer)
-				.join(designer.shopInfo, cndSalonShopInfoVO)
-				.where(cndSalonShopInfoVO.sCode.eq(sCode))
-				.orderBy(designer.dCode.asc())
-				.fetch();
-	}
-	
 	// getDate 비교 잘 되는지 확인!
 	// 날짜(연,월,일)/ 샵코드/ 디자이너코드로 예약내역(시간) 및 소요시간 조회 
 	public List<Booking> findBTime(String getDate, String sCode, String dCode){
@@ -52,7 +42,7 @@ public class BookingDslRepository {
 		
 		// 선택한 날짜 String -> Date 핸들링
 		getDate = getDate.substring(0, getDate.indexOf("("));
-		LocalDate compareDate = LocalDate.parse(getDate);
+		LocalDate compareDate = LocalDate.parse(getDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
 		return queryFactory.select(Projections.bean(Booking.class, b.bTime, b.bBeautyTime))
 					.from(b)

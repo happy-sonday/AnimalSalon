@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.cndsalon.domain.book.Designer;
 import com.cndsalon.domain.book.Menu;
 import com.cndsalon.domain.book.MenuOption;
 
@@ -95,7 +94,4 @@ public class CndSalonShopInfoVO {
 	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Menu.class)
 	private List<Menu> menus = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "shopInfo", targetEntity = com.cndsalon.domain.book.Designer.class)
-	private List<Designer> designers = new ArrayList<>();
-
 }// Class END

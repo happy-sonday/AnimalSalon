@@ -23,4 +23,8 @@ public class DateTimeDTO {
 	@JsonDeserialize(using = LocalTimeDeserializer.class)
 	@JsonFormat(pattern = "HH:mm")
 	private LocalTime notWorkTime;
+	
+	@JsonDeserialize(using = LocalTimeDeserializer.class)
+	@JsonFormat(pattern = "HH:mm")
+	private LocalTime designerWorkTime;
 }

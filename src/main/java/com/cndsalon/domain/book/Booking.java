@@ -2,10 +2,19 @@ package com.cndsalon.domain.book;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -28,10 +37,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@SequenceGenerator(name = "BOOKING_SEQ_GENERATOR", sequenceName = "BOOKING_SEQ", initialValue = 1, allocationSize = 1)
 public class Booking {
 	
 	@Id
-    private String bCode;    // 예약코드
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOKING_SEQ_GENERATOR")
+    private Long bCode;    // 예약코드
 	
     private String id;        // 아이디
 
@@ -51,13 +62,13 @@ public class Booking {
 	
     private Integer bPrice;  // 예약 금액
 	
-    private char bStatus;    // 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제 / default 0
+    private String bStatus;    // 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제 / default 0
 	
     private String bCancelReason; // 예약 취소 사유
     
     @Builder
-    public Booking(String bCode, String id, String mCode, String dCode, String sCode, LocalDate bDate,
-    		LocalTime bTime, int bBeautyTime, int bPrice, char bStatus, String bCancelReason) {
+    public Booking(Long bCode, String id, String mCode, String dCode, String sCode, LocalDate bDate,
+    		LocalTime bTime, int bBeautyTime, int bPrice, String bStatus, String bCancelReason) {
     	this.bCode = bCode;
     	this.id = id;
     	this.mCode = mCode;
@@ -79,11 +90,18 @@ public class Booking {
 	}
 
 	public void setBDate(String bDate) {
-		this.bDate = LocalDate.parse(bDate);
+		this.bDate = LocalDate.parse(bDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 
 	public void setBTime(String bTime) {
-		this.bTime = LocalTime.parse(bTime);
+		this.bTime = LocalTime.parse(bTime, DateTimeFormatter.ofPattern("HH:mm"));
+	}
+	
+	@PrePersist
+	public void defaultStatus() {
+		if(bStatus== null) {
+			this.bStatus = "0";
+		}
 	}
     
 }
