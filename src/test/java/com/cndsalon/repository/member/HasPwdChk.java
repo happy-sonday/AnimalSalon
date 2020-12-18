@@ -30,7 +30,7 @@ public class HasPwdChk {
 		
 		member.setAddress("address");
 		member.setId("happysonday06");
-		member.setPwd("sonday123");
+		member.setPassword("sonday123");
 		member.setName("손우섭");
 		member.setEmail("kakaoman123@gmail.com");
 		member.setPhone("01082827942");

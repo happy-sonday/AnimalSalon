@@ -30,13 +30,14 @@ public class MemberController {
 	@Autowired
 	CertificationService chkService;
 		
-	@GetMapping("/member/login")
+	//로그인페이지 요청
+	@RequestMapping("/member/login")
 	 public String checkId() {
 		
 		return "/member/login";
 	}
 	
-	//약관
+	//약관 페이지 요청
 	@GetMapping("/member/terms")
 	public String terms() {
 	
@@ -49,7 +50,7 @@ public class MemberController {
 		return "/member/findIdPwd";
 	}
 	
-	//회원가입 양식폼
+	//회원가입 양식폼 요청
 	@GetMapping("/member/signup")
 	public String signUp(Model model) {
 		
@@ -68,6 +69,7 @@ public class MemberController {
 		return "/member/findInfoForm";
 	}
 	
+	//회원가입 입력 결과 요청
 	@GetMapping("/member/welcome")
 	public String welcome() {
 		
@@ -88,22 +90,6 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
-	/*
-	//글 저장
-	@GetMapping("/posts/save")
-    public String postsSave() {
-        return "posts-save";
-    }
-
-	//글 업데이트
-    @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model) {
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post", dto);
-
-        return "posts-update";
-    }
-    */
 
 	
 	@RequestMapping("/member/demo")
@@ -113,15 +99,26 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("/member/login_chk")
-	public String loginChk(@RequestParam String id, @RequestParam String pwd) {
+	//로그인 처리 결과url 성공시 메인페이지 틀리면 redirect
+	@RequestMapping("/member/login/result")
+	public String loginChk() {
+
+	return "/";
+	}
+	
+	//admin 메인 페이지 호출
+	@GetMapping("/member/admin")
+	public String disAdminMain() {
 		
-		String landingPage="";
+		return "/member/adminMian";
+	}
+	
+	
+	//권한이 없는 사용자가 권한 요청시 폼 출력
+	@GetMapping("/member/denied")
+	public String disDenied() {
 		
-		
-		chkService.loginChk(id, pwd);
-		
-		return landingPage;
+		return "/member/denied";
 	}
 	
 }

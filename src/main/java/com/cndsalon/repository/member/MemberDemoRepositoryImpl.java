@@ -24,8 +24,8 @@ public class MemberDemoRepositoryImpl implements MemberDemoRepository{
 		
 		
 		//db 저장전 사용자 비밀번호 암호화
-		String hasPwd = BCrypt.hashpw(demoMember.getPwd(), BCrypt.gensalt());
-		demoMember.setPwd(hasPwd);
+		String hasPwd = BCrypt.hashpw(demoMember.getPassword(), BCrypt.gensalt());
+		demoMember.setPassword(hasPwd);
 		
 		log.debug("MemberDemoRepositoryImple >>>> save() DemoMember {}", demoMember);
 		this.sqlSession.getMapper(MemberDemoMapper.class).save(demoMember);
