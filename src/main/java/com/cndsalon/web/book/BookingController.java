@@ -117,12 +117,29 @@ public class BookingController {
 			@RequestParam("sCode") String sCode,
 			@RequestParam("dCode") String dCode){
 		
-		log.info("1. 매장영업시간 : " + sTime + " / 선택한 날짜 : " + getDate +"-> 기준 예약가능 시간생성 및 현재시간 기준 예약불가 시간생성 후 시간제어");
-		log.info("2. 매장번호 : " + sCode + " / 디자이너번호 : " + dCode + "-> 기준 이미 예약되어있는 시간 생성 후 시간제어");
+		log.info("매장영업시간 : " + sTime + " / 선택한 날짜 : " + getDate +"-> 기준 예약가능 시간생성 및 현재시간 기준 예약불가 시간생성 후 시간제어");
+		log.info("매장번호 : " + sCode + " / 디자이너번호 : " + dCode + "-> 기준 이미 예약되어있는 시간 생성 후 시간제어");
 		Map<String, List<DateTimeDTO>> timeMap = this.bookingService.getWorkTimeList(sTime, getDate, sCode, dCode);
 		
 		return new ResponseEntity<Map<String, List<DateTimeDTO>>>(timeMap, HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@GetMapping("/check-available-time")
+	public Boolean checkBookingTime(
+			@RequestParam("sumB") int sumB,
+			@RequestParam("selectedTime") String selectedTime,
+			@RequestParam("xTimeList[]") List<String> xTimeList){
+		
+		log.info("선택한 시간 : " + selectedTime + "에서 소요시간" + sumB + "분을 더한시간이 예약시간 리스트에 겹치지 않는 지 확인");
+		
+		Boolean status = this.bookingService.checkAvailableTime(sumB, selectedTime, xTimeList);
+		System.out.println("결과는 ? " + status);
+		return status;
+	}
+	
+	
+	
 	
 	@PostMapping("/insertBooking")
 	public ResponseEntity<?> insertBooking(){
@@ -130,8 +147,8 @@ public class BookingController {
 		String id = "USER_1";
 		String mCode = "MENU_1";
 		String dCode = "CNDDESIGNER_37";
-		String sCode = "CNDSHOP_60";
-		String bDate = "2020-12-19";
+		String sCode = "CNDSHOP_37";
+		String bDate = "2020-12-20";
 		String bTime = "09:00";
 		int bBeautyTime = 30;
 		int bPrice = 30000;
@@ -153,7 +170,7 @@ public class BookingController {
 		String mCode1 = "MENU_1";
 		String dCode1 = "CNDDESIGNER_97";
 		String sCode1 = "CNDSHOP_37";
-		String bDate1 = "2020-12-19";
+		String bDate1 = "2020-12-20";
 		String bTime1 = "10:00";
 		int bBeautyTime1 = 60;
 		int bPrice1 = 30000;
@@ -174,9 +191,9 @@ public class BookingController {
 		/** TEST **/
 		String id2 = "USER_1";
 		String mCode2 = "MENU_1";
-		String dCode2 = "CNDDESIGNER_37";
-		String sCode2 = "CNDSHOP_157";
-		String bDate2 = "2020-12-19";
+		String dCode2 = "CNDDESIGNER_157";
+		String sCode2 = "CNDSHOP_37";
+		String bDate2 = "2020-12-20";
 		String bTime2 = "11:00";
 		int bBeautyTime2 = 60;
 		int bPrice2 = 30000;
@@ -199,7 +216,7 @@ public class BookingController {
 		String mCode3 = "MENU_1";
 		String dCode3 = "CNDDESIGNER_37";
 		String sCode3 = "CNDSHOP_37";
-		String bDate3 = "2020-12-19";
+		String bDate3 = "2020-12-20";
 		String bTime3 = "13:00";
 		int bBeautyTime3 = 180;
 		int bPrice3 = 30000;
@@ -222,7 +239,7 @@ public class BookingController {
 		String mCode4 = "MENU_1";
 		String dCode4 = "CNDDESIGNER_97";
 		String sCode4 = "CNDSHOP_37";
-		String bDate4 = "2020-12-19";
+		String bDate4 = "2020-12-20";
 		String bTime4 = "14:00";
 		int bBeautyTime4 = 120;
 		int bPrice4 = 30000;
@@ -245,7 +262,7 @@ public class BookingController {
 		String mCode5 = "MENU_1";
 		String dCode5 = "CNDDESIGNER_157";
 		String sCode5 = "CNDSHOP_37";
-		String bDate5 = "2020-12-19";
+		String bDate5 = "2020-12-20";
 		String bTime5 = "15:00";
 		int bBeautyTime5 = 90;
 		int bPrice5 = 30000;

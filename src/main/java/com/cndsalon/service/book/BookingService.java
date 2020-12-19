@@ -21,5 +21,7 @@ public interface BookingService {
 	void insertBooking(Booking booking);
 
 	List<Booking> selectBooking(String dCode, String sCode, LocalDate bDate);
+
+	Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList);
 	
 }

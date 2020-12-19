@@ -22,8 +22,18 @@ import com.cndsalon.web.dto.book.DateTimeDTO;
  * @since 1.0
  */
 @Component
-public class CreateTimeUtil {
+public class TimeUtil {
 	
+	/**
+	  *
+	  * <pre>
+	  * 개요 : createWorkTime / createNotWorkTime / createDesignerWorkTime 메서드들을 사용하는 메서드
+	  * </pre>
+	  * @method createTimeList
+	  * @param sTime[String]
+	  * @return 시간목록들을 put한 Map 객체 반환 [Map<String, List<DateTimeDTO>>]
+	  *
+	 */
 	public Map<String, List<DateTimeDTO>> createTimeList(String sTime, LocalDate compareDate, List<Booking> designerWorkTimeList) {
 		// 매장 운영시간 오픈, 마감 분리
 		String startTimeStr = sTime.substring(0, sTime.indexOf("~"));
@@ -44,8 +54,8 @@ public class CreateTimeUtil {
 			notWorkTimeList = this.createNotWorkTime(startTime, nowTime, closeTime);
 		}
 		
-		if(designerWorkTimeList.size() != 0 && !nowDate.equals(compareDate) && nowTime.isAfter(closeTime)) {
-				degWorkTimeList = this.createDesignerWorkTimeList(designerWorkTimeList);
+		if(designerWorkTimeList.size() != 0) {
+			degWorkTimeList = this.createDesignerWorkTimeList(designerWorkTimeList);
 		}
 		
 		Map<String, List<DateTimeDTO>> timeMap = new HashMap<>();
@@ -126,11 +136,7 @@ public class CreateTimeUtil {
 		for(int i=0; i< designerWorkTimeList.size(); i++) {
 			LocalTime dTime = designerWorkTimeList.get(i).getBTime(); // 예약시간
 			int beautyTime = designerWorkTimeList.get(i).getBBeautyTime(); // 소요시간
-			
-			System.out.println("테스트 1 : createDesignerWorkTImeLIst 개수만큼 반복 시작");
-			System.out.println("테스트 1 : 기존 beautyTime : " + beautyTime); // 11
-			System.out.println("테스트 1 : 기존 dTime : " + dTime); // 
-			
+
 			if(beautyTime==0) {
 				time = new DateTimeDTO();
 				time.setDesignerWorkTime(dTime);
@@ -147,6 +153,25 @@ public class CreateTimeUtil {
 			}
 		}
 		return timeList;
+	}
+
+	public Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList) {
+		LocalTime selectedS = LocalTime.parse(selectedTime);
+		LocalTime selectedE = selectedS.plusMinutes(sumB);
+		
+		Boolean check = null;
+
+		for(int i=0; i<xTimeList.size(); i++) {
+			LocalTime checkTime = LocalTime.parse(xTimeList.get(i));
+			
+			if(selectedS.isBefore(checkTime) && selectedE.isAfter(checkTime)) {
+				check = false;
+				return check;
+			} else {
+				check = true;
+			}
+		}
+		return check;
 	}
 	
 }
