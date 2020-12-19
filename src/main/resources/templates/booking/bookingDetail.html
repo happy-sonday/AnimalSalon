@@ -44,6 +44,8 @@
 		<!-- 디자이너 및 시간 선택 -->
 		<div style="float: left;">
 			<input type="hidden" th:value="${shop.sCode}" id="sCode">
+			<input type="hidden" th:value="${shop.sName}" id="sName">
+			<input type="hidden" th:value="${shop.sPhone}" id="sPhone">
 			<input type="hidden" th:value="${shop.sTime}" id="sTime">
 			<th:block th:each="dList, i: ${designers}">
 				<input type="hidden" th:value="${dList.dCode}" th:id="dCode + ${i.index}">
@@ -53,7 +55,7 @@
 				<input type="hidden" th:value="${dList.dDayOff}" id="dDayOff" name="dDayOff">
 
 				<!-- 시간 제어(휴무 또는 예약된 시간) -->
-				<div th:id="bookable_time + ${i.index}" th:value="asdf"></div>
+				<div th:id="bookable_time + ${i.index}"></div>
 
 				<br />
 			</th:block>
@@ -80,22 +82,13 @@
 	<script th:src="@{/static/datepicker/jquery-ui.js}"
 	 type="text/javascript"></script>
 	<script th:src="@{/static/js/booking/booking.js}" type="text/javascript"></script>
-	
 	<script type="text/javascript">
-		$(document).ready(function() {
-
-
-			
-		});
-		
-		
-		// 업체 운영시간으로 시간 생성하는 컨트롤러 연결 ajax
+	$(document).ready(function(){
 		
 		
 		
-		
-		
-
+	});
+	
 	</script>
 </body>
 </html>

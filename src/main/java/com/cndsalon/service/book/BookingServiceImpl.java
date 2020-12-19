@@ -17,12 +17,9 @@ import com.cndsalon.repository.book.BookingDao;
 import com.cndsalon.repository.book.BookingDslRepository;
 import com.cndsalon.repository.book.BookingRepository;
 import com.cndsalon.repository.book.MenuRepository;
-import com.cndsalon.util.book.CreateTimeUtil;
+import com.cndsalon.util.book.TimeUtil;
 import com.cndsalon.web.dto.book.DateTimeDTO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class BookingServiceImpl implements BookingService {
 	
@@ -39,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
 	private BookingDao bookingDao;
 	
 	@Autowired
-	private CreateTimeUtil timeUtil;
+	private TimeUtil timeUtil;
 	
 	@Transactional
 	@Override
@@ -66,9 +63,6 @@ public class BookingServiceImpl implements BookingService {
 		LocalDate compareDate = LocalDate.parse(getDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
 		List<Booking> designerWorkTimeList = this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, compareDate);
-//		if(designerWorkTimeList != null && designerWorkTimeList.size() != 0) {
-//			log.debug("BookingServiceImpl에서 테스트 : " + designerWorkTimeList.get(0).toString());
-//		}
 		return this.timeUtil.createTimeList(sTime, compareDate, designerWorkTimeList);
 	}
 
@@ -83,6 +77,11 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public List<Booking> selectBooking(String dCode, String sCode, LocalDate bDate) {
 		return this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, bDate);
+	}
+
+	@Override
+	public Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList) {
+		return this.timeUtil.checkAvailableTime(sumB, selectedTime, xTimeList);
 	}
 
 

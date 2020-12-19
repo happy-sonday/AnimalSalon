@@ -1,13 +1,9 @@
 package com.cndsalon.repository.book;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.hibernate.type.TrueFalseType;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.cndsalon.domain.book.Booking;
