@@ -12,10 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +30,7 @@ import lombok.Setter;
  * 추가로, booking테이블은 view테이블을 사용할 가능성이 있음.(예약 외에 다른 파트는 큰 문제 없을 것으로 보이니 신경쓰지 않아도 괜찮을듯.)
  */
 @Entity(name = "BOOKING")
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @SequenceGenerator(name = "BOOKING_SEQ_GENERATOR", sequenceName = "BOOKING_SEQ", initialValue = 1, allocationSize = 1)
 public class Booking {
@@ -67,27 +62,14 @@ public class Booking {
     private String bCancelReason; // 예약 취소 사유
     
     @Builder
-    public Booking(Long bCode, String id, String mCode, String dCode, String sCode, LocalDate bDate,
-    		LocalTime bTime, int bBeautyTime, int bPrice, String bStatus, String bCancelReason) {
-    	this.bCode = bCode;
+    public Booking(String id, String mCode, String dCode, String sCode, int bBeautyTime, int bPrice) {
     	this.id = id;
     	this.mCode = mCode;
     	this.dCode = dCode;
     	this.sCode = sCode;
-    	this.bDate = bDate;
-    	this.bTime = bTime;
     	this.bBeautyTime = bBeautyTime;
     	this.bPrice = bPrice;
-    	this.bStatus = bStatus;
-    	this.bCancelReason = bCancelReason;
     }
-    
-    @Override
-	public String toString() {
-		return "Booking [bCode=" + bCode + ", id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode
-				+ ", bDate=" + bDate + ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice
-				+ ", bStatus=" + bStatus + ", bCancelReason=" + bCancelReason + "]";
-	}
 
 	public void setBDate(String bDate) {
 		this.bDate = LocalDate.parse(bDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -103,5 +85,12 @@ public class Booking {
 			this.bStatus = "0";
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Booking [id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode + ", bDate=" + bDate
+				+ ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice + "]";
+	}
     
+	
 }
