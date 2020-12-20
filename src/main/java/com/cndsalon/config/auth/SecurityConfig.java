@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.cndsalon.domain.member.Role;
@@ -36,8 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		//페이지 권한 설정
 			        .antMatchers("/admin/**").hasRole("ADMIN")
 			        .antMatchers("/member/myinfo").hasRole("CLIENT")
-			        .antMatchers("/member/login").anonymous()
+			        .antMatchers("/member/login/**", "/member/logout/**").anonymous()
 			        .antMatchers("/**", "/check/**").permitAll()
+			        //.anyRequest().authenticated()
                 .and()
                 	.oauth2Login().loginPage("/login")
                 .and()
@@ -52,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                .loginProcessingUrl("/member/login/check")//controller에 따로 설정하지 않아도 spring security가 form에 설정된 url을가지고 점검 
 	                .defaultSuccessUrl("/")
                     .failureHandler(failureHandler()) 
+                    .successHandler(sucessHandler())//로그인 직후의 Authentication제어 핸들러
 	                .permitAll()
                 .and()
                  //소셜로그인 설정
@@ -63,11 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 	.exceptionHandling().accessDeniedPage("/member/denied")
         		.and()
                 //로그아웃 설정
-            		.logout()            		
-            		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))//로그아웃 요청 url
+            		.logout()            	
+            		.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))//사용자 관점 로그아웃 요청 url            		
             		.invalidateHttpSession(true)//로그아웃 시 세션 제거
-            		.deleteCookies("JSESSIONID")//쿠키 제거            		
-            		.logoutSuccessUrl("/")//로그아웃 성공시 이동할url 
+            		.deleteCookies("JSESSIONID")//쿠키 제거            		            	
+            		.logoutSuccessUrl("/")//Controller에 mapping될 url
             		.clearAuthentication(true)//권한정보 제거            		
             		.permitAll()
             	.and()    	        		
@@ -100,5 +103,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder getBCryptPasswordEncoder() {
     	return new BCryptPasswordEncoder();
     }
+    
+    
+    
+    @Bean
+    public AuthenticationSuccessHandler sucessHandler() {
+    	return new CustomAuthenticationSuccessHandler();
+    }
+    
     
 }

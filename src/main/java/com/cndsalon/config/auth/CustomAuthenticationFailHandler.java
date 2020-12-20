@@ -31,55 +31,13 @@ public class CustomAuthenticationFailHandler implements AuthenticationFailureHan
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		
-		//System.out.println(exception.getMessage());
-		//response.sendRedirect(request.getContextPath()+"/user/login?error");
-		
-		//아래 내용은 허용이안됨...
-		//request.setAttribute("errorMsg", exception.getMessage());
-		//request.getRequestDispatcher("/user/login").forward(request, response);
-		
-
-
-		
-		
-		/*
-		
-		if (exception instanceof AuthenticationServiceException) {
-			request.setAttribute("loginFailMsg", "존재하지 않는 사용자입니다.");
-		
-		} else if(exception instanceof BadCredentialsException) {
-			request.setAttribute("loginFailMsg", "아이디 또는 비밀번호가 틀립니다.");
-			
-		} else if(exception instanceof LockedException) {
-			request.setAttribute("loginFailMsg", "잠긴 계정입니다..");
-			
-		} else if(exception instanceof DisabledException) {
-			request.setAttribute("loginFailMsg", "비활성화된 계정입니다..");
-			
-			//서비스인터페이스로 구현해서 에러메시지를 만들고 넘기면된다.
-			 
-			
-		} else if(exception instanceof AccountExpiredException) {
-		//서비스인터페이스로 구현해서 에러메시지를 만들고 넘기면된다.
-			request.setAttribute("loginFailMsg", "만료된 계정입니다..");
-			
-		} else if(exception instanceof CredentialsExpiredException) {
-			request.setAttribute("loginFailMsg", "비밀번호가 만료되었습니다.");
-		}
-		
-		
-		// 로그인 페이지로 다시 포워딩
-		RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath()+"/user/login");
-		dispatcher.forward(request, response);
-		
-		*/
 
 		
 		System.out.println("CustomFailureHandler 동작");
 		
-		String errorMessage=null;
+		String errorMessage="";
 		
+			
 		if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException ||exception instanceof DisabledException) {
 			
 			//없는 계정, 비밀번호 또는 아이디만 틀렸는지 구분지어 메시지를 출력하는 것은 보안에 취약해짐
@@ -101,13 +59,14 @@ public class CustomAuthenticationFailHandler implements AuthenticationFailureHan
 			//서비스인터페이스로 구현해서 에러메시지를 만들고 넘기면된다.
 			errorMessage = "장기간 미접속으로 휴면계정처리 되었습니다.관리자에 문의하세요.";
 		}
-		
-		//request.setAttribute("errorMessage", errorMessage);
+		else if(exception instanceof Exception) {
+			
+			errorMessage = "로그아웃 후 알수업는 Exception 발생 뭐지?...";
+		}
+
 		System.out.println("========================Failhandler 결과");
 	
-		//request.getRequestDispatcher(DEFAULT_FAILURE_URL).forward(request, response);
-		//response.sendRedirect(request.getContextPath()+"/user/login?error");
-		
+
 		
 				
 		

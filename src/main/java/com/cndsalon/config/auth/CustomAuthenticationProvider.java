@@ -2,6 +2,7 @@ package com.cndsalon.config.auth;
 
 import javax.security.auth.login.CredentialException;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,12 +42,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		String username = (String)authentication.getPrincipal();//로그인 정보창에서 가져온 id 또는 email
 		String password=(String)authentication.getCredentials();//일반적으로 password
 
-		
+
 		CustomUserDetails userDetails =(CustomUserDetails)loginService.loadUserByUsername(username);
 		System.out.printf("loadUserByUsername에서 받은 userDetails의 정보---%s \n",userDetails.toString());
 				
 		//로그인 입력정보를 이메일로이나 아이디 정보를 받을 수 있기때문에 비교할 대상을 삼항연산자로 지정
 		String targetUsername = username.contains("@")?userDetails.getEmail():userDetails.getUsername();
+		System.out.println("targetUsername 정보:"+targetUsername);
+		
+
+		
 		
 		//DB에 정보가 없거나 입력정보가 일치하지 않는경우		
 		if( userDetails==null || !username.equals(targetUsername) ) {
@@ -61,6 +66,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		}
 	
 
+			
+		
 		//잠긴 계정일 경우
 		else if(!userDetails.isAccountNonLocked()) {
 			
@@ -80,6 +87,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 			System.out.println("DisabledException 날라감");
 			throw new DisabledException(username);
 		}
+		
+	
 		
 		//filter과정이 끝나면 외부에서도 비밀번호를 조회못하도록 null처리
 		userDetails.setPassword(null);

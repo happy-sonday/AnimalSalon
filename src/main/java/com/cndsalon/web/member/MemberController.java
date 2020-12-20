@@ -5,8 +5,13 @@ import java.net.http.HttpRequest;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +37,18 @@ public class MemberController {
 		
 	//로그인페이지 요청
 	@RequestMapping("/member/login")
-	 public String checkId() {
+	 public String disLoginForm( HttpServletRequest request) {
 		
+				// 요청 시점의 사용자 URI 정보를 Session의 Attribute에 담아서 전달(잘 지워줘야 함)
+				// 로그인이 틀려서 다시 하면 요청 시점의 URI가 로그인 페이지가 되므로 조건문 설정
+				String uri = request.getHeader("Referer");
+				
+				if (!uri.contains("/member/login")) {
+					request.getSession().setAttribute("prevPage",
+							request.getHeader("Referer"));				
+				
+				}
+				
 		return "/member/login";
 	}
 	
@@ -105,6 +120,27 @@ public class MemberController {
 
 	return "/";
 	}
+	
+
+	
+	//로그아웃 결과url 성공시 메인페이지 틀리면 redirect
+	/*
+	@RequestMapping("/member/logout")
+	public String dologoutChk(HttpServletRequest request, HttpServletResponse response)
+	throws Exception{
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth != null) {
+			
+			System.out.println("세션 삭제 실행");
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		
+
+	return "redirect:/";
+	}
+	*/
+	
 	
 	//admin 메인 페이지 호출
 	@GetMapping("/member/admin")

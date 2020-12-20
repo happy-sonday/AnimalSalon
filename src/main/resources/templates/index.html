@@ -42,7 +42,15 @@
 	                    </sec:authorize>
 	                    
 	                    님 환영합니다.&nbsp; &nbsp;
-	                    <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a><br />
+	                    <!-- spring security는 logout 시 post방식으로 전달  -->
+	                    <!--<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a><br />-->
+	                    <a href="#" onclick="document.getElementById('logout-form').submit();">로그 아웃</a>
+						<form id="logout-form" th:action="@{/member/logout}" method="POST">
+						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+						</form>
+
+
+
 	                    (<span sec:authentication="principal.email" ></span>)
 	                    
 	                       <a sec:authorize="hasRole('ADMIN')" th:href="@{/member/admin}">관리자 모드</a>&nbsp; &nbsp; 
