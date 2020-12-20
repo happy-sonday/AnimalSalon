@@ -54,7 +54,7 @@ var change_sum_price = function(selected_option) {
 	$('#sumBeautyTime').text($('#defaultBeautyTime').val());
 
 	var mo_index = selected_option.selectedIndex; // 인덱스
-	var mo_text = selected_option.options[mo_index].text; // 해당 인덱스의 text
+//	var mo_text = selected_option.options[mo_index].text; // 해당 인덱스의 text
 	var mo_value = selected_option.options[mo_index].value; // 해당 인덱스의 value
 	var mo_beauty_time = mo_value.substring(0, mo_value.lastIndexOf(":")) * 1; // value의 앞 (beauty_time)
 	var mo_price = mo_value.substring(mo_value.lastIndexOf(":") + 1) * 1; // value의 뒤 (price)
@@ -81,6 +81,8 @@ var change_sum_price = function(selected_option) {
 	if (selected_day == null) {
 		selected_day = getDate.substring(11, 12);
 	}
+	var selected_d = getDate.substring(0, getDate.indexOf("("));
+	$('#selected_date').val(selected_d);
 
 	var d_length = $('input[name=dDayOff]').length;
 	var d_day_off = new Array(d_length);
@@ -120,7 +122,7 @@ var change_sum_price = function(selected_option) {
 					$.each(w_list, function(index, wlist) {
 						$('#bookable_time' + i).append(
 							"<label><input type='radio' value='" + wlist.workTime + "' name='time_radio'"
-							+" onclick= 'check_time(this)'/>"
+							+ " onclick= 'check_time(this)'/>"
 							+ wlist.workTime + "</label>");
 
 					})
@@ -148,60 +150,69 @@ var change_sum_price = function(selected_option) {
 });
 
 /** 예약되어있는 시간과 예약하려는 시간의 겹치는지 확인 유무 */
-var check_time = function(selected_time){
+var check_time = function(selected_time) {
 	selected_timeV = selected_time.value;
-	
- 	if ($('#optionList option:selected').val() == "x") {
+
+	if ($('#optionList option:selected').val() == "x") {
 		$("input[name='time_radio']").prop("checked", false);
- 		alert('옵션을 선택해주세요.');
- 	} else {
+		alert('옵션을 선택해주세요.');
+	} else {
+		var selectedDesigner = selected_time.parentElement.parentElement.parentElement.childNodes[1].value;
+		$('#selected_designer').val(selectedDesigner);
 		var shop_name = $('#sName').val();
 		var shop_phone = $('#sPhone').val();
- 		var sum_b = $('#sumBeautyTime').text();
- 		sum_b = sum_b.substring(0, sum_b.indexOf("분")) * 1;
-	
+		var sum_b = $('#sumBeautyTime').text();
+		sum_b = sum_b.substring(0, sum_b.indexOf("분")) * 1;
+
 		var timeLabels = selected_time.parentElement.parentElement.childNodes;
-		
+
+
+
 		var timeLabelSize = timeLabels.length;
 
 		var timeList = new Array(timeLabelSize);
 		var disabled_test = new Array();
 		var xTimeList = new Array();
-		
-		for(var i=0; i<timeLabelSize; i++) {
+
+		for (var i = 0; i < timeLabelSize; i++) {
 
 			timeList[i] = timeLabels[i].firstChild;
-			
+
 			disabled_test.push(timeList[i].getAttribute('disabled'));
-			
-			if(disabled_test[i]!= null){
+
+			if (disabled_test[i] != null) {
 				xTimeList.push(timeList[i].value);
 			}
 		}
-	
+
+		if (!xTimeList.length) { // 비활성화 버튼이 없을 경우 함수 탈출
+			return;
+		}
+
 		$.ajax({
 			contentType: 'application/json',
 			type: 'GET',
 			url: '/cndsalon/booking/check-available-time',
-			data : {'sumB':sum_b,
-					'selectedTime':selected_timeV,
-					'xTimeList':xTimeList
-					},
-			success: function(status){
-				if(status == false){ // 겹쳤을 시 샵 정보 및 버튼 초기화.
+			data: {
+				'sumB': sum_b,
+				'selectedTime': selected_timeV,
+				'xTimeList': xTimeList
+			},
+			success: function(status) {
+				if (status == false) { // 겹쳤을 시 샵 정보 및 버튼 초기화.
 					$("input[name='time_radio']").prop("checked", false);
 					alert("예약하시려는 시간의 예상 소요시간과 이미 예약되어 있는 시간이 겹쳐 있으므로 " +
 						"다른 시간을 선택하여 주시거나, \n" +
-						"선택하신 시간의 예약 가능 유무는 업체로 연락하시기 바랍니다. \n\n" + 
+						"선택하신 시간의 예약 가능 유무는 업체로 연락하시기 바랍니다. \n\n" +
 						"업체명 : " + shop_name + " / 연락처 : " + shop_phone);
 				} else { // 겹치지 않을 시 예약 가능
-					
+
 				}
 			},
 			error: function(jqXHR, textStatu) {
- 				alert("failed to communicate : " + textStatu);
- 			}
-		});	
+				alert("failed to communicate : " + textStatu);
+			}
+		});
 	}
 }
 
@@ -209,6 +220,75 @@ var check_time = function(selected_time){
 
 
 /** bookingDetail.html 예약을 위한 유효성 검사 */
+
+// 예약시 필요한 정보들.
+// Id mCode dCode sCode bDate bTime bBeautyTime bPrice
+// id는 세션의 정보 받아올 것.
+var make_booking = function() {
+
+	var id = 'testId';
+	console.log(id)
+	var m_code = $('#mCode').val();
+	console.log("mCode : " + m_code)
+	var d_code = $('#selected_designer').val();
+	console.log("dCode : " + d_code)
+	var s_code = $('#sCode').val();
+	console.log("sCode : " + s_code)
+	var b_date = $('#selected_date').val();
+	console.log("bDate : " + b_date)
+	var b_time = $('input[name="time_radio"]:checked').val();
+	console.log("bTime : " + b_time)
+	var b_beauty_time = $('#sumBeautyTime').text().substring(0, $('#sumBeautyTime').text().indexOf("분")) * 1;
+	console.log("bBeautyTime : " + b_beauty_time)
+	var b_price = $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1;
+	console.log("bPrice : " + b_price)
+
+	if (!b_time) {
+		if ($('#optionList option:selected').val() == "x") {
+			alert('옵션을 선택해주세요.');
+		} else {
+			alert('시간을 선택해주세요.')
+		}
+	}
+
+//	var booking = {
+//		id : id,
+//		mCode : m_code,
+//		dCode : d_code,
+//		sCode : s_code,
+//		bDate : b_date,
+//		bTime : b_time,
+//		bBeautyTime : b_beauty_time,
+//		bPrice : b_price
+//	}
+
+	$.ajax({
+		contentType : 'application/json; charset=utf-8',
+		type : 'POST',
+		url : '/cndsalon/booking/make-booking',
+		
+//		data : JSON.stringify(booking),
+		data : JSON.stringify({
+			'id': id,
+			'mCode' : m_code,
+			'dCode' : d_code,
+			'sCode' : s_code,
+			'bDate' : b_date,
+			'bTime' : b_time,
+			'bBeautyTime' : b_beauty_time,
+			'bPrice' : b_price
+		}),
+		dataType : 'json',
+		success : function(){
+			alert('예약성공!');
+//			location.href='/board/list';
+		},
+		error : function(){
+			alert('예약불가!');
+		}
+	});
+
+}
 
 
 

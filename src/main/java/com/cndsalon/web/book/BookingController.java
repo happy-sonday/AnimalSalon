@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.cndsalon.domain.book.Booking;
 import com.cndsalon.repository.book.BookingRepository;
 import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
+import com.cndsalon.web.dto.book.BookingDTO;
 import com.cndsalon.web.dto.book.DateTimeDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -126,7 +128,7 @@ public class BookingController {
 	
 	@ResponseBody
 	@GetMapping("/check-available-time")
-	public Boolean checkBookingTime(
+	public ResponseEntity<Boolean> checkBookingTime(
 			@RequestParam("sumB") int sumB,
 			@RequestParam("selectedTime") String selectedTime,
 			@RequestParam("xTimeList[]") List<String> xTimeList){
@@ -134,154 +136,171 @@ public class BookingController {
 		log.info("선택한 시간 : " + selectedTime + "에서 소요시간" + sumB + "분을 더한시간이 예약시간 리스트에 겹치지 않는 지 확인");
 		
 		Boolean status = this.bookingService.checkAvailableTime(sumB, selectedTime, xTimeList);
+		
 		System.out.println("결과는 ? " + status);
-		return status;
+		return ResponseEntity.ok(status);
+	}
+	
+	@ResponseBody
+	@PostMapping("/make-booking")
+	public ResponseEntity<?> insertBooking(@RequestBody BookingDTO bookingDTO){
+		
+			log.info("예약 값 : " + bookingDTO.toString());
+//			Booking booking = Booking.builder()
+//					.id(obj.id).mCode(mCode).dCode(dCode).sCode(sCode)
+//					.bBeautyTime(bBeautyTime).bPrice(bPrice).build();
+//			booking.setBDate(bDate);
+//			booking.setBTime(bTime);
+			
+//			this.bookingService.insertBooking(booking);
+			
+		return new ResponseEntity<>("{}", HttpStatus.CREATED);
 	}
 	
 	
 	
 	
-	@PostMapping("/insertBooking")
-	public ResponseEntity<?> insertBooking(){
-		/** TEST **/
-		String id = "USER_1";
-		String mCode = "MENU_1";
-		String dCode = "CNDDESIGNER_37";
-		String sCode = "CNDSHOP_37";
-		String bDate = "2020-12-20";
-		String bTime = "09:00";
-		int bBeautyTime = 30;
-		int bPrice = 30000;
-		
-		Booking booking = new Booking();
-		booking.setId(id);
-		booking.setMCode(mCode);
-		booking.setDCode(dCode);
-		booking.setSCode(sCode);
-		booking.setBDate(bDate);
-		booking.setBTime(bTime);
-		booking.setBBeautyTime(bBeautyTime);
-		booking.setBPrice(bPrice);
-		
-		this.bookingService.insertBooking(booking);
-		
-		/** TEST **/
-		String id1 = "USER_1";
-		String mCode1 = "MENU_1";
-		String dCode1 = "CNDDESIGNER_97";
-		String sCode1 = "CNDSHOP_37";
-		String bDate1 = "2020-12-20";
-		String bTime1 = "10:00";
-		int bBeautyTime1 = 60;
-		int bPrice1 = 30000;
-		
-		booking = null;
-		booking = new Booking();
-		booking.setId(id1);
-		booking.setMCode(mCode1);
-		booking.setDCode(dCode1);
-		booking.setSCode(sCode1);
-		booking.setBDate(bDate1);
-		booking.setBTime(bTime1);
-		booking.setBBeautyTime(bBeautyTime1);
-		booking.setBPrice(bPrice1);
-		
-		this.bookingService.insertBooking(booking);
-		
-		/** TEST **/
-		String id2 = "USER_1";
-		String mCode2 = "MENU_1";
-		String dCode2 = "CNDDESIGNER_157";
-		String sCode2 = "CNDSHOP_37";
-		String bDate2 = "2020-12-20";
-		String bTime2 = "11:00";
-		int bBeautyTime2 = 60;
-		int bPrice2 = 30000;
-		
-		booking = null;
-		booking = new Booking();
-		booking.setId(id2);
-		booking.setMCode(mCode2);
-		booking.setDCode(dCode2);
-		booking.setSCode(sCode2);
-		booking.setBDate(bDate2);
-		booking.setBTime(bTime2);
-		booking.setBBeautyTime(bBeautyTime2);
-		booking.setBPrice(bPrice2);
-		
-		this.bookingService.insertBooking(booking);
-		
-		/** TEST **/
-		String id3 = "USER_1";
-		String mCode3 = "MENU_1";
-		String dCode3 = "CNDDESIGNER_37";
-		String sCode3 = "CNDSHOP_37";
-		String bDate3 = "2020-12-20";
-		String bTime3 = "13:00";
-		int bBeautyTime3 = 180;
-		int bPrice3 = 30000;
-		
-		booking = null;
-		booking = new Booking();
-		booking.setId(id3);
-		booking.setMCode(mCode3);
-		booking.setDCode(dCode3);
-		booking.setSCode(sCode3);
-		booking.setBDate(bDate3);
-		booking.setBTime(bTime3);
-		booking.setBBeautyTime(bBeautyTime3);
-		booking.setBPrice(bPrice3);
-		
-		this.bookingService.insertBooking(booking);
-		
-		/** TEST **/
-		String id4 = "USER_1";
-		String mCode4 = "MENU_1";
-		String dCode4 = "CNDDESIGNER_97";
-		String sCode4 = "CNDSHOP_37";
-		String bDate4 = "2020-12-20";
-		String bTime4 = "14:00";
-		int bBeautyTime4 = 120;
-		int bPrice4 = 30000;
-		
-		booking = null;
-		booking = new Booking();
-		booking.setId(id4);
-		booking.setMCode(mCode4);
-		booking.setDCode(dCode4);
-		booking.setSCode(sCode4);
-		booking.setBDate(bDate4);
-		booking.setBTime(bTime4);
-		booking.setBBeautyTime(bBeautyTime4);
-		booking.setBPrice(bPrice4);
-		
-		this.bookingService.insertBooking(booking);
-		
-		/** TEST **/
-		String id5 = "USER_1";
-		String mCode5 = "MENU_1";
-		String dCode5 = "CNDDESIGNER_157";
-		String sCode5 = "CNDSHOP_37";
-		String bDate5 = "2020-12-20";
-		String bTime5 = "15:00";
-		int bBeautyTime5 = 90;
-		int bPrice5 = 30000;
-		
-		booking = null;
-		booking = new Booking();
-		booking.setId(id5);
-		booking.setMCode(mCode5);
-		booking.setDCode(dCode5);
-		booking.setSCode(sCode5);
-		booking.setBDate(bDate5);
-		booking.setBTime(bTime5);
-		booking.setBBeautyTime(bBeautyTime5);
-		booking.setBPrice(bPrice5);
-		
-		this.bookingService.insertBooking(booking);
-	
-		return new ResponseEntity<>("{}", HttpStatus.OK);
-	}
+//	@PostMapping("/insertBooking")
+//	public ResponseEntity<?> insertBooking(){
+//		/** TEST **/
+//		String id = "USER_1";
+//		String mCode = "MENU_1";
+//		String dCode = "CNDDESIGNER_37";
+//		String sCode = "CNDSHOP_37";
+//		String bDate = "2020-12-20";
+//		String bTime = "09:00";
+//		int bBeautyTime = 30;
+//		int bPrice = 30000;
+//		
+//		Booking booking = new Booking();
+//		booking.setId(id);
+//		booking.setMCode(mCode);
+//		booking.setDCode(dCode);
+//		booking.setSCode(sCode);
+//		booking.setBDate(bDate);
+//		booking.setBTime(bTime);
+//		booking.setBBeautyTime(bBeautyTime);
+//		booking.setBPrice(bPrice);
+//		
+//		this.bookingService.insertBooking(booking);
+//		
+//		/** TEST **/
+//		String id1 = "USER_1";
+//		String mCode1 = "MENU_1";
+//		String dCode1 = "CNDDESIGNER_97";
+//		String sCode1 = "CNDSHOP_37";
+//		String bDate1 = "2020-12-20";
+//		String bTime1 = "10:00";
+//		int bBeautyTime1 = 60;
+//		int bPrice1 = 30000;
+//		
+//		booking = null;
+//		booking = new Booking();
+//		booking.setId(id1);
+//		booking.setMCode(mCode1);
+//		booking.setDCode(dCode1);
+//		booking.setSCode(sCode1);
+//		booking.setBDate(bDate1);
+//		booking.setBTime(bTime1);
+//		booking.setBBeautyTime(bBeautyTime1);
+//		booking.setBPrice(bPrice1);
+//		
+//		this.bookingService.insertBooking(booking);
+//		
+//		/** TEST **/
+//		String id2 = "USER_1";
+//		String mCode2 = "MENU_1";
+//		String dCode2 = "CNDDESIGNER_157";
+//		String sCode2 = "CNDSHOP_37";
+//		String bDate2 = "2020-12-20";
+//		String bTime2 = "11:00";
+//		int bBeautyTime2 = 60;
+//		int bPrice2 = 30000;
+//		
+//		booking = null;
+//		booking = new Booking();
+//		booking.setId(id2);
+//		booking.setMCode(mCode2);
+//		booking.setDCode(dCode2);
+//		booking.setSCode(sCode2);
+//		booking.setBDate(bDate2);
+//		booking.setBTime(bTime2);
+//		booking.setBBeautyTime(bBeautyTime2);
+//		booking.setBPrice(bPrice2);
+//		
+//		this.bookingService.insertBooking(booking);
+//		
+//		/** TEST **/
+//		String id3 = "USER_1";
+//		String mCode3 = "MENU_1";
+//		String dCode3 = "CNDDESIGNER_37";
+//		String sCode3 = "CNDSHOP_37";
+//		String bDate3 = "2020-12-20";
+//		String bTime3 = "13:00";
+//		int bBeautyTime3 = 180;
+//		int bPrice3 = 30000;
+//		
+//		booking = null;
+//		booking = new Booking();
+//		booking.setId(id3);
+//		booking.setMCode(mCode3);
+//		booking.setDCode(dCode3);
+//		booking.setSCode(sCode3);
+//		booking.setBDate(bDate3);
+//		booking.setBTime(bTime3);
+//		booking.setBBeautyTime(bBeautyTime3);
+//		booking.setBPrice(bPrice3);
+//		
+//		this.bookingService.insertBooking(booking);
+//		
+//		/** TEST **/
+//		String id4 = "USER_1";
+//		String mCode4 = "MENU_1";
+//		String dCode4 = "CNDDESIGNER_97";
+//		String sCode4 = "CNDSHOP_37";
+//		String bDate4 = "2020-12-20";
+//		String bTime4 = "14:00";
+//		int bBeautyTime4 = 120;
+//		int bPrice4 = 30000;
+//		
+//		booking = null;
+//		booking = new Booking();
+//		booking.setId(id4);
+//		booking.setMCode(mCode4);
+//		booking.setDCode(dCode4);
+//		booking.setSCode(sCode4);
+//		booking.setBDate(bDate4);
+//		booking.setBTime(bTime4);
+//		booking.setBBeautyTime(bBeautyTime4);
+//		booking.setBPrice(bPrice4);
+//		
+//		this.bookingService.insertBooking(booking);
+//		
+//		/** TEST **/
+//		String id5 = "USER_1";
+//		String mCode5 = "MENU_1";
+//		String dCode5 = "CNDDESIGNER_157";
+//		String sCode5 = "CNDSHOP_37";
+//		String bDate5 = "2020-12-20";
+//		String bTime5 = "15:00";
+//		int bBeautyTime5 = 90;
+//		int bPrice5 = 30000;
+//		
+//		booking = null;
+//		booking = new Booking();
+//		booking.setId(id5);
+//		booking.setMCode(mCode5);
+//		booking.setDCode(dCode5);
+//		booking.setSCode(sCode5);
+//		booking.setBDate(bDate5);
+//		booking.setBTime(bTime5);
+//		booking.setBBeautyTime(bBeautyTime5);
+//		booking.setBPrice(bPrice5);
+//		
+//		this.bookingService.insertBooking(booking);
+//	
+//		return new ResponseEntity<>("{}", HttpStatus.OK);
+//	}
 	
 	@GetMapping("/selectBooking")
 	public ResponseEntity<List<Booking>> selectBooking(

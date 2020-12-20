@@ -12,6 +12,7 @@
 	<!-- 메뉴선택 -->
 	<div>
 		<div style="float: left; width: 500px;">
+			<input type="hidden" th:value="${menu.mCode}" id="mCode">
 			<img width="100" height="100" style="float: left;" name="메뉴이미지">
 			<span th:text="${menu.mName}"></span>
 			<hr />
@@ -47,9 +48,11 @@
 			<input type="hidden" th:value="${shop.sName}" id="sName">
 			<input type="hidden" th:value="${shop.sPhone}" id="sPhone">
 			<input type="hidden" th:value="${shop.sTime}" id="sTime">
-			<th:block th:each="dList, i: ${designers}">
+			<input type="hidden" value="" id="selected_designer">
+			<input type="hidden" value="" id="selected_date">
+			<div th:each="dList, i: ${designers}">
 				<input type="hidden" th:value="${dList.dCode}" th:id="dCode + ${i.index}">
-				<img width="75px" height="75px" name="디자이너사진" />
+				<img th:src="@{'/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}" width=80 height=80 />
 				<span th:text="${dList.dName}" id="dName"></span>  &nbsp;&nbsp;&nbsp; 
 				<span th:text="${dList.dInfo}"></span>  &nbsp;&nbsp;&nbsp; <br />
 				<input type="hidden" th:value="${dList.dDayOff}" id="dDayOff" name="dDayOff">
@@ -58,7 +61,7 @@
 				<div th:id="bookable_time + ${i.index}"></div>
 
 				<br />
-			</th:block>
+			</div>
 		</div>
 	</div>
 
@@ -75,6 +78,7 @@
 			<li>예약환불규정▼</li>
 			<span>예약환불규정 들어갈 예정</span>
 		</ul>
+		<input type="button" value="예약하기(테스트)" onclick="make_booking();">
 		<a th:href="@{/pay}">예약하기</a>
 	</div>
 
