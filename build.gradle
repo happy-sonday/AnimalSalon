@@ -70,6 +70,9 @@ dependencies {
     
     implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 
+	// 아임포트 REST API와 http 통신
+	implementation 'com.google.code.gson:gson:2.8.5'
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
 }
 
 test {
