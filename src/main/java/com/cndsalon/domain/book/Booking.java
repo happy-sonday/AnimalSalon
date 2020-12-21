@@ -15,7 +15,6 @@ import javax.persistence.SequenceGenerator;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * <pre>
@@ -30,7 +29,7 @@ import lombok.Setter;
  * 추가로, booking테이블은 view테이블을 사용할 가능성이 있음.(예약 외에 다른 파트는 큰 문제 없을 것으로 보이니 신경쓰지 않아도 괜찮을듯.)
  */
 @Entity(name = "BOOKING")
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 @SequenceGenerator(name = "BOOKING_SEQ_GENERATOR", sequenceName = "BOOKING_SEQ", initialValue = 1, allocationSize = 1)
 public class Booking {

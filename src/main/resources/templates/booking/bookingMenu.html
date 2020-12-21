@@ -18,8 +18,8 @@
 		<div class="content">
 			<div class="petChoice">
 				<ul>
-					<li><a href="/Booking/choice/dog" class="pet">강아지</a></li>
-					<li><a href="/Booking/choice/cat" class="pet">고양이</a></li>
+					<li><input type="button" value="강아지" onclick="choice_type(this);"></li>
+					<li><input type="button" value="고양이" onclick="choice_type(this);"></li>
 				</ul>
 			</div>
 			
@@ -27,7 +27,7 @@
 				<ul>
 					<li>				
 						<form th:action="@{/booking/go-booking}" method="get" th:each="m : ${menu}">
-						<input type="hidden" name="sCode" th:value="${shop.sCode}">
+						<input type="hidden" name="sCode" th:value="${shop.sCode}" id="sCode">
 						<input type="hidden" name="mCode" th:value="${m.mCode}">
 						<input type="hidden" name="mType" th:value="${m.mType}">
 							<div class="style">
