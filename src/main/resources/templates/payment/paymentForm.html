@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 페이지</title>
-<!-- jQuery -->
+<!--/* jQuery */-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
-<!-- iamport.payment.js -->
+<!--/* iamport.payment.js */-->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
@@ -78,7 +78,7 @@ function requestPay(){
 	IMP.request_pay({ // param
 		pg: "html5_inicis",		 																		// pg사
 		pay_method: "card",																			// 결제수단
-		merchant_uid: merchantUid, 															// 고유주문번호
+		merchant_uid: merchantUid, 																// 고유주문번호
 		name: payName,																				// 주문명
 		amount: totalAmount,																		// 결제금액
 		buyer_email: "inulee0213@gmail.com",												// 구매자 Email
