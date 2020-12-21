@@ -1,0 +1,18 @@
+-- 결제내역테이블 생성
+
+CREATE TABLE PAYMENT (
+imp_uid varchar2(100),			-- 아임포트 거래 고유번호
+merchant_uid varchar2(50),	-- 고유 주문번호
+pg_provider varchar2(20),		-- PG사
+pay_method varchar2(15),		-- 결제수단
+paid_amount number,				-- 결제금액
+status varchar2(10),				-- 결제상태[ paid(결제완료), cancelled(결제취소, 부분취소포함) ]
+name varchar2(100),				-- 주문명
+buyer_name varchar2(30),		-- 주문자이름
+buyer_email varchar2(50),		-- 주문자 Email
+buyer_tel varchar2(20),			-- 주문자 연락처
+buyer_addr varchar2(150),		-- 주문자 주소
+buyer_postcode varchar2(10),-- 주문자 우편번호
+paid_at number,						-- 결제승인시각
+primary key(merchant_uid)
+);
