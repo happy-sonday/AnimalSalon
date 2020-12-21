@@ -15,6 +15,8 @@ public interface CndSalonMapper {
 	
 	CndSalonShopInfoVO getShopDetail(@Param("sCode") String sCode);
 
+	List<CndSalonShopInfoVO> getShopDetailPhoto(@Param("sCode") String sCode);
+	
 	List<CndSalonShopProductPhotoVO> getShopProductPhoto(@Param("sCode") String sCode);
 	
 	List<CndSalonShopDesignerVO> getShopDesignerInfo(@Param("sCode") String sCode);
@@ -27,4 +29,5 @@ public interface CndSalonMapper {
 	int getPageNum();
 	int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
 
+	List<CndSalonReviewVO> getReviewPhoto(@Param("rCode") String rCode);
 }

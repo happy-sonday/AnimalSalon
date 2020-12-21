@@ -12,8 +12,8 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 	// CSS, webjars config
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/webjars/**").
-		addResourceLocations("classpath:/META-INF/resources/webjars/");
+		//registry.addResourceHandler("/webjars/**").
+		//addResourceLocations("classpath:/META-INF/resources/webjars/");
 
 		registry.addResourceHandler("/static/**").
 		addResourceLocations("classpath:/static/");

@@ -1,3 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%;
+  background-color: #fff;
+  color: #000;
+  overflow-x: hidden; }
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: weight-regular; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+
+ul {
+  list-style: none; }
+
+dt {
+  display: inline-block;
+  vertical-align: top; }
+
 #navbar {
   display: flex;
   justify-content: space-between;
@@ -36,7 +63,7 @@
   position: fixed;
   width: 100%;
   z-index: 20;
-  border-bottom: 1px solid #000; }
+ }
 
 .location__select {
   font-size: 2rem; }
@@ -50,13 +77,13 @@
     margin-right: 1rem; }
 
 #maps {
-  padding: 15rem 1rem;
+  padding: 29rem 0 0 0;
   border-bottom: 1px solid #000; }
 
-.map {
-  font-size: 7rem;
-  background-color: #e2a76f;
-  margin-top: 20rem; }
+#map {
+	width:600px;
+	height:400px;
+}
 
 #shops {
   padding: 2rem 1rem; }
@@ -72,30 +99,47 @@
   height: 4px;
   background-color: #000;
   content: ""; }
+  
+  .shop_info_overview{
+    padding: 2rem 0rem;
+  	}
+  
+  .shop_info_overview_image{
+  margin: 0rem 0rem 11rem 0rem;
+	}
+   
+  .shop_info_overview_name{
+  	font-size: 1.2rem;
+    margin-left: 12rem;
+    margin-top: -20rem;
+  }
+  
+  .shop_info_overview_option_style{
+      display: inline-block;
+    height: 16px;
+    font-size: 9px;
+    line-height: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #ff695b;
+    padding: 0 6px 3px;
+    border-radius: 10px;
+    vertical-align: top;
+      box-sizing: border-box;
+  }
+  .shop_info_overview_product_style{
+      display: inline-block;
+    height: 16px;
+    font-size: 9px;
+    line-height: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #80D462;
+    padding: 0 6px 3px;
+    border-radius: 10px;
+    vertical-align: top;
+      box-sizing: border-box;
+  }  
+  
+  
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  box-sizing: inherit; }
-
-html {
-  font-size: 62.5%;
-  background-color: #fff;
-  color: #000;
-  overflow-x: hidden; }
-
-body {
-  font-family: "Lato", sans-serif;
-  font-weight: weight-regular; }
-
-a {
-  text-decoration: none;
-  color: #000; }
-
-ul {
-  list-style: none; }
-
-dt {
-  display: inline-block;
-  vertical-align: top; }

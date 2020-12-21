@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -141,10 +142,17 @@ public class BookingController {
 		return ResponseEntity.ok(status);
 	}
 	
+	//@ResponseBody
+	//@GetMapping(value = "/make-booking", produces = "application/json; charset=UTF-8")
+	
 	@ResponseBody
-	@PostMapping("/make-booking")
-	public ResponseEntity<?> insertBooking(@RequestBody BookingDTO bookingDTO){
-		
+	@RequestMapping(value = "/make-booking", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+	public ResponseEntity<?> insertBooking(
+			 BookingDTO bookingDTO
+			
+			){
+			
+	
 			log.info("예약 값 : " + bookingDTO.toString());
 //			Booking booking = Booking.builder()
 //					.id(obj.id).mCode(mCode).dCode(dCode).sCode(sCode)
@@ -154,7 +162,8 @@ public class BookingController {
 			
 //			this.bookingService.insertBooking(booking);
 			
-		return new ResponseEntity<>("{}", HttpStatus.CREATED);
+//		return new ResponseEntity<>("{}", HttpStatus.CREATED);
+			return new ResponseEntity<>("{}", HttpStatus.OK);
 	}
 	
 	

@@ -1,6 +1,6 @@
 // 내주변 클릭시 샵검색Main
 function shop_main_search(){
-	var url = "/cndsalon/shopmain";
+	var url = "/cndsalon/shop/shopmain";
 
 		location.href= url;		
 }

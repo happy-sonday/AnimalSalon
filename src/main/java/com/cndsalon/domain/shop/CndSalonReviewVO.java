@@ -21,6 +21,9 @@ public class CndSalonReviewVO {
 	private int rCount;
 	private Date rDate;
 	private String rWriterIp;
+	private String rPhotopath;
+	private String rPhotoname;
+	private String rPhotonameOrigin;
 	
 
 }
