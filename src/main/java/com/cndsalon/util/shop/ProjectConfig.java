@@ -21,7 +21,7 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 //		registry.addResourceHandler("/ckeditor4/**").
 //		addResourceLocations("classpath:/static/ckeditor4/");
 //
-		registry.addResourceHandler("/upload_image/**").
+		registry.addResourceHandler("/shop/upload_image/**").
 		addResourceLocations("file:///K:/data/upload_image/");
 
 	}
