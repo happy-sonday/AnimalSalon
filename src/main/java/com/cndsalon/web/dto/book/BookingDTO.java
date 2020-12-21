@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 public class BookingDTO {
 	private String id;
-	private String mCode;
-	private String dCode;
-	private String sCode;
-	private String bDate;
-	private String bTime;
-	private int bBeautyTime;
-	private int bPrice;
+	private String mcode;
+	private String dcode;
+	private String scode;
+	private String bdate;
+	private String btime;
+	private int beautytime;
+	private int price;
 }

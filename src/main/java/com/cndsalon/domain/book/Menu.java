@@ -59,4 +59,13 @@ public class Menu {
 	@OneToMany(mappedBy = "menu")
 	private List<MenuPhoto> menuPhotos = new ArrayList<>();
 
+	@Override
+	public String toString() {
+		return "Menu [mCode=" + mCode + ", sCode=" + sCode + ", mType=" + mType + ", mName=" + mName + ", mTime="
+				+ mTime + ", mPrice=" + mPrice + ", mInfo=" + mInfo + "]";
+	}
+
+
+
+	
 }

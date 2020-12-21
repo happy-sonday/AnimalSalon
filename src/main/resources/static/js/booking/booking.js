@@ -39,6 +39,7 @@ $(document).ready(function() {
 	/**
 	* document ready
 	**/
+
 });
 
 
@@ -251,35 +252,64 @@ var make_booking = function() {
 		}
 	}
 
+	var booking = JSON.stringify({
+		id : id,
+		mCode : m_code,
+		dCode : d_code,
+		sCode : s_code,
+		bDate : b_date,
+		bTime : b_time,
+		bBeautyTime : b_beauty_time,
+		bPrice : b_price
+	});
+
 //	var booking = {
-//		id : id,
-//		mCode : m_code,
-//		dCode : d_code,
-//		sCode : s_code,
-//		bDate : b_date,
-//		bTime : b_time,
-//		bBeautyTime : b_beauty_time,
-//		bPrice : b_price
-//	}
+//			id: id,
+//			mCode : m_code,
+//			dCode : d_code,
+//			sCode : s_code,
+//			bDate : b_date,
+//			bTime : b_time,
+//			bBeautyTime : b_beauty_time,
+//			bPrice : b_price
+//	};
 
 	$.ajax({
-		//dataType : 'json',
 		contentType : "application/json; charset=utf-8",
-		type : "GET",
+		type : "POST",
 		url : "/cndsalon/booking/make-booking",
-		async : true,
-		//data : JSON.stringify({
-		data : {
+		dataType : 'json',
+//		data : booking,
+		data : JSON.stringify({
 			'id': id,
-			'mCode' : m_code,
-			'dCode' : d_code,
-			'sCode' : s_code,
-			'bDate' : b_date,
-			'bTime' : b_time,
-			'bBeautyTime' : b_beauty_time,
-			'bPrice' : b_price
-		},
-		
+			'mcode' : m_code,
+			'dcode' : d_code,
+			'scode' : s_code,
+			'bdate' : b_date,
+			'btime' : b_time,
+			'beautytime' : b_beauty_time,
+			'price' : b_price
+		}),
+//		data : {
+//			id : id,
+//			mCode : m_code,
+//			dCode : d_code,
+//			sCode : s_code,
+//			bDate : b_date,
+//			bTime : b_time,
+//			bBeautyTime : b_beauty_time,
+//			bPrice : b_price
+//		},
+//		data : (
+//			 id,
+//			 m_code,
+//			 d_code,
+//			 s_code,
+//			 b_date,
+//			 b_time,
+//			 b_beauty_time,
+//			 b_price
+//		),
 		success : function(){
 			alert('예약성공!');
 //			location.href='/board/list';
@@ -291,5 +321,9 @@ var make_booking = function() {
 
 }
 
-
+/** bookingMenu.html 메뉴타입 선택 시 해당 메뉴 조회 **/
+var choice_type = function(selected_type){
+	var menu_type = selected_type.value;
+	location.href = "/cndsalon/booking/shop/" + $('#sCode').val() + "/type/" + menu_type;
+}
 
