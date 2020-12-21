@@ -28,11 +28,32 @@ import com.google.gson.reflect.TypeToken;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 컨트롤러에서 요청받아 실질적으로 기능을 수행하는 서비스
+ * 
+ * @author CWLEE
+ * @version 1.0
+ * @see <a href="https://docs.iamport.kr/?lang=ko">아임포트 결제 연동 매뉴얼</a>
+ * @see <a href="https://github.com/iamport/iamport-rest-client-java-hc">java용 아임포트 REST API 매뉴얼</a>
+ */
 @Service
 @Slf4j
 public class PaymentServiceImpl implements PaymentService {
+	
+	
+	/**
+	 * 아임포트 REST API 요청 최상위 주소
+	 */
 	private static final String API_URL = "https://api.iamport.kr";
+	
+	/**
+	 * 액세스 토큰을 발급받기 위한 REST API 키
+	 */
 	private  String api_key = "1236237657129148";
+	
+	/**
+	 * 액세스 토큰을 발급받기 위한 REST API Secret
+	 */
 	private  String api_secret = "xVzd5ADhR0X5lIISwR7rZAfVhE9C8PUFKtSP4w7Vw41SNJKjBSKAt0wKEGnMvhsfLk5PRdLoiMg5w1p8";
 	
 	private HttpClient client = HttpClientBuilder.create().build();
@@ -40,21 +61,48 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private Gson gson;
 	
+	/**
+	 * 결제 관련 Mapper 객체 
+	 * 
+	 * @see com.cndsalon.repository.payment
+	 */
 	@Autowired
 	private PayMapper payMapper;
 	
+	/**
+	 * 결제시 해당 결제정보를 DB에 입력하는 메소드
+	 * 
+	 * @param paymentDTO 컨트롤러에서 전달받은 paymentDTO 데이터
+	 */
 	@Override
 	public void insertPayInfo(PaymentDTO paymentDTO) throws Exception {
 		payMapper.insertPayInfo(paymentDTO);
-		
 	}
 
+	/**
+	 * 고유주문번호를 통해 결제정보를 조회하는 메소드
+	 * 
+	 * @param merchantUid <br>조회할 고유주문번호 ( = 거래코드 )
+	 */
 	@Override
 	public PaymentDTO selectPayInfo(String merchantUid) throws Exception {
 		PaymentDTO payInfo = payMapper.selectPayInfo(merchantUid);
 		return payInfo;
 	}
 	
+	/**
+	 * REST API KEY 와 REST API SECRET 를 통해서 아임포트 REST API 로부터 토큰을 발급받는다.
+	 * 
+	 * @return auth <br>아임포트 REST API로부터 받는 Response Data<br>
+	 * Response Data : {"code": 0, 
+	 * 							  "message":"string", 
+	 * 							  "response":{
+	 * 								  "access_token:"string",
+	 * 								  "expired_at":0,
+	 * 								  "now":0
+	 * 							   }
+	 * 							 }
+	 */
 	@Override
 	public IamportResponse<AccessToken> getAuth() throws Exception {
 		log.info("토큰발급시작");
@@ -93,6 +141,12 @@ public class PaymentServiceImpl implements PaymentService {
 		return null;
 	}
 
+	/**
+	 * getAuth()로 전달받은 Response Data 중에서 "access_token"을 추출한다.
+	 *   
+	 * @see #getAuth()
+	 * @return token <br>String 형식의 "access_token"
+	 */
 	@Override
 	public String getToken() throws Exception {
 		IamportResponse<AccessToken> auth = this.getAuth();
@@ -105,6 +159,14 @@ public class PaymentServiceImpl implements PaymentService {
 		return null;		
 	}
 	
+	/**
+	 * 토큰 인증 후 요청주소에 따라 post 요청을 수행한다.
+	 * 
+	 * @param path <br> 요청주소
+	 * @param token <br> 인증받은 토큰의 access_token 값
+	 * @param postData <br> post방식의 Request Data
+	 * @return body <br> 아임포트 REST API 가 응답하는 Response data를 body 에 넣어서 리턴한다.
+	 */
 	@Override
 	public String postRequest(String path, String token, StringEntity postData) throws URISyntaxException {
 		try {
@@ -137,6 +199,12 @@ public class PaymentServiceImpl implements PaymentService {
 		return null;
 	}
 
+	/**
+	 * 토큰 인증 후 요청주소에 따라 get 요청을 수행한다.
+	 * @param path <br> 요청주소
+	 * @param token <br> 인증받은 토큰의 access_token 값
+	 * @return body <br> 아임포트 REST API 가 응답하는 Response data를 body 에 넣어서 리턴한다.
+	 */
 	@Override
 	public String getRequest(String path, String token) throws URISyntaxException {
 		try {
@@ -197,6 +265,13 @@ public class PaymentServiceImpl implements PaymentService {
 		return null;
 	}
 
+	/**
+	 * 결제환불 요청시 수행하는 메소드
+	 * @param cancelData <br> 결제환불 요청시 보내는 환불요청데이터
+	 * @param token <br> 인증받은 토큰의 access_token 값
+	 * @retrun payment <br> 결제환불 시 아임포트 REST API로부터 전달받는 ResponseData 중 "response" 값
+	 * PaymentDTO 객체형식에 매핑
+	 */
 	@Override
 	public IamportResponse<PaymentDTO> cancelPayment(CancelData cancelData, String token) throws Exception {
 		if(token != null){

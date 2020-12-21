@@ -16,13 +16,25 @@ import com.cndsalon.web.dto.payment.PaymentDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 결제관련 기능의 컨트롤러
+ * 
+ * @author CWLEE
+ * @version 1.0
+ * @see com.cndsalon.service.payment.PaymentServiceImpl
+ */
 @Controller
 @Slf4j
 public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
-	
-	// 결제 페이지로 이동하는 메소드
+
+	/**
+	 * 결제 페이지로 이동하는 메소드
+	 * 
+	 * @return View PageName & Model 데이터
+	 * @throws Exception
+	 */
 	@GetMapping("/payments")
 	public ModelAndView movePaymentPage() throws Exception{
 		ModelAndView mv = new ModelAndView("/payment/paymentForm");
@@ -30,23 +42,38 @@ public class PaymentController {
 		return mv;
 	}
 	
-	// 결제성공 페이지로 이동하는 메소드
+	/**
+	 * 결제성공 페이지로 이동하는 메소드
+	 * 
+	 * @return View PageName
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/payments/moveSuccess", method=RequestMethod.GET)
 	public String moveSuccessPage() throws Exception{
 		log.info("결제성공페이지 입장완료");
 		return "/payment/afterPaySuccess";
 	}
 		
-	// 결제실패페이지로 이동하는 메소드
+	/**
+	 * 결제실패페이지로 이동하는 메소드
+	 * 
+	 * @return View PageName
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/payments/moveFail", method=RequestMethod.GET)
 	public String moveFailPage() throws Exception{
 		log.info("결제실패페이지 입장완료");
 	return "/payment/afterPayFailed";
 	}
 				
-	// 결제성공 시 DB에 데이터 저장
+	/**
+	 * 결제성공 시 서버 DB에 결제정보데이터를 저장
+	 * 
+	 * @param paymentDTO ajax로 요청받은 결제데이터
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/payments/success", method = RequestMethod.POST)
-	public  @ResponseBody void insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
+	public void insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
 		// 확인용 로그코드
 		log.info("=== Insert PaymentInfo start ===");
 		log.info("아임포트 거래 고유번호 : " + paymentDTO.getImpUid());
@@ -66,14 +93,25 @@ public class PaymentController {
 		paymentService.insertPayInfo(paymentDTO);
 	}
 	
-	// 결제환불테스트페이지로 이동하는 메소드
+	/**
+	 * 결제환불테스트페이지로 이동하는 메소드
+	 * 
+	 * @return View PageName
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/payments/moveCancel", method=RequestMethod.GET)
 	public String moveRefundForm() throws Exception{
 		log.info("결제환불테스트페이지 입장완료");
 	return "/payment/refundTest";
 	}
 	
-	// 결제 환불 요청
+	/**
+	 * 결제 환불을 요청하는 메소드
+	 * 
+	 * @param cancelData ajax로 요청받는 데이터
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/payments/cancel", method=RequestMethod.POST)
 	@ResponseBody
 	public PaymentDTO doCancelPay(@RequestBody CancelData cancelData) throws Exception {
@@ -89,8 +127,13 @@ public class PaymentController {
 		return payInfo;
 	}
 	
-	// 환불성공시 페이지 이동
-	 @RequestMapping(value="/payments/cancelSuccess", method=RequestMethod.GET)
+	/**
+	 * 환불성공시 이동할 페이지
+	 * 
+	 * @return View PageName
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/payments/cancelSuccess", method=RequestMethod.GET)
 	 public String moveAfterCancel() throws Exception{
 		return "/payment/afterRefund";
 	 }
