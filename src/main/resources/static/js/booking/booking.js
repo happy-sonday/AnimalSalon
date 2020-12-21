@@ -263,12 +263,13 @@ var make_booking = function() {
 //	}
 
 	$.ajax({
-		contentType : 'application/json; charset=utf-8',
-		type : 'POST',
-		url : '/cndsalon/booking/make-booking',
-		
-//		data : JSON.stringify(booking),
-		data : JSON.stringify({
+		//dataType : 'json',
+		contentType : "application/json; charset=utf-8",
+		type : "GET",
+		url : "/cndsalon/booking/make-booking",
+		async : true,
+		//data : JSON.stringify({
+		data : {
 			'id': id,
 			'mCode' : m_code,
 			'dCode' : d_code,
@@ -277,8 +278,8 @@ var make_booking = function() {
 			'bTime' : b_time,
 			'bBeautyTime' : b_beauty_time,
 			'bPrice' : b_price
-		}),
-		dataType : 'json',
+		},
+		
 		success : function(){
 			alert('예약성공!');
 //			location.href='/board/list';

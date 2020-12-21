@@ -4,11 +4,11 @@ function filterClick($inSearch, inSearchVar){
 		var inSearch = $inSearch;
 		var inSearchVar = inSearchVar;
 	if (inSearch == 1){
-	$("#"+inSearchVar).val('0')
-	$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});	
+		$("#"+inSearchVar).val('0')
+		$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});	
 	}else{
-	$("#"+inSearchVar).val('1').css('background-color','green');	
-	$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
+		$("#"+inSearchVar).val('1').css('background-color','green');	
+		$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
 	}
 }
 
@@ -17,25 +17,25 @@ function filterClick_cat_menu($inSearch, inSearchVar){
 		var inSearch = $inSearch;
 		var inSearchVar = inSearchVar;
 	if (inSearch == 1 && inSearchVar=="pCat"){
-	$("#"+inSearchVar).val('0')
-	$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});
-	$('.pShort').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pShort').val('0');
-	$('.pLong').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pLong').val('0');
+		$("#"+inSearchVar).val('0')
+		$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});
+		$('.pShort').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pShort').val('0');
+		$('.pLong').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pLong').val('0');
 	}else if(inSearch == 0 && inSearchVar=="pCat"){
-	$("#"+inSearchVar).val('1').css('background-color','green');	
-	$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
-	$('.pShort').show();
-	$('.pLong').show();
-	$('.pDog').css({background : '#fff2d8', color : '#000000'});
-	$('#pDog').val('0');
-	$('.pSmall').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pSmall').val('0');
-	$('.pMedium').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pMedium').val('0');
-	$('.pLarge').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pLarge').val('0');
+		$("#"+inSearchVar).val('1').css('background-color','green');	
+		$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
+		$('.pShort').show();
+		$('.pLong').show();
+		$('.pDog').css({background : '#fff2d8', color : '#000000'});
+		$('#pDog').val('0');
+		$('.pSmall').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pSmall').val('0');
+		$('.pMedium').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pMedium').val('0');
+		$('.pLarge').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pLarge').val('0');
 	}
 }
 //dog button action(중분류 비활성화기능)
@@ -43,26 +43,26 @@ function filterClick_dog_menu($inSearch, inSearchVar){
 		var inSearch = $inSearch;
 		var inSearchVar = inSearchVar;
 	if (inSearch == 1 && inSearchVar=="pDog"){
-	$("#"+inSearchVar).val('0')
-	$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});
-	$('.pSmall').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pSmall').val('0');
-	$('.pMedium').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pMedium').val('0');
-	$('.pLarge').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pLarge').val('0');
+		$("#"+inSearchVar).val('0')
+		$("."+inSearchVar).css({background : '#fff2d8', color : '#000000'});
+		$('.pSmall').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pSmall').val('0');
+		$('.pMedium').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pMedium').val('0');
+		$('.pLarge').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pLarge').val('0');
 	}else if(inSearch == 0 && inSearchVar=="pDog"){
-	$("#"+inSearchVar).val('1').css('background-color','green');	
-	$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
-	$('.pCat').css({background : '#fff2d8', color : '#000000'});
-	$('#pCat').val('0');
-	$('.pShort').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pShort').val('0');
-	$('.pLong').hide().css({background : '#fff2d8', color : '#000000'});
-	$('#pLong').val('0');
-	$('.pSmall').show();
-	$('.pMedium').show();
-	$('.pLarge').show();
+		$("#"+inSearchVar).val('1').css('background-color','green');	
+		$("."+inSearchVar).css({background : '#2EFE9A', color : '#000000'});
+		$('.pCat').css({background : '#fff2d8', color : '#000000'});
+		$('#pCat').val('0');
+		$('.pShort').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pShort').val('0');
+		$('.pLong').hide().css({background : '#fff2d8', color : '#000000'});
+		$('#pLong').val('0');
+		$('.pSmall').show();
+		$('.pMedium').show();
+		$('.pLarge').show();
 	}
 }
 //scroll 위치가 마지막을 때 비동기식 리스트 불러오기
@@ -76,9 +76,9 @@ $(function () {
 	var pageMax ;
 	var searchKind="default";
 	$(window).scroll(function() {
- 		var scrollTop = $(this).scrollTop();
-        var outerHeight = $(this).outerHeight();
-        var scrollHeight = $(this).prop('scrollHeight');
+ 		//var scrollTop = $(this).scrollTop();
+        //var outerHeight = $(this).outerHeight();
+        //var scrollHeight = $(this).prop('scrollHeight');
 		
     	//if(scrollTop+outerHeight==scrollHeight && pageNum<=pageMax && searchKind=="default"){
 		if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="default"){
@@ -134,7 +134,7 @@ $(function () {
 	function get_page_num(){
 		 $.ajax({
 	    	type : "GET",
-	    	url : "/cndsalon/getPage",
+	    	url : "/cndsalon/shop/getPage",
 			async : true,       	        
 	        success : function(data) {
 				pageMax=data+1;	
@@ -151,7 +151,7 @@ $(function () {
 		$("#shops *").remove();
 		 $.ajax({
 	    	type : "GET",
-	    	url : "/cndsalon/getFilterPage",
+	    	url : "/cndsalon/shop/getFilterPage",
 			async : true,       	 
 	   		contentType : "application/json",
 	    	data :  filter ,       
@@ -174,33 +174,36 @@ $(function () {
 		console.log("search_ajax_list 시작"+pageNum);
 		 $.ajax({
 	    	type : "GET",
-	    	url : "/cndsalon/shopmain_list",
+	    	url : "/cndsalon/shop/shopmain_list",
 	    	contentType : "application/json",
 			async : true,
 	        data : {'userLocalX' : userLocalX , 'userLocalY' : userLocalY,'pageNum' : pageNum},
 			       	        
 	        success : function(data) {
-		
+				var idx=(pageNum-1)*10-1;
 	        	$.each(data,function(index,list){
-					$("#shops").append(
-					
-						"<div class='testshop_content' width='400px' height='100px'>"
-						+"<a href='/cndsalon/shopdetail?sCode="+list.scode+"' >"
-						+"<div width='200px' height='100px'><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
-						+"<div width='200px' height='100px'><p>"+list.sname+"</p><p>별점 : "+list.savgScore+"</p><p>거리 : "+list.slocale+"M</p><p>운영시간 : "+list.stime+"<p id='tttt"+index+"'></p></div></a></div>"			
-					
+					$("#shops").append(					
+						"<div class='shop_info_overview'>"
+						+"<a href='/cndsalon/shop/shopdetail?sCode="+list.scode+"' >"
+						+"<div class='shop_info_overview_image'><img src=\"/cndsalon/shop/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
+						+"<div class='shop_info_overview_name'><p>"+list.sname+"</p><p>별점 : "
+						+list.savgScore+"</p><p>거리 : "+list.slocale+"Km</p><p>운영시간 : "
+						+list.stime+"<p id='shop_option"+idx+"'></p></div></a></div>"			
 					)
-					list.sparking==true ? $('#tttt'+index).append("주차가능") : $('#tttt').append("")
-					list.swifi==true ? $('#tttt'+index).append("Wifi") : $('#tttt').append("")
-					list.ssubway==true ? $('#tttt'+index).append("지하철역근처") : $('#tttt').append("")
-					list.scharge==true ? $('#tttt'+index).append("추가요금없음") : $('#tttt').append("")
-					list.spickup==true ? $('#tttt'+index).append("픽업가능") : $('#tttt').append("")
-					list.sbigdog==true ? $('#tttt'+index).append("대형견가능") : $('#tttt').append("")
+					list.sparking==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>주차가능 </p>") : $('#shop_option'+idx).append("")
+					list.swifi==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>Wifi </p>") : $('#shop_option'+idx).append("")
+					list.ssubway==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>지하철역근처 </p>") : $('#shop_option'+idx).append("")
+					list.scharge==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>추가요금없음 </p>") : $('#shop_option'+idx).append("")
+					list.spickup==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>픽업가능 </p>") : $('#shop_option'+idx).append("")
+					list.sbigdog==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>대형견가능 </p>") : $('#shop_option'+idx).append("")
 					makerX.push(list.sgpsX);
 					makerY.push(list.sgpsY);
 					makerName.push(list.sname);		
+					idx++
+					console.log("리스트 불러 오기 내부 idx값=="+idx);
 	        	})
-
+				
+				console.log(pageNum+" : 페이지 번호 : "+idx+"idx 번호")
 				map_load(makerX,makerY,makerName);
 				pageNum++;
 	        },
@@ -211,56 +214,69 @@ $(function () {
 		});	
 	}
 	
-	
+	// form의 button 클릭 시 수행
 	$('#searchButton').click(function (){
-	console.log("검색버튼 시작")	
-	get_filter_page_num();
-	$('html, body').animate({scrollTop : 0},'slow');
+		console.log("검색버튼 시작")
+	var form_result = 0;
+		$('.filter_value_sum').each(function(){
+			form_result+=Number($(this).val());
+		});
+		console.log(form_result+"검색 조건의 합계")
+	
+	// 검색 조건 미선택 시 alert 발생
+	if(form_result>0){
+		get_filter_page_num();
+		$('html, body').animate({scrollTop : 0},'slow');
+	}else{
+		alert("검색조건이 선택 되지 않았습니다.")
+	}
 	
 	});
 	//필터 검색 기능
 	function search_filter_ajax_list(){
 	filter = $('#searchFilter').serialize()+"&pageNum="+pageNum;
-	console.log(filter)
-	//filter.push({name:"pageNum",value:pageNum});
 	$.ajax({
 	   	type : "GET",
-	   	url : "/cndsalon/shopmain_search",
+	   	url : "/cndsalon/shop/shopmain_search",
 	   	contentType : "application/json",
 		async : true,
 	    data :  filter ,
 	    success : function(data) {
- 
 			search_ajax_filter_location();
+			var idx=(pageNum-1)*10-1;
 	       	$.each(data,function(index,list){
 					$("#shops").append(
-					
-						"<div class='testshop_content' width='400px' height='100px'>"
-						+"<a href='/cndsalon/shopdetail?sCode="+list.scode+"' >"
-						+"<div width='200px' height='100px'><img src=\"/cndsalon/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
-						+"<div width='200px' height='100px'><p>"+list.sname+"</p><p>별점 : "+list.savgScore+"</p><p>거리 : "+list.slocale+"M</p><p>운영시간 : "+list.stime+"<p id='tttt"+index+"'></p></div></a></div>"			
+						"<div class='shop_info_overview'>"
+						+"<a href='/cndsalon/shop/shopdetail?sCode="+list.scode+"' >"
+						+"<div class='shop_info_overview_image'><img src=\"/cndsalon/shop/upload_image/"+list.sphotopath+list.sphotoname+"\" width=100 height=100 /></div>"
+						+"<div class='shop_info_overview_name'><p>"
+						+list.sname+"</p><p>별점 : "
+						+list.savgScore+"</p><p>거리 : "
+						+list.slocale+"Km</p><p>운영시간 : "
+						+list.stime+"<p id='shop_option"+idx+"'></p></div></a></div>"			
 					
 					)
-					list.sparking==true ? $('#tttt'+index).append("주차가능") : $('#tttt').append("")
-					list.swifi==true ? $('#tttt'+index).append("Wifi") : $('#tttt').append("")
-					list.ssubway==true ? $('#tttt'+index).append("지하철역근처") : $('#tttt').append("")
-					list.scharge==true ? $('#tttt'+index).append("추가요금없음") : $('#tttt').append("")
-					list.spickup==true ? $('#tttt'+index).append("픽업가능") : $('#tttt').append("")
-					list.sbigdog==true ? $('#tttt'+index).append("대형견가능") : $('#tttt').append("")
-					list.pcat==true ? $('#tttt'+index).append("고양이") : $('#tttt').append("")
-					list.pshort==true ? $('#tttt'+index).append("단모") : $('#tttt').append("")
-					list.plong==true ? $('#tttt'+index).append("장모") : $('#tttt').append("")
-					list.pdog==true ? $('#tttt'+index).append("강아지") : $('#tttt').append("")
-					list.psmall==true ? $('#tttt'+index).append("소형견") : $('#tttt').append("")
-					list.pmedium==true ? $('#tttt'+index).append("중형견") : $('#tttt').append("")
-					list.plarge==true ? $('#tttt'+index).append("대형견") : $('#tttt').append("")
+					list.sparking==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>주차가능 </p>") : $('#shop_option'+idx).append("")
+					list.swifi==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>Wifi </p>") : $('#shop_option'+idx).append("")
+					list.ssubway==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>지하철역근처 </p>") : $('#shop_option'+idx).append("")
+					list.scharge==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>추가요금없음 </p>") : $('#shop_option'+idx).append("")
+					list.spickup==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>픽업가능 </p>") : $('#shop_option'+idx).append("")
+					list.sbigdog==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_option_style'>대형견가능 </p>") : $('#shop_option'+idx).append("")
+					list.pcat==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>고양이 </p>") : $('#shop_option'+idx).append("")
+					list.pshort==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>단모 </p>") : $('#shop_option'+idx).append("")
+					list.plong==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>장모 </p>") : $('#shop_option'+idx).append("")
+					list.pdog==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>강아지 </p>") : $('#shop_option'+idx).append("")
+					list.psmall==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>소형견 </p>") : $('#shop_option'+idx).append("")
+					list.pmedium==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>중형견 </p>") : $('#shop_option'+idx).append("")
+					list.plarge==true ? $('#shop_option'+idx).append("<p class='shop_info_overview_product_style'>대형견 </p>") : $('#shop_option'+idx).append("")
 					
 				makerX.push(list.sgpsX);
 				makerY.push(list.sgpsY);
-				makerName.push(list.sname);					
+				makerName.push(list.sname);	
+				idx++				
 	        	})
-				pageNum++
 				map_load(makerX,makerY,makerName);
+				pageNum++
 	        },
 			error : function(data, status){
 				console.log("Error:"+data+":"+status);

@@ -14,6 +14,8 @@ public interface ShopListService {
 
 	public CndSalonShopInfoVO getShopDetail(String sCode);
 	
+	public List<CndSalonShopInfoVO> getShopDetailPhoto(String sCode);
+	
 	public List<CndSalonShopProductPhotoVO> getShopProductPhoto(String sCode);
 	
 	public List<CndSalonShopDesignerVO> getShopDesignerInfo(String sCode);
@@ -25,4 +27,6 @@ public interface ShopListService {
 	public int getPageNum();
 	
 	public int getFilterPageNum(CndSalonShopInfoVO ShopInfoVO);
+	
+	public List<CndSalonReviewVO> getReviewPhoto(String rCode);
 }

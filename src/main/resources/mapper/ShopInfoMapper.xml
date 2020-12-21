@@ -76,6 +76,12 @@
 		SELECT A.*, B.P_CAT,B.P_DOG,B.P_SHORT,B.P_LONG,B.P_SMALL,B.P_MEDIUM,B.P_LARGE FROM SHOP_INFO_TBL A
 		INNER JOIN SHOP_PRODUCT_TBL B ON A.S_CODE = B.S_CODE WHERE A.S_CODE = #{sCode}
 	</select>
+	<!-- ShopDetailPhoto : sCode로 매장 사진 검색 -->
+	<select id="getShopDetailPhoto" resultType="CndSalonShopInfoVO" >
+		SELECT A.S_CODE, B.S_PHOTOPATH,B.S_PHOTONAME,B.S_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A
+		INNER JOIN SHOP_PHOTO_TBL B ON A.S_CODE = B.S_CODE
+		WHERE A.S_CODE = #{sCode}
+	</select>
 	<!-- ShopProductPhoto : sCode로 업체상품사진 검색 -->
 	<select id="getShopProductPhoto" resultType="CndSalonShopProductPhotoVO" >
 		SELECT A.S_CODE, B.P_PHOTOPATH,B.P_PHOTONAME,B.P_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A
@@ -91,5 +97,9 @@
 		<!-- ShopReviewVO : sCode로 리뷰 검색 -->
 	<select id="getReview" resultType="CndSalonReviewVO">
 		SELECT * FROM REVIEW_DETAIL_TBL WHERE S_CODE = #{sCode} ORDER BY R_DATE
+	</select>
+		<!-- ShopReviewPhoto : rCode로 리뷰 이미지 검색 -->
+		<select id="getReviewPhoto" resultType="CndSalonReviewVO">
+		SELECT * FROM REVIEW_PHOTO_TBL WHERE R_CODE = #{rCode}
 	</select>
 </mapper>

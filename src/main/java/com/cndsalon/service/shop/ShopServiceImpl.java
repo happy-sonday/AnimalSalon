@@ -39,6 +39,13 @@ public class ShopServiceImpl implements ShopListService {
 
 	@Transactional
 	@Override
+	public List<CndSalonShopInfoVO> getShopDetailPhoto(String sCode) {
+		
+		return dao.getShopDetailPhoto(sCode);
+	}
+	
+	@Transactional
+	@Override
 	public List<CndSalonShopProductPhotoVO> getShopProductPhoto(String sCode){
 
 		return dao.getShopProductPhoto(sCode);
@@ -78,6 +85,10 @@ public class ShopServiceImpl implements ShopListService {
 		return dao.getFilterPageNum(ShopInfoVO);
 	}
 	
+	@Override
+	public List<CndSalonReviewVO> getReviewPhoto(String rCode) {
+		
+		return dao.getReviewPhoto(rCode);
+	}
 
-	
 }
