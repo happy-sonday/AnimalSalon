@@ -56,33 +56,23 @@ CREATE TABLE SHOP_MENU_PHOTO (
     FOREIGN KEY (S_CODE) REFERENCES SHOP_INFO_TBL(S_CODE) ON DELETE CASCADE
     );
 
+------ 예약_VIEW 테이블
+CREATE OR REPLACE VIEW booking_view AS
+SELECT 
+	b.b_code, b.id, b.b_price, b.b_status,
+	m.m_code, m.m_name, 
+	mp.m_p_path, mp.m_p_sysname, mp.m_p_orgname,
+	s.s_code, s.s_name,
+	d.d_code, d.d_name,
+	b.b_date, b.b_time
 
----------------------------------------TEST DATA 
-    -- 메뉴 test data
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_1', 'CNDSHOP_1', '강아지', '전체미용+목욕', 90, 40000, '메뉴 전체미용+목욕의 부가정보입니다');
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_2', 'CNDSHOP_1', '강아지', '부분미용+목욕', 60, 30000, '메뉴 부분미용+목욕의 부가정보입니다');
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_3', 'CNDSHOP_1', '강아지', '부분미용', 30, 15000, '메뉴 부분미용의 부가정보입니다');
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_4', 'CNDSHOP_1', '강아지', '목욕', 30, 15000, '메뉴 목욕의 부가정보입니다');
-    
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_5', 'CNDSHOP_1', '고양이', '무마취 미용(단모)', 120, 50000, '무마취미용(단모)의 부가정보입니다');
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_6', 'CNDSHOP_1', '고양이', '무마취 미용(장모)', 150, 60000, '무마취미용(장모)의 부가정보입니다');
-    INSERT INTO SHOP_MENU (M_CODE, S_CODE, M_TYPE, M_NAME, M_TIME, M_PRICE, M_INFO) VALUES ('MENU_7', 'CNDSHOP_1', '고양이', '마취 미용', 180, 70000, '마취 미용의 부가정보입니다');
-    commit;
-
-    -- 메뉴 옵션 test data
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_1', 'CNDSHOP_1', '소형', 0, 0);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_1', 'CNDSHOP_1', '중형', 30, 5000);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_1', 'CNDSHOP_1', '대형', 60, 10000);
-
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_2', 'CNDSHOP_1', '소형', 0, 0);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_2', 'CNDSHOP_1', '중형', 30, 5000);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_2', 'CNDSHOP_1', '대형', 60, 10000);
-    
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_3', 'CNDSHOP_1', '소형', 0, 0);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_3', 'CNDSHOP_1', '중형', 0, 5000);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_3', 'CNDSHOP_1', '대형', 30, 10000);
-    
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_4', 'CNDSHOP_1', '소형', 0, 0);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_4', 'CNDSHOP_1', '중형', 0, 5000);
-    INSERT INTO SHOP_MENU_OPTION (M_CODE, S_CODE, O_NAME, O_TIME, O_PRICE) VALUES ('MENU_4', 'CNDSHOP_1', '대형', 30, 10000);
-    commit;
+FROM booking b, 
+	shop_menu m, 
+	shop_info_tbl s, 
+	shop_designer_tbl d, 
+	shop_menu_photo mp
+WHERE 
+	b.m_code = m.m_code AND
+	b.s_code = s.s_code AND
+	b.d_code = d.d_code AND
+	m.m_code = mp.m_code(+);

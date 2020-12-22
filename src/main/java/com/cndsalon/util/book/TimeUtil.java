@@ -135,7 +135,7 @@ public class TimeUtil {
 		
 		for(int i=0; i< designerWorkTimeList.size(); i++) {
 			LocalTime dTime = designerWorkTimeList.get(i).getBTime(); // 예약시간
-			int beautyTime = designerWorkTimeList.get(i).getBBeautyTime(); // 소요시간
+			int beautyTime = designerWorkTimeList.get(i).getbBeautyTime(); // 소요시간
 
 			if(beautyTime==0) {
 				time = new DateTimeDTO();

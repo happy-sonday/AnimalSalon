@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cndsalon.domain.book.Booking;
 import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
-import com.cndsalon.web.dto.book.BookingDTO;
 import com.cndsalon.web.dto.book.DateTimeDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -164,27 +163,16 @@ public class BookingController {
 	  * 개요: bookingDetail.html 에서 예약 시 예약 등록하는 메서드
 	  * </pre>
 	  * @method insertBooking
-	  * @param bookingDTO[타입]
-	  * @return 설명 [BookingController]
+	  * @param bookingDTO 예약내용을 담은 DTO 객체 [DTO]
+	  * @return 성공 시 201(created) 상태 반환 [BookingController]
 	  *
 	 */
 	@ResponseBody
 	@PostMapping("/make-booking")
 	public ResponseEntity<?> insertBooking(
-			@RequestBody BookingDTO bookingDTO
-			){
-			log.info("예약내용 : " + bookingDTO.toString());
-			
-			Booking booking = Booking.builder()
-					.id(bookingDTO.getId())
-					.mCode(bookingDTO.getMcode())
-					.dCode(bookingDTO.getDcode())
-					.sCode(bookingDTO.getScode())
-					.bBeautyTime(bookingDTO.getBeautytime())
-					.bPrice(bookingDTO.getPrice())
-					.build();
-			booking.setBDate(bookingDTO.getBdate());
-			booking.setBTime(bookingDTO.getBtime());
+			@RequestBody Booking booking){
+		
+			log.info("예약내용 : " + booking.toString());
 			
 			this.bookingService.insertBooking(booking);
 		
