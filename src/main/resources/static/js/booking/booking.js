@@ -39,7 +39,7 @@ $(document).ready(function() {
 	/**
 	* document ready
 	**/
-
+	
 });
 
 
@@ -227,22 +227,8 @@ var check_time = function(selected_time) {
 // id는 세션의 정보 받아올 것.
 var make_booking = function() {
 
-	var id = 'testId';
-	console.log(id)
-	var m_code = $('#mCode').val();
-	console.log("mCode : " + m_code)
-	var d_code = $('#selected_designer').val();
-	console.log("dCode : " + d_code)
-	var s_code = $('#sCode').val();
-	console.log("sCode : " + s_code)
-	var b_date = $('#selected_date').val();
-	console.log("bDate : " + b_date)
+	
 	var b_time = $('input[name="time_radio"]:checked').val();
-	console.log("bTime : " + b_time)
-	var b_beauty_time = $('#sumBeautyTime').text().substring(0, $('#sumBeautyTime').text().indexOf("분")) * 1;
-	console.log("bBeautyTime : " + b_beauty_time)
-	var b_price = $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1;
-	console.log("bPrice : " + b_price)
 
 	if (!b_time) {
 		if ($('#optionList option:selected').val() == "x") {
@@ -253,63 +239,28 @@ var make_booking = function() {
 	}
 
 	var booking = JSON.stringify({
-		id : id,
-		mCode : m_code,
-		dCode : d_code,
-		sCode : s_code,
-		bDate : b_date,
+		id : 'testId',
+		mCode : $('#mCode').val(),
+		dCode : $('#selected_designer').val(),
+		sCode : $('#sCode').val(),
+		bDate : $('#selected_date').val(),
 		bTime : b_time,
-		bBeautyTime : b_beauty_time,
-		bPrice : b_price
+		bBeautyTime : $('#sumBeautyTime').text().substring(0, $('#sumBeautyTime').text().indexOf("분")) * 1,
+		bPrice : $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1
 	});
 
-//	var booking = {
-//			id: id,
-//			mCode : m_code,
-//			dCode : d_code,
-//			sCode : s_code,
-//			bDate : b_date,
-//			bTime : b_time,
-//			bBeautyTime : b_beauty_time,
-//			bPrice : b_price
-//	};
+	var token = $("meta[name='_csrf']").attr("content");
+ 	var header = $("meta[name='_csrf_header']").attr("content");
 
 	$.ajax({
 		contentType : "application/json; charset=utf-8",
 		type : "POST",
 		url : "/cndsalon/booking/make-booking",
 		dataType : 'json',
-//		data : booking,
-		data : JSON.stringify({
-			'id': id,
-			'mcode' : m_code,
-			'dcode' : d_code,
-			'scode' : s_code,
-			'bdate' : b_date,
-			'btime' : b_time,
-			'beautytime' : b_beauty_time,
-			'price' : b_price
-		}),
-//		data : {
-//			id : id,
-//			mCode : m_code,
-//			dCode : d_code,
-//			sCode : s_code,
-//			bDate : b_date,
-//			bTime : b_time,
-//			bBeautyTime : b_beauty_time,
-//			bPrice : b_price
-//		},
-//		data : (
-//			 id,
-//			 m_code,
-//			 d_code,
-//			 s_code,
-//			 b_date,
-//			 b_time,
-//			 b_beauty_time,
-//			 b_price
-//		),
+		data : booking,
+		beforeSend : function(xhr){
+		xhr.setRequestHeader(header, token);
+		},
 		success : function(){
 			alert('예약성공!');
 //			location.href='/board/list';

@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			        .antMatchers("/admin/**").hasRole("ADMIN")
 			        .antMatchers("/member/myinfo").hasRole("CLIENT")
 			        .antMatchers("/member/login/**", "/member/logout/**").anonymous()
-			        .antMatchers("/**", "/check/**").permitAll()
+			        .antMatchers("/**", "/check/**", "/booking/**", "/bookinghome/**").permitAll()
             //.anyRequest().authenticated()
                 .and()
                 	.oauth2Login().loginPage("/login")

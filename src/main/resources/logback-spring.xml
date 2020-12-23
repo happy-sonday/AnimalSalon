@@ -6,7 +6,7 @@
 
 
 
-    <property name="LOGS_PATH" value="K:/data/cndsalon/log" />
+    <property name="LOGS_PATH" value="E:/data/cndsalon/log" />
 
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

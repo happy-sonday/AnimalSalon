@@ -11,6 +11,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * <pre>
+ * 개요: Java에서 생성한 LocalTime 타입의 변수들을 Javascript에서 사용하기 위해
+ * 역직렬화를 해주는 DTO 클래스
+ * </pre>
+ * @author <a href="mailto:hkj5455@gamil.com">김진혁</a><br>
+ * @date 2020. 12. 22. 
+ * @version 1.0 
+ * @since 
+ */
 @ToString
 @Getter @Setter
 @RequiredArgsConstructor

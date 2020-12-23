@@ -28,7 +28,7 @@
                     <a style="cursor:pointer" onclick='shop_main_search()'>
                     <li class="navbar__menu__item">내 주변</li></a>
                     <a href="#"><li class="navbar__menu__item">입점 문의</li></a>
-                    <a href="#"><li class="navbar__menu__item">예약</li></a> 
+                    <a th:href="@{/bookinghome/status/all}"><li class="navbar__menu__item">예약</li></a> 
                     
                     <!-- security 적용 권한에 따른 버튼 노출 -->
                     <a sec:authorize="isAnonymous()" th:href="@{/member/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
