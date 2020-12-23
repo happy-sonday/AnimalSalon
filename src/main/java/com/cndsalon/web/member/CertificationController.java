@@ -20,9 +20,13 @@ public class CertificationController {
 	private CertificationService service;
 	
 	
+	
+	
 	@PostMapping("/check/id")
 	public String checkId(@RequestBody Map<String, String> map) {
-				
+	
+		
+		
 		log.debug("id 체킹중:"+map.get("id"));
 		/*
 		String msg = "";		
