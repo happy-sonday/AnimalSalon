@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cndsalon.repository.payment.PayMapper">
+
+	<!-- 	결제성공시 결제정보를 DB에 저장 -->
+	<insert id="insertPayInfo">
+		INSERT INTO payment (
+			imp_uid, merchant_uid, pg_provider, pay_method, paid_amount, status, paid_at, 
+			name, buyer_name, buyer_email, buyer_tel, buyer_addr, buyer_postcode
+		)
+		VALUES
+		(
+			#{impUid}, #{merchantUid}, #{pgProvider}, #{payMethod}, #{paidAmount}, #{status}, #{paidAt},
+			#{name}, #{buyerName}, #{buyerEmail}, #{buyerTel}, #{buyerAddr}, #{buyerPostcode}
+		) 
+	</insert>
+	
+	<!-- 결제정보 조회 -->
+	<select id="selectPayInfo" resultType="com.cndsalon.web.dto.payment.PaymentDTO">
+		SELECT 
+			merchant_uid, pg_provider, pay_method, paid_amount, status, paid_at,
+			name, buyer_name, buyer_email, buyer_tel, buyer_addr, buyer_postcode
+		FROM 
+			payment
+		WHERE 
+			merchant_uid = #{merchantUid}
+	</select>
+	
+	<!-- 결제환불 성공시 결제정보 변경 (status='cancelled') -->
+	<update id="updateStatus">
+		UPDATE 
+			payment
+		SET 
+			status= 'cancelled'
+		WHERE 
+			merchant_uid = #{merchantUid}
+	</update>
+</mapper>

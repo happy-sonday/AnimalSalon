@@ -30,6 +30,7 @@ public class BookingViewDslRepository {
 		
 		List<BookingView> bView = queryFactory.selectFrom(bookingView)
 				.where(bookingView.id.eq(id))
+				.orderBy(bookingView.bDate.desc(), bookingView.bTime.asc())
 				.fetch();
 		return bView;
 	}
