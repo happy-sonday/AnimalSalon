@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     private final CustomOAuth2MemberService customOAuth2UserService;
     
     @Override
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			        .antMatchers("/member/myinfo").hasRole("CLIENT")
 			        .antMatchers("/member/login/**", "/member/logout/**").anonymous()
 			        .antMatchers("/**", "/check/**").permitAll()
-			        //.anyRequest().authenticated()
+            //.anyRequest().authenticated()
                 .and()
                 	.oauth2Login().loginPage("/login")
                 .and()

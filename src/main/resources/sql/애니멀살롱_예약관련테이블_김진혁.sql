@@ -1,20 +1,27 @@
 ------ 예약내역테이블
 CREATE TABLE BOOKING (
-    B_CODE VARCHAR2(30),    -- 예약코드
+    B_CODE NUMBER,    -- 예약코드
     ID VARCHAR2(50),        -- 아이디
-    O_CODE VARCHAR2(30),    -- 옵션코드
     M_CODE VARCHAR2(30),    -- 메뉴코드
     D_CODE VARCHAR2(30),    -- 디자이너코드
     S_CODE VARCHAR2(30),    -- 매장코드
     B_DATE DATE,            -- 예약일정(년월일,요일)
     B_TIME DATE,            -- 예약일정(시간)
-    B_BEATY_TIME NUMBER,      -- 시술 소요시간
+    B_BEAUTY_TIME NUMBER,      -- 시술 소요시간
     B_PRICE NUMBER,         -- 예약 금액
-    B_STATUS CHAR(1) DEFAULT '0',       -- 예약 상태 / 0: 예약진행중, 1: 완료, 2: 취소(환불), 3: 삭제
+    B_STATUS CHAR(1) DEFAULT '0',       -- 예약 상태 / 0: 예약진행중, 1: 시술완료, 2: 취소(환불), 3: 삭제
     B_CANCEL_REASON VARCHAR2(20), -- 예약 취소 사유
-    PRIMARY KEY (B_CODE),
-    FOREIGN KEY (ID) REFERENCES MEMBER(ID)
+    PRIMARY KEY (B_CODE)
     );
+    
+    -- 예약내역 시퀸스
+    CREATE SEQUENCE BOOKING_SEQ
+	START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 99999
+    NOCYCLE; 
+    commit;
+
     
 ------ 메뉴테이블
 CREATE TABLE SHOP_MENU (
@@ -35,9 +42,7 @@ CREATE TABLE SHOP_MENU_OPTION (
     S_CODE VARCHAR2(30), -- 매장코드
     O_NAME VARCHAR2(30), -- 옵션명
     O_TIME NUMBER,         -- 추가 소요시간
-    O_PRICE NUMBER,       -- 추가 금액
-    FOREIGN KEY (M_CODE) REFERENCES SHOP_MENU(M_CODE),
-    FOREIGN KEY (S_CODE) REFERENCES SHOP_INFO_TBL(S_CODE)
+    O_PRICE NUMBER       -- 추가 금액
     );
 
 ------ 메뉴사진테이블

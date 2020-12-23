@@ -36,7 +36,7 @@ public class TotalCertificationTest {
 
 	
 	//통합인터페이스: 문자 전송 테스트
-	
+
 	@Disabled
 	@Test
 	void sendMail() {//통과

@@ -19,15 +19,19 @@ public class QBooking extends EntityPathBase<Booking> {
 
     public static final QBooking booking = new QBooking("booking");
 
-    public final StringPath bCode = createString("bCode");
+    public final NumberPath<Integer> bBeautyTime = createNumber("bBeautyTime", Integer.class);
+
+    public final StringPath bCancelReason = createString("bCancelReason");
+
+    public final NumberPath<Long> bCode = createNumber("bCode", Long.class);
 
     public final DatePath<java.time.LocalDate> bDate = createDate("bDate", java.time.LocalDate.class);
 
-    public final NumberPath<Integer> beautyTime = createNumber("beautyTime", Integer.class);
+    public final NumberPath<Integer> bPrice = createNumber("bPrice", Integer.class);
+
+    public final StringPath bStatus = createString("bStatus");
 
     public final TimePath<java.time.LocalTime> bTime = createTime("bTime", java.time.LocalTime.class);
-
-    public final StringPath cancelReason = createString("cancelReason");
 
     public final StringPath dCode = createString("dCode");
 
@@ -35,13 +39,7 @@ public class QBooking extends EntityPathBase<Booking> {
 
     public final StringPath mCode = createString("mCode");
 
-    public final StringPath oCode = createString("oCode");
-
-    public final NumberPath<Integer> price = createNumber("price", Integer.class);
-
     public final StringPath sCode = createString("sCode");
-
-    public final ComparablePath<Character> status = createComparable("status", Character.class);
 
     public QBooking(String variable) {
         super(Booking.class, forVariable(variable));

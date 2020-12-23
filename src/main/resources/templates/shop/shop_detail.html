@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내주변에서 가장 가까운 헤어샵 찾기 | C&D 헤어샵</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{'/static/css/main/icon-font.css'}">
+        <link rel="stylesheet" th:href="@{'/static/css/style.css'}">
+        <link rel="stylesheet" th:href="@{'/static/css/main/style_shop_info.css'}">
+        <link rel="stylesheet" th:href="@{'/static/css/main/style_shop_review.css'}">
+    	<link rel="stylesheet" th:href="@{'/static/css/main/bootstrap.min.css'}">
+        <link rel="shortcut icon" type="image/png" th:href="@{/static/img/main/favicon.ico}">
+        <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
+        <script th:src="@{'/static/js/main.js'}" defer></script>
+        <script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
+        <script th:src="@{'/static/js/jquery-3.5.1.min.js'}" charset="UTF-8"></script>
+    	<script type="text/javascript" th:src="@{'/static/js/jquery-3.3.1.min.js'}"></script>
+    	<script type="text/javascript" th:src="@{'/static/js/bootstrap.bundle.min.js'}"></script>
+    	<script th:src="@{'/static/js/shop/shop_detail.js'}" charset="UTF-8"></script>
+    	<script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
+</head>
+
+<body>
+    <!--메뉴바-->
+    <nav id="navbar">
+        
+        <div class="navbar__logo">
+            <a style="cursor:pointer" onclick='shop_home()'><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
+        </div>
+
+        <div class="navbar__menu">
+            <ul class="navbar__menu">
+            	<a style="cursor:pointer" onclick='shop_main_search()'>
+                <li class="navbar__menu__item">내주변</li></a>
+                <li class="navbar__menu__item">입점 문의</li>
+                <li class="navbar__menu__item">예약</li>
+                <li class="navbar__menu__item active">로그인</li>
+            </ul>
+        </div>
+        
+    </nav>
+   <!--메뉴바 END--> 
+
+   <!--매장 정보-->
+   <section class="shop__details">
+
+       <div class="shop__detail">
+			
+           <div class="shop__detail__image" th:each="detailphoto : ${shopdetail}">
+               <img th:src="@{'/shop/upload_image/'+${detailphoto.sPhotopath}+${detailphoto.sPhotoname}}" width=200 height=200  alt="매장사진">
+           </div>
+
+           <div class="shop__detail__info">
+               <div class="shop__detail__info__name">
+                   <strong>매장이름 : [[${shopinfo.sName}]]</strong>
+               </div>
+               <div class="shop__detail__info__grade">
+                    <strong>별점 : [[${shopinfo.sAvgScore}]]</strong>
+               </div>
+               <div class="shop__detail__info__time">
+                    <strong>영업시간 : [[${shopinfo.sTime}]]</strong>
+               </div>
+               <div class="shop__detail__info__intro">
+                    <strong>매장소개 : [[${shopinfo.sTitle}]]</strong>
+                    <strong>[[${shopinfo.sContent}]]</strong>
+               </div>
+               <div class="shop__detail__info__etc">
+                     <strong>부가정보 : </strong>
+               </div>
+           </div>
+
+           <div class="shop__detail__goods" th:each="sphoto : ${shopphoto}">
+                <img th:src="@{'/shop/upload_image/'+${sphoto.pPhotopath}+${sphoto.pPhotoname}}" width=200 height=200 alt="상품사진">
+                
+           </div>
+
+           <div class="shop__detail__designer" th:each="dinfo : ${deginerinfo}">
+                <div>
+                <img th:src="@{'/shop/upload_image/'+${dinfo.dPhotopath}+${dinfo.dPhotoname}}" width=200 height=200 alt="상품사진">
+                <strong th:text="${dinfo.dName}"></strong>
+                </div>
+                
+           </div>
+
+           <div class="shop__detail__review">
+              <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="h4 text-white bg-dark mb-0 p-3 rounded-top">리뷰 게시판</h2>
+            <table class="table table-striped table-bordered table-responsive-lg">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="number-col">번호</th>
+                  <th scope="col" class="topic-col">제목</th>
+                  <th scope="col" class="created-col">작성자</th>
+                  <th scope="col" class="created-date-col">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><h3 class="h6"><span class="badge badge-primary">Best</span> <a href="#">강아지가 솜사탕으로 변했어요!</a></h3></td>
+                  <td>심현종</td>
+                  <td>2020-12-08 13:46</td>
+                </tr>
+                <div th:each="reviewlist,idx : ${review}">            
+                <tr>
+                  <td th:text="${reviewlist.rCode}"></td>
+                  <td ><h3 class="h6"><a style="cursor:pointer" th:onclick="review_detail([[${reviewlist.rCode}]],[[${idx.index}]]);" th:text="${reviewlist.rTitle}"></a></h3></td>
+                  <td th:text="${reviewlist.rWriter}"></td>
+                  <td th:text="${reviewlist.rDate}"></td>
+                </tr>
+                <tr style="display:none;" th:id="'testreview_image'+${idx.index}">
+                <input type="hidden" th:id="'reviewstatus'+${idx.index}" value="0"/> 
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr style="display:none;" th:id="'testreview_content'+${idx.index}" colspan="4">
+                <td th:text="${reviewlist.rContent}" ></td>
+                </tr>
+                
+                </div>
+                </tbody>
+            </table>
+          </div>
+        </div>
+           </div>
+       </div>
+   </section>
+	<a th:href="@{/booking/shop/__${shopinfo.sCode}__/type/강아지}">예약하기</a>
+
+
+
+
+
+
+
+    <!--Footer-->
+    <footer id="footer">
+
+        <div class="footer__logo">
+            <a href="#"><img th:src="@{'/static/img/main/logo.png'}" alt="logo" class="footer__logo__image" width="40px">C&D</a>
+        </div>
+
+            <div class="footer__navigation">
+                <div class="footer__list">
+                    <ul class="footer__list">
+                        <li class="footer__list__item"><a href="#" >Company</a></li>
+                        <li class="footer__list__item"><a href="#" >Contact us</a></li>
+                        <li class="footer__list__item"><a href="#" >Careers</a></li>
+                        <li class="footer__list__item"><a href="#" >Privacy policy</a></li>
+                        <li class="footer__list__item"><a href="#" >Terms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__copyright">
+                    <p class="footer__copyright">
+                        This is our final project called C&D Hairshop, Enjoy it! <br/><a href="#">Copyright &copy; by KJH SWS SHJ LCW JJK</a> 
+                    </p>
+                </div>
+            </div>
+        
+    </footer>
+    <!--Footer END-->
+
+</body>
+</html>

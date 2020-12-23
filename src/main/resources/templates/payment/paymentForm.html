@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 페이지</title>
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
- 
-<!-- iamport.payment.js -->
+<!--/* jQuery */-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
+<!--/* iamport.payment.js */-->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
 	<div class="wholeContainer">
 		<div class="payHeader">
-			<a href="/Booking/main" class="mainLogo"><img src="#" alt="logo_img"></a>
+			<a href="/cndsalon" class="mainLogo"><img src="#" alt="logo_img"></a>
 		</div>
 		
 		<div class="content_left">
@@ -40,12 +39,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td>일정</td><td>2021년 1월 1일 금 11:00</td></tr>
-					<tr><td>매장</td><td>몰리스펫샵</td></tr>
-					<tr><td>디자이너</td><td>이찬우</td></tr>
-					<tr><td>메뉴</td><td>컷컷컷</td></tr>
-					<tr><td>예약자</td><td>이차누</td></tr>
-					<tr><td>예상소요시간</td><td>2시간</td></tr>
+					<tr><td>일정</td><td><p id="bookingDate">2021년 1월 1일 금 11:00</p></td></tr>
+					<tr><td>매장</td><td><p id="shopName">몰리스펫샵</p></td></tr>
+					<tr><td>디자이너</td><td><p id="designer">이찬우</p></td></tr>
+					<tr><td>메뉴</td><td><p id="styleName">컷컷컷</p></td></tr>
+					<tr><td>예약자</td><td><p id="customer">이차누</p></td></tr>
+					<tr><td>예상소요시간</td><td><p id="workingTime">2시간</p></td></tr>
+					<tr><td>결제금액</td><td><p id="amount">100</p></td></tr>
 				</tbody>
 			</table>
 			<hr>
@@ -55,7 +55,7 @@
 		</div>
 		
 		<div class="content_right">
-			<button onclick="requestPay()" >결제하기</button>
+			<button onclick="requestPay()">결제하기</button>
 		</div>
 		
 		<div class="footer">
@@ -64,61 +64,70 @@
 		</div>
 	</div>
 <script>
-	function requestPay(){
+function requestPay(){
+	var IMP = window.IMP; 
+	IMP.init("imp96423462"); // "가맹점 식별코드"
 		
-		var IMP = window.IMP; 
-		IMP.init("imp96423462"); // "가맹점 식별코드"
+	var payName = $('#shopName').text() + '_' + $('#styleName').text() + ' by ' + $('#desginer').text();
+	console.log(payName);
+	var totalAmount = parseInt($('#amount').text(), 10);
+	var merchantUid = 'merchant_' + new Date().getTime();						// 밀리세컨드 13자리
+	var customer = $('#customer').text();
+	
+	// IMP.request_pay(param, callback) 호출
+	IMP.request_pay({ // param
+		pg: "html5_inicis",		 																		// pg사
+		pay_method: "card",																			// 결제수단
+		merchant_uid: merchantUid, 																// 고유주문번호
+		name: payName,																				// 주문명
+		amount: totalAmount,																		// 결제금액
+		buyer_email: "inulee0213@gmail.com",												// 구매자 Email
+		buyer_name: customer,																		// 구매자 이름
+		buyer_tel: "010-8977-6151",																// 구매자 전화번호
+		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",					// 구매자 주소
+		buyer_postcode: "10310"																	// 구매자 우편번호
 		
-		// IMP.request_pay(param, callback) 호출
-		IMP.request_pay({ // param
-			pg: "kakaopay",		 		// pg사
-			pay_method: "card",		// 결제수단
-			merchant_uid: 'merchant_' + new Date().getTime(),	// 결제코드
-			name: "[주문이름]",		// 주문명
-			amount: 1000,			// 결제금액
-			buyer_email: "inulee0213@gmail.com",		// 구매자이메일
-			buyer_name: "이찬우 [선택사항]",					// 구매자명
-			buyer_tel: "010-8977-6151 [필수사항]",			// 구매자전화번호
-			buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호 [선택항목]",	// 구매자주소
-			buyer_postcode: "10310 [선택사항]"											// 구매자우편번호
-		}, function (rsp) { // callback
-			console.log(rsp);
-			 if (rsp.success) { // 결제 성공 시: 결제 승인에 성공한 경우
-			      // jQuery로 HTTP 요청
-			      jQuery.ajax({
-			          url: "/cndsalon/paySuccess", // 가맹점 서버
-			          method: "POST",
-			          headers: { "Content-Type": "application/json" },
-			          data: {
-			              merchant_uid: rsp.merchant_uid,
-			              pg : "kakaopay",
-			              pay_method : rsp.pay_method,
-			              amount : rsp.paid_amount,
-			              buyer_email : rsp.buyer_email,
-			              buyer_tel : rsp.buyer_tel
-			          }
-			      }).done(function (data) {
-			        // 가맹점 서버 결제 API 성공시 로직
-			        if ( everythings_fine ) {
-                        msg = '결제가 완료되었습니다.';
-//                         msg += '\n고유ID : ' + rsp.imp_uid;
-//                         msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-//                         msg += '\결제 금액 : ' + rsp.paid_amount;
-//                         msg += '카드 승인번호 : ' + rsp.apply_num;
-                        
-                        alert(msg);
-                    } else {
-                        //[3] 아직 제대로 결제가 되지 않았습니다.
-                        //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-                    }
-			      });
-					location.href="/cndsalon/paySuccess"
+		}, function (rsp) { // callback : 결제프로세스 종료 후 실행됨
+				console.log(rsp);
+				if (rsp.success) { // 결제 성공 시: 결제 승인에 성공한 경우
+			    	// jQuery로 HTTP 요청
+			    	jQuery.ajax({
+						url: "/cndsalon/payments/success", 								// 클라이언트가 요청을 보낼 서버의 URL 주소
+						method: "POST",
+						dataType:"json",
+						contentType:"application/json",
+						data: JSON.stringify({
+							impUid : rsp.imp_uid,
+							merchantUid: rsp.merchant_uid,
+							pgProvider : rsp.pg_provider,
+							payMethod : rsp.pay_method,
+							paidAmount : rsp.paid_amount,
+							status : rsp.status,
+							paidAt : rsp.paid_at,										// second단위 ,10자리
+							name : rsp.name,
+							buyerName : rsp.buyer_name,
+							buyerEmail : rsp.buyer_email,
+							buyerTel : rsp.buyer_tel,
+							buyerAddr : rsp.buyer_addr,
+							buyerPostcode : rsp.buyer_postcode
+						})
+					}).done(function (data) {
+				        // 가맹점 서버 결제 API 성공시 로직
+						  msg = '결제가 완료되었습니다.';
+	                        msg += '\n고유ID : ' + rsp.imp_uid;
+	                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	                        msg += '\n결제 금액 : ' + rsp.paid_amount;
+	                        msg += '\n카드 승인번호 : ' + rsp.apply_num;
+
+	                        alert(msg);
+					});
+			    	location.href="/cndsalon/payments/moveSuccess"
 			    } else {
-			      alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-			      location.href="/cndsalon/payFail"
+					alert("결제에 실패하였습니다. \n에러 내용: " +  rsp.error_msg);
+					location.href="/cndsalon/payments/moveFail"
 			    }
 		});
-	}
+};
 </script>
 </body>
 </html>

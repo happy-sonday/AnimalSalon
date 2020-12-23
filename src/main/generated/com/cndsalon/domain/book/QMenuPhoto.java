@@ -22,6 +22,8 @@ public class QMenuPhoto extends EntityPathBase<MenuPhoto> {
 
     public static final QMenuPhoto menuPhoto = new QMenuPhoto("menuPhoto");
 
+    public final StringPath mCode = createString("mCode");
+
     public final QMenu menu;
 
     public final StringPath mpOrgName = createString("mpOrgName");

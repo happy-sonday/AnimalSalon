@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 100px 0 50px 0;
+  justify-content: center;
+  text-align: center;
+}
+.number-col {
+  min-width: 1em;
+}
+.topic-col {
+  min-width: 14em;
+}
+.created-col,
+.created-date-col {
+  min-width: 10em;
+}
+
+a:link,
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+#navs {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  padding: 0;
+}
+
+.row {
+  padding: 160px 0 50px 0;
+}
+
+  .a{
+    padding: 2rem 0rem;
+  	}
+  
+  .b{
+  margin: 0rem 0rem 11rem 0rem;
+	}
+   
+  .c{
+  	font-size: 1.2rem;
+    margin-left: 12rem;
+    margin-top: -20rem;
+  }

@@ -12,8 +12,8 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 	// CSS, webjars config
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/webjars/**").
-		addResourceLocations("classpath:/META-INF/resources/webjars/");
+		//registry.addResourceHandler("/webjars/**").
+		//addResourceLocations("classpath:/META-INF/resources/webjars/");
 
 		registry.addResourceHandler("/static/**").
 		addResourceLocations("classpath:/static/");
@@ -21,8 +21,8 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 //		registry.addResourceHandler("/ckeditor4/**").
 //		addResourceLocations("classpath:/static/ckeditor4/");
 //
-		registry.addResourceHandler("/upload_image/**").
-		addResourceLocations("file:///K:/data/upload_image/shop/");
+		registry.addResourceHandler("/shop/upload_image/**").
+		addResourceLocations("file:///K:/data/upload_image/");
 
 	}
 }

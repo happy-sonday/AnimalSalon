@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cndsalon.domain.shop.CndSalonReviewVO;
 import com.cndsalon.domain.shop.CndSalonShopInfoVO;
 import com.cndsalon.service.shop.ShopListService;
 
@@ -31,53 +32,48 @@ public class CndSalonShopController {
 	@Autowired
 	private ShopListService service;
 
+	
+	// index(home)
 	@RequestMapping("/")
 	public String home() {
 		return "index";
 	}
 
+	// 내주변 root path
+	@RequestMapping(value = "/shop/shopmain")
+	public String getAll_ajax(Model model) {
+		
+		return "/shop/shop_main.html";
+	}
+	
+	// Filter 검색
 	@ResponseBody
-	@RequestMapping(value = "/getAll_ajax_filter", method = { RequestMethod.GET },
+	@RequestMapping(value = "/shop/shopmain_search", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(
-			@RequestParam("sParking") String sParking,
-			@RequestParam("sWifi") String sWifi,
-			@RequestParam("sSubway") String sSubway,
-			@RequestParam("sCharge") String sCharge,
-			@RequestParam("sPickup") String sPickup,
-			@RequestParam("sBigdog") String sBigdog,
-			@RequestParam("userLocalX") String userLocalX,
-			@RequestParam("userLocalY") String userLocalY) {
-		log.info("----- getAll_ajax_filter Start ---");
+			CndSalonShopInfoVO ShopInfoVO
+			) {
+		//log.info("----- shopmain_search Start ---"+ShopInfoVO.getPageNum());
 		List<CndSalonShopInfoVO> list = null;
 		
-		
-		//log.info("---------getAll_ajax_list Start--------------------");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
-		if (!userLocalX.equals("") || !userLocalY.equals("")) {
-			log.info("---search Start ---"  +sParking);
-			list= service.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog, userLocalX, userLocalY);
+		if (!ShopInfoVO.getUserLocalX().equals("") || !ShopInfoVO.getUserLocalY().equals("")) {
+			//log.info("---search Start ---"  +ShopInfoVO.isSParking());
+			list= service.searchShop(ShopInfoVO);
 
 		} else {
-			userLocalX += "37.62843";
-			userLocalY += "127.07184";
-			log.info("---search Start ---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
-			list= service.searchShop(sParking, sWifi, sSubway, sCharge, sPickup, sBigdog, userLocalX, userLocalY);
+			ShopInfoVO.setUserLocalX("37.62843");
+			ShopInfoVO.setUserLocalY("127.07184");
+			//log.info("---search Start ---   " + ShopInfoVO.getUserLocalX() + "  &&&&&  " + ShopInfoVO.getUserLocalY() + "   ");
+			list= service.searchShop(ShopInfoVO);
 		}
 		
 		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
 		
 	}
 
-	@RequestMapping(value = "/getAll_ajax")
-	public String getAll_ajax(Model model) {
-		
-		log.info("---------getAll_ajax Start--------------------");
-		//return "/shop/test3_getall_ajax.html";
-		return "/shop/shop_main.html";
-	}
-	
+
 	/**
 	 * 
 	 * <pre>
@@ -91,42 +87,84 @@ public class CndSalonShopController {
 	 * @return 
 	 *  
 	 */
+	
+	// 내주변 기본검색
 	@ResponseBody
-	@RequestMapping(value = "/getAll_ajax_list", method = { RequestMethod.GET },
+	@RequestMapping(value = "/shop/shopmain_list", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
-	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(@RequestParam("userLocalX") String userLocalX,
-			@RequestParam("userLocalY") String userLocalY) {
+	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(
+			@RequestParam("userLocalX") String userLocalX,
+			@RequestParam("userLocalY") String userLocalY,
+			@RequestParam("pageNum") int pageNum) {
 		List<CndSalonShopInfoVO> list = null;
 		
 		
-		//log.info("---------getAll_ajax_list Start--------------------");
+		//log.info("---------shopmain_list Start--------------------");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
 		if (!userLocalX.equals("") || !userLocalY.equals("")) {
-			log.info("---입력 좌표확인---" + userLocalX + "++++" + userLocalY);
-			list= service.getAll(userLocalX, userLocalY);
+			//log.info("---입력 좌표확인---" + userLocalX + "++++" + userLocalY);
+			list= service.getAll(userLocalX, userLocalY,pageNum);
 
 		} else {
 			userLocalX += "37.62843";
 			userLocalY += "127.07184";
-			log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
-			list= service.getAll(userLocalX, userLocalY);
+			//log.info("---기본 좌표확인---   " + userLocalX + "  &&&&&  " + userLocalY + "   ");
+			list= service.getAll(userLocalX, userLocalY,pageNum);
 		}
 		
 		return new ResponseEntity<List<CndSalonShopInfoVO>>(list,HttpStatus.OK);
 	}
-
-	@RequestMapping(value = "/getOne")
+	
+	// 매장 상세정보
+	@RequestMapping(value = "/shop/shopdetail")
 	public String getOne(@RequestParam("sCode") String sCode, Model model) {
 		log.info("--------getOne Start---------" + sCode);
-		model.addAttribute("shop", service.getOne(sCode));
-
-		return "/shop/test4_shop_detail.html";
+		
+		model.addAttribute("shopdetail",service.getShopDetailPhoto(sCode));
+		model.addAttribute("shopinfo", service.getShopDetail(sCode));
+		model.addAttribute("shopphoto", service.getShopProductPhoto(sCode));
+		model.addAttribute("deginerinfo", service.getShopDesignerInfo(sCode));
+		model.addAttribute("review", service.getReview(sCode));
+		return "/shop/shop_detail.html";
 	}
-
 	
-	// 중복방지 TEST
-	@RequestMapping("/getLocation")
+	//기본 내주변 검색(Max Page)
+	@RequestMapping("/shop/getPage")
+	public ResponseEntity getPage() {
+		log.info("getPage Start ------");
+		int maxPage=0;
+		maxPage=service.getPageNum();
+		log.info("getPage result --------"+String.valueOf((maxPage)));
+		return new ResponseEntity(maxPage,HttpStatus.OK);
+	}
+	
+	//Filter 검색(Max Page)
+	@RequestMapping(value = "/shop/getFilterPage", method = { RequestMethod.GET },
+			produces="application/json; charset=UTF-8")
+	public ResponseEntity getFilterPage(CndSalonShopInfoVO ShopInfoVO) {
+		log.info("getFilterPage Start ------");
+		int maxPage=0;
+		maxPage=service.getFilterPageNum(ShopInfoVO);
+		log.info("getFilterPage result --------"+String.valueOf((maxPage)));
+		return new ResponseEntity(maxPage,HttpStatus.OK);
+	}
+	
+	//리뷰글의 이미지를 불러오기
+	@RequestMapping(value = "/shop/getReviewDetail", method = { RequestMethod.GET },
+			produces="application/json; charset=UTF-8")
+	public ResponseEntity<List<CndSalonReviewVO>> getReviewDetail(
+			@RequestParam("rCode") String rCode
+			) {
+		log.info("review Detail Start ------");
+		List<CndSalonReviewVO> list = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		list=service.getReviewPhoto(rCode);
+		return new ResponseEntity<List<CndSalonReviewVO>>(list,HttpStatus.OK);
+	}
+	// 중복방지 TEST(IP기반)
+	@RequestMapping("/shop/getLocation")
 	public String getAll() {
 		log.info("---------getLocation Start--------------------");
 		InetAddress local;

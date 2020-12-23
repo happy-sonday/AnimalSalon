@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"></script>
+<title>결제환불 테스트용 페이지</title>
+</head>
+<body>
+	<button onclick="cancelPay()">환불요청</button>
+
+	<script>
+		function cancelPay() {
+			jQuery.ajax({
+				url: "/cndsalon/payments/cancel",
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify({
+					merchant_uid: "merchant_1608517176291",		// 주문번호
+					cancel_request_amount: 100,								// 환불금액
+					reason: "테스트 결제 환불" 										// 환불사유
+		        }),
+		        dataType: "json"
+		      }).done(function(result){
+		    	  console.log(result);
+		    	  alert("환불이 완료되었습니다.");
+// 		    	  location.href="/cndsalon/payments/cancelSuccess"
+		      }).fail(function(err){
+		    	  alert("환불이 실패하였습니다.\n Error : " + err);
+		      });
+		}
+	</script>
+</body>
+</html>

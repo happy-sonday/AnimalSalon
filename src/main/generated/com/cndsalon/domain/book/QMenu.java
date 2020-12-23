@@ -38,6 +38,8 @@ public class QMenu extends EntityPathBase<Menu> {
 
     public final StringPath mType = createString("mType");
 
+    public final StringPath sCode = createString("sCode");
+
     public final com.cndsalon.domain.shop.QCndSalonShopInfoVO shopInfo;
 
     public QMenu(String variable) {

@@ -53,7 +53,10 @@ dependencies {
 	// QueryDSL 
 	implementation 'com.querydsl:querydsl-jpa'
 	implementation 'com.querydsl:querydsl-apt'
-
+	
+	// 20.12.21 Booking
+//	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+	
     
     // log4jdbc
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
@@ -74,6 +77,9 @@ dependencies {
     
     implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 
+	// 아임포트 REST API와 http 통신
+	implementation 'com.google.code.gson:gson:2.8.5'
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
 }
 
 test {

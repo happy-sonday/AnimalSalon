@@ -4,17 +4,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>C&D | 애견 전문 헤어샵  </title>
-
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
         <link rel="stylesheet" th:href="@{'/static/css/main/icon-font.css'}">
         <link rel="stylesheet" th:href="@{'/static/css/main/style_shop_info.css'}">
         <link rel="shortcut icon" type="image/png" th:href="@{/static/img/main/favicon.ico}">
         <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
-		<script th:src="@{'/webjars/jquery/3.5.1/jquery.min.js'}" charset="UTF-8"></script>
-		
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>		
+		<script th:src="@{'/static/js/jquery-3.5.1.min.js'}" charset="UTF-8"></script>
 		<script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
-    	<script th:src="@{'/static/js/shop/shop_search_main_ajax.js'}" charset="UTF-8"></script>
+    	<script th:src="@{'/static/js/shop/shop_search_main.js'}" charset="UTF-8"></script>
 	
     </head>
 <body>
@@ -24,12 +22,12 @@
     <nav id="navbar">
         
         <div class="navbar__logo">
-            <a href="#"></a><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
+            <a onclick='shop_home()'><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
         </div>
 
         <div class="navbar__menu">
             <ul class="navbar__menu">
-                <a style="cursor:pointer" onclick='shop_search_ajax()'>
+                <a style="cursor:pointer" onclick='shop_main_search()'>
                 <li class="navbar__menu__item">내 주변</li></a>
                 <li class="navbar__menu__item">입점 문의</li>
                 <li class="navbar__menu__item">예약</li>
@@ -51,100 +49,71 @@
             <a href="#" class="location__change">지역변경</a>
             
    		<form class="filter__menu" id="searchFilter" method="GET">
-		<input id="sParking" name="sParking" type="hidden" value="0" >
-		<input id="sWifi" name="sWifi" type="hidden" value="0" >
-		<input id="sSubway" name="sSubway" type="hidden" value="0" >
-		<input id="sCharge" name="sCharge" type="hidden" value="0" >
-		<input id="sPickup" name="sPickup" type="hidden" value="0" >
-		<input id="sBigdog" name="sBigdog" type="hidden" value="0" >
+   		<!-- 고양이 히든 -->
+   		<input class="filter_value_sum" id="pCat" name="pCat" type="hidden" value="0" >   		
+		<input class="filter_value_sum" id="pShort" name="pShort" type="hidden" value="0" >
+		<input class="filter_value_sum" id="pLong" name="pLong" type="hidden" value="0" >
+		
+		<!-- 강아지 히든 -->
+		<input class="filter_value_sum" id="pDog" name="pDog" type="hidden" value="0" >
+		<input class="filter_value_sum" id="pSmall" name="pSmall" type="hidden" value="0" >
+		<input class="filter_value_sum" id="pMedium" name="pMedium" type="hidden" value="0" >
+		<input class="filter_value_sum" id="pLarge" name="pLarge" type="hidden" value="0" >
+		
+		<!-- 매장부가조건 히든 -->
+		<input class="filter_value_sum" id="sParking" name="sParking" type="hidden" value="0" >
+		<input class="filter_value_sum" id="sWifi" name="sWifi" type="hidden" value="0" >
+		<input class="filter_value_sum" id="sSubway" name="sSubway" type="hidden" value="0" >
+		<input class="filter_value_sum" id="sCharge" name="sCharge" type="hidden" value="0" >
+		<input class="filter_value_sum" id="sPickup" name="sPickup" type="hidden" value="0" >
+		<input class="filter_value_sum" id="sBigdog" name="sBigdog" type="hidden" value="0" >
+		<!-- 자기위치 히든 -->
 		<input id="userLocalX" name="userLocalX" type="hidden" value="" >
 		<input id="userLocalY" name="userLocalY" type="hidden" value="" > 
 		<input id="searchButton" type="button"  value="검색"/>
 		</form>
-		<input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" >
-		<input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" >
-		<input class="sSubway" type="button" onclick='filterClick(sSubway.value,"sSubway")' value="지하철 주변" >
-		<input class="sCharge" type="button" onclick='filterClick(sCharge.value,"sCharge")' value="추가요금 없음" >
-		<input class="sPickup" type="button" onclick='filterClick(sPickup.value,"sPickup")' value="픽업 가능" >
-		<input class="sBigdog" type="button" onclick='filterClick(sBigdog.value,"sBigdog")' value="대형견 가능" >
-				  
-        <div class="filter__menu">
-            <select class="filter__menu__item">
-                <option>종분류<i class="fas fa-chevron-down"></i></option>
-                <option>소형</option>
-                <option>중형</option>
-                <option>대형</option>
-            </select>
+		<table border ="1">
+		<tr>
+		<td><input class="pCat" type="button"
+		 onclick='filterClick_cat_menu(pCat.value,"pCat")'
+		 value="고양이" ></td>
+		</tr>
+		<tr>		
+		<td><input class="pShort" type="button" onclick='filterClick(pShort.value,"pShort")' value="단모" ></td>
+		<td><input class="pLong" type="button" onclick='filterClick(pLong.value,"pLong")' value="장모" ></td>		
+		</tr>
+		<tr>
+		<td><input class="pDog" type="button"
+		 onclick='filterClick_dog_menu(pDog.value,"pDog")'
+		 value="강아지" ></td>
+		</tr>		
+		<tr>		
+		<td><input class="pSmall" type="button" onclick='filterClick(pSmall.value,"pSmall")' value="소형견" ></td>
+		<td><input class="pMedium" type="button" onclick='filterClick(pMedium.value,"pMedium")' value="중형견" ></td>
+		<td><input class="pLarge" type="button" onclick='filterClick(pLarge.value,"pLarge")' value="대형견" ></td>		
+		</tr>		
+		<tr>
+		<td><input class="sParking" type="button" onclick='filterClick(sParking.value,"sParking")' value="주차가능" ></td>
+		<td><input class="sWifi" type="button" onclick='filterClick(sWifi.value,"sWifi")' value="Wifi 가능" ></td>
+		<td><input class="sSubway" type="button" onclick='filterClick(sSubway.value,"sSubway")' value="지하철 주변" ></td>
+		<td><input class="sCharge" type="button" onclick='filterClick(sCharge.value,"sCharge")' value="추가요금 없음" ></td>
+		<td><input class="sPickup" type="button" onclick='filterClick(sPickup.value,"sPickup")' value="픽업 가능" ></td>
+		<td><input class="sBigdog" type="button" onclick='filterClick(sBigdog.value,"sBigdog")' value="대형견 가능" ></td>
+		</tr>
+		</table>  
 
-            <select class="filter__menu__item">
-                <option>몸무게&털종류<i class="fas fa-chevron-down"></i></option>
-                <option>장모</option>
-                <option>단모</option>
-            </select>
-
-            <select class="filter__menu__item">
-                <option>매장정보<i class="fas fa-chevron-down"></i></option>
-                <option>주차가능</option>
-                <option>Free Wifi</option>
-                <option>지하철역 주변</option>
-                <option>추가비용 없음</option>
-                <option>픽업가능</option>
-                <option>대형견가능</option>
-            </select>
-
-            <select class="filter__menu__item">
-                <option>정렬<i class="fas fa-chevron-down"></i></option>
-                <option>거리순</option>
-                <option>리뷰순</option>
-                <option>평점순</option>
-            </select>
-        
-        </div>
     </div>
     </section>
 
     <!--지도-->
     <section id="maps">
-
-           <div id="map" style="width:500px;height:400px;"></div>
-        
+           <div id="map" ></div>     
     </section>
 
     <!--헤어샵 목록-->
     <section id="shops">
-    
-        <table id="resultlist" border="1">
- 		
- 		
-    	</table>
-        
-        <div class="shop__infos">
-            <a class="shop__info" href="상세페이지">
-                <div class="shop__info__detail">
-                    <img th:src="@{'/static/img/main/dog1.jpg'}" alt="" class="shop__info__detail__image" >
-                </div>
-                <div class="shop__title">
-                    <div class="shop__title__detail">
-                    <strong class="shop__title__detail">네이처헤어 미아2호점</strong>
-                </div>
-                <span class="shop__distance">0.1km</span>
-                <dl class="shop__star">
-                    <dt><span class="ico_hair ico_star">별점</span></dt>
-                    <dd>4.9</dd>
-                    <dt><span class="ico_hair ico_review">리뷰수</span></dt>
-                    <dd>424</dd>
-                </dl>
-                <p class="desc__info__card">수유방면 미아역버스정류장앞, 미아역 4번출구 보도 3분거리 </p>
-                <p class="desc__info__card">커트 15,300원</p>
-                <div class="tags"><span class="tag__shop">타임세일</span>
-                    <span class="tag__shop">쿠폰</span>
-                </div>
-                <span class="line"></span>
-            </a>
-        </div>
-        
-    </section>
 
+    </section>
         
 </body>
 </html>
