@@ -38,6 +38,9 @@ dependencies {
     // 2020-11-24 추가
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	
+	//2012-12-18 추가 security 관련 태그라이브러리
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	
 	//20.12.07 member
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -98,3 +101,9 @@ sourceSets {
 		}
 	}
 }
+
+// 이 부분이 추가. 
+tasks.withType(JavaCompile) {
+ options.annotationProcessorGeneratedSourcesDirectory = file(querydslSrcDir) 
+ }
+

@@ -51,6 +51,8 @@ public interface CertificationService {
 	
 	//문자 발송 실행 메서드
 	public SendSmsResponseDto sendSms(String recipientPhoneNumber, String content) throws JsonProcessingException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, RestClientException, URISyntaxException ;
+
+	public String loginChk(String id, String pwd);
 	
 	
 	

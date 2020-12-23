@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+ <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+ <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <meta charset="UTF-8">
 <title>예약하기</title>
 <link rel="stylesheet" th:href="@{/static/datepicker/jquery-ui.css}">

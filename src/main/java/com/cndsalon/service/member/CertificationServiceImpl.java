@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -39,6 +40,7 @@ import com.cndsalon.web.dto.member.SendSmsResponseDto;
 import com.cndsalon.web.dto.member.SmsRequestDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.primitives.Bytes;
 
 
 @Service
@@ -71,6 +73,8 @@ public class CertificationServiceImpl  implements CertificationService{
 	public int findByNickname(String nickname) {		
 		return repository.findByEmail(nickname);
 	}
+	
+	//////////////////////////////////////////////////////////////////////////
 
 	@Transactional
 	@Override
@@ -260,6 +264,28 @@ public class CertificationServiceImpl  implements CertificationService{
 		return sendSmsResponseDto;		
 		
 	}
+
+//////////////////////////////////////////////////////////////////////////
+	
+	
+	@Override
+	public String loginChk(String id, String pwd) {
+		
+		String msg="";
+		
+		if(repository.hashedPwdById(id, pwd)) {
+			msg="비밀번호 일치";
+		}else {
+			msg="비밀번호가 틀렸습니다.";
+		}
+		
+		log.debug("로그인시 비밀번호 결과:{}",msg);
+		
+		return msg;
+	}
+
+		
+		
 	
 	
 

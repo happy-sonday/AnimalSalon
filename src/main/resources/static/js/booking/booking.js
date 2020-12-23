@@ -39,7 +39,7 @@ $(document).ready(function() {
 	/**
 	* document ready
 	**/
-
+	
 });
 
 
@@ -227,6 +227,7 @@ var check_time = function(selected_time) {
 // id는 세션의 정보 받아올 것.
 var make_booking = function() {
 
+	
 	var b_time = $('input[name="time_radio"]:checked').val();
 
 	if (!b_time) {
@@ -248,12 +249,18 @@ var make_booking = function() {
 		bPrice : $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1
 	});
 
+	var token = $("meta[name='_csrf']").attr("content");
+ 	var header = $("meta[name='_csrf_header']").attr("content");
+
 	$.ajax({
 		contentType : "application/json; charset=utf-8",
 		type : "POST",
 		url : "/cndsalon/booking/make-booking",
 		dataType : 'json',
 		data : booking,
+		beforeSend : function(xhr){
+		xhr.setRequestHeader(header, token);
+		},
 		success : function(){
 			alert('예약성공!');
 //			location.href='/board/list';
