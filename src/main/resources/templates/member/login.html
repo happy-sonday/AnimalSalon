@@ -1,46 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header::header">
 </head>
 <body>
-				
-				
-				<div id="wrapper" align="center">
+
+					<div align="center">					
 					
 						<!-- 로고 -->
 						<div id="logo" >
 							<a th:href="@{/}"><img alt="애니멀살롱로고" src="#"></a>
 						</div>	
-							
-						<!-- 로그인 폼-->
+						<form th:action="@{/member/login/check}" method="post">
 						
-						<div>
-							<span>
-								아이디 
-								<input type="text" id="id" name="id" required autofocus />
-							</span>
+					
+						<div>					 
+								<input type="text" id="login_id" name="username" required autofocus  placeholder="아이디 또는 이메일"/>
 						</div>
-						
 						<div>
-							<span>
-								패스워드 
-								<input type="password" id="pwd" name="pwd" required />
-							</span>
+								<input type="password" id="login_password" name="password" required  placeholder="비밀번호"/>
 						</div>
 						
 						<!-- AlertMsg -->
-						<div>
-								[[${loginErrorMsg}]]
-						</div>
+						<div th:if="${param.error}">       							
+       							<span th:text="${errorMessage}"></span> 
+       					</div>
 						
 						<div>
 								<input type="submit" value="로그인">
 						</div>
 						
-						<div>
-								<input type="checkbox" name="keepLogin" id="keepLogin" value="y"> 로그인 유지
-						</div>
-							
+							<!-- CSRF 토큰 -->
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+												
+						</form>
+
+						
+						
+						<!-- 소셜로그인 -->
 						<div id="sns_login">
 							<a th:href="@{/oauth2/authorization/google}" class="btn btn-success active" role="button">Google Login</a><br />		
 							<a th:href="@{/oauth2/authorization/naver}" class="btn btn-secondary active" role="button">Naver Login</a><br />
@@ -51,8 +47,8 @@
                     		<a th:href="@{/member/findInfo}" id="findIdPwd">아이디/비밀번호찾기</a>
                     		<a th:href="@{/member/terms}">회원가입</a>                    	
                     	</div>
-                    	
-                    </div>
+					
+					</div>
 
 	<!-- footer 영역 -->
 <div th:replace="fragments/footer::footer" ></div>

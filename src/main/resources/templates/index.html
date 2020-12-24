@@ -38,6 +38,29 @@
 			<i class="fas fa-bars"></i>
 		</button>
 	</nav>
+        <!-- 메뉴 상단 -->
+        <nav class="navbar">
+            <div class="navbar__logo-box">
+                <img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="navbar__logo">
+                <a href="#">C&D</a>
+            </div>
+
+            <div class="navbar__menu">
+                <ul class="navbar__menu">
+                    <a style="cursor:pointer" onclick='shop_main_search()'>
+                    <li class="navbar__menu__item">내 주변</li></a>
+                    <a href="#"><li class="navbar__menu__item">입점 문의</li></a>
+                    <a th:href="@{/bookinghome/status/all}"><li class="navbar__menu__item">예약</li></a> 
+                    <a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
+                </ul>
+            </div>
+
+            <!-- 토글 버튼 -->
+            <button class="navbar__toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </nav>
            
         <!-- 헤더 -->
         <header class="header">

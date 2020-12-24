@@ -23,20 +23,16 @@ li{
 <body>
 
 	<div th:fragment="bookingSubHeader">
-	
-		<button style="float: left;">예약하기</button>
-	
 		<nav>
 			<ul>
-				<li><a th:href="@{/bookinghome/all}">전체</a></li>
-				<li><a th:href="@{/bookinghome/ing}">예약</a></li>
-				<li><a th:href="@{/bookinghome/complete}">완료</a></li>
-				<li><a th:href="@{/bookinghome/cancel}">취소</a></li>
+				<li><input type="button" onclick="goBack();" value="뒤로가기"></li>
+				<li><input type="button" value="메인홈"></li>
+				<li><a href="#" class="headerMenu"><span th:text="${shop.sName}"></span></a></li>
+				<li><a href="#" class="headerMenu">검색</a></li>
 			</ul>
 		</nav>
-		<br/><br/><br/><br/><br/>
 		<hr>
 	</div>
-	
+
 </body>
 </html>

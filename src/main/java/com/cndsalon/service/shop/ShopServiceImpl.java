@@ -14,9 +14,7 @@ import com.cndsalon.domain.shop.CndSalonShopInfoVO;
 import com.cndsalon.domain.shop.CndSalonShopProductPhotoVO;
 import com.cndsalon.repository.shop.CndSalonDao;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class ShopServiceImpl implements ShopListService {
 

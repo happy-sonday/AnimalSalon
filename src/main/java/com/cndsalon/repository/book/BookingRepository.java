@@ -13,4 +13,5 @@ public interface BookingRepository extends JpaRepository<Booking, String>{
 
 	@Query(value = "SELECT * FROM booking b WHERE b.d_code= ?1 AND b.s_code= ?2 AND b.b_date= ?3 AND b.b_status = '0'",nativeQuery = true)
 	List<Booking> findBydCodeAndsCodeAndbDate(@Param("dCode") String dCode, @Param("sCode") String sCode, @Param("compareDate") LocalDate compareDate);
+
 }

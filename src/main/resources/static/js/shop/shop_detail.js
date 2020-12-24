@@ -2,28 +2,28 @@
 function review_detail($rcode,$ridx){
 		var rCode=$rcode;
 		var rIdx=$ridx;
-		console.log(rCode+"::::"+rIdx+":::"+$("#reviewstatus"+rIdx).val());
+		//console.log(rCode+"::::"+rIdx+":::"+$("#reviewstatus"+rIdx).val());
 		
 		if ($("#testreview_content"+rIdx).css("display")=="none" && $("#reviewstatus"+rIdx).val()==0){
 		$.ajax({
-	   	type : "GET",
+	   	type : "POST",
 	   	url : "/cndsalon/shop/getReviewDetail",
-	   	contentType : "application/json",
+	   	contentType : "application/json; charset=UTF-8",
+		
 		async : true,
-	    data :  {"rCode":rCode} ,
+	    data : JSON.stringify({'rCode':rCode}),
+
 	    success : function(data) {
 			
 	       	$.each(data,function(index,list){
 					
 					$("#testreview_image"+rIdx).append(
-						"<td><img src=\"/cndsalon/shop/upload_image/"+list.rphotopath+list.rphotoname+"\" width=100 height=100 /></td>"
-						
-									
+						"<td><img src=\"/cndsalon/shop/upload_image/"+list.rPhotopath+list.rPhotoname+"\" width=100 height=100 /></td>"									
 					)
 					$("#reviewstatus"+rIdx).val('2')
 					$("#testreview_image"+rIdx).css({display:'inline'})
 					$("#testreview_content"+rIdx).css({display:'inline'})
-					console.log(list.rphotopath+list.rphotoname)
+					//console.log(list.rPhotopath+list.rPhotoname)
 					
 	        	})
 			

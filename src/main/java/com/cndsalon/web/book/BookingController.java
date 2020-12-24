@@ -1,7 +1,5 @@
 package com.cndsalon.web.book;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cndsalon.domain.book.Booking;
+import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
-import com.cndsalon.web.dto.book.BookingDTO;
 import com.cndsalon.web.dto.book.DateTimeDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +39,7 @@ public class BookingController {
 	/**
 	  *
 	  * <pre>
-	  * 개요: shop_detail.html에서 예약하기 클릭 시
+	  * 개요: 예약하기 클릭 시 메뉴화면
 	  * </pre>
 	  * @method moveBookingMenu
 	  * @return 해당 업체, 강아지 타입메뉴 조회 / bookingMenu.html 반환 [BookingController]
@@ -59,18 +57,6 @@ public class BookingController {
 		model.addAttribute("menu", this.bookingService.getMenuList(sCode, mType));
 		
 		return "/booking/bookingMenu";
-	}
-	
-	@GetMapping("/selectBooking")
-	public ResponseEntity<List<Booking>> selectBooking(
-			@RequestParam("sCode") String sCode,
-			@RequestParam("dCode") String dCode,
-			@RequestParam("bDate") String date){
-		LocalDate bDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		
-		/** TEST **/
-		List<Booking> booking = this.bookingService.selectBooking(dCode, sCode, bDate);
-		return ResponseEntity.ok(booking);
 	}
 	
 	/**
@@ -140,7 +126,7 @@ public class BookingController {
 	  * @param sumB 소요시간 [int]
 	  * @param selectedTime 예약하려는 시간 [String]
 	  * @param xTimeList 기존 예약목록 시간 [List<String>]
-	  * @return 겸침유무 Boolean 반환 [BookingController]
+	  * @return 성공 시 201(created) 상태 반환 [BookingController]
 	  *
 	 */
 	@ResponseBody
@@ -164,33 +150,36 @@ public class BookingController {
 	  * 개요: bookingDetail.html 에서 예약 시 예약 등록하는 메서드
 	  * </pre>
 	  * @method insertBooking
-	  * @param bookingDTO[타입]
-	  * @return 설명 [BookingController]
+	  * @param bookingDTO 예약내용을 담은 DTO 객체 [DTO]
+	  * @return 성공 시 201(created) 상태 반환 [BookingController]
 	  *
 	 */
 	@ResponseBody
 	@PostMapping("/make-booking")
 	public ResponseEntity<?> insertBooking(
-			@RequestBody BookingDTO bookingDTO
-			){
-			log.info("예약내용 : " + bookingDTO.toString());
-			
-			Booking booking = Booking.builder()
-					.id(bookingDTO.getId())
-					.mCode(bookingDTO.getMcode())
-					.dCode(bookingDTO.getDcode())
-					.sCode(bookingDTO.getScode())
-					.bBeautyTime(bookingDTO.getBeautytime())
-					.bPrice(bookingDTO.getPrice())
-					.build();
-			booking.setBDate(bookingDTO.getBdate());
-			booking.setBTime(bookingDTO.getBtime());
+			@RequestBody Booking booking){
+		
+			log.info("예약내용 : " + booking.toString());
 			
 			this.bookingService.insertBooking(booking);
 		
 		return new ResponseEntity<>("{}", HttpStatus.CREATED);
 	}
-
+	
+	@ResponseBody
+	@GetMapping("/test-booking-view")
+	public ResponseEntity<?> testBookingView(String sCode, String dCode, String mCode){
+		
+		BookingView bookingView = this.bookingService.getBookingView(sCode, mCode, dCode);
+		
+		return new ResponseEntity<BookingView>(bookingView, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping("/test")
+	public ResponseEntity<?> test(){
+		return new ResponseEntity<>("{}", HttpStatus.OK);
+	}
 	
 	
 }

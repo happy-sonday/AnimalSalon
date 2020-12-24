@@ -5,11 +5,33 @@
 	<insert id="save"> <!-- parameterType="demoMember" -->
 	INSERT INTO member
 	VALUES
-	( #{id}, #{pwd}, #{name}, #{zip}, #{address}, #{phone}, #{email}, 'noimg', 'CLIENT' )
+	( #{id}, #{password}, #{name}, #{zip}, #{address}, #{phone}, 
+	#{email}, 'noimg', #{nickname}, 'ROLE_CLIENT', 1, 
+	sysdate, #{acceptAd}, #{actNickname} )
 	</insert>
 	
 	<select id="findById" parameterType="String" resultType="int">
 	SELECT COUNT(*) FROM member WHERE ID = #{id}
+	</select>
+	
+	<select id = "hashedPwdById" parameterType="String" resultType="String">
+	SELECT pwd FROM MEMBER WHERE ID = #{id}
+	</select>
+	
+	
+	<!-- 로그인할때 해당 내용을 조회해서 대조해보고 이정보를 이용해 header에 간략하게 내용 출력한다 -->
+	<select id="getOne" resultType="CustomUserDetails">
+		SELECT
+		id, email, password, authority, status, nickname, act_nickname
+		FROM member WHERE 
+		<choose>
+			<when test='username.contains("@")' >
+				email = #{username}
+			</when>
+			<otherwise>
+				id = #{username}
+			</otherwise>
+		</choose>
 	</select>
 	
 </mapper>

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 
-import lombok.Builder;
+import org.hibernate.annotations.DynamicUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,13 +24,12 @@ import lombok.NoArgsConstructor;
  * @date 2020. 12. 8. 
  * @version 1.0
  * @since 
- * LocalDateTime을 매핑하는 어노테이션이 구체적으로 나와있는 정보를 찾지 못했다.
- * 일단, 찾아본 레퍼런스 중에서 지정해놨다.
- * 추가로, booking테이블은 view테이블을 사용할 가능성이 있음.(예약 외에 다른 파트는 큰 문제 없을 것으로 보이니 신경쓰지 않아도 괜찮을듯.)
+ * Lombok의 Setter를 사용할 시 Gson이 Json의 대문자를 인식하지 못하는 이슈 발생으로 setter 메서드 직접 생성
  */
 @Entity(name = "BOOKING")
 @Getter
 @NoArgsConstructor
+@DynamicUpdate
 @SequenceGenerator(name = "BOOKING_SEQ_GENERATOR", sequenceName = "BOOKING_SEQ", initialValue = 1, allocationSize = 1)
 public class Booking {
 	
@@ -60,21 +59,65 @@ public class Booking {
 	
     private String bCancelReason; // 예약 취소 사유
     
-    @Builder
-    public Booking(String id, String mCode, String dCode, String sCode, int bBeautyTime, int bPrice) {
-    	this.id = id;
-    	this.mCode = mCode;
-    	this.dCode = dCode;
-    	this.sCode = sCode;
-    	this.bBeautyTime = bBeautyTime;
-    	this.bPrice = bPrice;
-    }
+	
 
-	public void setBDate(String bDate) {
+	public Long getbCode() {
+		return bCode;
+	}
+
+	public void setbCode(Long bCode) {
+		this.bCode = bCode;
+	}
+
+	public String getmCode() {
+		return mCode;
+	}
+
+	public void setmCode(String mCode) {
+		this.mCode = mCode;
+	}
+
+	public String getdCode() {
+		return dCode;
+	}
+
+	public void setdCode(String dCode) {
+		this.dCode = dCode;
+	}
+
+	public String getsCode() {
+		return sCode;
+	}
+
+	public void setsCode(String sCode) {
+		this.sCode = sCode;
+	}
+
+	public Integer getbBeautyTime() {
+		return bBeautyTime;
+	}
+
+	public void setbBeautyTime(Integer bBeautyTime) {
+		this.bBeautyTime = bBeautyTime;
+	}
+
+	public Integer getbPrice() {
+		return bPrice;
+	}
+
+	public void setbPrice(Integer bPrice) {
+		this.bPrice = bPrice;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+    
+	public void setbDate(String bDate) {
 		this.bDate = LocalDate.parse(bDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 
-	public void setBTime(String bTime) {
+	public void setbTime(String bTime) {
 		this.bTime = LocalTime.parse(bTime, DateTimeFormatter.ofPattern("HH:mm"));
 	}
 	
@@ -84,12 +127,20 @@ public class Booking {
 			this.bStatus = "0";
 		}
 	}
-
+	
+	public void setbStatus(String bStatus) {
+		this.bStatus = bStatus;
+	}
+	
+	public void setbCancelReason(String bCancelReason) {
+		this.bCancelReason = bCancelReason;
+	}
+	
 	@Override
 	public String toString() {
-		return "Booking [id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode + ", bDate=" + bDate
-				+ ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice + "]";
+		return "Booking [bCode=" + bCode + ", id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode
+				+ ", bDate=" + bDate + ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice
+				+ ", bStatus=" + bStatus + ", bCancelReason=" + bCancelReason + "]";
 	}
-    
-	
+
 }
