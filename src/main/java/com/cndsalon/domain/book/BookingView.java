@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookingView {
 	@Id
-	private int bCode;
+	private Long bCode;
 	private String id;
 	private int bPrice;
 	private String bStatus;

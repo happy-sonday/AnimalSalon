@@ -19,7 +19,7 @@ public class QBookingView extends EntityPathBase<BookingView> {
 
     public static final QBookingView bookingView = new QBookingView("bookingView");
 
-    public final NumberPath<Integer> bCode = createNumber("bCode", Integer.class);
+    public final NumberPath<Long> bCode = createNumber("bCode", Long.class);
 
     public final DatePath<java.time.LocalDate> bDate = createDate("bDate", java.time.LocalDate.class);
 

@@ -28,28 +28,37 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 2020-12-07
  * @param 
- * userLocalX[String] : 접속 사용자 위도
- * userLocalY[String] : 접속 사용자 경도
+ * pageNum[int] : 현재 page번호
+ * pageMax[int] : 현재 검색 조건의 최대 page
+ * userLocalX[String] : 사용자 X좌표
+ * userLocalY[String] : 사용자 Y좌표
  * sCode[String] : 매장 코드
  * sName[String] : 매장 이름
  * sAddr[String] : 매장 주소
  * sPhone[String] : 매장 전화번호
- * sGpsX[String] : 매장 위도
- * sGpsY[String] : 매장 경도
- * sTime[String] : 매장 운영시간
+ * sGpsX[String] : 매장 X좌표
+ * sGpsY[String] : 매장 Y좌표
+ * sTime[String] : 매장 운영시간 
  * sTitle[String] : 매장 소개 제목
  * sContent[String] : 매장 소개 내용
- * sParking[boolean] : 주차가능 여부
- * sWifi[boolean] : wifi 가능 여부
- * sSubway[boolean] : 지하철 역근처
- * sCharge[boolean] : 추가요금 없음
- * sPickup[boolean] : 픽업여부
- * sBigdog[boolean] : 대형견 가능여부
- * sAvgScore[boolean] : 매장 평점
- * sLocale[boolean] : 거리 연산 결과
+ * sParking[boolean] : 매장 주차 가능 여부
+ * sWifi[boolean] : 매장 wifi 가능
+ * sSubway[boolean] : 매장 지하철 역주변
+ * sCharge[boolean] : 매장 추가요금 없음
+ * sPickup[boolean] : 픽업 가능 여부
+ * sBigdog[boolean] : 대형견 가능 여부
+ * sAvgScore[double] : 매장 평균 평점
+ * sLocale[double] : 사용자 위치 대비 매장 거리
  * sPhotopath[String] : 매장 사진 경로
- * sPhotoname[String] : 매장 사진 이름
- * sPhotonameOrigin[String] : 매장 사진 원래 이름
+ * sPhotoname[String] : 매장 사진 파일 이름
+ * sPhotonameOrigin[String] : 매장 사진 파일 원래 이름
+ * pCat[boolean] : 고양이 검색 옵션
+ * pDog[boolean] : 강아지 검색 옵션
+ * pShort[boolean] : 고양이 단모 검색 옵션
+ * pLong[boolean] : 고양이 장모 검색 옵션
+ * pSmall[boolean] : 강아지 소형견 검색 옵션
+ * pMedium[boolean] : 강아지 중현견 검색 옵션
+ * pLarge[boolean] : 강아지 대형견 검색 옵션
  */
 @Entity
 @Table(name = "SHOP_INFO_TBL")

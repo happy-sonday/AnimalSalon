@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,39 +29,9 @@
                     <li class="navbar__menu__item">내 주변</li></a>
                     <a href="#"><li class="navbar__menu__item">입점 문의</li></a>
                     <a th:href="@{/bookinghome/status/all}"><li class="navbar__menu__item">예약</li></a> 
-                    
-                    <!-- security 적용 권한에 따른 버튼 노출 -->
-                    <a sec:authorize="isAnonymous()" th:href="@{/member/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
-                    
-                    <div sec:authorize= "isAuthenticated()">                    	
-
-	           				<!--  별명으로 활동지정할때 조건 태그 적용법 모름.,, -->
-		                    <a  sec:authorize="hasRole('CLIENT')" th:href="@{/member/myinfo}">
-		                     <span sec:authentication="name"></span>
-		                     </a>               
-	                    </sec:authorize>
-	                    
-	                    님 환영합니다.&nbsp; &nbsp;
-	                    <!-- spring security는 logout 시 post방식으로 전달  -->
-	                    <!--<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a><br />-->
-	                    <a href="#" onclick="document.getElementById('logout-form').submit();">로그 아웃</a>
-						<form id="logout-form" th:action="@{/member/logout}" method="POST">
-						   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-						</form>
-
-
-
-	                    (<span sec:authentication="principal.email" ></span>)
-	                    
-	                       <a sec:authorize="hasRole('ADMIN')" th:href="@{/member/admin}">관리자 모드</a>&nbsp; &nbsp; 
-	              
-	                 
-                    </div>
-                    
+                    <a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
                 </ul>
             </div>
-            
-            
 
             <!-- 토글 버튼 -->
             <button class="navbar__toggle-btn">

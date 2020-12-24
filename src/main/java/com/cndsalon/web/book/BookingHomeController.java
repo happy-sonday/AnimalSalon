@@ -5,16 +5,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cndsalon.domain.book.Booking;
 import com.cndsalon.service.book.BookingHomeService;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class BookingHomeController {
 
 	@Autowired
 	private BookingHomeService bookingHomeSerivce;
-
+	
 	/**
 	  *
 	  * <pre>
@@ -49,38 +50,51 @@ public class BookingHomeController {
 		return "/booking/bookingHome";
 	}
 	
+	
+	
 	/**
-	 * 예약내역 각 버튼 관련
-	 * */
+	  *
+	  * <pre>
+	  * 개요: 예약 상태를 수정하는 메서드
+	  * </pre>
+	  * @method updateBooking
+	  * @param 수정할 컬럼값을 받아오는 booking [Booking]
+	  *
+	 */
+	@ResponseBody
+	@PutMapping("/bookings/{bCode}")
+	public ResponseEntity<?> updateBooking(
+			@PathVariable("bCode") Long bCode,
+			@RequestBody Booking booking
+			) {
+		
+		log.info("bCode : " + booking.toString() + "의 상태 업데이트");
+		this.bookingHomeSerivce.updateBooking(bCode, booking.getBStatus(), booking.getBCancelReason());
+		return new ResponseEntity<>("{}", HttpStatus.OK);
+	}
+	
+
 	// 진행중예약내역화면(bookingHomeIng.html)'시간변경'버튼 클릭 시
 	@GetMapping("/timeChangeView.do")
 	public String timeChangeView() {
 		return "/booking/sub/bookingTimeChange";
 	}
 	
-	// 진행중예약내역화면(bookingHomeIng.html)'예약취소'버튼 클릭 시
+	// 
+	/**
+	  *
+	  * <pre>
+	  * 개요: 예약내역화면(bookingHomeIng.html) '예약취소'버튼 클릭 시
+	  * </pre>
+	  * @method 해당 예약번호 전송 및 window.open  
+	  * @param bCode 예약번호 [Long]
+	  * @return 예약취소화면 반환 [BookingHomeController]
+	  *
+	 */
 	@GetMapping("/cancelView.do")
-	public String cancelView() {
+	public String cancelView(@RequestParam("bCode") Long bCode, Model model) {
+		model.addAttribute("bCode", bCode);
 		return "/booking/sub/bookingCancel";
 	}
-	
-	// 전체,완료,취소 예약내역화면에서 '내역삭제' 버튼 클릭 시 
-	@DeleteMapping("/bookings/{예약번호}")
-	@ResponseBody
-	public ResponseEntity<?> deleteBooking(){
-		return new ResponseEntity<>("{}", HttpStatus.OK);
-	}
-	
-	// 확인용)))) 예약취소화면(bookingCancel.html)예약취소버튼 클릭 시
-	@PutMapping("/bookingCancel.do")
-	public String bookingCancel() {
-		return null;
-	}
-	
-	// 확인용)))) 예약시간변경화면(bookingTimeChange.html)에서 예약시간변경버튼 클릭 시
-		@PutMapping("/bookingTimeChange.do")
-		public String bookingTimeChage() {
-			return null;
-		}
 	
 }

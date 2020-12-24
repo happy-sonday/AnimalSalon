@@ -14,13 +14,22 @@ import com.cndsalon.repository.book.BookingViewDslRepository;
 public class BookingHomeServiceImpl implements BookingHomeService {
 
 	@Autowired
-	BookingViewDslRepository bookingViewRepository;
+	private BookingViewDslRepository bookingViewRepository;
+	
 	
 	@Transactional
 	@Override
 	public List<BookingView> getBookingViewList(String id, String bStatus) {
-		return bookingViewRepository.findByIdAndbStatus(id, bStatus);
+		return this.bookingViewRepository.findByIdAndbStatus(id, bStatus);
 	}
+
+	@Transactional
+	@Override
+	public void updateBooking(Long bCode, String bStatus, String bCancelReason) {
+		this.bookingViewRepository.updateBooking(bCode, bStatus, bCancelReason);
+	}
+	
+	
 	
 
 }
