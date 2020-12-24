@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cndsalon.domain.book.Booking;
+import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
 import com.cndsalon.web.dto.book.DateTimeDTO;
@@ -125,7 +126,7 @@ public class BookingController {
 	  * @param sumB 소요시간 [int]
 	  * @param selectedTime 예약하려는 시간 [String]
 	  * @param xTimeList 기존 예약목록 시간 [List<String>]
-	  * @return 겸침유무 Boolean 반환 [BookingController]
+	  * @return 성공 시 201(created) 상태 반환 [BookingController]
 	  *
 	 */
 	@ResponseBody
@@ -164,7 +165,21 @@ public class BookingController {
 		
 		return new ResponseEntity<>("{}", HttpStatus.CREATED);
 	}
-
+	
+	@ResponseBody
+	@GetMapping("/test-booking-view")
+	public ResponseEntity<?> testBookingView(String sCode, String dCode, String mCode){
+		
+		BookingView bookingView = this.bookingService.getBookingView(sCode, mCode, dCode);
+		
+		return new ResponseEntity<BookingView>(bookingView, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping("/test")
+	public ResponseEntity<?> test(){
+		return new ResponseEntity<>("{}", HttpStatus.OK);
+	}
 	
 	
 }

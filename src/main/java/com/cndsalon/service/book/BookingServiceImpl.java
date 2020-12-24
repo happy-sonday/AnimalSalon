@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cndsalon.domain.book.Booking;
+import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.domain.book.Menu;
 import com.cndsalon.domain.book.MenuOption;
 import com.cndsalon.repository.book.BookingDao;
@@ -75,13 +76,18 @@ public class BookingServiceImpl implements BookingService {
 
 	@Transactional
 	@Override
-	public List<Booking> selectBooking(String dCode, String sCode, LocalDate bDate) {
+	public List<Booking> selectBookingList(String dCode, String sCode, LocalDate bDate) {
 		return this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, bDate);
 	}
 
 	@Override
 	public Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList) {
 		return this.timeUtil.checkAvailableTime(sumB, selectedTime, xTimeList);
+	}
+
+	@Override
+	public BookingView getBookingView(String sCode, String mCode, String dCode) {
+		return this.bookingDao.getBookingView(sCode, mCode, dCode);
 	}
 
 
