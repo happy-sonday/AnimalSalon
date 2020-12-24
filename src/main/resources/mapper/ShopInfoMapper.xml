@@ -30,7 +30,7 @@
 		
 	</select>
 	<!-- ShopInfoMain : 기본 조건 검색(자기 위치 기반 10개) -->
-	<select id="getAll" resultType="CndSalonShopInfoVO">
+	<select id="getAll" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO">
 	
 		SELECT D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,
 		C.* FROM(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
@@ -45,7 +45,7 @@
 	</select>
 	
 	<!-- SearchShop : 부가서비스 선택 검색 -->
-	<select id="searchShop" resultType="CndSalonShopInfoVO">
+	<select id="searchShop" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO">
 		SELECT E.* FROM(SELECT ROWNUM AS R_NUM,D.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY S_LOCALE) AS RNUM,C.* FROM 
 		(SELECT DENSE_RANK() OVER (PARTITION BY A.S_CODE ORDER BY B.S_PHOTONAME) AS NO, 
 		round((( ACOS(SIN(${userLocalX} * 3.14159265359 / 180) * SIN(S_GPS_X * 3.14159265359 / 180) +
@@ -72,34 +72,34 @@
 		)E WHERE R_NUM BETWEEN (${pageNum}-1)*10+1 AND ${pageNum}*10
 	</select>
 	<!-- ShopDetail : sCode로 업체정보 상세검색 -->
-	<select id="getShopDetail" resultType="CndSalonShopInfoVO" >
+	<select id="getShopDetail" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO" >
 		SELECT A.*, B.P_CAT,B.P_DOG,B.P_SHORT,B.P_LONG,B.P_SMALL,B.P_MEDIUM,B.P_LARGE FROM SHOP_INFO_TBL A
 		INNER JOIN SHOP_PRODUCT_TBL B ON A.S_CODE = B.S_CODE WHERE A.S_CODE = #{sCode}
 	</select>
 	<!-- ShopDetailPhoto : sCode로 매장 사진 검색 -->
-	<select id="getShopDetailPhoto" resultType="CndSalonShopInfoVO" >
+	<select id="getShopDetailPhoto" resultType="com.cndsalon.domain.shop.CndSalonShopInfoVO" >
 		SELECT A.S_CODE, B.S_PHOTOPATH,B.S_PHOTONAME,B.S_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A
 		INNER JOIN SHOP_PHOTO_TBL B ON A.S_CODE = B.S_CODE
 		WHERE A.S_CODE = #{sCode}
 	</select>
 	<!-- ShopProductPhoto : sCode로 업체상품사진 검색 -->
-	<select id="getShopProductPhoto" resultType="CndSalonShopProductPhotoVO" >
+	<select id="getShopProductPhoto" resultType="com.cndsalon.domain.shop.CndSalonShopProductPhotoVO" >
 		SELECT A.S_CODE, B.P_PHOTOPATH,B.P_PHOTONAME,B.P_PHOTONAME_ORIGIN FROM SHOP_INFO_TBL A
 		INNER JOIN SHOP_PRODUCT_PHOTO_TBL B ON A.S_CODE = B.S_CODE
 		WHERE A.S_CODE = #{sCode}
 	</select>
 		<!-- ShopDesignerInfo : sCode로 디자이너INFO 검색 -->
-	<select id="getShopDesignerInfo" resultType="CndSalonShopDesignerVO" >
+	<select id="getShopDesignerInfo" resultType="com.cndsalon.domain.shop.CndSalonShopDesignerVO" >
 		SELECT A.*, B.D_PHOTOPATH,B.D_PHOTONAME,B.D_PHOTONAME_ORIGIN FROM SHOP_DESIGNER_TBL A
 		INNER JOIN SHOP_DESIGNER_PHOTO_TBL B ON A.D_CODE = B.D_CODE
 		WHERE A.S_CODE = #{sCode}
 	</select>
 		<!-- ShopReviewVO : sCode로 리뷰 검색 -->
-	<select id="getReview" resultType="CndSalonReviewVO">
+	<select id="getReview" resultType="com.cndsalon.domain.shop.CndSalonReviewVO">
 		SELECT * FROM REVIEW_DETAIL_TBL WHERE S_CODE = #{sCode} ORDER BY R_DATE
 	</select>
 		<!-- ShopReviewPhoto : rCode로 리뷰 이미지 검색 -->
-		<select id="getReviewPhoto" resultType="CndSalonReviewVO">
+		<select id="getReviewPhoto" resultType="com.cndsalon.domain.shop.CndSalonReviewVO">
 		SELECT * FROM REVIEW_PHOTO_TBL WHERE R_CODE = #{rCode}
 	</select>
 </mapper>
