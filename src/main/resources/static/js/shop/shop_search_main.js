@@ -76,72 +76,127 @@ $(function () {
 	var pageMax ;
 	var searchKind="default";
 	$(window).scroll(function() {
- 		//var scrollTop = $(this).scrollTop();
-        //var outerHeight = $(this).outerHeight();
-        //var scrollHeight = $(this).prop('scrollHeight');
-		
-    	//if(scrollTop+outerHeight==scrollHeight && pageNum<=pageMax && searchKind=="default"){
 		if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="default"){
-			console.log("default Document end")
-			console.log(pageNum+"::::"+pageMax)
 			search_ajax_list();
 		}else if($(window).scrollTop()==$(document).height()-$(window).height()&& pageNum<=pageMax && searchKind=="filter"){			
-			console.log("filter Document end")
-			console.log(pageNum+"::::"+pageMax)
-			search_filter_ajax_list();		
-							
+			search_filter_ajax_list();									
 		}
-        
     });      
-	
 	var userLocalX;
 	var userLocalY;
 	var makerX=[];
 	var makerY=[];
 	var makerName=[];
 	var filter ;
-    // Geolocation API에 액세스할 수 있는지를 확인
+	var positions=[];
+	var marker = new kakao.maps.Marker();
+    
+	// geolocation api 를 실행한다.
+	navigator.geolocation.getCurrentPosition (success,error);
 	// 접속시 위치 정보를 허용 위치 정보를 저장 한다
-    if (navigator.geolocation) {
-        //위치 정보를 얻기
-        navigator.geolocation.getCurrentPosition (function(pos) {
+	function success(pos){
 			userLocalX=(pos.coords.latitude);
 			userLocalY=(pos.coords.longitude);
 			$('#userLocalX').val(pos.coords.latitude);
 			$('#userLocalY').val(pos.coords.longitude);
 			get_page_num();
 			search_ajax_list();
-			});
-    } else {// 지원 불가   	
+			searchAddrFromCoords();	
+	}
+	// 접속시 위치 정보 거부 할시 기본 정보로 저장 한다.
+    function error(pos) {
+		userLocalX=37.566826;
+		userLocalY=126.9786567;
+		$('#userLocalX').val(37.566826);
+		$('#userLocalY').val(126.9786567);
+		get_page_num();
+		search_ajax_list();
+		searchAddrFromCoords();	
+    }			
+	//도로명 주소창 열기
+	$('#location_change').click(function () {	
+	 new daum.Postcode({
+        oncomplete: function(data) {
+        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-	    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var roadAddr = data.roadAddress; // 도로명 주소 변수
+        var extraRoadAddr = ''; // 참고 항목 변수
+
+        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+            extraRoadAddr += data.bname;
+        }
+        // 건물명이 있고, 공동주택일 경우 추가한다.
+        if(data.buildingName !== '' && data.apartment === 'Y'){
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        }
+        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+        if(extraRoadAddr !== ''){
+            extraRoadAddr = ' (' + extraRoadAddr + ')';
+        }
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		$('.location__select').text(roadAddr);   
+		searchCoordsFromAddr(); 
+        }
+        }).open();		
+	});
+	// 주소로 좌표를 얻어내기
+	function searchCoordsFromAddr(){
+			
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch($('.location__select').text(), function(result, status) {
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+	console.log(result[0].y+"::::"+result[0].x)
+			userLocalX=(result[0].y);
+			userLocalY=(result[0].x);
+			$('#userLocalX').val(result[0].y);
+			$('#userLocalY').val(result[0].x);
+			maker_remove();
+			get_page_num();
+			pageNum=1;
+			$("#shops *").remove();
+			search_ajax_list();	
+	}
+	});
+	}	 
+	// 현재 좌표를 통한 내주소 얻기
+	function searchAddrFromCoords() {
+	var geocoder = new kakao.maps.services.Geocoder();
+	var coord = new kakao.maps.LatLng($('#userLocalX').val(), $('#userLocalY').val());
+	var callback = function(result, status) {
+    if (status == kakao.maps.services.Status.OK) {
+        $('.location__select').text(result[0].address.address_name);
     }
+	};
+	geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);       
+	}
 	//필터 검색 기능 사용시 내위치 정보를 얻기
 	function search_ajax_filter_location(){
-    // Geolocation API에 액세스할 수 있는지를 확인
-    if (navigator.geolocation) {
-        //위치 정보를 얻기
+    
         navigator.geolocation.getCurrentPosition (function(pos) {
 			$('#userLocalX').val(pos.coords.latitude);
 			$('#userLocalY').val(pos.coords.longitude);
 			});
-    } else {// 지원 불가   	
 
-	    alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
-    }
 	}
 	// 기본 검색 MAX page 얻기
 	function get_page_num(){
+		
 		 $.ajax({
 	    	type : "GET",
 	    	url : "/cndsalon/shop/getPage",
 			async : true,       	        
 	        success : function(data) {
-				pageMax=data+1;	
-				console.log(pageMax);        	
+				pageMax=data+1;	        	
 	        },
 			error : function(data, status){
-				console.log("Error:"+data+":"+status);
+				//console.log("Error:"+data+":"+status);
 			}
 		});	
 	}
@@ -157,21 +212,17 @@ $(function () {
 	    	data :  filter ,       
 	        success : function(data) {
 				pageMax=data+1;	
-				console.log(pageMax); 
 				searchKind="filter";
-				console.log(searchKind+"검색버튼 내부 search page num"+pageNum)
 				pageNum=1;
-				console.log(pageNum)
 				search_filter_ajax_list();       	
 	        },
 			error : function(data, status){
-				console.log("Error:"+data+":"+status);
+				//console.log("Error:"+data+":"+status);
 			}
 		});	
 	}
 	// 기본검색 기능
 	function search_ajax_list(){
-		console.log("search_ajax_list 시작"+pageNum);
 		 $.ajax({
 	    	type : "GET",
 	    	url : "/cndsalon/shop/shopmain_list",
@@ -200,15 +251,12 @@ $(function () {
 					makerY.push(list.sgpsY);
 					makerName.push(list.sname);		
 					idx++
-					console.log("리스트 불러 오기 내부 idx값=="+idx);
 	        	})
-				
-				console.log(pageNum+" : 페이지 번호 : "+idx+"idx 번호")
 				map_load(makerX,makerY,makerName);
 				pageNum++;
 	        },
 			error : function(data, status){
-				console.log("Error:"+data+":"+status);
+				//console.log("Error:"+data+":"+status);
 			}
 			
 		});	
@@ -216,13 +264,13 @@ $(function () {
 	
 	// form의 button 클릭 시 수행
 	$('#searchButton').click(function (){
-		console.log("검색버튼 시작")
+		// 기존 마커를 지우는 기능 수행
+		maker_remove();
 	var form_result = 0;
 		$('.filter_value_sum').each(function(){
 			form_result+=Number($(this).val());
 		});
-		console.log(form_result+"검색 조건의 합계")
-	
+
 	// 검색 조건 미선택 시 alert 발생
 	if(form_result>0){
 		get_filter_page_num();
@@ -234,7 +282,9 @@ $(function () {
 	});
 	//필터 검색 기능
 	function search_filter_ajax_list(){
+	
 	filter = $('#searchFilter').serialize()+"&pageNum="+pageNum;
+	console.log(pageNum+"페이지 번호를 찍는다")
 	$.ajax({
 	   	type : "GET",
 	   	url : "/cndsalon/shop/shopmain_search",
@@ -275,20 +325,23 @@ $(function () {
 				makerName.push(list.sname);	
 				idx++				
 	        	})
+				
 				map_load(makerX,makerY,makerName);
 				pageNum++
 	        },
 			error : function(data, status){
-				console.log("Error:"+data+":"+status);
+				//console.log("Error:"+data+":"+status);
 			}			
 		});		
 	}
-	
-	function map_load(makerX,makerY,makerName){
-		 
+	// 기존 마커를 비운다	
+	function maker_remove(){
 		var mapContainer = document.getElementById('map');
-		//console.log("map_load -- start"+ makerName);
-		var positions=[];
+		positions=[];
+		marker ="";
+		makerName=[];
+		makerX=[];
+		makerY=[];
 		for (a=0;a<makerName.length;a++){
 			positions.push({content:'<div>'+makerName[a]+'</div>',
 			 latlng: new kakao.maps.LatLng(makerX[a],makerY[a])})
@@ -303,7 +356,52 @@ $(function () {
 			
 		for (var i = 0; i < positions.length; i ++) {			
 		    // 마커를 생성합니다
-		    var marker = new kakao.maps.Marker({map: map, // 마커를 표시할 지도
+		    marker = new kakao.maps.Marker({map: map, // 마커를 표시할 지도
+			position: positions[i].latlng // 마커의 위치
+			   });
+			
+		    // 마커에 표시할 인포윈도우를 생성합니다 
+		    var infowindow = new kakao.maps.InfoWindow({
+		        content: positions[i].content // 인포윈도우에 표시할 내용
+		    });
+			
+		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+		    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+		    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));			
+		}
+		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+		function makeOverListener(map, marker, infowindow) {
+		    return function() {
+		        infowindow.open(map, marker);
+		    };
+		}
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+		    return function() {
+		        infowindow.close();
+		    };
+		}
+	}
+	// 지도에 마커를 생성한다.
+	function map_load(makerX,makerY,makerName){
+		var mapContainer = document.getElementById('map');
+		for (a=0;a<makerName.length;a++){
+			positions.push({content:'<div>'+makerName[a]+'</div>',
+			 latlng: new kakao.maps.LatLng(makerX[a],makerY[a])})
+		}
+			positions.push({content:'<div>여기에 계신가요?</div>',
+			 latlng: new kakao.maps.LatLng(userLocalX,userLocalY)})
+		var mapOption = {
+			center: new kakao.maps.LatLng(userLocalX, userLocalY),
+			level: 6
+		};
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			
+		for (var i = 0; i < positions.length; i ++) {			
+		    // 마커를 생성합니다
+		    marker = new kakao.maps.Marker({map: map, // 마커를 표시할 지도
 			position: positions[i].latlng // 마커의 위치
 			   });
 			

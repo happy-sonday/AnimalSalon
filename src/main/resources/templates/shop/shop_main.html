@@ -4,27 +4,34 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>C&D | 애견 전문 헤어샵  </title>
+        <!-- geolocation 사용을 위한 google api 연결 -->
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
         <link rel="stylesheet" th:href="@{'/static/css/main/icon-font.css'}">
         <link rel="stylesheet" th:href="@{'/static/css/main/style_shop_info.css'}">
         <link rel="shortcut icon" type="image/png" th:href="@{/static/img/main/favicon.ico}">
         <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>		
+        <!-- kakao 지도 사용을 위한 kakao api 연결 -->
+        <!-- local -->
+        <!-- 
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
+         -->
+        <!-- server -->
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=2642961e5fa380023a366649b5b6ae53&libraries=services"></script>
+        
+        <!-- kakao 주소검색 사용을 위한 kakao post api 연결 -->
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>		
 		<script th:src="@{'/static/js/jquery-3.5.1.min.js'}" charset="UTF-8"></script>
+		<!-- navigator menu button action js -->
 		<script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
+		<!-- 내주변 검색 기능 사용을 위한 js -->
     	<script th:src="@{'/static/js/shop/shop_search_main.js'}" charset="UTF-8"></script>
-	
     </head>
-<body>
- 
 <body>
     <!--메뉴바-->
     <nav id="navbar">
-        
         <div class="navbar__logo">
             <a onclick='shop_home()'><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a>
         </div>
-
         <div class="navbar__menu">
             <ul class="navbar__menu">
                 <a style="cursor:pointer" onclick='shop_main_search()'>
@@ -34,11 +41,8 @@
                 <li class="navbar__menu__item active">로그인</li>
             </ul>
         </div>
-        
     </nav>
-   <!--메뉴바 END--> 
-
-
+    <!--메뉴바 END--> 
     <!--지역 검색 및 필터-->
     <section id="locations">
         <div class="location">
@@ -46,9 +50,9 @@
                 위치기반으로 주소 뜨는 곳!
                 <i class="icon-basic-paperplane"></i></a>
             </strong>
-            <a href="#" class="location__change">지역변경</a>
-            
-   		<form class="filter__menu" id="searchFilter" method="GET">
+            <input type="button" id="location_change" class="location__change" value="지역변경">
+
+        <form class="filter__menu" id="searchFilter" method="GET">
    		<!-- 고양이 히든 -->
    		<input class="filter_value_sum" id="pCat" name="pCat" type="hidden" value="0" >   		
 		<input class="filter_value_sum" id="pShort" name="pShort" type="hidden" value="0" >

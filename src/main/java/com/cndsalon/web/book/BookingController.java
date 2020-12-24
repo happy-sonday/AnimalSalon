@@ -1,7 +1,5 @@
 package com.cndsalon.web.book;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +38,7 @@ public class BookingController {
 	/**
 	  *
 	  * <pre>
-	  * 개요: shop_detail.html에서 예약하기 클릭 시
+	  * 개요: 예약하기 클릭 시 메뉴화면
 	  * </pre>
 	  * @method moveBookingMenu
 	  * @return 해당 업체, 강아지 타입메뉴 조회 / bookingMenu.html 반환 [BookingController]
@@ -58,18 +56,6 @@ public class BookingController {
 		model.addAttribute("menu", this.bookingService.getMenuList(sCode, mType));
 		
 		return "/booking/bookingMenu";
-	}
-	
-	@GetMapping("/selectBooking")
-	public ResponseEntity<List<Booking>> selectBooking(
-			@RequestParam("sCode") String sCode,
-			@RequestParam("dCode") String dCode,
-			@RequestParam("bDate") String date){
-		LocalDate bDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		
-		/** TEST **/
-		List<Booking> booking = this.bookingService.selectBooking(dCode, sCode, bDate);
-		return ResponseEntity.ok(booking);
 	}
 	
 	/**

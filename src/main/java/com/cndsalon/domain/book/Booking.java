@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.DynamicUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Entity(name = "BOOKING")
 @Getter
 @NoArgsConstructor
+@DynamicUpdate
 @SequenceGenerator(name = "BOOKING_SEQ_GENERATOR", sequenceName = "BOOKING_SEQ", initialValue = 1, allocationSize = 1)
 public class Booking {
 	
@@ -57,11 +59,7 @@ public class Booking {
 	
     private String bCancelReason; // 예약 취소 사유
     
-	@Override
-	public String toString() {
-		return "Booking [id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode + ", bDate=" + bDate
-				+ ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice + "]";
-	}
+	
 
 	public Long getbCode() {
 		return bCode;
@@ -128,6 +126,21 @@ public class Booking {
 		if(bStatus== null) {
 			this.bStatus = "0";
 		}
+	}
+	
+	public void setbStatus(String bStatus) {
+		this.bStatus = bStatus;
+	}
+	
+	public void setbCancelReason(String bCancelReason) {
+		this.bCancelReason = bCancelReason;
+	}
+	
+	@Override
+	public String toString() {
+		return "Booking [bCode=" + bCode + ", id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode
+				+ ", bDate=" + bDate + ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice
+				+ ", bStatus=" + bStatus + ", bCancelReason=" + bCancelReason + "]";
 	}
 
 }
