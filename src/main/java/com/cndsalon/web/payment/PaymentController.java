@@ -1,6 +1,8 @@
 package com.cndsalon.web.payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,7 +75,8 @@ public class PaymentController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/payments/success", method = RequestMethod.POST)
-	public void insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
+	@ResponseBody
+	public ResponseEntity<?> insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
 		// 확인용 로그코드
 		log.info("=== Insert PaymentInfo start ===");
 		log.info("아임포트 거래 고유번호 : " + paymentDTO.getImpUid());
@@ -91,6 +94,8 @@ public class PaymentController {
 		log.info("주문자우편번호 : " + paymentDTO.getBuyerPostcode());
 		
 		paymentService.insertPayInfo(paymentDTO);
+		
+		return new ResponseEntity<>("{}", HttpStatus.CREATED);
 	}
 	
 	/**
