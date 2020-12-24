@@ -7,25 +7,41 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
 <!--/* iamport.payment.js */-->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" th:src="@{/static/js/pay/payment.js}"></script>
+<link rel="stylesheet" th:href="@{'/static/css/main/payment.css'}">
 </head>
 <body>
-	<div class="wholeContainer">
-		<div class="payHeader">
-			<a href="/cndsalon" class="mainLogo"><img src="#" alt="logo_img"></a>
+	<!--/* 메뉴 상단 */-->
+	<nav class="navbar">
+		<div class="navbar__logo-box">
+			<img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="navbar__logo">
+			<a href="#">C&D</a>
 		</div>
-		
-		<div class="content_left">
-			<ul>
-				<li>
-						<a href="#">이전페이지로</a>
-						<img src="#" alt="goPrevPage_Img">
-				</li>
-				<li>
-					<h3>예약 요청</h3>
-				</li>
+
+		<div class="navbar__menu">
+			<ul class="navbar__menu">
+				<a style="cursor:pointer" onclick='shop_main_search()'>
+				<li class="navbar__menu__item">내 주변</li></a>
+				<a href="#"><li class="navbar__menu__item">입점 문의</li></a>
+				<a href="#"><li class="navbar__menu__item">예약</li></a> 
+				<a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
 			</ul>
-			<hr>
-			<table class="booking_info" border="1">
+		</div>
+
+		<!--/* 토글 버튼 */-->
+		<button class="navbar__toggle-btn">
+			<i class="fas fa-bars"></i>
+		</button>
+	</nav>
+	
+	<!--/* 메인컨텐츠 부분 */-->
+	<main id="main">
+		<h2>Order / Payment <span class="title-ko">주문 / 결제 </span></h2>
+		<hr style="width: 97%">
+		<section id="section-bookingInfo">
+			<div>
+				<h3>Booking Information <span class="title-ko">예약 정보</span></h3>
+				<table class="booking-info" border="1">
 				<colgroup>
 					<col width="20%"/>
 					<col width="80%"/>
@@ -35,9 +51,10 @@
 						<th scope="col" colspan="2">예약정보</th>
 					</tr>
 					<tr>
-						<th class="menuImg"><img alt="menuImg" src="#"></th>
+						<th class="menu-img"><img alt="menuImg" src="#"></th>
 					</tr>
 				</thead>
+				<!--/* 추후 타임리프방식으로 변경 */-->
 				<tbody>
 					<tr><td>일정</td><td><p id="bookingDate">2021년 1월 1일 금 11:00</p></td></tr>
 					<tr><td>매장</td><td><p id="shopName">몰리스펫샵</p></td></tr>
@@ -48,21 +65,104 @@
 					<tr><td>결제금액</td><td><p id="amount">100</p></td></tr>
 				</tbody>
 			</table>
-			<hr>
-			<table>
-				<!-- 예약환불 규정 내용 -->
-			</table>
-		</div>
+			</div>
+		</section>
 		
-		<div class="content_right">
-			<button onclick="requestPay()">결제하기</button>
-		</div>
+		<hr style="width: 97%">
 		
-		<div class="footer">
-			<!-- footer 내용 -->
-			Footer 내용 추가 예정
+		<section id="section-paymentInfo">
+			<h3>Payment Information <span class="title-ko" th:text="|결제 정보|" ></span></h3>
+			<div>
+				<div class="order-form">
+					<div class="order-form-sub">
+						<ul class="ul-paymentInfo">
+							<li class="li-paymentInfo-title" th:text="|결제 수단|" />
+							<li class="li-paymentInfo-detail">
+								<label class="method-choice">
+									<input type="radio" id="paym-01" name="paym" value="card" checked th:text="신용카드" />
+								</label>
+								<label class="method-choice">
+									<input type="radio" id="paym-02" name="paym" value="kakaopay" th:text="카카오페이" />
+								</label>								
+							</li>
+						</ul>
+						<ul class="ul-paymentInfo">
+							<li class="li-paymentInfo-title" id="pay_info" ></li>
+							<li class="li-paymentInfo-detail"> </li>
+						</ul>
+						<ul class="ul-paymentInfo">
+							<li class="li-paymentInfo-title" id="pay_info" th:text="|환불 안내|" />
+							<li class="li-paymentInfo-detail"> </li>
+						</ul>
+						<ul class="ul-paymentInfo">
+							<li class="li-paymentInfo-title" id="pay_info" th:text="|주문자 동의|" />
+								<label>
+									<input type="checkbox" id="all_agree"> <span class="title-ko" th:text="|전체 동의|"></span>
+								</label>
+							</li>
+							<li class="li-paymentInfo-detail">
+								<p class="box-check-agree">
+									<label>
+										<input type="checkbox" id="agree_third" name="chk"> <span th:text="|개인정보 제3자 제공 동의(필수)|"></span>
+									</label>
+								</p>
+								<p class="box-check-agree">
+									<label>
+										<input type="checkbox" id="pay_agree" name="chk"> <span th:text="|위 상품 정보 및 거래 조건을 확인하였으며, 구매 진행에 동의합니다.(필수)|"></span>
+									</label>
+								</p>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="btn-payment">
+				<button id="btn_payment" onclick="requestPay()">결제하기</button>
+			</div>
+		</section>
+		
+		<hr style="width: 97%">
+		
+		<section id="secion-terms">
+			<div>
+				<p>예약환불 규정 </p>
+				<p>The year is <span th:text="2013">1492</span>.</p>
+				Established locale country: <span th:text="${#locale.country}">US</span>.
+			</div>
+		</section>
+	</main>
+	
+	<!--/* footer */-->
+	<footer class="footer">
+		<div class="footer__logo-box">
+			<a href="#">
+			<img th:src="@{'/static/img/main/logo.png'}" alt="logo" class="footer__logo">
+				<h1 class="footer__font">C&D</h1>
+			</a>
 		</div>
-	</div>
+
+		<div class="row">
+			<div class="col-1-of-2">
+				<div class="footer__navigation">
+					<ul class="footer__list">
+						<li class="footer__item"><a href="#" class="footer__link">Company</a></li>
+						<li class="footer__item"><a href="#" class="footer__link">Contact us</a></li>
+						<li class="footer__item"><a href="#" class="footer__link">Careers</a></li>
+						<li class="footer__item"><a href="#" class="footer__link">Privacy policy</a></li>
+						<li class="footer__item"><a href="#" class="footer__link">Terms</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="col-1-of-2">
+				<p class="footer__copyright">
+					This is our final project called C&D Hairshop, Enjoy it! <br/><a href="#" class="footer__link">Copyright &copy; by KJH SWS SHJ LCW JJK</a> 
+				</p>
+			</div>
+		</div>
+	</footer>
+
 <script>
 function requestPay(){
 	var IMP = window.IMP; 
@@ -84,11 +184,11 @@ function requestPay(){
 		buyer_email: "inulee0213@gmail.com",												// 구매자 Email
 		buyer_name: customer,																		// 구매자 이름
 		buyer_tel: "010-8977-6151",																// 구매자 전화번호
-		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",					// 구매자 주소
+		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",						// 구매자 주소
 		buyer_postcode: "10310"																	// 구매자 우편번호
 		
 		}, function (rsp) { // callback : 결제프로세스 종료 후 실행됨
-				console.log(rsp);
+				//console.log(rsp);
 				if (rsp.success) { // 결제 성공 시: 결제 승인에 성공한 경우
 			    	// jQuery로 HTTP 요청
 			    	jQuery.ajax({
@@ -111,23 +211,27 @@ function requestPay(){
 							buyerAddr : rsp.buyer_addr,
 							buyerPostcode : rsp.buyer_postcode
 						})
-					}).done(function (data) {
+					}).done(function (result) {
 				        // 가맹점 서버 결제 API 성공시 로직
-						  msg = '결제가 완료되었습니다.';
-	                        msg += '\n고유ID : ' + rsp.imp_uid;
-	                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	                        msg += '\n결제 금액 : ' + rsp.paid_amount;
-	                        msg += '\n카드 승인번호 : ' + rsp.apply_num;
+						var msg = '결제가 완료되었습니다.';
+	                    msg += '\n고유ID : ' + rsp.imp_uid;
+	                    msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	                    msg += '\n결제 금액 : ' + rsp.paid_amount;
+	                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
 
-	                        alert(msg);
+	                    alert(msg);
 					});
-			    	location.href="/cndsalon/payments/moveSuccess"
+			    	//location.href="/cndsalon/payments/moveSuccess"
 			    } else {
 					alert("결제에 실패하였습니다. \n에러 내용: " +  rsp.error_msg);
 					location.href="/cndsalon/payments/moveFail"
 			    }
 		});
 };
+
+function CheckAgree(){
+	
+}
 </script>
 </body>
 </html>

@@ -16,3 +16,5 @@ buyer_postcode varchar2(10),-- 주문자 우편번호
 paid_at number,						-- 결제승인시각
 primary key(merchant_uid)
 );
+
+commit;
