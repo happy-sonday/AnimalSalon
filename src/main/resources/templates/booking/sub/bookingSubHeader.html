@@ -26,9 +26,9 @@ li{
 		<nav>
 			<ul>
 				<li><input type="button" onclick="goBack();" value="뒤로가기"></li>
-				<li><input type="button" value="메인홈"></li>
+				<li><a style="cursor:pointer" onclick='shop_home()'><img class="navbar__logo__image" th:src="@{'/static/img/main/logo.png'}">C&D</a></li>
 				<li><a href="#" class="headerMenu"><span th:text="${shop.sName}"></span></a></li>
-				<li><a href="#" class="headerMenu">검색</a></li>
+				<li><a th:href="@{/cndsalon/shop/shopmain}">샵검색</a></li>
 			</ul>
 		</nav>
 		<hr>
