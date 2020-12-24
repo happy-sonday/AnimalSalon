@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cndsalon.domain.book.Booking;
+import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.domain.book.Menu;
 import com.cndsalon.domain.book.MenuOption;
 import com.cndsalon.web.dto.book.DateTimeDTO;
@@ -20,8 +21,11 @@ public interface BookingService {
 	
 	void insertBooking(Booking booking);
 
-	List<Booking> selectBooking(String dCode, String sCode, LocalDate bDate);
-
+	List<Booking> selectBookingList(String dCode, String sCode, LocalDate bDate);
+	
 	Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList);
 	
+	BookingView getBookingView(String sCode, String mCode, String dCode);
+	
+	 
 }
