@@ -17,10 +17,10 @@
 		FROM
 			shop_menu m, 
 			shop_info_tbl s, 
-			shop_designer_tbl d, 
+			shop_designer_tbl d,
 			shop_menu_photo mp
 		WHERE 
-			s.s_code = s.s_code AND
+			s.s_code = m.s_code AND
 			d.s_code = s.s_code AND
 			m.m_code = mp.m_code(+) AND
     		

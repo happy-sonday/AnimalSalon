@@ -44,7 +44,7 @@ public class CndSalonShopController {
 	}
 
 	// 내주변 root path
-	@RequestMapping(value = "/shop/shopmain")
+	@RequestMapping(value = "shop/shopmain")
 	public String getAll_ajax(Model model) {
 		
 		return "/shop/shop_main.html";

@@ -13,61 +13,62 @@
 	<!-- bookingHomeSubHeader 삽입 -->
 	<div th:insert="~{booking/sub/bookingSubHeader::bookingSubHeader}"></div>
 	
-	<!-- 메뉴선택 -->
-	<div>
-		<div style="float: left; width: 500px;">
-			<input type="hidden" th:value="${menu.mCode}" id="mCode">
-			<img width="100" height="100" style="float: left;" name="메뉴이미지">
-			<span th:text="${menu.mName}"></span>
-			<hr />
-
-			<!-- 메뉴옵션 -->
-			<select th:if="${not #lists.isEmpty(menuOptions)}" id="optionList" name="optionList" onchange="change_sum_price(this);">
-				<option value="x" disabled="disabled" selected="selected">옵션을 선택해주세요.</option>
-				<option th:each="option : ${menuOptions}"
-						th:value="|${option.oTime}:${option.oPrice}|"
-						th:text="${option.oName}"></option>
-			</select>
-			<br /> 
-			
-			<span>금액</span> 
-			<input type="hidden" th:value="${menu.mPrice}" id="defaultPrice"> 
-			<span th:text="|${menu.mPrice}원|" th:value="${menu.mPrice}" id="sumPrice"></span>
-			<br />
-			 
-			<span>소요시간</span>
-			<input type="hidden" th:value="${menu.mTime}" id="defaultBeautyTime">
-			<span th:text="|${menu.mTime}분|" th:value="${menu.mTime}" id="sumBeautyTime"></span>
-
-			<!-- 날짜선택 -->
-			<br /><br /><br />
-			<div>
-				날짜선택 <br /> <input type="text" id="bookingDate" name="bookingDate" onchange="change_booking_date(this);">
-			</div>
-		</div>
-
-		<!-- 디자이너 및 시간 선택 -->
-		<div style="float: left;">
-			<input type="hidden" th:value="${shop.sCode}" id="sCode">
-			<input type="hidden" th:value="${shop.sName}" id="sName">
-			<input type="hidden" th:value="${shop.sPhone}" id="sPhone">
-			<input type="hidden" th:value="${shop.sTime}" id="sTime">
-			<input type="hidden" value="" id="selected_designer">
-			<input type="hidden" value="" id="selected_date">
-			<div th:each="dList, i: ${designers}">
-				<input type="hidden" th:value="${dList.dCode}" th:id="dCode + ${i.index}">
-				<img th:src="@{'/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}" width=80 height=80 />
-				<span th:text="${dList.dName}" id="dName"></span>  &nbsp;&nbsp;&nbsp; 
-				<span th:text="${dList.dInfo}"></span>  &nbsp;&nbsp;&nbsp; <br />
-				<input type="hidden" th:value="${dList.dDayOff}" id="dDayOff" name="dDayOff">
-
-				<!-- 시간 제어(휴무 또는 예약된 시간) -->
-				<div th:id="bookable_time + ${i.index}"></div>
-
+	<form th:action="@{/payments}" method="POST">
+		<!-- 메뉴선택 -->
+		<div>
+			<div style="float: left; width: 500px;">
+				<input type="hidden" th:value="${menu.mCode}" name="mCode" id="mCode">
+				<img width="100" height="100" style="float: left;" name="메뉴이미지">
+				<span th:text="${menu.mName}"></span>
+				<hr />
+	
+				<!-- 메뉴옵션 -->
+				<select th:if="${not #lists.isEmpty(menuOptions)}" id="optionList" name="optionList" onchange="change_sum_price(this);">
+					<option value="x" disabled="disabled" selected="selected">옵션을 선택해주세요.</option>
+					<option th:each="option : ${menuOptions}"
+							th:value="|${option.oTime}:${option.oPrice}|"
+							th:text="${option.oName}"></option>
+				</select>
+				<br /> 
+				
+				<span>금액</span> 
+				<input type="hidden" th:value="${menu.mPrice}" name="defaultPrice" id="defaultPrice"> 
+				<span th:text="|${menu.mPrice}원|" th:value="${menu.mPrice}" id="sumPrice"></span>
 				<br />
+				 
+				<span>소요시간</span>
+				<input type="hidden" th:value="${menu.mTime}" name="defaultBeautyTime" id="defaultBeautyTime">
+				<span th:text="|${menu.mTime}분|" th:value="${menu.mTime}" id="sumBeautyTime"></span>
+	
+				<!-- 날짜선택 -->
+				<br /><br /><br />
+				<div>
+					날짜선택 <br /> <input type="text" id="bookingDate" name="bookingDate" onchange="change_booking_date(this);">
+				</div>
+			</div>
+	
+			<!-- 디자이너 및 시간 선택 -->
+			<div style="float: left;">
+				<input type="hidden" th:value="${shop.sCode}" name="sCode" id="sCode">
+				<input type="hidden" th:value="${shop.sName}" id="sName">
+				<input type="hidden" th:value="${shop.sPhone}" id="sPhone">
+				<input type="hidden" th:value="${shop.sTime}" id="sTime">
+				<input type="hidden" value="" name="selected_designer" id="selected_designer">
+				<input type="hidden" value="" name="selected_date" id="selected_date">
+				<div th:each="dList, i: ${designers}">
+					<input type="hidden" th:value="${dList.dCode}" th:id="dCode + ${i.index}">
+					<img th:src="@{'/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}" width=80 height=80 />
+					<span th:text="${dList.dName}" id="dName"></span>  &nbsp;&nbsp;&nbsp; 
+					<span th:text="${dList.dInfo}"></span>  &nbsp;&nbsp;&nbsp; <br />
+					<input type="hidden" th:value="${dList.dDayOff}" id="dDayOff" name="dDayOff">
+	
+					<!-- 시간 제어(휴무 또는 예약된 시간) -->
+					<div th:id="bookable_time + ${i.index}"></div>
+	
+					<br />
+				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- 기타 세부사항 (상품고시, 거래정보, 예약환불규정은 버튼 클릭 시 펼쳐지게)-->
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><hr>
@@ -82,12 +83,10 @@
 			<li>예약환불규정▼</li>
 			<span>예약환불규정 들어갈 예정</span>
 		</ul>
-		<input type="button" value="예약하기(테스트)" onclick="make_booking();">
-		<a th:href="@{/pay}">예약하기</a>
+<!-- 		<input type="button" value="예약하기(테스트)" onclick="make_booking();"> -->
+		<input type="submit" value="예약하기(테스트)">
 	</div>
-	
-	<!-- footer -->
-<!-- 	<div th:insert="~{booking/sub/footer::footer}"></div> -->
+  </form>
 
 	<script th:src="@{/static/js/jquery-3.5.1.min.js}" type="text/javascript"></script>
 	<script th:src="@{/static/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
