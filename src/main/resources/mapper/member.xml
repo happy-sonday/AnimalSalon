@@ -20,7 +20,7 @@
 	
 	
 	<!-- 로그인할때 해당 내용을 조회해서 대조해보고 이정보를 이용해 header에 간략하게 내용 출력한다 -->
-	<select id="getOne" resultType="CustomUserDetails">
+	<select id="getOne" resultType="com.cndsalon.domain.member.CustomUserDetails">
 		SELECT
 		id, email, password, authority, status, nickname, act_nickname
 		FROM member WHERE 

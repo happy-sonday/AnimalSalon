@@ -31,10 +31,10 @@ public class BookingView {
 	private String sName;
 	private String dCode;
 	private String dName;
-	
+
 	@Column(name = "B_DATE", columnDefinition = "DATE")
 	private LocalDate bDate;
 	@Column(name = "B_TIME", columnDefinition = "TIME")
 	private LocalTime bTime;
-	
+
 }

@@ -225,6 +225,7 @@ var check_time = function(selected_time) {
 // 예약시 필요한 정보들.
 // Id mCode dCode sCode bDate bTime bBeautyTime bPrice
 // id는 세션의 정보 받아올 것.
+// 2020-12-25 이후 미사용예정
 var make_booking = function() {
 
 	
@@ -255,15 +256,16 @@ var make_booking = function() {
 	$.ajax({
 		contentType : "application/json; charset=utf-8",
 		type : "POST",
-		url : "/cndsalon/booking/make-booking",
-		dataType : 'json',
+		url : "/cndsalon/payments",
+		datatype:"json",
 		data : booking,
 		beforeSend : function(xhr){
 		xhr.setRequestHeader(header, token);
 		},
-		success : function(){
+		success : function(model){
+			console.log(model);
 			alert('예약성공!');
-//			location.href='/board/list';
+			
 		},
 		error : function(){
 			alert('예약불가!');
