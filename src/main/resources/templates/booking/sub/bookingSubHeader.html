@@ -4,34 +4,50 @@
 <meta charset="UTF-8">
 <title>subHeader</title>
 
-<style type="text/css">
-
-ul{
-	list-style: none;
-	font-size: 25px;
-}
-
-li{
-	float:left;
-	margin-left: 15px;
-}
-
-</style>
-
 </head>
 
 <body>
 
 	<div th:fragment="bookingSubHeader">
-		<nav>
-			<ul>
-				<li><input type="button" onclick="goBack();" value="뒤로가기"></li>
-				<li><input type="button" value="메인홈"></li>
-				<li><a href="#" class="headerMenu"><span th:text="${shop.sName}"></span></a></li>
-				<li><a href="#" class="headerMenu">검색</a></li>
-			</ul>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+			<div class="container">
+				<a class="navbar-brand" href="#"> <img
+					src="http://placehold.it/150x50?text=Logo" alt="">
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarResponsive" aria-controls="navbarResponsive"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active"><a class="nav-link" href="#">Home
+								<span class="sr-only">(current)</span>
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Services</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</nav>
-		<hr>
+
+	<!-- ---------------------------------------------------------------------------------------- -->
+
+<!-- 		<nav> -->
+<!-- 			<ul> -->
+<!-- 				<li><input type="button" onclick="goBack();" value="뒤로가기"></li> -->
+<!-- 				<li><a style="cursor: pointer" onclick='shop_home()'><img -->
+<!-- 						th:src="@{'/static/img/main/logo.png'}" alt="Logo" -->
+<!-- 						class="navbar__logo"></a></li> -->
+<!-- 				<li><a href="#" class="headerMenu"><span -->
+<!-- 						th:text="${shop.sName}"></span></a></li> -->
+<!-- 				<li><a th:href="@{/cndsalon/shop/shopmain}">샵검색</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</nav> -->
+
 	</div>
 
 </body>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>subHeader</title>
+
+</head>
+<body>
+	<div th:fragment="footer">
+		<footer class="footer">
+
+			<div class="footer__logo-box">
+				<a href="#"> <img th:src="@{'/static/img/main/logo.png'}"
+					alt="logo" class="footer__logo">
+					<h1 class="footer__font">C&D</h1>
+				</a>
+
+			</div>
+
+			<div class="row">
+				<div class="col-1-of-2">
+					<div class="footer__navigation">
+						<ul class="footer__list">
+							<li class="footer__item"><a href="#" class="footer__link">Company</a></li>
+							<li class="footer__item"><a href="#" class="footer__link">Contact
+									us</a></li>
+							<li class="footer__item"><a href="#" class="footer__link">Careers</a></li>
+							<li class="footer__item"><a href="#" class="footer__link">Privacy
+									policy</a></li>
+							<li class="footer__item"><a href="#" class="footer__link">Terms</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-1-of-2">
+					<p class="footer__copyright">
+						This is our final project called C&D Hairshop, Enjoy it! <br /> <a
+							href="#" class="footer__link">Copyright &copy; by KJH SWS SHJ
+							LCW JJK</a>
+					</p>
+				</div>
+
+			</div>
+
+		</footer>
+	</div>
+</body>
+</html>

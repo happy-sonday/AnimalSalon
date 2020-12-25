@@ -13,8 +13,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.cndsalon.domain.member.Role;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,20 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                    .authorizeRequests()
-                    .antMatchers("/",  "/static/**", "/member/**", "/check/**", "/shop/**", "/bookinghome/**", "/payments/**","/booking/**").permitAll()
-                    .antMatchers("/api/v1/**").hasRole(Role.CLIENT.name())
-                    .anyRequest().authenticated()
         http.authorizeRequests()
         		//페이지 권한 설정
 			        .antMatchers("/admin/**").hasRole("ADMIN")
 			        .antMatchers("/member/myinfo").hasRole("CLIENT")
 			        .antMatchers("/member/login/**", "/member/logout/**").anonymous()
-			        .antMatchers("/**", "/check/**", "/booking/**", "/bookinghome/**", "/shop/**").permitAll()
+			        .antMatchers("/**", "/check/**", "/shop/**", "/booking/**", "/bookinghome/**").permitAll()
             //.anyRequest().authenticated()
                 .and()
                 	.oauth2Login().loginPage("/login")

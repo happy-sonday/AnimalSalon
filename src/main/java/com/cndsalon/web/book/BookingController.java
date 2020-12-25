@@ -58,7 +58,7 @@ public class BookingController {
 		
 		return "/booking/bookingMenu";
 	}
-	
+
 	/**
 	  *
 	  * <pre>
@@ -89,7 +89,7 @@ public class BookingController {
 		
 		return "/booking/bookingDetail";
 	}
-
+	
 	/**
 	  *
 	  * <pre>
