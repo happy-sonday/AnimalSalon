@@ -56,13 +56,13 @@
 				</thead>
 				<!--/* 추후 타임리프방식으로 변경 */-->
 				<tbody>
-					<tr><td>일정</td><td><p id="bookingDate">2021년 1월 1일 금 11:00</p></td></tr>
-					<tr><td>매장</td><td><p id="shopName">몰리스펫샵</p></td></tr>
-					<tr><td>디자이너</td><td><p id="designer">이찬우</p></td></tr>
-					<tr><td>메뉴</td><td><p id="styleName">컷컷컷</p></td></tr>
-					<tr><td>예약자</td><td><p id="customer">이차누</p></td></tr>
-					<tr><td>예상소요시간</td><td><p id="workingTime">2시간</p></td></tr>
-					<tr><td>결제금액</td><td><p id="amount">100</p></td></tr>
+					<tr><td>일정</td><td><p id="bookingDate" th:text="|${result.bDate} + ' ' + ${result.bTime}|">date</p></td></tr>
+					<tr><td>매장</td><td><p id="shopName" th:text="${result.sName}">shop</p></td></tr>
+					<tr><td>디자이너</td><td><p id="designer" th:text="${result.dName}">designer</p></td></tr>
+					<tr><td>메뉴</td><td><p id="styleName" th:text="${result.mName}">menu</p></td></tr>
+					<tr><td>예약자</td><td><p id="customer" th:text="|예약한 사람명|" >customer</p></td></tr>
+					<tr><td>예상소요시간</td><td><p id="workingTime" th:text="|${workingTime}분|">workingTime</p></td></tr>
+					<tr><td>결제금액</td><td><p id="amount" th:text="|${price}원|">price</p></td></tr>
 				</tbody>
 			</table>
 			</div>
