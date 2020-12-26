@@ -9,44 +9,30 @@
 <body>
 
 	<div th:fragment="bookingSubHeader">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+
+		<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
 			<div class="container">
-				<a class="navbar-brand" href="#"> <img
-					src="http://placehold.it/150x50?text=Logo" alt="">
-				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarResponsive" aria-controls="navbarResponsive"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+				
 				<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="#">Home
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Services</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-						</li>
+
+					<ul class="nav navbar-nav pull-sm-left">
+						<li class="nav-item"><a class="nav-link" style="cursor: pointer;" onclick="goBack();">뒤로가기</a></li>
 					</ul>
+
+					<ul class="nav navbar-nav navbar-logo mx-auto">
+						<li class="nav-item active" id="navbar__shop__name"><a class="nav-link" href="#">[[${shop.sName}]]
+						</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav pull-sm-right">
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/shop/shopmain}">내 주변</a>
+					</ul>
+
 				</div>
 			</div>
 		</nav>
-
-	<!-- ---------------------------------------------------------------------------------------- -->
-
-<!-- 		<nav> -->
-<!-- 			<ul> -->
-<!-- 				<li><input type="button" onclick="goBack();" value="뒤로가기"></li> -->
-<!-- 				<li><a style="cursor: pointer" onclick='shop_home()'><img -->
-<!-- 						th:src="@{'/static/img/main/logo.png'}" alt="Logo" -->
-<!-- 						class="navbar__logo"></a></li> -->
-<!-- 				<li><a href="#" class="headerMenu"><span -->
-<!-- 						th:text="${shop.sName}"></span></a></li> -->
-<!-- 				<li><a th:href="@{/cndsalon/shop/shopmain}">샵검색</a></li> -->
-<!-- 			</ul> -->
-<!-- 		</nav> -->
 
 	</div>
 

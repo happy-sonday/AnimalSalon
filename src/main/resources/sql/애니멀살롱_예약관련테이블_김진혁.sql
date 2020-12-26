@@ -35,6 +35,11 @@ CREATE TABLE SHOP_MENU (
     PRIMARY KEY (M_CODE),
     FOREIGN KEY (S_CODE) REFERENCES SHOP_INFO_TBL(S_CODE)
     );
+---- 메뉴 사진테이블과 합침
+alter table SHOP_MENU add M_P_PATH varchar2(500);
+alter table SHOP_MENU add M_P_SYSNAME varchar2(100);
+alter table SHOP_MENU add M_P_ORGNAME varchar2(100);
+
 
 ------ 메뉴옵션테이블
 CREATE TABLE SHOP_MENU_OPTION (
@@ -45,7 +50,7 @@ CREATE TABLE SHOP_MENU_OPTION (
     O_PRICE NUMBER       -- 추가 금액
     );
 
------- 메뉴사진테이블
+(폐기예정)------ 메뉴사진테이블 
 CREATE TABLE SHOP_MENU_PHOTO (
     M_CODE VARCHAR2(30),                -- 메뉴코드
     S_CODE VARCHAR2(30),                -- 매장코드
@@ -55,24 +60,23 @@ CREATE TABLE SHOP_MENU_PHOTO (
     FOREIGN KEY (M_CODE) REFERENCES SHOP_MENU(M_CODE) ON DELETE CASCADE,
     FOREIGN KEY (S_CODE) REFERENCES SHOP_INFO_TBL(S_CODE) ON DELETE CASCADE
     );
+=======================================================
+
 
 ------ 예약_VIEW 테이블
 CREATE OR REPLACE VIEW booking_view AS
 SELECT 
 	b.b_code, b.id, b.b_price, b.b_status,
-	m.m_code, m.m_name, 
-	mp.m_p_path, mp.m_p_sysname, mp.m_p_orgname,
+	m.m_code, m.m_name, m.m_p_path, m.m_p_sysname, m.m_p_orgname,
 	s.s_code, s.s_name,
 	d.d_code, d.d_name,
 	b.b_date, b.b_time
-
 FROM booking b, 
 	shop_menu m, 
 	shop_info_tbl s, 
-	shop_designer_tbl d, 
-	shop_menu_photo mp
+	shop_designer_tbl d
 WHERE 
 	b.m_code = m.m_code AND
 	b.s_code = s.s_code AND
-	b.d_code = d.d_code AND
-	m.m_code = mp.m_code(+);
+	b.d_code = d.d_code;
+commit;

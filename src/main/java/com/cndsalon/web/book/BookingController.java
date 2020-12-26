@@ -137,10 +137,8 @@ public class BookingController {
 			@RequestParam("xTimeList[]") List<String> xTimeList){
 		
 		log.info("선택한 시간 : " + selectedTime + "에서 소요시간 " + sumB + "분을 더한시간이 예약시간 리스트에 겹치지 않는 지 확인");
-		
+
 		Boolean status = this.bookingService.checkAvailableTime(sumB, selectedTime, xTimeList);
-		
-		System.out.println("결과는 ? " + status);
 		return ResponseEntity.ok(status);
 	}
 	
@@ -174,12 +172,5 @@ public class BookingController {
 		
 		return new ResponseEntity<BookingView>(bookingView, HttpStatus.OK);
 	}
-	
-	@ResponseBody
-	@GetMapping("/test")
-	public ResponseEntity<?> test(){
-		return new ResponseEntity<>("{}", HttpStatus.OK);
-	}
-	
 	
 }

@@ -3,6 +3,7 @@ package com.cndsalon.domain.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -53,17 +54,21 @@ public class Menu {
 	
     private String mInfo;    // 상품부가정보
 	
+    @Column(name = "M_P_PATH")
+	private String mpPath;    // 사진파일경로
+    
+    @Column(name = "M_P_SYSNAME")
+	private String mpSysName; // 사진파일시스템이름
+    
+    @Column(name = "M_P_ORGNAME")
+	private String mpOrgName; // 사진파일원본이름
+    
     @OneToMany(mappedBy = "menu")
 	private List<MenuOption> menuOptions = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "menu")
-	private List<MenuPhoto> menuPhotos = new ArrayList<>();
+//	@OneToMany(mappedBy = "menu")
+//	private List<MenuPhoto> menuPhotos = new ArrayList<>();
 
-	@Override
-	public String toString() {
-		return "Menu [mCode=" + mCode + ", sCode=" + sCode + ", mType=" + mType + ", mName=" + mName + ", mTime="
-				+ mTime + ", mPrice=" + mPrice + ", mInfo=" + mInfo + "]";
-	}
 
 
 
