@@ -4,37 +4,37 @@
 <meta charset="UTF-8">
 <title>subHeader</title>
 
-<style type="text/css">
-
-ul{
-	list-style: none;
-	font-size: 25px;
-}
-
-li{
-	float:left;
-	margin-left: 15px;
-}
-
-</style>
-
 </head>
 
 <body>
 
 	<div th:fragment="bookingHomeSubHeader">
-		<a onclick='shop_main_search()'>예약하기</a> 
-	
-		<nav>
-			<ul>
-				<li><a th:href="@{/bookinghome/status/all}">전체</a></li>
-				<li><a th:href="@{/bookinghome/status/0}">예약</a></li>
-				<li><a th:href="@{/bookinghome/status/1}">완료</a></li>
-				<li><a th:href="@{/bookinghome/status/2}">취소</a></li>
-			</ul>
+
+		<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+			<div class="container">
+
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+
+					<ul class="nav navbar-nav pull-sm-left">
+						<li class="nav-item active" id="navbar__go__booking"><a class="nav-link"
+							onclick='shop_main_search()' style="cursor: pointer;">예약하기</a></li>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-logo mx-auto"></ul>
+					
+					<ul class="nav navbar-nav pull-sm-right">
+						<li class="nav-item"><a class="nav-link" th:href="@{/bookinghome/status/all}">전체</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/bookinghome/status/0}">예약</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/bookinghome/status/1}">완료</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/bookinghome/status/2}">취소</a></li>
+					</ul>
+
+				</div>
+			</div>
 		</nav>
-		<hr>
+
 	</div>
-	
+
 </body>
 </html>

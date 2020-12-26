@@ -120,10 +120,14 @@ var change_sum_price = function(selected_option) {
 					var n_list = timeMap.notWorkTime;
 					var d_list = timeMap.degWorkTime;
 
-					$.each(w_list, function(index, wlist) {
+					$.each(w_list, function(id, wlist) {
 						$('#bookable_time' + i).append(
-							"<label><input type='radio' value='" + wlist.workTime + "' name='time_radio'"
-							+ " onclick= 'check_time(this)'/>"
+//							"<label class='custom-radio' ><input type='radio' value='" + wlist.workTime + "' name='time_radio'"
+//							+ " onclick= 'check_time(this)'/>"
+//							+ wlist.workTime + "</label>");
+
+							"<input type='radio' value='" + wlist.workTime + "' name='time_radio' id='" + id+i
+							+ "' onclick= 'check_time(this)'/><label for='" + id+i +"'>"
 							+ wlist.workTime + "</label>");
 
 					})
@@ -153,39 +157,31 @@ var change_sum_price = function(selected_option) {
 /** 예약되어있는 시간과 예약하려는 시간의 겹치는지 확인 유무 */
 var check_time = function(selected_time) {
 	selected_timeV = selected_time.value;
-
+	
 	if ($('#optionList option:selected').val() == "x") {
 		$("input[name='time_radio']").prop("checked", false);
 		alert('옵션을 선택해주세요.');
 	} else {
-		var selectedDesigner = selected_time.parentElement.parentElement.parentElement.childNodes[1].value;
+		var selectedDesigner = selected_time.parentElement.parentElement.childNodes[1].childNodes[1].value;
 		$('#selected_designer').val(selectedDesigner);
 		var shop_name = $('#sName').val();
 		var shop_phone = $('#sPhone').val();
 		var sum_b = $('#sumBeautyTime').text();
 		sum_b = sum_b.substring(0, sum_b.indexOf("분")) * 1;
 
-		var timeLabels = selected_time.parentElement.parentElement.childNodes;
-
-
-
-		var timeLabelSize = timeLabels.length;
-
-		var timeList = new Array(timeLabelSize);
-		var disabled_test = new Array();
+		var timeRadio = selected_time.parentElement.getElementsByTagName('input');
+		var disabled_test = new Array(timeRadio.legnth);
 		var xTimeList = new Array();
-
-		for (var i = 0; i < timeLabelSize; i++) {
-
-			timeList[i] = timeLabels[i].firstChild;
-
-			disabled_test.push(timeList[i].getAttribute('disabled'));
+		
+		for (var i = 0; i < timeRadio.length; i++) {
+			
+			disabled_test.push(timeRadio[i].getAttribute('disabled'));
 
 			if (disabled_test[i] != null) {
-				xTimeList.push(timeList[i].value);
+				xTimeList.push(timeRadio[i].value);
 			}
 		}
-
+		console.log(xTimeList)
 		if (!xTimeList.length) { // 비활성화 버튼이 없을 경우 함수 탈출
 			return;
 		}
@@ -217,9 +213,6 @@ var check_time = function(selected_time) {
 	}
 }
 
-
-
-
 /** bookingDetail.html 예약을 위한 유효성 검사 */
 
 // 예약시 필요한 정보들.
@@ -233,8 +226,10 @@ var make_booking = function() {
 	if (!b_time) {
 		if ($('#optionList option:selected').val() == "x") {
 			alert('옵션을 선택해주세요.');
+			return;
 		} else {
 			alert('시간을 선택해주세요.')
+			return;
 		}
 	}
 
