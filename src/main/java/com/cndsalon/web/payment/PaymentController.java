@@ -1,13 +1,10 @@
 package com.cndsalon.web.payment;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  * 결제관련 기능의 컨트롤러
  * 
  * @author CWLEE
- * @version 1.1
+ * @version 1.1 [2020-12-26]
  * @see com.cndsalon.service.payment.PaymentServiceImpl
  */
 @Controller
@@ -43,34 +40,42 @@ public class PaymentController {
 	/**
 	 * bookingDetail.html 에서 예약버튼 클릭시 [form data]를 받아서 처리하는 메소드
 	 * 
+	 * @param mCode 메뉴식별코드
+	 * @param sCode 매장식별코드
+	 * @param price 결제예정금액
+	 * @param workingTime 작업소요시간
+	 * @param dCode 디자이너식별코드
+	 * @param bDate 예약날짜
+	 * @param bTime 예약시간
+	 *
 	 * @return View PageName & Model 데이터
 	 * @throws Exception
 	 * @Since 1.1
 	 */
-	@PostMapping("/payments")
+	@GetMapping("/payments")
 	public ModelAndView movePaymentPage(
 			@RequestParam("mCode") String mCode,
 			@RequestParam("sCode") String sCode,
 			@RequestParam("defaultPrice") Integer price,
 			@RequestParam("defaultBeautyTime") Integer workingTime,
-			@RequestParam("selected_designer")String dCode
-//			@RequestParam("bookingDate")LocalDate bDate
-			/*@RequestParam("time_radio")LocalTime bTime*/) throws Exception{
+			@RequestParam("selected_designer") String dCode,
+			@RequestParam("bookingDate") String bDate,
+			@RequestParam("time_radio") String bTime) throws Exception{
 		ModelAndView mv = new ModelAndView("/payment/paymentForm");
 		log.info("결제요청을 받음.. 로직 수행 시작");
 		log.info("메뉴코드 : " + mCode);
 		log.info("매장코드 : " + sCode);
 		log.info("디자이너코드 : " + dCode);
-//		log.info("예약날짜 : " + bDate);
-//		log.info("예약시간 : " + bTime);
+		log.info("예약날짜 : " + bDate);
+		log.info("예약시간 : " + bTime);
 		log.info("소요시간 : " + workingTime);
 		log.info("금액 : " + price);
 		
 		BookingView result = bookingService.getBookingView(sCode,mCode, dCode);
 		
 		mv.addObject("result", result);
-//		mv.addObject("bookingDate", bDate);
-//		mv.addObject("bookingTime", bTime);
+		mv.addObject("bookingDate", bDate);
+		mv.addObject("bookingTime", bTime);
 		mv.addObject("workingTime", workingTime);
 		mv.addObject("price", price);
 		
