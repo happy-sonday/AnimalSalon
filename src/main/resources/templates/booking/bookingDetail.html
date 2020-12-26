@@ -13,7 +13,7 @@
 	<!-- bookingHomeSubHeader 삽입 -->
 	<div th:insert="~{booking/sub/bookingSubHeader::bookingSubHeader}"></div>
 	
-	<form th:action="@{/payments}" method="POST">
+	<form th:action="@{/payments}" method="get">
 		<!-- 메뉴선택 -->
 		<div>
 			<div style="float: left; width: 500px;">
