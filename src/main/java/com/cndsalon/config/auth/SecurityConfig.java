@@ -13,8 +13,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.cndsalon.domain.member.Role;
-
 
 import lombok.RequiredArgsConstructor;
 
