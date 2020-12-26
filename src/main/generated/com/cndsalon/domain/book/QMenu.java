@@ -26,13 +26,17 @@ public class QMenu extends EntityPathBase<Menu> {
 
     public final ListPath<MenuOption, QMenuOption> menuOptions = this.<MenuOption, QMenuOption>createList("menuOptions", MenuOption.class, QMenuOption.class, PathInits.DIRECT2);
 
-    public final ListPath<MenuPhoto, QMenuPhoto> menuPhotos = this.<MenuPhoto, QMenuPhoto>createList("menuPhotos", MenuPhoto.class, QMenuPhoto.class, PathInits.DIRECT2);
-
     public final StringPath mInfo = createString("mInfo");
 
     public final StringPath mName = createString("mName");
 
+    public final StringPath mpOrgName = createString("mpOrgName");
+
+    public final StringPath mpPath = createString("mpPath");
+
     public final NumberPath<Integer> mPrice = createNumber("mPrice", Integer.class);
+
+    public final StringPath mpSysName = createString("mpSysName");
 
     public final NumberPath<Integer> mTime = createNumber("mTime", Integer.class);
 

@@ -70,6 +70,7 @@ $(document).ready(function(){
 				},
 				success : function(){
 					alert("예약이 취소되었습니다.");
+					opener.location.reload();
 					self.close();
 				},
 				error : function(){
