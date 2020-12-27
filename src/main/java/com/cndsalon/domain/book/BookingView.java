@@ -19,6 +19,7 @@ public class BookingView {
 	private String id;
 	private int bPrice;
 	private String bStatus;
+	private Integer bBeautyTime;
 	private String mCode;
 	private String mName;
 	@Column(name = "M_P_PATH")

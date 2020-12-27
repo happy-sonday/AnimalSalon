@@ -58,12 +58,13 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate, String sCode, String dCode) {
+	public Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate, String sCode, String dCode, Long bCode) {
 		// 선택한 날짜 값 핸들링
 		getDate = getDate.substring(0, getDate.indexOf("("));
 		LocalDate compareDate = LocalDate.parse(getDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		if(bCode == null) { bCode = (long) 0;}
 		
-		List<Booking> designerWorkTimeList = this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, compareDate);
+		List<Booking> designerWorkTimeList = this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, compareDate, bCode);
 		return this.timeUtil.createTimeList(sTime, compareDate, designerWorkTimeList);
 	}
 
@@ -76,8 +77,8 @@ public class BookingServiceImpl implements BookingService {
 
 	@Transactional
 	@Override
-	public List<Booking> selectBookingList(String dCode, String sCode, LocalDate bDate) {
-		return this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, bDate);
+	public List<Booking> selectBookingList(String dCode, String sCode, LocalDate bDate, Long bCode) {
+		return this.bookingRepository.findBydCodeAndsCodeAndbDate(dCode, sCode, bDate, bCode);
 	}
 
 	@Override

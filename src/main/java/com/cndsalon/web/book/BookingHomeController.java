@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cndsalon.domain.book.Booking;
 import com.cndsalon.service.book.BookingHomeService;
+import com.cndsalon.service.book.BookingService;
+import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +28,12 @@ public class BookingHomeController {
 
 	@Autowired
 	private BookingHomeService bookingHomeSerivce;
+	
+	@Autowired
+	private BookingService bookingService;
+	
+	@Autowired
+	private ShopListService shopService;
 	
 	/**
 	  *
@@ -51,7 +60,6 @@ public class BookingHomeController {
 	}
 	
 	
-	
 	/**
 	  *
 	  * <pre>
@@ -74,13 +82,43 @@ public class BookingHomeController {
 	}
 	
 
-	// 진행중예약내역화면(bookingHomeIng.html)'시간변경'버튼 클릭 시
+	/**
+	  *
+	  * <pre>
+	  * 개요: bookingHome.html 에서 시간변경 클릭 시
+	  * </pre>
+	  * @method timeChangeView
+	  * @return 업체코드로 디자이너 정보 조회 및 예약시간변경화면 반환 [BookingHomeController]
+	  *
+	 */
 	@GetMapping("/timeChangeView.do")
-	public String timeChangeView() {
+	public String timeChangeView(
+			@RequestParam("bCode")Long bCode,
+			@RequestParam("sCode")String sCode,
+			@RequestParam("bBeautyTime")int bBeautyTime,
+			Model model) {
+		
+		log.info("예약번호 : " + bCode);
+		log.info("sCode : " + sCode + " => 업체 정보 및 디자이너 정보목록 조회");
+		model.addAttribute("shop", this.shopService.getShopDetail(sCode));
+		model.addAttribute("designers", this.shopService.getShopDesignerInfo(sCode));
+		model.addAttribute("bCode", bCode);
+		model.addAttribute("bBeautyTime", bBeautyTime);
+		
 		return "/booking/sub/bookingTimeChange";
 	}
 	
-	// 
+	@PostMapping("/goTimeChange.do")
+	public void goTimeChange(@RequestBody Booking booking) {
+			
+		log.info("들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?"
+				+ "들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들"
+				+ "어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?");
+		log.info("예약번호 : " + booking.getbCode() + "의 시간정보 변경 : " + booking.toString());
+		this.bookingHomeSerivce.updateBookingTime(booking.getdCode(), booking.getBDate(), booking.getBTime(), booking.getbCode());
+	}
+	
+	
 	/**
 	  *
 	  * <pre>
