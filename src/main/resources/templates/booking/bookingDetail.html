@@ -15,79 +15,162 @@
 
 	<!-- 메뉴선택 -->
 	<form th:action="@{/payments}" method="POST">
-	<div class="container" style="padding-top: 30px; padding-bottom: 20px;">
-		<div class="row pb-3 border-bottom border-gray">
-			<div class="col-5 border-right border-gray">
-				<!-- 메뉴정보 -->
-				<div class="media pt-3">
-					<input type="hidden" th:value="${menu.mCode}" id="mCode" name="mCode">
-					<img th:src="@{'/menu/upload_image/' + ${menu.mpPath} + ${menu.mpSysName}}" width="100" height="80" alt="메뉴사진" />
-					<p class="media-body pl-4 pb-3 mt-4 small lh-125 border-bottom border-gray">
-					<strong class="d-block text-gray-dark" style="font-size: 16px;">[[${menu.mName}]]</strong>
-					[[${menu.mInfo}]]</p>
+		<div class="container"
+			style="padding-top: 30px; padding-bottom: 20px;">
+			<div class="row pb-3 border-bottom border-gray">
+				<div class="col-5 border-right border-gray">
+					<!-- 메뉴정보 -->
+					<div class="media pt-3">
+						<input type="hidden" th:value="${menu.mCode}" id="mCode"
+							name="mCode"> <img
+							th:src="@{'/menu/upload_image/' + ${menu.mpPath} + ${menu.mpSysName}}"
+							width="100" height="80" alt="메뉴사진" />
+						<p
+							class="media-body pl-4 pb-3 mt-4 small lh-125 border-bottom border-gray">
+							<strong class="d-block text-gray-dark" style="font-size: 16px;">[[${menu.mName}]]</strong>
+							[[${menu.mInfo}]]
+						</p>
+					</div>
+
+					<!-- 메뉴옵션 -->
+					<div>
+						<select th:if="${not #lists.isEmpty(menuOptions)}" id="optionList"
+							class="custom-select" name="optionList"
+							onchange="change_sum_price(this);">
+							<option value="x" disabled="disabled" selected="selected">옵션을
+								선택해주세요.</option>
+							<option th:each="option : ${menuOptions}"
+								th:value="|${option.oTime}:${option.oPrice}|"
+								th:text="${option.oName}"></option>
+						</select> <input type="hidden" th:value="${menu.mPrice}" id="defaultPrice"
+							name="defaultPrice"> <input type="hidden"
+							th:value="${menu.mTime}" id="defaultBeautyTime"
+							name="defaultBeautyTime"> <input type="hidden" value=""
+							name="selected_price" id="selected_price"> <input
+							type="hidden" value="" name="selected_btime" id="selected_btime">
+
+						<p class="media-body pb-3 mt-3 border-bottom border-gray">
+							금액 <strong th:text="|${menu.mPrice}원|" th:value="${menu.mPrice}"
+								id="sumPrice"></strong><br /> 소요시간 <strong
+								th:text="|${menu.mTime}분|" th:value="${menu.mTime}"
+								id="sumBeautyTime"></strong>
+						</p>
+					</div>
+
+					<!-- 날짜선택 -->
+					<div>
+						<span class="pb-3 pr-4" style="float: right; font-weight: bold;">예약
+							날짜</span> <input type="text" id="bookingDate" name="bookingDate"
+							onchange="change_booking_date(this);">
+					</div>
 				</div>
 
-				<!-- 메뉴옵션 -->
-				<div>
-					<select th:if="${not #lists.isEmpty(menuOptions)}" id="optionList" class="custom-select"
-						name="optionList" onchange="change_sum_price(this);">
-						<option value="x" disabled="disabled" selected="selected">옵션을 선택해주세요.</option>
-						<option th:each="option : ${menuOptions}" th:value="|${option.oTime}:${option.oPrice}|" th:text="${option.oName}"></option>
-					</select>
-					<input type="hidden" th:value="${menu.mPrice}" id="defaultPrice" name="defaultPrice">
-					<input type="hidden" th:value="${menu.mTime}"id="defaultBeautyTime" name="defaultBeautyTime">
+				<!-- 디자이너 및 시간 선택 -->
+				<div class="col-7" id="custom-scrollbar-css">
+					<input type="hidden" th:value="${shop.sCode}" id="sCode"
+						name="sCode"> <input type="hidden"
+						th:value="${shop.sName}" id="sName"> <input type="hidden"
+						th:value="${shop.sPhone}" id="sPhone"> <input
+						type="hidden" th:value="${shop.sTime}" id="sTime"> <input
+						type="hidden" value="" id="selected_designer"
+						name="selected_designer"> <input type="hidden" value=""
+						id="selected_date" name="selected_date">
 
-					<p class="media-body pb-3 mt-3 border-bottom border-gray">
-					금액 <strong th:text="|${menu.mPrice}원|" th:value="${menu.mPrice}" id="sumPrice"></strong><br />
-					소요시간 <strong th:text="|${menu.mTime}분|" th:value="${menu.mTime}" id="sumBeautyTime"></strong>
-					</p>
-				</div>
-				
-				<!-- 날짜선택 -->
-				<div>
-					<span class="pb-3 pr-4" style="float: right; font-weight: bold;">예약 날짜</span>
-					<input type="text" id="bookingDate" name="bookingDate" onchange="change_booking_date(this);">
+					<div th:each="dList, i: ${designers}" class="mb-3">
+						<div class="media">
+							<input type="hidden" th:value="${dList.dCode}"
+								th:id="dCode + ${i.index}"> <input type="hidden"
+								th:value="${dList.dDayOff}" id="dDayOff" name="dDayOff">
+							<img
+								th:src="@{'/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}"
+								width=60 height=60 class="rounded-circle" />
+							<p
+								class="media-body pl-3 pb-2 mt-1 small lh-125 border-bottom border-gray">
+								<strong class="d-block text-gray-dark" style="font-size: 16px;"
+									th:text="${dList.dName}" id="dName"></strong> <span
+									th:text="${dList.dInfo}"></span>
+							</p>
+						</div>
+
+						<!-- 시간제어 (정기휴무 및 예약불가목록) -->
+						<div th:id="bookable_time + ${i.index}"></div>
+					</div>
 				</div>
 			</div>
 
-			<!-- 디자이너 및 시간 선택 -->
-			<div class="col-7" id="custom-scrollbar-css">
-				<input type="hidden" th:value="${shop.sCode}" id="sCode" name="sCode">
-				<input type="hidden" th:value="${shop.sName}" id="sName">
-				<input type="hidden" th:value="${shop.sPhone}" id="sPhone">
-				<input type="hidden" th:value="${shop.sTime}" id="sTime">
-				<input type="hidden" value="" id="selected_designer" name="selected_designer">
-				<input type="hidden" value="" id="selected_date" name="selected_date">
-				
-				<div th:each="dList, i: ${designers}" class="mb-3">
-					<div class="media">
-						<input type="hidden" th:value="${dList.dCode}" th:id="dCode + ${i.index}">
-						<input type="hidden" th:value="${dList.dDayOff}" id="dDayOff">
-						<img th:src="@{'/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}" width=60 height=60 class="rounded-circle" />
-						<p class="media-body pl-3 pb-2 mt-1 small lh-125 border-bottom border-gray">
-						<strong class="d-block text-gray-dark" style="font-size: 16px;" th:text="${dList.dName}" id="dName"></strong>
-						<span th:text="${dList.dInfo}"></span></p>
-					</div>
-					
-					<!-- 시간제어 (정기휴무 및 예약불가목록) -->
-					<div th:id="bookable_time + ${i.index}">
+			<!-- 기타 세부사항 (상품고시, 거래정보, 예약환불규정은 버튼 클릭 시 펼쳐지게)-->
+			<div class="row mt-3">
+				<div class="col-12 text-center">
+					<div class="panel-group" id="accordion" role="tablist"
+						aria-multiselectable="true">
+						<div class="panel panel-default border-bottom border-gray">
+							<div class="panel-heading" role="tab">
+								<p role="button" data-toggle="collapse" data-parent="#accordion"
+									href="#collapse1" aria-expanded="false"><b> 상품고시정보 ▼ </b></p>
+							</div>
+							<div id="collapse1" class="panel-collapse collapse"
+								role="tabpanel">
+								<p class="panel-body">
+									-서비스 제공 사업자 <br />상호명 : cndsalon <br />대표자명 : 홍길동 <br />전화번호 :
+									02-1234-5678 <br />영업소재지 : 서울특별시 마포구 신촌로 176 4층 <br />통신판매번호 :<br />
+									<br /> -법에 의한 인증/허가등을 받았음을 확인할 수 있는 경우 <br />문서명칭 : 제 001 호 <br />발급기관
+									: 서울시청 <br />교부일자 : 2020년 12월 31일 <br />영업의 종류 : 애견미용업 <br />자격명칭
+									: 제 2020-01호<br />
+									<br /> -이용조건 <br />거래정보 참조 <br />
+									<br />취소.중도해약.해지조건 및 환불기준 <br />예약취소/환불, 변경 규정 참조 <br />
+									<br />취소 / 환불방법<br /> 예약취소/ 환불, 변경 규정 참조<br />
+									<br /> 소비자상담 관련 전화번호<br /> cndsalon 고객센터 0000-0000<br />
+								</p>
+							</div>
+						</div>
 
+						<div class="panel panel-default border-bottom border-gray mt-3">
+							<div class="panel-heading" role="tab">
+								<p role="button" data-toggle="collapse" data-parent="#accordion"
+									href="#collapse2" aria-expanded="false"><b> 거래정보 ▼ </b></p>
+							</div>
+							<div id="collapse2" class="panel-collapse collapse"
+								role="tabpanel">
+								<p class="panel-body">- 재화/용역 등의 공급방법 및 공급시기 <br/>예약 결제/변경/취소
+									후, 즉시 해당 내역 및 예약번호 등을 카카오톡 메시지(문자메시지)로 전송<br/><br/> -청약철회 및 계약의 해제 관한 사항<br/>
+									예약 취소/환불, 변경 규정 참조 <br/><br/>- 재화, 용역등의 변경, 취소 보증과 그 대금 환불 및 환불의 지연에 따른
+									배상금 지급의 조건절차 <br/>예약 취소 및 결제 대금 환급 신청 방법 <br/>1. 시술예약시간 이전 예약변경 및 취소 신청<br/>
+									cndsalon > 예약 메뉴에서 확인 <br/><br/>2. 시술예약시간이 경과한 후 예약변경 및 취소 신청 <br/>cndsalon
+									고객센터로 문의 0000-0000 <br/><br/>3. 지연배상금 신청에 관한 자세한 문의 cndsalon 고객센터로 문의<br/>
+									0000-0000 <br/><br/>4. 대금환불 및 환불의 지연에 따른 배상금 지급의 조건절차 전자상거래 등에서의 소비자 보호에
+									관한 법률의 규정에 따름 <br/><br/>- 소비자 피해보상의 처리, 재화 등에 대한 불만 처리 및 소비자와 사업자 사이의
+									분쟁처리에 관한 사항 <br/>cndsalon 고객센터 0000-0000 <br/><br/>거래에 관한 약관의 내용 또는 확인 할 수 있는
+									방법 <br/>cndsalon > 마이페이지 > 설정의 약관 참조<br/>
+								</p>
+							</div>
+						</div>
+						<div class="panel panel-default border-bottom border-gray mt-3">
+							<div class="panel-heading" role="tab">
+								<p role="button" data-toggle="collapse" data-parent="#accordion"
+									href="#collapse3" aria-expanded="false"><b> 예약환불규정 ▼ </b></p>
+							</div>
+							<div id="collapse3" class="panel-collapse collapse"
+								role="tabpanel">
+								<p class="panel-body">- 예약 취소/ 환불<br/> 시술 예약시간 2시간 전까지 취소 시
+									결제 금액 100% 환불. <br/>시술 예약시간 2시간 전 이후 취소 또는 미방문 시, 결제 금액에서 10%의 취소
+									수수료 공제 후 , 90% 환불기준 <br/><br/>- 예약 변경 <br/>시술 예약시간 2시간 전까지 '날짜 와 시간' 변경 가능<br/><br/> -
+									취소/환불 정보 <br/>신용카드로 결제한 예약 내역은 취소 즉시 자동으로 카드 승인취소 처리됩니다. <br/>단, 카드사에서의
+									승인취소 확인은 카드사와 VAN사의 확인 절차를 거치는 관계로 주문 취소일로부터 3~5일(영업일 기준) 후 해당
+									카드사에서 취소내역을 확인하실 수 있습니다. <br/>체크카드의 경우 회원님의 통장으로 환불되기까지 최대 5일(영업일
+									기준)정도 소요될 수 있습니다. <br/>정확한 환불기간은 카드사별로 상의하므로, 해당 카드사로 문의하여 주시기 바랍니다.<br/>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="mt-3">
+						<input type="button" value="예약하기(테스트)" onclick="make_booking();">
+						<button class="btn btn-primary" type="submit">예약하기</button>
 					</div>
 				</div>
+
+
 			</div>
 		</div>
-
-		<!-- 기타 세부사항 (상품고시, 거래정보, 예약환불규정은 버튼 클릭 시 펼쳐지게)-->
-		<div class="row mt-3">
-			<ul>
-				<li>상품고시▼</li>
-				<li>거래정보▼</li>
-				<li>예약환불규정▼</li>
-			</ul>
-			<input type="button" value="예약하기(테스트)" onclick="make_booking();">
-			<input type="submit" value="예약하기(결제와연동)">
-		</div>
-	</div>
 	</form>
 
 	<!-- footer -->

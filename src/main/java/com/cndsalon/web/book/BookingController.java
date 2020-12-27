@@ -108,11 +108,12 @@ public class BookingController {
 			@RequestParam("sTime") String sTime,
 			@RequestParam("getDate") String getDate,
 			@RequestParam("sCode") String sCode,
-			@RequestParam("dCode") String dCode){
+			@RequestParam("dCode") String dCode,
+			@RequestParam("bCode") Long bCode){
 		
 		log.info("매장영업시간 : " + sTime + " / 선택한 날짜 : " + getDate +"-> 기준 예약가능 시간생성 및 현재시간 기준 예약불가 시간생성 후 시간제어");
 		log.info("매장번호 : " + sCode + " / 디자이너번호 : " + dCode + "-> 기준 이미 예약되어있는 시간 생성 후 시간제어");
-		Map<String, List<DateTimeDTO>> timeMap = this.bookingService.getWorkTimeList(sTime, getDate, sCode, dCode);
+		Map<String, List<DateTimeDTO>> timeMap = this.bookingService.getWorkTimeList(sTime, getDate, sCode, dCode, bCode);
 		
 		return new ResponseEntity<Map<String, List<DateTimeDTO>>>(timeMap, HttpStatus.OK);
 	}
@@ -141,7 +142,7 @@ public class BookingController {
 		Boolean status = this.bookingService.checkAvailableTime(sumB, selectedTime, xTimeList);
 		return ResponseEntity.ok(status);
 	}
-	
+
 	/**
 	  *
 	  * <pre>

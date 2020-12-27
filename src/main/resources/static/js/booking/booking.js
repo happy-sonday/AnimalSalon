@@ -35,10 +35,6 @@ $(document).ready(function() {
 
 	// 즉시발생 함수
 	setting_work_time();
-
-	/**
-	* document ready
-	**/
 	
 });
 
@@ -55,21 +51,19 @@ var change_sum_price = function(selected_option) {
 	$('#sumBeautyTime').text($('#defaultBeautyTime').val());
 
 	var mo_index = selected_option.selectedIndex; // 인덱스
-//	var mo_text = selected_option.options[mo_index].text; // 해당 인덱스의 text
 	var mo_value = selected_option.options[mo_index].value; // 해당 인덱스의 value
 	var mo_beauty_time = mo_value.substring(0, mo_value.lastIndexOf(":")) * 1; // value의 앞 (beauty_time)
 	var mo_price = mo_value.substring(mo_value.lastIndexOf(":") + 1) * 1; // value의 뒤 (price)
 
-	let sum_price = $('#sumPrice').text() * 1;
-	let sum_beauty_time = $('#sumBeautyTime').text() * 1;
-
-	var price = sum_price + mo_price;
-	var btime = sum_beauty_time + mo_beauty_time;
+	var price = $('#defaultPrice').val()*1 + mo_price;
+	var btime = $('#defaultBeautyTime').val()*1 + mo_beauty_time;
 
 	$('#sumPrice').text(price + "원");
 	$('#sumBeautyTime').text(btime + "분");
+	$('#selected_price').val(price);
+	$('#selected_btime').val(btime);
+	
 	$("input[name='time_radio']").prop("checked", false);
-
 };
 
 
@@ -82,6 +76,7 @@ var change_sum_price = function(selected_option) {
 	if (selected_day == null) {
 		selected_day = getDate.substring(11, 12);
 	}
+	
 	var selected_d = getDate.substring(0, getDate.indexOf("("));
 	$('#selected_date').val(selected_d);
 
@@ -90,7 +85,14 @@ var change_sum_price = function(selected_option) {
 	var regular_holiday_tag = "<p>정기휴무</p>";
 	var sTime = $('#sTime').val();
 	var sCode = $('#sCode').val();
-
+	
+	// 시간 변경하는 경우. 사용하는 bCode (시간변경이 아닐 경우 0값으로 초기화)
+	var bCode = $('#bCode').val();
+	if(bCode == null){
+		bCode = 0;
+		console.log("ifbCodenull : " + bCode)
+	}
+	
 	for (var i = 0; i < d_length; i++) {
 		d_day_off[i] = $('input[name=dDayOff]')[i].value.trim();
 
@@ -112,7 +114,8 @@ var change_sum_price = function(selected_option) {
 					'sTime': sTime,
 					'getDate': getDate,
 					'sCode': sCode,
-					'dCode': dCode
+					'dCode': dCode,
+					'bCode': bCode
 				},
 				async: false,
 				success: function(timeMap) {
@@ -168,20 +171,23 @@ var check_time = function(selected_time) {
 		var shop_phone = $('#sPhone').val();
 		var sum_b = $('#sumBeautyTime').text();
 		sum_b = sum_b.substring(0, sum_b.indexOf("분")) * 1;
-
-		var timeRadio = selected_time.parentElement.getElementsByTagName('input');
-		var disabled_test = new Array(timeRadio.legnth);
-		var xTimeList = new Array();
 		
+		// bookingTimeChange.html에서 sum_b 초기화 하는 부분
+		if($('#sumBeautyTime').text()===""){
+			sum_b = $('#sumBeautyTime').val();
+		}
+		
+		var timeRadio = selected_time.parentElement.getElementsByTagName('input');
+		var disabled_test = new Array();
+		var xTimeList = new Array();
+
 		for (var i = 0; i < timeRadio.length; i++) {
 			
 			disabled_test.push(timeRadio[i].getAttribute('disabled'));
-
 			if (disabled_test[i] != null) {
 				xTimeList.push(timeRadio[i].value);
 			}
 		}
-		console.log(xTimeList)
 		if (!xTimeList.length) { // 비활성화 버튼이 없을 경우 함수 탈출
 			return;
 		}
@@ -218,7 +224,7 @@ var check_time = function(selected_time) {
 // 예약시 필요한 정보들.
 // Id mCode dCode sCode bDate bTime bBeautyTime bPrice
 // id는 세션의 정보 받아올 것.
-// 2020-12-25 이후 미사용예정
+// 2020-12-25 이후 미사용예정 => 유효성 검사용으로만 사용!
 var make_booking = function() {
 
 	
@@ -251,7 +257,7 @@ var make_booking = function() {
 	$.ajax({
 		contentType : "application/json; charset=utf-8",
 		type : "POST",
-		url : "/cndsalon/payments",
+		url : "/cndsalon/booking/make-booking",
 		datatype:"json",
 		data : booking,
 		beforeSend : function(xhr){
@@ -260,7 +266,6 @@ var make_booking = function() {
 		success : function(model){
 			console.log(model);
 			alert('예약성공!');
-			
 		},
 		error : function(){
 			alert('예약불가!');

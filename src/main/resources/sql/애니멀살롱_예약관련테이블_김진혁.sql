@@ -66,7 +66,7 @@ CREATE TABLE SHOP_MENU_PHOTO (
 ------ 예약_VIEW 테이블
 CREATE OR REPLACE VIEW booking_view AS
 SELECT 
-	b.b_code, b.id, b.b_price, b.b_status,
+	b.b_code, b.id, b.b_price, b.b_status, b.b_beauty_time,
 	m.m_code, m.m_name, m.m_p_path, m.m_p_sysname, m.m_p_orgname,
 	s.s_code, s.s_name,
 	d.d_code, d.d_name,

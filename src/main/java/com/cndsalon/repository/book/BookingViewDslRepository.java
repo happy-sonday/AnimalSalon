@@ -1,5 +1,7 @@
 package com.cndsalon.repository.book;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -53,6 +55,15 @@ public class BookingViewDslRepository {
 			.execute();
 		}
 		
+	}
+
+	public void updateBookingTime(String dCode, LocalDate bDate, LocalTime bTime, Long bCode) {
+		queryFactory.update(booking)
+		.set(booking.dCode, dCode)
+		.set(booking.bDate, bDate)
+		.set(booking.bTime, bTime)
+		.where(booking.bCode.eq(bCode))
+		.execute();
 	}
 	
 }
