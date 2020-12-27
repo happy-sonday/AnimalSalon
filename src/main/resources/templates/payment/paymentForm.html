@@ -9,161 +9,289 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
 <!--/* iamport.payment.js */-->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <script type="text/javascript" th:src="@{/static/js/pay/payment.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/main.js}" defer></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 <link rel="stylesheet" th:href="@{'/static/css/main/payment.css'}">
+
 </head>
 <body>
-	<!--/* 메뉴 상단 */-->
-	<nav class="navbar">
-		<div class="navbar__logo-box">
-			<img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="navbar__logo">
-			<a href="#">C&D</a>
-		</div>
+<!--/* 메뉴 상단 */-->
+<nav class="navbar">
+	<div class="navbar__logo-box">
+		<img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="navbar__logo">
+		<a href="/">C&D</a>
+	</div>
 
-		<div class="navbar__menu">
-			<ul class="navbar__menu">
-				<a style="cursor:pointer" onclick='shop_main_search()'>
-				<li class="navbar__menu__item">내 주변</li></a>
-				<a href="#"><li class="navbar__menu__item">입점 문의</li></a>
-				<a href="#"><li class="navbar__menu__item">예약</li></a> 
-				<a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
-			</ul>
-		</div>
+	<div class="navbar__menu">
+		<ul class="navbar__menu">
+			<a style="cursor:pointer" onclick='shop_main_search()'>
+			<li class="navbar__menu__item">내 주변</li></a>
+			<a href="#"><li class="navbar__menu__item">입점 문의</li></a>
+			<a href="#"><li class="navbar__menu__item">예약</li></a> 
+			<a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
+		</ul>
+	</div>
 
-		<!--/* 토글 버튼 */-->
-		<button class="navbar__toggle-btn">
-			<i class="fas fa-bars"></i>
-		</button>
-	</nav>
-	
-	<!--/* 메인컨텐츠 부분 */-->
-	<main id="main">
-		<h2>Order / Payment <span class="title-ko">주문 / 결제 </span></h2>
-		<hr style="width: 97%">
-		<section id="section-bookingInfo">
-			<div>
-				<h3>Booking Information <span class="title-ko">예약 정보</span></h3>
-				<table class="booking-info" border="1">
-				<colgroup>
-					<col width="20%"/>
-					<col width="80%"/>
-				</colgroup>
-				<thead>
-					<tr>
-						<th scope="col" colspan="2">예약정보</th>
-					</tr>
-					<tr>
-						<th colspan="2" class="menu-img"><img alt="menuImg" src="#"></th>
-					</tr>
-				</thead>
-				<!--/* 추후 타임리프방식으로 변경 */-->
-				<tbody>
-					<tr><td>일정</td><td><p id="bookingDate" th:text="|${bookingDate}  ${bookingTime}|">date</p></td></tr>
-					<tr><td>매장</td><td><p id="shopName" th:text="${result.sName}">shop</p></td></tr>
-					<tr><td>디자이너</td><td><p id="designer" th:text="${result.dName}">designer</p></td></tr>
-					<tr><td>메뉴</td><td><p id="styleName" th:text="${result.mName}">menu</p></td></tr>
-					<tr><td>예약자</td><td><p id="customer" th:text="|예약한 사람명|" >customer</p></td></tr>
-					<tr><td>예상소요시간</td><td><p id="workingTime" th:text="|${workingTime}분|">workingTime</p></td></tr>
-					<tr><td>결제금액</td><td><p id="amount" th:text="|${price}원|">price</p></td></tr>
+	<!--/* 토글 버튼 */-->
+	<button class="navbar__toggle-btn">
+		<i class="fas fa-bars"></i>
+	</button>
+</nav>
+
+<!--/* 메인컨텐츠 부분 */-->
+<main class="main">
+<div class="d-sm-flex flex-row mt-4">
+	<div class="p-2 col-lg-6">
+		<h3>Booking Information <span class="title-ko">예약 정보</span></h3>
+		<table class="table table-striped">
+			<colgroup>
+				<col width="20%"/>
+				<col width="80%"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th colspan="2"><img src="#" class="img-thumbnail" alt="menuImg"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">일정</th>
+					<td><p class="pe-2 text-end" id="bookingDate" th:text="|${bookingDate}  ${bookingTime}|"></p></td>
+				</tr>
+				<tr>
+					<th scope="row">매장</th>
+					<td><p class="pe-2 text-end" id="shopName" th:text="${result.sName}"></p></td>
+				</tr>
+				<tr>
+					<th scope="row">디자이너</th>
+					<td><p class="pe-2 text-end" id="designer" th:text="${result.dName}"></p></td>
+				</tr>
+				<tr>
+					<th scope="row">메뉴</th>
+					<td><p class="pe-2 text-end" id="styleName" th:text="${result.mName}"></p></td>
+				</tr>
+				<tr>
+					<th scope="row">예약자</th>
+					<td><p class="pe-2 text-end" id="customer" th:text="|예약한 사람명|" ></p></td>
+				</tr>
+				<tr>
+					<th scope="row">예상소요시간</th>
+					<td><p class="pe-2 text-end" id="workingTime" th:text="|${workingTime}분|"></p></td>
+				</tr>
+				<tr>
+					<th scope="row">결제금액</th>
+					<td><p class="pe-2 text-end" id="amount" th:text="|${price}원|">price</p></td>
+				</tr>
 				</tbody>
-			</table>
+		</table>
+	</div>
+	<div class="ms-5 border border-info border-3 rounded-3 position-fixed start-50 col-lg-5 order-form">
+		<h3 class="m-0 bg-white">Payment Information <span class="title-ko" th:text="|결제 정보|" ></span></h3>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item li-paymentInfo-title" th:text="|결제 수단|" />
+			<li class="list-group-item">
+				<input class="form-check-input" type="radio" id="paym-01" name="paym" value="card" checked>
+				<label class="form-check-label" for="paym-01" th:text="|신용카드|"></label>
+				<input class="form-check-input" type="radio" id="paym-02" name="paym" value="kakopay">
+				<label class="form-check-label" for="paym-02" th:text="|카카오페이|"></label>
+			</li>
+		</ul>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item li-paymentInfo-title" th:text="|결제 안내|" />
+			<li class="list-group-item">
+				<div class="pay-guide"></div>
+			</li>
+		</ul>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item" th:text="|주문자 동의|">	</li>
+			<li class="list-group-item">
+				<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="all_agree">
+						<label class="form-check-label" for="all_agree" style="font-weight: bold;" th:text="|전체 동의|" ></label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="agree_third" name="chk">
+					<label class="form-check-label" for="agree_third" style="font-weight: bold;" th:text="|개인정보 제3자 제공 동의(필수)|" ></label>
+				</div>
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							거래를 위해 판매자에게 개인정보가 공유됩니다
+						</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+					    	<div class="accordion-body">
+								 cndsalon의 회원계정으로 상품 및 서비스를 구매하고자 할 경우, cndsalon는 거래 당사자간 원활한 의사소통 및 예약, 상담 등 거래이행을 위하여 필요한 최소한의 개인정보만을 cndsalon 입점업체 판매자에게 아래와 같이 공유하고 있습니다.<br/>
+								1. cndsalon은 귀하께서 cndsalon 입점업체 판매자로부터 상품 및 서비스를 구매하고자 할 경우, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제 24조의 2(개인정보 공유동의 등)에 따라 아래와 같은 사항은 안내하고 동의를 받아 귀하의 개인정보를 판매자에게 공유합니다. "개인정보 제3자 공유 동의"를 체크하시면 개인정보 공유에 대해 동의한 것으로 간주합니다.<br/>
+								2. 개인정보를 공유받는자 : <strong th:text="${result.sName}"></strong><br/>
+								3. 공유하는 개인정보 항목<br/>
+								- 구매자 정보: 성명, 전화번호, ID, 휴대전화 번호, 메일주소, 상품 구매정보<br/>
+								- 수령자 정보: 성명, 전화번호, 휴대전화 번호, 배송지 주소<br/>
+								4. 개인정보를 공유받는 자의 이용 목적 : <strong>판매자와 구매자의 거래의 원활한 진행, 본인의사의 확인, 고객 상담 및 불만처리, 상품과 경품 배송을 위한 배송지 확인 등</strong><br/>
+								5. 개인정보를 공유받는 자의 개인정보 보유 및 이용 기간 : <strong>개인정보 수집 및 이용 목적 달성 시까지 보관합니다.</strong><br/>
+								6. 동의 거부 시 불이익 : 본 개인정보 공유에 동의하지 않으시는 경우, 동의를 거부할 수 있으며, 이 경우 거래가 제한됩니다.
+							</div>
+					    </div>
+					</div>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="pay_agree" name="chk">
+					<label class="form-check-label" for="pay_agree" style="font-weight: bold;" th:text="|위 상품 정보 및 거래 조건을 확인하였으며, 구매 진행에 동의합니다.(필수)|"></label>
+				</div>
+			</li>
+		</ul>
+		<div class="btn-payment bg-white">
+			<button type="button" class="btn btn-danger" id="btn_payment" onclick="requestPay()">결제하기</button>
+		</div>
+	</div>
+</div>
+
+<!--/* 각종 규정 - bootstrap5.0 적용 */-->
+<div class="accordion accordion-flush" id="accordionFlushExample">
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="flush-headingOne">
+			<button class="accordion-button collapsed" type="button"
+				data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+				aria-expanded="false" aria-controls="flush-collapseOne">
+				<strong>상품고시정보</strong></button>
+		</h2>
+		<div id="flush-collapseOne" class="accordion-collapse collapse"
+			aria-labelledby="flush-headingOne"
+			data-bs-parent="#accordionFlushExample">
+			<div class="accordion-body">
+			<pre>
+<strong>서비스 제공 사업자</strong>
+상호명 : cndsalon
+대표자명 : 홍길동
+전화번호 : 02-1234-5678
+영업소재지 : 서울특별시 마포구 신촌로 176 4층
+통신판매번호 : 
+					
+<strong>법에 의한 인증/허가등을 받았음을 확인할 수 있는 경우 (문제시 삭제)</strong>
+문서명칭 : 제 001 호
+발급기관 : 서울시청
+교부일자 : 2020년 12월 31일
+영업의 종류 : 애견미용업
+자격명칭 : 제 2020-01호
+					
+<strong>이용조건 </strong>
+거래정보 참조
+					
+<strong>취소.중도해약.해지조건 및 환불기준</strong>
+예약취소/환불, 변경 규정 참조
+					
+<strong>취소 / 환불방법</strong>
+예약취소/ 환불, 변경 규정 참조
+					
+<strong>소비자상담 관련 전화번호</strong>
+cndsalon 고객센터 <a class="text-danger" href="tel:0000-0000">0000-0000</a>
+					</pre></div>
+				</div>
 			</div>
-		</section>
-		
-		<hr style="width: 97%">
-		
-		<section id="section-paymentInfo">
-			<h3>Payment Information <span class="title-ko" th:text="|결제 정보|" ></span></h3>
-			<div>
-				<div class="order-form">
-					<div class="order-form-sub">
-						<ul class="ul-paymentInfo">
-							<li class="li-paymentInfo-title" th:text="|결제 수단|" />
-							<li class="li-paymentInfo-detail">
-								<label class="method-choice">
-									<input type="radio" id="paym-01" name="paym" value="card" th:text="신용카드" />
-								</label>
-								<label class="method-choice">
-									<input type="radio" id="paym-02" name="paym" value="kakaopay" th:text="카카오페이" />
-								</label>								
-							</li>
-						</ul>
-						<ul class="ul-paymentInfo">
-							<li class="li-paymentInfo-title" id="pay_info" ></li>
-							<li class="li-paymentInfo-detail"> </li>
-						</ul>
-						<ul class="ul-paymentInfo">
-							<li class="li-paymentInfo-title" id="pay_info" th:text="|환불 안내|" />
-							<li class="li-paymentInfo-detail"> </li>
-						</ul>
-						<ul class="ul-paymentInfo">
-							<li class="li-paymentInfo-title" id="pay_info" th:text="|주문자 동의|" />
-								<label>
-									<input type="checkbox" id="all_agree"> <span class="title-ko" th:text="|전체 동의|"></span>
-								</label>
-							</li>
-							<li class="li-paymentInfo-detail">
-								<p class="box-check-agree">
-									<label>
-										<input type="checkbox" id="agree_third" name="chk"> <span th:text="|개인정보 제3자 제공 동의(필수)|"></span>
-									</label>
-								</p>
-								<p class="box-check-agree">
-									<label>
-										<input type="checkbox" id="pay_agree" name="chk"> <span th:text="|위 상품 정보 및 거래 조건을 확인하였으며, 구매 진행에 동의합니다.(필수)|"></span>
-									</label>
-								</p>
-							</li>
-							
-						</ul>
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingTwo">
+					<button class="accordion-button collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+						aria-expanded="false" aria-controls="flush-collapseTwo">
+						<strong>거래정보</strong></button>
+				</h2>
+				<div id="flush-collapseTwo" class="accordion-collapse collapse"
+					aria-labelledby="flush-headingTwo"
+					data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body"> 
+						<pre>
+<strong>재화/용역 등의 공급방법 및 공급시기</strong>
+예약 결제/변경/취소 후, 즉시 해당 내역 및 예약번호 등을 카카오톡 메시지(문자메시지)로 전송
+						
+<strong>청약철회 및 계약의 해제 관한 사항</strong>
+예약 취소/환불, 변경 규정 참조
+						
+<strong>재화, 용역등의 변경, 취소 보증과 그 대금 환불 및 환불의 지연에 따른 배상금 지급의 조건절차</strong>
+<span class="text-danger">예약 취소 및 결제 대금 환급 신청 방법</span>
+1. 시술예약시간 이전 예약변경 및 취소 신청
+cndsalon > 예약 메뉴에서 확인
+						
+2. 시술예약시간이 경과한 후 예약변경 및 취소 신청
+cndsalon 고객센터로 문의 <a class= "text-danger" href="tel:0000-0000">0000-0000</a>
+						
+3. 지연배상금 신청에 관한 자세한 문의
+cndsalon 고객센터로 문의 <a class="text-danger" href="tel:0000-0000">0000-0000</a>
+						
+4. 대금환불 및 환불의 지연에 따른 배상금 지급의 조건절차 전자상거래 등에서의 소비자 보호에 관한 법률의 규정에 따름
+						
+<strong>소비자 피해보상의 처리, 재화 등에 대한 불만 처리 및 소비자와 사업자 사이의 분쟁처리에 관한 사항</strong>
+cndsalon 고객센터 <a class="text-danger" href="tel:0000-0000">0000-0000</a>
+						
+거래에 관한 약관의 내용 또는 확인 할 수 있는 방법
+cndsalon > 마이페이지 > 설정의 약관 참조
+						</pre>
 					</div>
 				</div>
 			</div>
-			<div class="btn-payment">
-				<button id="btn_payment" onclick="requestPay()">결제하기</button>
-			</div>
-		</section>
-		
-		<hr style="width: 97%">
-		
-		<section id="secion-terms">
-			<div>
-				<p>예약환불 규정 </p>
-				<p>The year is <span th:text="2013">1492</span>.</p>
-				Established locale country: <span th:text="${#locale.country}">US</span>.
-			</div>
-		</section>
-	</main>
-	
-	<!--/* footer */-->
-	<footer class="footer">
-		<div class="footer__logo-box">
-			<a href="#">
-			<img th:src="@{'/static/img/main/logo.png'}" alt="logo" class="footer__logo">
-				<h1 class="footer__font">C&D</h1>
-			</a>
-		</div>
-
-		<div class="row">
-			<div class="col-1-of-2">
-				<div class="footer__navigation">
-					<ul class="footer__list">
-						<li class="footer__item"><a href="#" class="footer__link">Company</a></li>
-						<li class="footer__item"><a href="#" class="footer__link">Contact us</a></li>
-						<li class="footer__item"><a href="#" class="footer__link">Careers</a></li>
-						<li class="footer__item"><a href="#" class="footer__link">Privacy policy</a></li>
-						<li class="footer__item"><a href="#" class="footer__link">Terms</a></li>
-					</ul>
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingThree">
+					<button class="accordion-button collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+						aria-expanded="false" aria-controls="flush-collapseThree">
+						<strong>예약 취소 및 환불 규정</strong></button>
+				</h2>
+				<div id="flush-collapseThree" class="accordion-collapse collapse"
+					aria-labelledby="flush-headingThree"
+					data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<pre>
+<strong>예약 취소/ 환불</strong>
+시술 예약시간 2시간 전까지 취소 시 결제 금액 100% 환불.
+시술 예약시간 2시간 전 이후 취소 또는 미방문 시, 결제 금액에서 10%의 취소 수수료 공제 후 , 90% 환불기준
+						
+<strong>예약 변경</strong>
+시술 예약시간 2시간 전까지 '날짜 와 시간' 변경 가능
+						
+<strong>취소/환불 정보</strong>
+신용카드로 결제한 예약 내역은 취소 즉시 자동으로 카드 승인취소 처리됩니다.
+단, 카드사에서의 승인취소 확인은 카드사와 VAN사의 확인 절차를 거치는 관계로 주문 취소일로부터 3~5일(영업일 기준) 후 해당 카드사에서 취소내역을 확인하실 수 있습니다.
+체크카드의 경우 회원님의 통장으로 환불되기까지 최대 5일(영업일 기준)정도 소요될 수 있습니다.
+정확한 환불기간은 카드사별로 상의하므로, 해당 카드사로 문의하여 주시기 바랍니다.						
+						</pre>
+					</div>
 				</div>
 			</div>
+		</div>
+</main>
+	
+<!--/* footer */-->
+<footer class="footer">
+	<div class="footer__logo-box">
+		<a href="#">
+		<img th:src="@{'/static/img/main/logo.png'}" alt="logo" class="footer__logo">
+			<h1 class="footer__font">C&D</h1>
+		</a>
+	</div>
 
-			<div class="col-1-of-2">
-				<p class="footer__copyright">
-					This is our final project called C&D Hairshop, Enjoy it! <br/><a href="#" class="footer__link">Copyright &copy; by KJH SWS SHJ LCW JJK</a> 
-				</p>
+	<div class="row">
+		<div class="col-1-of-2">
+			<div class="footer__navigation">
+				<ul class="footer__list">
+					<li class="footer__item"><a href="#" class="footer__link">Company</a></li>
+					<li class="footer__item"><a href="#" class="footer__link">Contact us</a></li>
+					<li class="footer__item"><a href="#" class="footer__link">Careers</a></li>
+					<li class="footer__item"><a href="#" class="footer__link">Privacy policy</a></li>
+					<li class="footer__item"><a href="#" class="footer__link">Terms</a></li>
+				</ul>
 			</div>
 		</div>
-	</footer>
+
+		<div class="col-1-of-2">
+			<p class="footer__copyright">
+				This is our final project called C&D Hairshop, Enjoy it! <br/><a href="#" class="footer__link">Copyright &copy; by KJH SWS SHJ LCW JJK</a> 
+			</p>
+		</div>
+	</div>
+</footer>
 
 <script>
 function requestPay(){
@@ -246,5 +374,7 @@ function requestPay(){
 		});
 };
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>
