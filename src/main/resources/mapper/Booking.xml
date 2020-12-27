@@ -10,19 +10,16 @@
 	<!-- 결제part에서 임시 조회용 BookingView 조회 -->
 	<select id="getBookingView" resultType="com.cndsalon.domain.book.BookingView">
 		SELECT 
-			m.m_code, m.m_name,
-			mp.m_p_path, mp.m_p_sysname, mp.m_p_orgname,
+			m.m_code, m.m_name, m.m_p_path, m.m_p_sysname, m.m_p_orgname,
 			s.s_code, s.s_name,
 			d.d_code, d.d_name
 		FROM
 			shop_menu m, 
 			shop_info_tbl s, 
-			shop_designer_tbl d,
-			shop_menu_photo mp
+			shop_designer_tbl d
 		WHERE 
 			s.s_code = m.s_code AND
 			d.s_code = s.s_code AND
-			m.m_code = mp.m_code(+) AND
     		
     		s.s_code = #{sCode} AND 
  		    d.d_code = #{dCode} AND 

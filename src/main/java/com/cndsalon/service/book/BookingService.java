@@ -17,11 +17,11 @@ public interface BookingService {
 	
 	List<MenuOption> getMenuOptionList(String sCode, String mCode, String mType);
 	
-	Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate, String sCode, String dCode);
+	Map<String, List<DateTimeDTO>> getWorkTimeList(String sTime, String getDate, String sCode, String dCode, Long bCode);
 	
 	void insertBooking(Booking booking);
 
-	List<Booking> selectBookingList(String dCode, String sCode, LocalDate bDate);
+	List<Booking> selectBookingList(String dCode, String sCode, LocalDate bDate, Long bCode);
 	
 	Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList);
 	

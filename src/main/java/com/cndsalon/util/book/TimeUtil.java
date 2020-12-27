@@ -158,7 +158,7 @@ public class TimeUtil {
 	public Boolean checkAvailableTime(int sumB, String selectedTime, List<String> xTimeList) {
 		LocalTime selectedS = LocalTime.parse(selectedTime);
 		LocalTime selectedE = selectedS.plusMinutes(sumB);
-		
+
 		Boolean check = null;
 
 		for(int i=0; i<xTimeList.size(); i++) {

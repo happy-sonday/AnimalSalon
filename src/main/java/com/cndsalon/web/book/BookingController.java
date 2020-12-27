@@ -108,11 +108,12 @@ public class BookingController {
 			@RequestParam("sTime") String sTime,
 			@RequestParam("getDate") String getDate,
 			@RequestParam("sCode") String sCode,
-			@RequestParam("dCode") String dCode){
+			@RequestParam("dCode") String dCode,
+			@RequestParam("bCode") Long bCode){
 		
 		log.info("매장영업시간 : " + sTime + " / 선택한 날짜 : " + getDate +"-> 기준 예약가능 시간생성 및 현재시간 기준 예약불가 시간생성 후 시간제어");
 		log.info("매장번호 : " + sCode + " / 디자이너번호 : " + dCode + "-> 기준 이미 예약되어있는 시간 생성 후 시간제어");
-		Map<String, List<DateTimeDTO>> timeMap = this.bookingService.getWorkTimeList(sTime, getDate, sCode, dCode);
+		Map<String, List<DateTimeDTO>> timeMap = this.bookingService.getWorkTimeList(sTime, getDate, sCode, dCode, bCode);
 		
 		return new ResponseEntity<Map<String, List<DateTimeDTO>>>(timeMap, HttpStatus.OK);
 	}
@@ -137,13 +138,11 @@ public class BookingController {
 			@RequestParam("xTimeList[]") List<String> xTimeList){
 		
 		log.info("선택한 시간 : " + selectedTime + "에서 소요시간 " + sumB + "분을 더한시간이 예약시간 리스트에 겹치지 않는 지 확인");
-		
+
 		Boolean status = this.bookingService.checkAvailableTime(sumB, selectedTime, xTimeList);
-		
-		System.out.println("결과는 ? " + status);
 		return ResponseEntity.ok(status);
 	}
-	
+
 	/**
 	  *
 	  * <pre>
@@ -174,12 +173,5 @@ public class BookingController {
 		
 		return new ResponseEntity<BookingView>(bookingView, HttpStatus.OK);
 	}
-	
-	@ResponseBody
-	@GetMapping("/test")
-	public ResponseEntity<?> test(){
-		return new ResponseEntity<>("{}", HttpStatus.OK);
-	}
-	
 	
 }

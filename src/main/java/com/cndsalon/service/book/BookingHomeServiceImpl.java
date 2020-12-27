@@ -1,5 +1,7 @@
 package com.cndsalon.service.book;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cndsalon.domain.book.Booking;
 import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.repository.book.BookingViewDslRepository;
 
@@ -28,6 +31,12 @@ public class BookingHomeServiceImpl implements BookingHomeService {
 	public void updateBooking(Long bCode, String bStatus, String bCancelReason) {
 		this.bookingViewRepository.updateBooking(bCode, bStatus, bCancelReason);
 	}
+
+	@Override
+	public void updateBookingTime(String dCode, LocalDate bDate, LocalTime bTime, Long bCode) {
+		this.bookingViewRepository.updateBookingTime(dCode, bDate, bTime, bCode);
+	}
+
 	
 	
 	
