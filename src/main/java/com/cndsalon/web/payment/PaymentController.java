@@ -70,7 +70,7 @@ public class PaymentController {
 		log.info("예약시간 : " + bTime);
 		log.info("소요시간 : " + workingTime);
 		log.info("금액 : " + price);
-		
+
 		BookingView result = bookingService.getBookingView(sCode,mCode, dCode);
 		
 		mv.addObject("result", result);

@@ -125,9 +125,6 @@ var change_sum_price = function(selected_option) {
 
 					$.each(w_list, function(id, wlist) {
 						$('#bookable_time' + i).append(
-//							"<label class='custom-radio' ><input type='radio' value='" + wlist.workTime + "' name='time_radio'"
-//							+ " onclick= 'check_time(this)'/>"
-//							+ wlist.workTime + "</label>");
 
 							"<input type='radio' value='" + wlist.workTime + "' name='time_radio' id='" + id+i
 							+ "' onclick= 'check_time(this)'/><label for='" + id+i +"'>"
@@ -219,13 +216,13 @@ var check_time = function(selected_time) {
 	}
 }
 
-/** bookingDetail.html 예약을 위한 유효성 검사 */
+/** bookingDetail.html에서 결제화면으로 넘어가기 위한 유효성 검사 */
 
 // 예약시 필요한 정보들.
 // Id mCode dCode sCode bDate bTime bBeautyTime bPrice
 // id는 세션의 정보 받아올 것.
 // 2020-12-25 이후 미사용예정 => 유효성 검사용으로만 사용!
-var make_booking = function() {
+var move_payments = function() {
 
 	
 	var b_time = $('input[name="time_radio"]:checked').val();
@@ -238,39 +235,43 @@ var make_booking = function() {
 			alert('시간을 선택해주세요.')
 			return;
 		}
+	} else {
+		document.formm.action="/cndsalon/payments";
+		document.formm.submit();	
 	}
+	
 
-	var booking = JSON.stringify({
-		id : 'testId',
-		mCode : $('#mCode').val(),
-		dCode : $('#selected_designer').val(),
-		sCode : $('#sCode').val(),
-		bDate : $('#selected_date').val(),
-		bTime : b_time,
-		bBeautyTime : $('#sumBeautyTime').text().substring(0, $('#sumBeautyTime').text().indexOf("분")) * 1,
-		bPrice : $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1
-	});
-
-	var token = $("meta[name='_csrf']").attr("content");
- 	var header = $("meta[name='_csrf_header']").attr("content");
-
-	$.ajax({
-		contentType : "application/json; charset=utf-8",
-		type : "POST",
-		url : "/cndsalon/booking/make-booking",
-		datatype:"json",
-		data : booking,
-		beforeSend : function(xhr){
-		xhr.setRequestHeader(header, token);
-		},
-		success : function(model){
-			console.log(model);
-			alert('예약성공!');
-		},
-		error : function(){
-			alert('예약불가!');
-		}
-	});
+//	var booking = JSON.stringify({
+//		id : 'testId',
+//		mCode : $('#mCode').val(),
+//		dCode : $('#selected_designer').val(),
+//		sCode : $('#sCode').val(),
+//		bDate : $('#selected_date').val(),
+//		bTime : b_time,
+//		bBeautyTime : $('#sumBeautyTime').text().substring(0, $('#sumBeautyTime').text().indexOf("분")) * 1,
+//		bPrice : $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1
+//	});
+//
+//	var token = $("meta[name='_csrf']").attr("content");
+// 	var header = $("meta[name='_csrf_header']").attr("content");
+//
+//	$.ajax({
+//		contentType : "application/json; charset=utf-8",
+//		type : "POST",
+//		url : "/cndsalon/booking/make-booking",
+//		datatype:"json",
+//		data : booking,
+//		beforeSend : function(xhr){
+//		xhr.setRequestHeader(header, token);
+//		},
+//		success : function(model){
+//			console.log(model);
+//			alert('예약성공!');
+//		},
+//		error : function(){
+//			alert('예약불가!');
+//		}
+//	});
 
 }
 

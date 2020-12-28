@@ -6,13 +6,13 @@ function review_detail($rcode,$ridx){
 		
 		if ($("#testreview_content"+rIdx).css("display")=="none" && $("#reviewstatus"+rIdx).val()==0){
 		$.ajax({
-	   	type : "POST",
+	   	type : "GET",
 	   	url : "/cndsalon/shop/getReviewDetail",
 	   	contentType : "application/json; charset=UTF-8",
 		
 		async : true,
-	    data : JSON.stringify({'rCode':rCode}),
-
+	    //data : JSON.stringify({'rCode':rCode}),
+		data : {'rCode':rCode},
 	    success : function(data) {
 			
 	       	$.each(data,function(index,list){
