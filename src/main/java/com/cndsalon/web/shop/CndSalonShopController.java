@@ -155,12 +155,14 @@ public class CndSalonShopController {
 	
 	//리뷰글의 이미지를 불러오기
 	@ResponseBody
-	@RequestMapping(value = "shop/getReviewDetail", method =  RequestMethod.POST
+	@RequestMapping(value = "shop/getReviewDetail", method = {RequestMethod.GET}
 	,produces="application/json; charset=UTF-8"	)
 	public ResponseEntity<List<CndSalonReviewVO>> getReviewDetail(
-			@RequestBody CndSalonReviewVO cndSalonReviewVO ){
+			//@RequestBody
+			CndSalonReviewVO cndSalonReviewVO
+			){
 		
-		//log.info("review Detail Start ------"+cndSalonReviewVO.toString());
+		log.info("review Detail Start ------"+cndSalonReviewVO.toString());
 		List<CndSalonReviewVO> list = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");

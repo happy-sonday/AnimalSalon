@@ -46,9 +46,12 @@
 				<col width="20%"/>
 				<col width="80%"/>
 			</colgroup>
+			
 			<thead>
 				<tr>
-					<th colspan="2"><img src="#" class="img-thumbnail" alt="menuImg"></th>
+					<th colspan="2">
+					<input type="text" th:value="${bookingDate}" id="bookk">
+					<img src="#" class="img-thumbnail" alt="menuImg"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -312,6 +315,7 @@ function requestPay(){
 	var IMP = window.IMP; 
 	IMP.init("imp96423462"); // "가맹점 식별코드"
  	
+	
 	var payMethod = $("input[name='paym']:checked").val();
 	var payName = $('#shopName').text() + '_' + $('#styleName').text() + ' by ' + $('#designer').text();
 	var totalAmount = parseInt($('#amount').text(), 10);
@@ -390,6 +394,7 @@ function requestPay(){
 // 	                    msg += '\n결제 금액 : ' + rsp.paid_amount;
 // 	                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
 // 	                    alert(msg);
+
 				       $.ajax({
 							contentType : "application/json; charset=utf-8",
 							type : "POST",
@@ -424,6 +429,7 @@ function requestPay(){
 					})
 					.fail(function(){
 						var msg = '결제정보가 DB에 저장되지 않았음'
+						
 						alert(msg);
 					});
 			    	
@@ -433,6 +439,7 @@ function requestPay(){
 			    }
 		});
 };
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>

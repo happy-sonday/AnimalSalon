@@ -14,7 +14,7 @@
 	<div th:insert="~{booking/sub/bookingSubHeader::bookingSubHeader}"></div>
 
 	<!-- 메뉴선택 -->
-	<form th:action="@{/payments}" method="">
+	<form name="formm" method="GET">
 		<div class="container"
 			style="padding-top: 30px; padding-bottom: 20px;">
 			<div class="row pb-3 border-bottom border-gray">
@@ -164,10 +164,9 @@
 					</div>
 					<div class="mt-3">
 						<input type="button" value="예약하기(테스트)" onclick="make_booking();">
-						<button class="btn btn-primary" type="submit">예약하기</button>
+						<button class="btn btn-primary"  onclick="move_payments();" type="button">예약하기</button>
 					</div>
 				</div>
-
 
 			</div>
 		</div>
