@@ -54,27 +54,46 @@
 			<tbody>
 				<tr>
 					<th scope="row">일정</th>
-					<td><p class="pe-2 text-end" id="bookingDate" th:text="|${bookingDate}  ${bookingTime}|"></p></td>
+					<td>
+						<p class="pe-2 text-end" id="bookingDate" th:text="|${bookingDateText}  ${bookingTimeText}|"></p>
+						<input type="hidden" id="onlyDate" th:value="${bookingDate}">
+						<input type="hidden" id="onlyTime" th:value="${bookingTimeText}">
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">매장</th>
-					<td><p class="pe-2 text-end" id="shopName" th:text="${result.sName}"></p></td>
+					<td>
+						<p class="pe-2 text-end" id="shopName" th:text="${result.sName}"></p>
+						<input type="hidden" id="sCode" th:value="${result.sCode}" />
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">디자이너</th>
-					<td><p class="pe-2 text-end" id="designer" th:text="${result.dName}"></p></td>
+					<td>
+						<p class="pe-2 text-end" id="designer" th:text="${result.dName}"></p>
+						<input type="hidden" id="dCode"  th:value="${result.dCode}" />
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">메뉴</th>
-					<td><p class="pe-2 text-end" id="styleName" th:text="${result.mName}"></p></td>
+					<td>
+						<p class="pe-2 text-end" id="styleName" th:text="${result.mName}"></p>
+						<input type="hidden" id="mCode" th:value="${result.mCode}" />	
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">예약자</th>
-					<td><p class="pe-2 text-end" id="customer" th:text="|예약한 사람명|" ></p></td>
+					<td>
+						<p class="pe-2 text-end" id="customer" th:text="|예약한 사람명|" ></p>
+						<input type="hidden" id="id" th:value="${id}" />
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">예상소요시간</th>
-					<td><p class="pe-2 text-end" id="workingTime" th:text="|${workingTime}분|"></p></td>
+					<td>
+						<p class="pe-2 text-end" id="workingTime" th:text="|${workingTime}분|"></p>
+						<input type="hidden" id="bBeautyTime" th:value="${workingTime}">
+					</td>
 				</tr>
 				<tr>
 					<th scope="row">결제금액</th>
@@ -298,23 +317,38 @@ function requestPay(){
 	var totalAmount = parseInt($('#amount').text(), 10);
 	var merchantUid = 'merchant_' + new Date().getTime();						// 밀리세컨드 13자리
 	var customer = $('#customer').text();
-	console.log(payMethod);
-	console.log(payName);
-	console.log(totalAmount);
-	console.log(merchantUid);
-	console.log(customer);
+	var id = $('#id').val();
+	var mCode = $('#mCode').val();
+	var sCode = $('#sCode').val();
+	var dCode = $('#dCode').val();
+	var bookingDate = $('#onlyDate').val();
+	var bookingTime = $('#onlyTime').val();
+	var bBeautyTime = $('#bBeautyTime').val();
+	
+	console.log("결제수단 : " +payMethod);
+	console.log("결제메뉴명 : " + payName);
+	console.log("결제금액 : " + totalAmount);
+	console.log("고유주문번호 : " + merchantUid);
+	console.log("예약자 : " + customer);
+	console.log("메뉴코드 : " + mCode);
+	console.log("매장코드 : " + sCode);
+	console.log("디자이너코드 : " + dCode);
+	console.log("ID 값: " + id);
+	console.log("예약날짜 : " + bookingDate);
+	console.log("예약시간 : " + bookingTime);
+	console.log("소요시간 : " + bBeautyTime);
 	
 	// IMP.request_pay(param, callback) 호출
 	IMP.request_pay({ // param
 		pg: "html5_inicis",		 																		// pg사
 		pay_method: payMethod,																	// 결제수단 ( 기본값 : card )
-		merchant_uid: merchantUid, 															// 고유주문번호
+		merchant_uid: merchantUid, 																// 고유주문번호
 		name: payName,																				// 주문명
-		amount: 100,																					// 결제금액
+		amount: 100,																						// 결제금액
 		buyer_email: "inulee0213@gmail.com",												// 구매자 Email
 		buyer_name: customer,																		// 구매자 이름
 		buyer_tel: "010-8977-6151",																// 구매자 전화번호
-		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",					// 구매자 주소
+		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",						// 구매자 주소
 		buyer_postcode: "10310"																	// 구매자 우편번호
 		
 		}, function (rsp) { // callback : 결제프로세스 종료 후 실행됨
@@ -328,6 +362,7 @@ function requestPay(){
 						method: "post",
 						dataType:"json",
 						contentType:"application/json",
+						async : false,
 						data: JSON.stringify({
 							impUid : rsp.imp_uid,
 							merchantUid: rsp.merchant_uid,
@@ -354,10 +389,38 @@ function requestPay(){
 // 	                    msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 // 	                    msg += '\n결제 금액 : ' + rsp.paid_amount;
 // 	                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
-
 // 	                    alert(msg);
-						
-// 	                    location.href="/cndsalon/payments/moveSuccess"
+				       $.ajax({
+							contentType : "application/json; charset=utf-8",
+							type : "POST",
+							url : "/cndsalon/booking/make-booking",
+							datatype:"json",
+							data : JSON.stringify({
+								id : id,
+								mCode : mCode,
+								dCode : dCode,
+								sCode : sCode,
+								bDate : bookingDate,
+								bTime : bookingTime,
+								bBeautyTime : bBeautyTime,
+								bPrice : totalAmount
+							}),
+							beforeSend : function(xhr){
+								xhr.setRequestHeader(header, token);
+							}
+						}).done(function(){
+							console.log("예약테이블 insert 완료!");
+	 						var msg = '결제가 완료되었습니다.';
+	 	                    msg += '\n고유ID : ' + rsp.imp_uid;
+	 	                    msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	 	                    msg += '\n결제 금액 : ' + rsp.paid_amount;
+	 	                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
+	 	                    alert(msg);
+// 							location.href="/cndsalon/payments/moveSuccess";
+						})
+						.fail(function(){
+							console.log("예약테이블 insert 실패...");
+						});
 					})
 					.fail(function(){
 						var msg = '결제정보가 DB에 저장되지 않았음'
