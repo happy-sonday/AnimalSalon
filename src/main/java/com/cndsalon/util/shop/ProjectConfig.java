@@ -13,7 +13,6 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * @version 1.1 (2020-12-25)
  */
 @Configuration
-
 public class ProjectConfig extends WebMvcConfigurationSupport {
 
 	// CSS, webjars config
@@ -24,9 +23,13 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 		addResourceLocations("classpath:/static/");
 
 		registry.addResourceHandler("/shop/upload_image/**").
-		addResourceLocations("file:///K:/data/upload_image/");
+		//addResourceLocations("file:///K:/data/upload_image/");
       
-      //Server에서는 // 2개삭제   addResourceLocations("file:///home/ec2-user/data/upload_image/");
+		addResourceLocations("file:/home/ec2-user/data/upload_image/");
+		
+		registry.addResourceHandler("/booking/upload_image/**")
+		.addResourceLocations("file:///E:/data/upload_image/");
+		
 	}
 	
 	/**
