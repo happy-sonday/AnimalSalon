@@ -91,35 +91,21 @@ body {
 }
 
 /* About main */
-#main{
+.main{
 	position:relative;
-	top:109pt;
-	width:101.7%;
+	top:125px;
+	width:100%;
 	background-color: #FFF;
-	padding: 0pt 10pt;
 }
 .title-ko {
 	color: #b2b2b2;
 	font-size: 8pt;
 }
 
-#section-bookingInfo {
-/* 	background-color: #CFF996; */
-	border: #A7FAF9 3px;
-	height: 30%;
-	min-height: 30%;
+.order-form {
+	z-index: 50;
 }
 
-#section-paymentInfo{
-	padding-top: 5pt;
-	height: 30%;
-	min-height: 30%;
-}
-
-#section-terms {
-	height: 30%;
-	min-height: 30%;
-}
 /* About footer */
 .footer {
 	position:relative;
