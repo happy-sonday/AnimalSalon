@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * 결제관련 기능의 컨트롤러
  * 
  * @author CWLEE
- * @version 1.1 [2020-12-26]
+ * @version 1.2 [2020-12-28]
  * @see com.cndsalon.service.payment.PaymentServiceImpl
  */
 @Controller
@@ -54,7 +54,7 @@ public class PaymentController {
 	 *
 	 * @return View PageName & Model 데이터
 	 * @throws Exception
-	 * @Since 1.1
+	 * @Since 1.2
 	 */
 	@GetMapping("/payments")
 	public ModelAndView movePaymentPage(
