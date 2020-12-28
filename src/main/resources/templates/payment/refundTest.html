@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -13,16 +15,22 @@
 
 	<script>
 		function cancelPay() {
+			var token = $("meta[name='_csrf']").attr("content");
+		 	var header = $("meta[name='_csrf_header']").attr("content");
+		 	
 			jQuery.ajax({
 				url: "/cndsalon/payments/cancel",
 				type: "POST",
 				contentType: "application/json",
 				data: JSON.stringify({
-					merchant_uid: "merchant_1608543206352",			// 주문번호
+					merchant_uid: "merchant_1609122131367",			// 주문번호
 					cancel_request_amount: 100,								// 환불금액
 					reason: "테스트 결제 환불" 										// 환불사유
 		        }),
-		        dataType: "json"
+		        dataType: "json",
+		        beforeSend : function(xhr){
+					xhr.setRequestHeader(header, token);
+				}
 		      }).done(function(result){
 		    	  console.log(result);
 		    	  alert("환불이 완료되었습니다.");
