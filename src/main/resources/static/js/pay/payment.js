@@ -1,6 +1,11 @@
 
-$(document).ready(function(){
+/** 뒤로가기 */
+	function goBack() {
+		window.history.back();
+	}
 	
+$(document).ready(function(){
+
 	$("#all_agree").click(function(){
 		if($("#all_agree").prop("checked")){
 			$("input[name=chk]").prop("checked",true);
@@ -75,7 +80,7 @@ $(document).ready(function(){
 
 });
 
-$(function(){
+$(document).ready(function(){
 		if($("#paym-01").prop("checked")){
 			$(".pay-guide").empty();
 			$(".pay-guide").html(

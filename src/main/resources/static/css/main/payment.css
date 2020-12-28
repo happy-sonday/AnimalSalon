@@ -1,118 +1,46 @@
 @charset "UTF-8";
 
-*, *::after, *::before {
-	margin: 0;
-	padding: 0;
-	box-sizing: inherit;
-}
-
-html {
-	font-size: 62.5%;
-}
-
-a {
-	text-decoration: none;
-	color: #fff;
-}
-
-ul {
-	list-style: none;
-	padding-left: 0;
-}
-
-body {
-	font-family: "Lato", sans-serif;
-	font-weight: 400;
-	line-height: 1.7;
-	color: #777;
-	padding: 3rem;
-	box-sizing: border-box;
-	margin: 0;
-	cursor: default;
-}
-
-/* About navbar */
-.navbar {
-	position: fixed;
-	width: 96.4%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #777;
-	color: #fff;
-	padding: 3rem;
-	transition: all 0.2s ease-in-out;
-	z-index: 30;
-}
-
-.navbar__logo-box {
-	top: 4rem;
-	left: 4rem;
-	font-size: 25px;
-}
-
-.navbar__logo {
-	height: 2.5rem;
-}
-
-.navbar__menu {
-	display: flex;
-	font-size: 18px;
-}
-
-.navbar__menu__item {
-	padding: 0.8rem 1.2rem;
-	margin: 0 8rem;
-	cursor: pointer;
-}
-
-.navbar__menu__item:hover {
-	background-color: #777;
-	border-radius: 4px;
-}
-
-.navbar__toggle-btn {
-	position: absolute;
-	right: 4rem;
-	font-size: 2.6rem;
-	color: #fff;
-	display: none;
-}
-
-.navbar--dark {
-	background-color: #2f3640;
-	padding: 1.5rem;
-	margin-top: -3rem;
-}
-
-#navbar__login {
-	border: 2.5px solid #fff;
-	border-radius: 20px;
-}
 
 /* About main */
 .main{
 	position:relative;
-	top:125px;
 	width:100%;
 	background-color: #FFF;
 }
 .title-ko {
 	color: #b2b2b2;
-	font-size: 8pt;
+	font-size: 14pt;
 }
 
 .order-form {
 	z-index: 50;
 }
 
+#custom-scrollbar-css {
+  overflow-y: scroll;
+  height: 75pt;
+}
+
+#custom-scrollbar-css::-webkit-scrollbar {
+  width: 7px;
+}
+
+#custom-scrollbar-css::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+#custom-scrollbar-css::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background-color: #8c8c8c;
+}
+
+
 /* About footer */
 .footer {
 	position:relative;
-	top:110pt;
 	background-color: #2f3640;
-	padding: 5rem 0;
-	font-size: 1.4rem;
+	padding : 10pt 0;
+	font-size: 1rem;
 	color: #f7f7f7;
 }
 
@@ -129,7 +57,7 @@ body {
 .footer__font {
 	color: #fff;
 	font-weight: 400;
-	font-size: 3rem;
+	font-size: 2rem;
 	bottom: 3rem;
 }
 

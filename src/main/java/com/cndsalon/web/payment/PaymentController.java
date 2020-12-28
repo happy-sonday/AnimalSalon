@@ -114,7 +114,7 @@ public class PaymentController {
 	 */
 	@RequestMapping(value="/payments/success", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
+	public PaymentDTO insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
 		// 확인용 로그코드
 		log.info("=== Insert PaymentInfo start ===");
 		log.info("아임포트 거래 고유번호 : " + paymentDTO.getImpUid());
@@ -133,7 +133,7 @@ public class PaymentController {
 		
 		paymentService.insertPayInfo(paymentDTO);
 		
-		return new ResponseEntity<>("{}", HttpStatus.CREATED);
+		return paymentDTO;
 	}
 	
 	/**
