@@ -10,8 +10,8 @@ import com.cndsalon.domain.book.BookingView;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import static com.cndsalon.domain.book.QBookingView.*;
 import static com.cndsalon.domain.book.QBooking.*;
+import static com.cndsalon.domain.book.QBookingView.*;
 
 @Repository
 public class BookingViewDslRepository {

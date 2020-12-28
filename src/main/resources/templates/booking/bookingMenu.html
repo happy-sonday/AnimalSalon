@@ -37,19 +37,12 @@
 					<input type="hidden" name="sCode" th:value="${shop.sCode}" id="sCode">
 					<input type="hidden" name="mCode" th:value="${m.mCode}">
 					<input type="hidden" name="mType" th:value="${m.mType}">
-					<div class="col">
+					<div class="col mb-5">
 						<div class="card shadow-sm">
-							<img th:src="@{'menu/upload_image/' + ${m.mpPath} + ${m.mpSysName}}" width="100%" height="225" alt="메뉴사진"
+							<img th:src="@{'/booking/upload_image/' + ${m.mpPath} + ${m.mpSysName}}" width="100%" height="225" alt="메뉴사진"
 							class="bd-placeholder-img card-mg-top" preserveAspectRatio="xMidYMid slice" focusable="false" />
-<!-- 							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" role="img" -->
-<!-- 								th:src="@{'/menu/upload_image/' + ${m.mpPath} + ${m.mpSysName}}" -->
-<!-- 								 preserveAspectRatio="xMidYMid slice" focusable="false"> 이미지 -->
-<!-- 							</svg> -->
-<!-- 							<rect width="100%" height="100%" fill="#55595c"></rect> 사진들어가면 지워도 될듯 -->
-							
 
 							<div class="card-body">
-<!-- 							<img th:src="@{'/menu/upload_image/' + ${m.mpPath} + ${m.mpSysName}}" width="100%" height="100%" alt="메뉴사진" /> -->
 								<p class="card-text">
 									<b>[[${m.mName}]]</b><br />
 									기본 <b>[[${m.mPrice}]]</b>원<br />

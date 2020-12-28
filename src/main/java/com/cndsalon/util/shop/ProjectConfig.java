@@ -26,6 +26,10 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 		//addResourceLocations("file:///K:/data/upload_image/");
       
 		addResourceLocations("file:/home/ec2-user/data/upload_image/");
+		
+		registry.addResourceHandler("/booking/upload_image/**")
+		.addResourceLocations("file:///E:/data/upload_image/");
+		
 	}
 	
 	/**

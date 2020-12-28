@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
-@RequestMapping("/booking")
+@RequestMapping("booking")
 @Slf4j
 public class BookingController {
 	
@@ -45,7 +45,7 @@ public class BookingController {
 	  * @return 해당 업체, 강아지 타입메뉴 조회 / bookingMenu.html 반환 [BookingController]
 	  *
 	 */
-	@GetMapping("/shop/{sCode}/type/{mType}")
+	@GetMapping("shop/{sCode}/type/{mType}")
 	public String showMenu (
 			@PathVariable("sCode")String sCode,
 			@PathVariable("mType")String mType,
@@ -56,7 +56,7 @@ public class BookingController {
 		model.addAttribute("shop", this.shopService.getShopDetail(sCode));
 		model.addAttribute("menu", this.bookingService.getMenuList(sCode, mType));
 		
-		return "/booking/bookingMenu";
+		return "booking/bookingMenu";
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class BookingController {
 	  * @return 업체정보 및 디자이너 정보, 메뉴 및 옵션 정보 조회 및 bookingDetail.html 반환 [BookingController]
 	  *
 	 */
-	@GetMapping("/go-booking")
+	@GetMapping("go-booking")
 	public String goBooking (
 			@RequestParam("sCode")String sCode,
 			@RequestParam("mCode")String mCode,
@@ -87,7 +87,7 @@ public class BookingController {
 		log.info("디자이너 정보 조회");
 		model.addAttribute("designers", this.shopService.getShopDesignerInfo(sCode));
 		
-		return "/booking/bookingDetail";
+		return "booking/bookingDetail";
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class BookingController {
 	  *
 	 */
 	@ResponseBody
-	@GetMapping("/create-work-time")
+	@GetMapping("create-work-time")
 	public ResponseEntity<Map<String, List<DateTimeDTO>>> createWorkTime(
 			@RequestParam("sTime") String sTime,
 			@RequestParam("getDate") String getDate,
@@ -131,7 +131,7 @@ public class BookingController {
 	  *
 	 */
 	@ResponseBody
-	@GetMapping("/check-available-time")
+	@GetMapping("check-available-time")
 	public ResponseEntity<Boolean> checkBookingTime(
 			@RequestParam("sumB") int sumB,
 			@RequestParam("selectedTime") String selectedTime,
@@ -154,7 +154,7 @@ public class BookingController {
 	  *
 	 */
 	@ResponseBody
-	@PostMapping("/make-booking")
+	@PostMapping("make-booking")
 	public ResponseEntity<?> insertBooking(
 			@RequestBody Booking booking){
 		
@@ -166,7 +166,7 @@ public class BookingController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/test-booking-view")
+	@GetMapping("test-booking-view")
 	public ResponseEntity<?> testBookingView(String sCode, String dCode, String mCode){
 		
 		BookingView bookingView = this.bookingService.getBookingView(sCode, mCode, dCode);

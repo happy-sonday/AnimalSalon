@@ -16,21 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cndsalon.domain.book.Booking;
 import com.cndsalon.service.book.BookingHomeService;
-import com.cndsalon.service.book.BookingService;
 import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/bookinghome")
+@RequestMapping("bookinghome")
 public class BookingHomeController {
 
 	@Autowired
 	private BookingHomeService bookingHomeSerivce;
-	
-	@Autowired
-	private BookingService bookingService;
 	
 	@Autowired
 	private ShopListService shopService;
@@ -46,7 +42,7 @@ public class BookingHomeController {
 	  * @return 예약상태에 따른 예약내역 리스트 반환 및 bookingHome화면으로 이동 [BookingHomeController]
 	  *
 	 */
-	@GetMapping("/status/{bStatus}")
+	@GetMapping("status/{bStatus}")
 	public String getBookingViewList(
 			String id, 
 			@PathVariable("bStatus")String bStatus, 
@@ -56,7 +52,7 @@ public class BookingHomeController {
 		id = "testId";
 		log.info(bStatus + "상태의 예약목록 조회");
 		model.addAttribute("bView", this.bookingHomeSerivce.getBookingViewList(id, bStatus));
-		return "/booking/bookingHome";
+		return "booking/bookingHome";
 	}
 	
 	
@@ -70,7 +66,7 @@ public class BookingHomeController {
 	  *
 	 */
 	@ResponseBody
-	@PutMapping("/bookings/{bCode}")
+	@PutMapping("bookings/{bCode}")
 	public ResponseEntity<?> updateBooking(
 			@PathVariable("bCode") Long bCode,
 			@RequestBody Booking booking
@@ -88,10 +84,10 @@ public class BookingHomeController {
 	  * 개요: bookingHome.html 에서 시간변경 클릭 시
 	  * </pre>
 	  * @method timeChangeView
-	  * @return 업체코드로 디자이너 정보 조회 및 예약시간변경화면 반환 [BookingHomeController]
+	  * @return 업체코드로 디자이너 정보 조회 및 예약시간변경화면 반환(기존 예약번호는 시간에 미포함) [BookingHomeController]
 	  *
 	 */
-	@GetMapping("/timeChangeView.do")
+	@GetMapping("timeChangeView.do")
 	public String timeChangeView(
 			@RequestParam("bCode")Long bCode,
 			@RequestParam("sCode")String sCode,
@@ -105,20 +101,27 @@ public class BookingHomeController {
 		model.addAttribute("bCode", bCode);
 		model.addAttribute("bBeautyTime", bBeautyTime);
 		
-		return "/booking/sub/bookingTimeChange";
+		return "booking/sub/bookingTimeChange";
 	}
 	
+	/**
+	  *
+	  * <pre>
+	  * 개요: bookingTimeChange.html 에서 시간 변경 클릭 시
+	  * </pre>
+	  * @method goTimeChange
+	  * @return 해당 예약번호 시간, 날짜, 디자이너 수정 및 새창 닫기 [BookingHomeController]
+	  *
+	 */
 	@PostMapping("/goTimeChange.do")
-	public void goTimeChange(@RequestBody Booking booking) {
-			
-		log.info("들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?"
-				+ "들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들"
-				+ "어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?들어오나?");
+	public ResponseEntity<?> goTimeChange(Booking booking) {
+	
 		log.info("예약번호 : " + booking.getbCode() + "의 시간정보 변경 : " + booking.toString());
 		this.bookingHomeSerivce.updateBookingTime(booking.getdCode(), booking.getBDate(), booking.getBTime(), booking.getbCode());
+		
+		return new ResponseEntity<>("{}", HttpStatus.OK);
 	}
-	
-	
+
 	/**
 	  *
 	  * <pre>
@@ -129,10 +132,10 @@ public class BookingHomeController {
 	  * @return 예약취소화면 반환 [BookingHomeController]
 	  *
 	 */
-	@GetMapping("/cancelView.do")
+	@GetMapping("cancelView.do")
 	public String cancelView(@RequestParam("bCode") Long bCode, Model model) {
 		model.addAttribute("bCode", bCode);
-		return "/booking/sub/bookingCancel";
+		return "booking/sub/bookingCancel";
 	}
 	
 }
