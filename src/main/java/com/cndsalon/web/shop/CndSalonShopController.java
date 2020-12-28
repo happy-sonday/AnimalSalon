@@ -47,12 +47,12 @@ public class CndSalonShopController {
 	@RequestMapping(value = "shop/shopmain")
 	public String getAll_ajax(Model model) {
 		
-		return "/shop/shop_main.html";
+		return "shop/shop_main.html";
 	}
 	
 	// Filter 검색
 	@ResponseBody
-	@RequestMapping(value = "/shop/shopmain_search", method = { RequestMethod.GET },
+	@RequestMapping(value = "shop/shopmain_search", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_filter(
 			CndSalonShopInfoVO ShopInfoVO
@@ -94,7 +94,7 @@ public class CndSalonShopController {
 	
 	// 내주변 기본검색
 	@ResponseBody
-	@RequestMapping(value = "/shop/shopmain_list", method = { RequestMethod.GET },
+	@RequestMapping(value = "shop/shopmain_list", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity<List<CndSalonShopInfoVO>> getAll_ajax_list(
 			CndSalonShopInfoVO ShopInfoVO) {
@@ -119,7 +119,7 @@ public class CndSalonShopController {
 	}
 	
 	// 매장 상세정보
-	@RequestMapping(value = "/shop/shopdetail")
+	@RequestMapping(value = "shop/shopdetail")
 	public String getOne(@RequestParam("sCode") String sCode, Model model) {
 		//log.info("--------getOne Start---------" + sCode);
 		
@@ -128,11 +128,11 @@ public class CndSalonShopController {
 		model.addAttribute("shopphoto", service.getShopProductPhoto(sCode));
 		model.addAttribute("deginerinfo", service.getShopDesignerInfo(sCode));
 		model.addAttribute("review", service.getReview(sCode));
-		return "/shop/shop_detail.html";
+		return "shop/shop_detail.html";
 	}
 	
 	//기본 내주변 검색(Max Page)
-	@RequestMapping("/shop/getPage")
+	@RequestMapping("shop/getPage")
 	public ResponseEntity getPage() {
 		//log.info("getPage Start ------");
 		int maxPage=0;
@@ -143,7 +143,7 @@ public class CndSalonShopController {
 	
 	//Filter 검색(Max Page)
 	@ResponseBody
-	@RequestMapping(value = "/shop/getFilterPage", method = { RequestMethod.GET },
+	@RequestMapping(value = "shop/getFilterPage", method = { RequestMethod.GET },
 			produces="application/json; charset=UTF-8")
 	public ResponseEntity getFilterPage(CndSalonShopInfoVO ShopInfoVO) {
 		//log.info("getFilterPage Start ------"+ShopInfoVO.toString());
@@ -155,7 +155,7 @@ public class CndSalonShopController {
 	
 	//리뷰글의 이미지를 불러오기
 	@ResponseBody
-	@RequestMapping(value = "/shop/getReviewDetail", method =  RequestMethod.POST
+	@RequestMapping(value = "shop/getReviewDetail", method =  RequestMethod.POST
 	,produces="application/json; charset=UTF-8"	)
 	public ResponseEntity<List<CndSalonReviewVO>> getReviewDetail(
 			@RequestBody CndSalonReviewVO cndSalonReviewVO ){
@@ -168,7 +168,7 @@ public class CndSalonShopController {
 		return new ResponseEntity<List<CndSalonReviewVO>>(list,HttpStatus.OK);
 	}
 	// 중복방지 TEST(IP기반)
-	@RequestMapping("/shop/getLocation")
+	@RequestMapping("shop/getLocation")
 	public String getAll() {
 		log.info("---------getLocation Start--------------------");
 		InetAddress local;
@@ -181,7 +181,7 @@ public class CndSalonShopController {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		return "/shop/test_location.html";
+		return "shop/test_location.html";
 	}
 
 	public CndSalonShopController() {
