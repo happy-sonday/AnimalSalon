@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cndsalon.domain.book.Booking;
 import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.repository.book.BookingViewDslRepository;
 
@@ -18,7 +17,6 @@ public class BookingHomeServiceImpl implements BookingHomeService {
 
 	@Autowired
 	private BookingViewDslRepository bookingViewRepository;
-	
 	
 	@Transactional
 	@Override
@@ -32,6 +30,7 @@ public class BookingHomeServiceImpl implements BookingHomeService {
 		this.bookingViewRepository.updateBooking(bCode, bStatus, bCancelReason);
 	}
 
+	@Transactional
 	@Override
 	public void updateBookingTime(String dCode, LocalDate bDate, LocalTime bTime, Long bCode) {
 		this.bookingViewRepository.updateBookingTime(dCode, bDate, bTime, bCode);

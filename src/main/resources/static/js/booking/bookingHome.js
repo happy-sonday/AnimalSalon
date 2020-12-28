@@ -35,6 +35,14 @@
 		"scrollbars=yes, resizable=no, width=620, height=620");
 	}
 	
+//	$('#time_chage_btn').click(function(){
+//		var data = JSON.stringify({
+//			
+//		});
+//		
+//	});
+	
+	
 	var go_time_change_booking = function(){
 		var b_time = $('input[name="time_radio"]:checked').val();
 		
@@ -44,11 +52,10 @@
 		} else {
 			$('#selected_time').val(b_time);
 			
-			document.formm.action = "goTimeChange.do";
 			document.formm.submit();
 			alert("시간이 변경되었습니다.");
 			opener.location.reload();
-//			self.close();
+			self.close();
 		}
 	}
 	
