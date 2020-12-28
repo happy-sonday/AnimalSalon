@@ -1,5 +1,9 @@
 package com.cndsalon.web.payment;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * 결제관련 기능의 컨트롤러
  * 
  * @author CWLEE
- * @version 1.1 [2020-12-26]
+ * @version 1.2 [2020-12-28]
  * @see com.cndsalon.service.payment.PaymentServiceImpl
  */
 @Controller
@@ -50,7 +54,7 @@ public class PaymentController {
 	 *
 	 * @return View PageName & Model 데이터
 	 * @throws Exception
-	 * @Since 1.1
+	 * @Since 1.2
 	 */
 	@GetMapping("/payments")
 	public ModelAndView movePaymentPage(
@@ -60,7 +64,8 @@ public class PaymentController {
 			@RequestParam("defaultBeautyTime") Integer workingTime,
 			@RequestParam("selected_designer") String dCode,
 			@RequestParam("bookingDate") String bDate,
-			@RequestParam("time_radio") String bTime) throws Exception{
+			@RequestParam("time_radio") String bTime
+			) throws Exception{
 		ModelAndView mv = new ModelAndView("/payment/paymentForm");
 		log.info("결제요청을 받음.. 로직 수행 시작");
 		log.info("메뉴코드 : " + mCode);
@@ -71,13 +76,25 @@ public class PaymentController {
 		log.info("소요시간 : " + workingTime);
 		log.info("금액 : " + price);
 		
-		BookingView result = bookingService.getBookingView(sCode,mCode, dCode);
+		String refineDate = bDate.substring(0, bDate.length()-3);
+		log.info("정제된 날짜값 : " + refineDate);
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		LocalDate bookingDate = LocalDate.parse(refineDate, formatter);
+//		log.info("LocalDate : "  + bookingDate);
 		
+//		LocalTime bookingTime = LocalTime.parse(bTime);
+//		log.info("LocalTime : " + bookingTime);
+		
+		BookingView result = bookingService.getBookingView(sCode,mCode, dCode);
+		String id = "testID";
 		mv.addObject("result", result);
-		mv.addObject("bookingDate", bDate);
-		mv.addObject("bookingTime", bTime);
+		mv.addObject("bookingDateText", bDate);
+		mv.addObject("bookingTimeText", bTime);
+		mv.addObject("bookingDate", refineDate);
+//		mv.addObject("bookingTime", bookingTime);
 		mv.addObject("workingTime", workingTime);
 		mv.addObject("price", price);
+		mv.addObject("id", id);
 		
 		return mv;
 	}
