@@ -1,12 +1,6 @@
 package com.cndsalon.web.payment;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,7 +50,7 @@ public class PaymentController {
 	 * @throws Exception
 	 * @Since 1.2
 	 */
-	@GetMapping("/payments")
+	@GetMapping("payments")
 	public ModelAndView movePaymentPage(
 			@RequestParam("mCode") String mCode,
 			@RequestParam("sCode") String sCode,
@@ -105,10 +99,10 @@ public class PaymentController {
 	 * @return View PageName
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/payments/moveSuccess", method=RequestMethod.GET)
+	@RequestMapping(value="payments/moveSuccess", method=RequestMethod.GET)
 	public String moveSuccessPage() throws Exception{
 		log.info("결제성공페이지 입장완료");
-		return "/payment/afterPaySuccess";
+		return "payment/afterPaySuccess";
 	}
 		
 	/**
@@ -117,10 +111,10 @@ public class PaymentController {
 	 * @return View PageName
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/payments/moveFail", method=RequestMethod.GET)
+	@RequestMapping(value="payments/moveFail", method=RequestMethod.GET)
 	public String moveFailPage() throws Exception{
 		log.info("결제실패페이지 입장완료");
-	return "/payment/afterPayFailed";
+	return "payment/afterPayFailed";
 	}
 				
 	/**
@@ -129,7 +123,7 @@ public class PaymentController {
 	 * @param paymentDTO ajax로 요청받은 결제데이터
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/payments/success", method = RequestMethod.POST)
+	@RequestMapping(value="payments/success", method = RequestMethod.POST)
 	@ResponseBody
 	public PaymentDTO insertPaymentInfo(@RequestBody PaymentDTO paymentDTO) throws Exception {
 		// 확인용 로그코드
@@ -159,10 +153,10 @@ public class PaymentController {
 	 * @return View PageName
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/payments/moveCancel", method=RequestMethod.GET)
+	@RequestMapping(value="payments/moveCancel", method=RequestMethod.GET)
 	public String moveRefundForm() throws Exception{
 		log.info("결제환불테스트페이지 입장완료");
-	return "/payment/refundTest";
+	return "payment/refundTest";
 	}
 	
 	/**
@@ -172,7 +166,7 @@ public class PaymentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/payments/cancel", method=RequestMethod.POST)
+	@RequestMapping(value="payments/cancel", method=RequestMethod.POST)
 	@ResponseBody
 	public PaymentDTO doCancelPay(@RequestBody CancelData cancelData) throws Exception {
 		String token = paymentService.getToken();
@@ -193,8 +187,8 @@ public class PaymentController {
 	 * @return View PageName
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/payments/cancelSuccess", method=RequestMethod.GET)
+	@RequestMapping(value="payments/cancelSuccess", method=RequestMethod.GET)
 	 public String moveAfterCancel() throws Exception{
-		return "/payment/afterRefund";
+		return "payment/afterRefund";
 	 }
 }

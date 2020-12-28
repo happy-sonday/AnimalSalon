@@ -24,24 +24,12 @@ public class ProjectConfig extends WebMvcConfigurationSupport {
 
 		registry.addResourceHandler("/shop/upload_image/**").
 		//addResourceLocations("file:///K:/data/upload_image/");
-      
 		addResourceLocations("file:/home/ec2-user/data/upload_image/");
 		
 		registry.addResourceHandler("/booking/upload_image/**")
-		.addResourceLocations("file:///E:/data/upload_image/");
+//		.addResourceLocations("file:///E:/data/upload_image/");
+		.addResourceLocations("file:/home/ec2-user/data/upload_image/");
 		
 	}
 	
-	/**
-	 * ModelAndView를 json형식으로 리턴시켜주는 역할
-	 * PaymentController.movePaymentPage() 에서 사용
-	 *  
-	 * @author CWLEE
-	 * @since 1.1
-	 * @return MappingJackson2JsonView()
-	 */
-	@Bean
-	MappingJackson2JsonView jsonView(){
-        return new MappingJackson2JsonView();
-    }
 }
