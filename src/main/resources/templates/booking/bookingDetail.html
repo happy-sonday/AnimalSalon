@@ -42,12 +42,9 @@
 							<option th:each="option : ${menuOptions}"
 								th:value="|${option.oTime}:${option.oPrice}|"
 								th:text="${option.oName}"></option>
-						</select> <input type="hidden" th:value="${menu.mPrice}" id="defaultPrice"
-							name="defaultPrice"> <input type="hidden"
-							th:value="${menu.mTime}" id="defaultBeautyTime"
-							name="defaultBeautyTime"> <input type="hidden" value=""
-							name="selected_price" id="selected_price"> <input
-							type="hidden" value="" name="selected_btime" id="selected_btime">
+						</select> 
+							<input type="hidden" value="" name="selected_price" id="selected_price"> 
+							<input type="hidden" value="" name="selected_btime" id="selected_btime">
 
 						<p class="media-body pb-3 mt-3 border-bottom border-gray">
 							금액 <strong th:text="|${menu.mPrice}원|" th:value="${menu.mPrice}"
