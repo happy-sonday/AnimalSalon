@@ -49,7 +49,7 @@ public class BookingHomeController {
 			Model model) throws Exception{
 
 		// TestId
-		id = "testId";
+		id = "testID";
 		log.info(bStatus + "상태의 예약목록 조회");
 		model.addAttribute("bView", this.bookingHomeSerivce.getBookingViewList(id, bStatus));
 		return "booking/bookingHome";

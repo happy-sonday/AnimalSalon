@@ -27,7 +27,7 @@
 
 			</thead>
 			<tr th:each="view : ${bView}">
-				<td th:text="${view.bCode}"></td>
+				<td th:text="${view.bCode}" ></td>
 				<td th:if="${view.bStatus == '0'}" th:text="예약"></td>
 				<td th:if="${view.bStatus == '1'}" th:text="완료"></td>
 				<td th:if="${view.bStatus == '2'}" th:text="취소"></td>

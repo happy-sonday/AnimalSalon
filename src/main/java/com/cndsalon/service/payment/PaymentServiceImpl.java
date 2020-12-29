@@ -270,7 +270,7 @@ public class PaymentServiceImpl implements PaymentService {
 	 * @param cancelData <br> 결제환불 요청시 보내는 환불요청데이터
 	 * @param token <br> 인증받은 토큰의 access_token 값
 	 * @retrun payment <br> 결제환불 시 아임포트 REST API로부터 전달받는 ResponseData 중 "response" 값
-	 * PaymentDTO 객체형식에 매핑
+	 * response값은 PaymentDTO 객체형식에 매핑
 	 */
 	@Override
 	public IamportResponse<PaymentDTO> cancelPayment(CancelData cancelData, String token) throws Exception {

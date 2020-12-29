@@ -409,6 +409,7 @@ function requestPay(){
 								bTime : bookingTime,
 								bBeautyTime : bBeautyTime,
 								bPrice : totalAmount
+								
 							}),
 							beforeSend : function(xhr){
 								xhr.setRequestHeader(header, token);

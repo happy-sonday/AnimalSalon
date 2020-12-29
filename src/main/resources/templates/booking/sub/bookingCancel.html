@@ -27,27 +27,48 @@
 	<script th:src="@{/static/js/bootstrap.bundle.min.js}" charset="UTF-8"></script>
 	<script th:src="@{/static/js/booking/bookingHome.js}" type="text/javascript"></script>
 	
-  <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script><!-- jQuery CDN --->
-  <script>  	
-    function cancelPay() {
-      jQuery.ajax({
-        "url": "http://www.myservice.com/payments/cancel",
-        "type": "POST",
-        "contentType": "application/json",
-        "data": JSON.stringify({
-          "merchant_uid": "ORD20180131-0000013",						// 주문번호
-          "cancel_request_amount": 900, 										// 환불금액
-          "reason": $("#reasonForCancle option:selected").val()		// 환불사유
-          //"refund_holder": "홍길동",										// [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
-          //"refund_bank": "88",		 									// [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(ex. KG이니시스의 경우 신한은행은 88번)
-          //"refund_account": "56211105948400" 					// [가상계좌 환불시 필수입력] 환불 수령계좌 번호
-        }),
-        "dataType": "json"
-      });
-    }
-  </script>
+ <!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"></script>
+<script>
+	function cancelPay() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		 	
+		jQuery.ajax({
+			url: "/cndsalon/payments/cancel",
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+			merchant_uid: "merchant_1609122131367",		// 주문번호
+			cancel_request_amount: 100,								// 환불금액
+			reason: "테스트 결제 환불" 										// 환불사유
+		}),
+			dataType: "json",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header, token);
+			}
+		}).done(function(result){
+				var data = JSON.stringify({
+					bStatus : "2"
+				});
+				console.log(result);
+				alert("환불이 완료되었습니다.");
+				$.ajax({
+					contentType : 'application/json; charset=utf-8',
+					url : '/cndsalon/bookinghome/bookings/' + bCode,
+					dataType : 'json',
+					data : data,
+					beforeSend : function(xhr){
+					xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"));
+					}
+				});
+				//location.href="/cndsalon/payments/cancelSuccess"
+		}).fail(function(err){
+				alert("환불이 실패하였습니다.\n Error : " + err);
+			});
+		}
+	</script>
 </body>
 </html>
