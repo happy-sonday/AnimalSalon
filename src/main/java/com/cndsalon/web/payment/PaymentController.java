@@ -54,8 +54,8 @@ public class PaymentController {
 	public ModelAndView movePaymentPage(
 			@RequestParam("mCode") String mCode,
 			@RequestParam("sCode") String sCode,
-			@RequestParam("defaultPrice") Integer price,
-			@RequestParam("defaultBeautyTime") Integer workingTime,
+			@RequestParam("selected_price") Integer price,
+			@RequestParam("selected_btime") Integer workingTime,
 			@RequestParam("selected_designer") String dCode,
 			@RequestParam("bookingDate") String bDate,
 			@RequestParam("time_radio") String bTime
