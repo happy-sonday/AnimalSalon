@@ -29,7 +29,7 @@
                     <li class="navbar__menu__item">내 주변</li></a>
                     <a href="#"><li class="navbar__menu__item">입점 문의</li></a>
                     <a th:href="@{/bookinghome/status/all}"><li class="navbar__menu__item">예약</li></a> 
-                    <a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
+                    <a th:href="@{/member/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
                 </ul>
             </div>
 
@@ -50,7 +50,7 @@
                 </h1>
 
 
-                <a href="#" class="btn btn--white">예약하기</a>
+                <a th:href="@{/bookinghome/status/all}" class="btn btn--white">예약하기</a>
 
             </div>
         </header>
