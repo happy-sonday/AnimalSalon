@@ -62,6 +62,7 @@
 	/** bookingCancel.html 예약/결재취소 클릭 시**/
 	var go_cancel_booking = function(bCode){
 		var reason = $('#reasonForCancel option:selected').val();
+		var reason2 = $('#reasonForCancel option:selected').text();
 
 		if (reason == "x") {
 			
@@ -77,8 +78,7 @@
 				
 				
 				
-				
-				
+			
 				
 			var data = JSON.stringify({
 					bStatus : "2",
@@ -96,7 +96,7 @@
 				xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"));
 				},
 				success : function(){
-					alert("예약이 취소되었습니다.");
+					alert("예약이 취소되었습니다.");	
 					opener.location.reload();
 					self.close();
 				},

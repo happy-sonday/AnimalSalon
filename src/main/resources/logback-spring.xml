@@ -6,7 +6,7 @@
 
 
 
-<!--     <property name="LOGS_PATH" value="E:/data/cndsalon/log" /> -->
+    <!--     <property name="LOGS_PATH" value="E:/data/cndsalon/log" /> -->
 	<property name="LOGS_PATH" value="/home/ec2-user/cndsalon/log" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -26,7 +26,7 @@
         <!-- 날짜별 폴더 생성 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOGS_PATH}/%d{yyyy-MM-dd}/lab_%d{yyyy-MM-dd_HH-mm-ss}_%i.log</fileNamePattern>
-            <maxFileSize>10kb</maxFileSize>            
+            <maxFileSize>100mb</maxFileSize>            
             <maxHistory>10</maxHistory>
             <totalSizeCap>1gb</totalSizeCap>            
         </rollingPolicy>
