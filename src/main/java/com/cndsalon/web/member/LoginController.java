@@ -21,19 +21,19 @@ public class LoginController {
 	
 	
 	   // 메인 페이지
-    @GetMapping("/test")
+    @GetMapping("test")
     public String index() {
-        return "/test/index";
+        return "test/index";
     }
 
     // 회원가입 페이지
-    @GetMapping("/test/signup")
+    @GetMapping("test/signup")
     public String dispSignup() {
-        return "/test/signup";
+        return "test/signup";
     }
 
     // 회원가입 처리
-    @PostMapping("/test/user/signup")
+    @PostMapping("test/user/signup")
     public String execSignup(DemoMemberDto memberDto) {
     	loginService.joinUser(memberDto);
 
@@ -41,39 +41,39 @@ public class LoginController {
     }
 
     // 로그인 페이지
-    @GetMapping("/test/login")
+    @GetMapping("test/login")
     public String dispLogin() {
-        return "/test/login";
+        return "test/login";
     }
 
     // 로그인 결과 페이지
-    @GetMapping("/test/login/result")
+    @GetMapping("test/login/result")
     public String dispLoginResult() {
-        return "/test/loginSuccess";
+        return "test/loginSuccess";
     }
 
     // 로그아웃 결과 페이지
-    @GetMapping("/test/logout/result")
+    @GetMapping("test/logout/result")
     public String dispLogout() {
-        return "/test/logout";
+        return "test/logout";
     }
 
     // 접근 거부 페이지
-    @GetMapping("/test/denied")
+    @GetMapping("test/denied")
     public String dispDenied() {
-        return "/test/denied";
+        return "test/denied";
     }
 
     // 내 정보 페이지
-    @GetMapping("/test/info")
+    @GetMapping("test/info")
     public String dispMyInfo() {
-        return "/test/myinfo";
+        return "test/myinfo";
     }
 
     // 어드민 페이지
-    @GetMapping("/test/admin")
+    @GetMapping("test/admin")
     public String dispAdmin() {
-        return "/test/admin";
+        return "test/admin";
     }
 }
 	
