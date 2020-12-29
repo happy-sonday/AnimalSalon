@@ -165,13 +165,5 @@ public class BookingController {
 		return new ResponseEntity<>("{}", HttpStatus.CREATED);
 	}
 	
-	@ResponseBody
-	@GetMapping("test-booking-view")
-	public ResponseEntity<?> testBookingView(String sCode, String dCode, String mCode){
-		
-		BookingView bookingView = this.bookingService.getBookingView(sCode, mCode, dCode);
-		
-		return new ResponseEntity<BookingView>(bookingView, HttpStatus.OK);
-	}
 	
 }

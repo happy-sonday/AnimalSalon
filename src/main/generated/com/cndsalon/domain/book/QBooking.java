@@ -39,6 +39,8 @@ public class QBooking extends EntityPathBase<Booking> {
 
     public final StringPath mCode = createString("mCode");
 
+    public final StringPath merchantUid = createString("merchantUid");
+
     public final StringPath sCode = createString("sCode");
 
     public QBooking(String variable) {

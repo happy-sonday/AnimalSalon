@@ -35,13 +35,6 @@
 		"scrollbars=yes, resizable=no, width=620, height=620");
 	}
 	
-//	$('#time_chage_btn').click(function(){
-//		var data = JSON.stringify({
-//			
-//		});
-//		
-//	});
-	
 	
 	var go_time_change_booking = function(){
 		var b_time = $('input[name="time_radio"]:checked').val();
@@ -61,6 +54,7 @@
 	
 	/** bookingHome.html 예약취소 클릭 시 **/
 	var cancel_booking = function(bCode){
+		
 		window.open("/cndsalon/bookinghome/cancelView.do?bCode=" + bCode, "예약취소", "toolbar=no, menubar=no, " +
 		"scrollbars=yes, resizable=no, width=700, height=600");
 	}
@@ -68,11 +62,23 @@
 	/** bookingCancel.html 예약/결재취소 클릭 시**/
 	var go_cancel_booking = function(bCode){
 		var reason = $('#reasonForCancel option:selected').val();
-		console.log("제발좀 : " + reason);
+
 		if (reason == "x") {
 			
 			alert('취소사유를 선택해주세요.');
 		} else {
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 			var data = JSON.stringify({
 					bStatus : "2",
