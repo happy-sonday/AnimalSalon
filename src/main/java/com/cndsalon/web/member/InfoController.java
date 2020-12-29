@@ -32,7 +32,7 @@ public class InfoController {
 
 
 	// 회원가입 양식 저장 요청
-	@PostMapping("/member/join")
+	@PostMapping("member/join")
 	public void saveMemberInfo(@RequestBody DemoMember demoMember) {
 		// idx 를 int반환받아서 조회해서 해당 welcome으로 넘기는거 어떻가 이중 ajax통신
 
@@ -42,7 +42,7 @@ public class InfoController {
 	}
 
 	//파일 업로드 
-		@PostMapping("/member/profile")
+		@PostMapping("member/profile")
 		public void updateProfile(MultipartFile pFile){		
 			
 			service.updateProfile(pFile);			

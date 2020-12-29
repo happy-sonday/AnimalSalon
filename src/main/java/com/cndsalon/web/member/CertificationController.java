@@ -22,7 +22,7 @@ public class CertificationController {
 	
 	
 	
-	@PostMapping("/check/id")
+	@PostMapping("check/id")
 	public String checkId(@RequestBody Map<String, String> map) {
 	
 		
@@ -50,7 +50,7 @@ public class CertificationController {
 	}
 	
 		
-	@PostMapping("/check/phone")
+	@PostMapping("check/phone")
 	public String checkPhone(@RequestBody Map<String, String> map) {
 		
 		
@@ -72,7 +72,7 @@ public class CertificationController {
 		return msg;	
 	}
 		
-	@PostMapping("/check/email")
+	@PostMapping("check/email")
 	public String checkEmail(@RequestBody Map<String, String> map) {
 		
 		
@@ -88,7 +88,7 @@ public class CertificationController {
 	}
 		
 	
-	@PostMapping("/check/nickname")
+	@PostMapping("check/nickname")
 	public String checkNickname(@RequestBody Map<String, String> map) {
 		
 		

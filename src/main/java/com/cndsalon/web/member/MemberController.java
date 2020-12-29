@@ -31,86 +31,86 @@ public class MemberController {
 	CertificationService chkService;
 		
 	//로그인페이지 요청
-	@RequestMapping("/member/login")
+	@RequestMapping("member/login")
 	 public String disLoginForm( HttpServletRequest request) {
 		
 				// 요청 시점의 사용자 URI 정보를 Session의 Attribute에 담아서 전달(잘 지워줘야 함)
 				// 로그인이 틀려서 다시 하면 요청 시점의 URI가 로그인 페이지가 되므로 조건문 설정
 				String uri = request.getHeader("Referer");
 				
-				if (!uri.contains("/member/login")) {
+				if (!uri.contains("member/login")) {
 					request.getSession().setAttribute("prevPage",
 							request.getHeader("Referer"));				
 				
 				}
 				
-		return "/member/login";
+		return "member/login";
 	}
 	
 	//약관 페이지 요청
-	@GetMapping("/member/terms")
+	@GetMapping("member/terms")
 	public String terms() {
 	
-		return "/member/terms";
+		return "member/terms";
 	}
 	
 	//아이디 비밀번호 찾기
-	@GetMapping("/member/findIdPwd")
+	@GetMapping("member/findIdPwd")
 	public String findIdPwd() {
-		return "/member/findIdPwd";
+		return "member/findIdPwd";
 	}
 	
 	//회원가입 양식폼 요청
-	@GetMapping("/member/signup")
+	@GetMapping("member/signup")
 	public String signUp(Model model) {
 		
 		/*다음 페이지에서 th:object 속성을 사용하려면 비어있는 개체를 던져줘야한다*/		
 		model.addAttribute("demoMember", new DemoMember());
 		
-		return "/member/signupForm";
+		return "member/signupForm";
 	}
 	
 
 	
 	//아이디회원가입양식 폼 요청
-	@GetMapping("/member/findInfo")
+	@GetMapping("member/findInfo")
 	public String findInfo() {
 		
-		return "/member/findInfoForm";
+		return "member/findInfoForm";
 	}
 	
 	//회원가입 입력 결과 요청
-	@GetMapping("/member/welcome")
+	@GetMapping("member/welcome")
 	public String welcome() {
 		
 		
-		return "/member/join";
+		return "member/join";
 	}
 	
 	//인증번호 받기
-	@GetMapping("/getCrftNum")
+	@GetMapping("getCrftNum")
 	public String getCrftNum() {
 		
-		return "/util/getCrftNum";
+		return "util/getCrftNum";
 	}
 	
 	//이미지 업데이트
-	@PostMapping("/updateImg")
+	@PostMapping("updateImg")
 	public String updateImg() {
 		
 		return "redirect:/";
 	}
 
 	
-	@RequestMapping("/member/demo")
+	@RequestMapping("member/demo")
 	public String test() {
 		
-		return"/member/DemoUpload";
+		return"member/DemoUpload";
 	}
 	
 	
 	//로그인 처리 결과url 성공시 메인페이지 틀리면 redirect
-	@RequestMapping("/member/login/result")
+	@RequestMapping("member/login/result")
 	public String loginChk() {
 
 	return "/";
@@ -138,18 +138,18 @@ public class MemberController {
 	
 	
 	//admin 메인 페이지 호출
-	@GetMapping("/member/admin")
+	@GetMapping("member/admin")
 	public String disAdminMain() {
 		
-		return "/member/adminMian";
+		return "member/adminMian";
 	}
 	
 	
 	//권한이 없는 사용자가 권한 요청시 폼 출력
-	@GetMapping("/member/denied")
+	@GetMapping("member/denied")
 	public String disDenied() {
 		
-		return "/member/denied";
+		return "member/denied";
 	}
 	
 }
