@@ -14,7 +14,7 @@ public class CancelData {
 	@SerializedName("merchant_uid")
 	private String merchant_uid;
 	
-	@SerializedName("cancel_request_amount")
+	@SerializedName("amount")
 	private BigDecimal amount;
 	
 	@SerializedName("reason")
@@ -22,16 +22,4 @@ public class CancelData {
 	
 	public CancelData() {}
 	
-	public CancelData(String uid, boolean imp_uid_or_not) {
-		if ( imp_uid_or_not ) {
-			this.imp_uid = uid;
-		} else {
-			this.merchant_uid = uid;
-		}
-	}
-	
-	public CancelData(String uid, boolean imp_uid_or_not, BigDecimal amount) {
-		this(uid, imp_uid_or_not);
-		this.amount = amount;
-	}
 }

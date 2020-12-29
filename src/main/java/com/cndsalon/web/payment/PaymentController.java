@@ -172,6 +172,8 @@ public class PaymentController {
 		String token = paymentService.getToken();
 		log.info("획득한 토큰 값 : " + token);
 		log.info("전달받은 cancelData : " + cancelData.getMerchant_uid());
+		log.info("취소사유 : " + cancelData.getReason());
+		log.info("취소금액 : " + cancelData.getAmount());
 		log.info("토큰 획득 후 결제환불 요청 시작");
 		IamportResponse<PaymentDTO> refundResult = paymentService.cancelPayment(cancelData, token);
 		PaymentDTO payInfo = refundResult.getResponse();

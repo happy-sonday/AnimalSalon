@@ -4,11 +4,8 @@
 <!--  에러 방지 : java.lang.NoClassDefFoundError: ch/qos/logback/classic/spi/ThrowableProxy -->
 
 
-
-
-
-    <!--     <property name="LOGS_PATH" value="E:/data/cndsalon/log" /> -->
-	<property name="LOGS_PATH" value="/home/ec2-user/cndsalon/log" />
+<!--     <property name="LOGS_PATH" value="E:/data/cndsalon/log" /> -->
+<property name="LOGS_PATH" value="/home/ec2-user/cndsalon/log" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

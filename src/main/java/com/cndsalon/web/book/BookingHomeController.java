@@ -72,7 +72,7 @@ public class BookingHomeController {
 			@RequestBody Booking booking
 			) {
 		
-		log.info("bCode : " + booking.toString() + "의 상태 업데이트");
+		log.info("bCode : " + bCode + " /" + booking.toString() + "의 상태 업데이트");
 		this.bookingHomeSerivce.updateBooking(bCode, booking.getBStatus(), booking.getBCancelReason());
 		return new ResponseEntity<>("{}", HttpStatus.OK);
 	}

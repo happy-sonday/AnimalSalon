@@ -39,5 +39,6 @@ public class CancelAdvice {
 		log.info(jp.getSignature().getName());
 		log.info("전달받은 결제상태값: " + payInfo.getStatus());
 		payMapper.updateStatus(payInfo);
+		payInfo.getMerchantUid();
 	}
 }
