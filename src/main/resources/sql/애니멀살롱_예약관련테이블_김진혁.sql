@@ -13,6 +13,9 @@ CREATE TABLE BOOKING (
     B_CANCEL_REASON VARCHAR2(20), -- 예약 취소 사유
     PRIMARY KEY (B_CODE)
     );
+
+------ (12.29) 추가 (결제와 연동 코드)
+   alter table BOOKING add MERCHANT_UID varchar2(50);
     
     -- 예약내역 시퀸스
     CREATE SEQUENCE BOOKING_SEQ
@@ -66,7 +69,7 @@ CREATE TABLE SHOP_MENU_PHOTO (
 ------ 예약_VIEW 테이블
 CREATE OR REPLACE VIEW booking_view AS
 SELECT 
-	b.b_code, b.id, b.b_price, b.b_status, b.b_beauty_time,
+	b.b_code, b.id, b.b_price, b.b_status, b.b_beauty_time, b.merchant_uid,
 	m.m_code, m.m_name, m.m_p_path, m.m_p_sysname, m.m_p_orgname,
 	s.s_code, s.s_name,
 	d.d_code, d.d_name,

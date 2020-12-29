@@ -21,10 +21,11 @@ import lombok.NoArgsConstructor;
  * 개요: 예약내역 Entity
  * </pre>
  * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br>
- * @date 2020. 12. 8. 
- * @version 1.0
- * @since 
+ * @date 2020. 12. 29. 
+ * @version 1.1
+ * @since 2020. 12. 8.
  * Lombok의 Setter를 사용할 시 Gson이 Json의 대문자를 인식하지 못하는 이슈 발생으로 setter 메서드 직접 생성
+ * 12.29 : 결제와의 연동으로 인해 결제 코드 추가(비식별 관계 매핑)
  */
 @Entity(name = "BOOKING")
 @Getter
@@ -59,6 +60,8 @@ public class Booking {
 	
     private String bCancelReason; // 예약 취소 사유
     
+    // 12.29일 추가 MERCHANT_UID
+    private String merchantUid; // 결제코드
 	
 
 	public Long getbCode() {
@@ -136,11 +139,17 @@ public class Booking {
 		this.bCancelReason = bCancelReason;
 	}
 	
+	public void setMerchantUid(String merchantUid) {
+		this.merchantUid = merchantUid;
+	}
+
 	@Override
 	public String toString() {
 		return "Booking [bCode=" + bCode + ", id=" + id + ", mCode=" + mCode + ", dCode=" + dCode + ", sCode=" + sCode
 				+ ", bDate=" + bDate + ", bTime=" + bTime + ", bBeautyTime=" + bBeautyTime + ", bPrice=" + bPrice
-				+ ", bStatus=" + bStatus + ", bCancelReason=" + bCancelReason + "]";
+				+ ", bStatus=" + bStatus + ", bCancelReason=" + bCancelReason + ", merchantUid=" + merchantUid + "]";
 	}
+	
+	
 
 }

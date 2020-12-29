@@ -134,7 +134,8 @@ public class BookingHomeController {
 	 */
 	@GetMapping("cancelView.do")
 	public String cancelView(@RequestParam("bCode") Long bCode, Model model) {
-		model.addAttribute("bCode", bCode);
+		
+		model.addAttribute("view", this.bookingHomeSerivce.getBookingView(bCode));
 		return "booking/sub/bookingCancel";
 	}
 	

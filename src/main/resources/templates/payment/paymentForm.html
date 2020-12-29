@@ -408,8 +408,8 @@ function requestPay(){
 								bDate : bookingDate,
 								bTime : bookingTime,
 								bBeautyTime : bBeautyTime,
-								bPrice : totalAmount
-								
+								bPrice : totalAmount,
+								merchantUid : merchantUid
 							}),
 							beforeSend : function(xhr){
 								xhr.setRequestHeader(header, token);

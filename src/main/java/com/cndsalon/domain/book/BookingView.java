@@ -32,6 +32,7 @@ public class BookingView {
 	private String sName;
 	private String dCode;
 	private String dName;
+	private String merchantUid;
 
 	@Column(name = "B_DATE", columnDefinition = "DATE")
 	private LocalDate bDate;
