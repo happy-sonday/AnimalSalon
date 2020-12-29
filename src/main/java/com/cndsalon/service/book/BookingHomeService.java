@@ -14,4 +14,7 @@ public interface BookingHomeService {
 	
 	void updateBookingTime(String dCode, LocalDate bDate, LocalTime bTime, Long bCode);
 
+	BookingView getBookingView(Long bCode);
+
+
 }

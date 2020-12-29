@@ -66,4 +66,10 @@ public class BookingViewDslRepository {
 		.execute();
 	}
 	
+	public BookingView getBookingView(Long bCode) {
+		return queryFactory.selectFrom(bookingView)
+				.where(bookingView.bCode.eq(bCode))
+				.fetchOne();
+	}
+	
 }

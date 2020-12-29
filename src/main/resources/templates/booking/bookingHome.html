@@ -27,7 +27,8 @@
 
 			</thead>
 			<tr th:each="view : ${bView}">
-				<td th:text="${view.bCode}"></td>
+				<td th:text="${view.bCode}">
+				</td>
 				<td th:if="${view.bStatus == '0'}" th:text="예약"></td>
 				<td th:if="${view.bStatus == '1'}" th:text="완료"></td>
 				<td th:if="${view.bStatus == '2'}" th:text="취소"></td>
@@ -38,14 +39,14 @@
 				<td>
 				<th:block th:if="${view.bStatus == '0'}">
 				<input type="button" value="시간변경" class="btn btn-outline-primary" th:onclick="time_change_booking([[${view.bCode}]], [[${view.sCode}]], [[${view.bBeautyTime}]]);">
-				<input type="button" value="예약취소" class="btn btn-outline-secondary" th:onclick="|cancel_booking(${view.bCode});|">
+				<input type="button" value="예약취소" class="btn btn-outline-secondary" th:onclick="cancel_booking([[${view.bCode}]], [[${view.merchantUid}]]);">
 				</th:block>
 				<th:block th:if="${view.bStatus == '1'}">
 				<a th:href="@{/booking/shop/__${view.sCode}__/type/강아지}"><input type="button" class="btn btn-outline-success" value="재예약"></a>
 				<input type="button" value="내역삭제" class="btn btn-outline-secondary" th:onclick="|delete_booking_view(${view.bCode});|">
 				</th:block>
 				<th:block th:if="${view.bStatus == '2'}">
-				<input type="button" value="내역삭제" class="btn btn-outline-secondary" th:onclick="|delete_booking_view(${view.bCode});|">
+				<input type="button" value="내역삭제" class="btn btn-outline-secondary" th:onclick="delete_booking_view([[${view.bCode}]]);">
 				</th:block>
 				</td>
 			</tr>
