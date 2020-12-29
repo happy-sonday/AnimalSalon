@@ -47,8 +47,8 @@ function goBack() {
 /** 금액 및 소요시간 설정 */
 var change_sum_price = function(selected_option) {
 	// 금액 및 소요시간 초기화
-	$('#sumPrice').text($('#defaultPrice').val());
-	$('#sumBeautyTime').text($('#defaultBeautyTime').val());
+	$('#sumPrice').text($('#selected_price').val());
+	$('#sumBeautyTime').text($('#selected_btime').val());
 
 	var mo_index = selected_option.selectedIndex; // 인덱스
 	var mo_value = selected_option.options[mo_index].value; // 해당 인덱스의 value
