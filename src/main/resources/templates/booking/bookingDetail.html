@@ -82,7 +82,7 @@
 								th:id="dCode + ${i.index}"> <input type="hidden"
 								th:value="${dList.dDayOff}" id="dDayOff" name="dDayOff">
 							<img
-								th:src="@{'/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}"
+								th:src="@{'/shop/upload_image/'+${dList.dPhotopath}+${dList.dPhotoname}}"
 								width=60 height=60 class="rounded-circle" />
 							<p
 								class="media-body pl-3 pb-2 mt-1 small lh-125 border-bottom border-gray">
@@ -163,7 +163,6 @@
 						</div>
 					</div>
 					<div class="mt-3">
-						<input type="button" value="예약하기(테스트)" onclick="make_booking();">
 						<button class="btn btn-primary"  onclick="move_payments();" type="button">예약하기</button>
 					</div>
 				</div>

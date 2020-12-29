@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.cndsalon.domain.book.BookingView;
 import com.cndsalon.domain.book.MenuOption;
 
+/**
+ * <pre>
+ * 개요: JPA 복합키 이슈로 인한 Mybatis 혼용
+ * </pre>
+ * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br> 
+ */
 @Repository
 public class BookingDaoImpl implements BookingDao {
 	

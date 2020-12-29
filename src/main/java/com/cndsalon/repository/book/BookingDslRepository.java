@@ -15,6 +15,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.cndsalon.domain.book.QMenu.*;
 import static com.cndsalon.domain.shop.QCndSalonShopInfoVO.*;
 
+/**
+ * <pre>
+ * 개요: 메뉴->예약까지 사용하는 querydsl
+ * </pre>
+ * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br> 
+ */
 @Repository
 public class BookingDslRepository {
 	private JPAQueryFactory queryFactory;
