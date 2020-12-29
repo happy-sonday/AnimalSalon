@@ -5,9 +5,8 @@
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>결제 페이지</title>
-<!--/* jQuery */-->
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
-<!--/* iamport.payment.js */-->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript" th:src="@{/static/js/pay/payment.js}"></script>
@@ -17,7 +16,6 @@
 
 </head>
 <body>
-<!-- /* 메뉴바 */-->
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top text-light">
 	<div class="container">			
 		<div class="collapse navbar-collapse" id="navbarResponsive">
@@ -25,8 +23,9 @@
 				<li class="nav-item"><a class="nav-link text-light" style="cursor: pointer;" onclick="goBack();">뒤로가기</a></li>
 			</ul>
 				<ul class="nav navbar-nav navbar-logo mx-auto">
-				<li class="nav-item active border border-5 border-light rounded-pill" id="navbar__shop__name"><a class="nav-link text-light" href="#">[[${result.sName}]]
-				</a></li>
+				<li class="nav-item active border border-5 border-light rounded-pill" id="navbar__shop__name">
+					[[${result.sName}]]
+				</li>
 			</ul>
 				<ul class="nav navbar-nav pull-sm-right">
 				<li class="nav-item"><a class="nav-link text-light"
@@ -36,7 +35,6 @@
 	</div>
 </nav>
 
-<!--/* 메인컨텐츠 */-->
 <main class="main">
 <div class="d-sm-flex flex-row mt-4">
 	<div class="p-2 ps-3 ms-3 col-lg-6">
@@ -167,7 +165,6 @@
 	</div>
 </div>
 
-<!--/* 각종 규정 - bootstrap5.0 적용 */-->
 <div class="accordion accordion-flush mt-3" id="accordionFlushExample">
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="flush-headingOne">
@@ -279,8 +276,7 @@ cndsalon > 마이페이지 > 설정의 약관 참조
 			</div>
 		</div>
 </main>
-	
-<!--/* footer */-->
+
 <footer class="footer">
 	<div class="footer__logo-box">
 		<a href="#">
@@ -313,13 +309,12 @@ cndsalon > 마이페이지 > 설정의 약관 참조
 <script>
 function requestPay(){
 	var IMP = window.IMP; 
-	IMP.init("imp96423462"); // "가맹점 식별코드"
+	IMP.init("imp96423462");
  	
-	
 	var payMethod = $("input[name='paym']:checked").val();
 	var payName = $('#shopName').text() + '_' + $('#styleName').text() + ' by ' + $('#designer').text();
 	var totalAmount = parseInt($('#amount').text(), 10);
-	var merchantUid = 'merchant_' + new Date().getTime();						// 밀리세컨드 13자리
+	var merchantUid = 'merchant_' + new Date().getTime();						
 	var customer = $('#customer').text();
 	var id = $('#id').val();
 	var mCode = $('#mCode').val();
@@ -329,40 +324,25 @@ function requestPay(){
 	var bookingTime = $('#onlyTime').val();
 	var bBeautyTime = $('#bBeautyTime').val();
 	
-	console.log("결제수단 : " +payMethod);
-	console.log("결제메뉴명 : " + payName);
-	console.log("결제금액 : " + totalAmount);
-	console.log("고유주문번호 : " + merchantUid);
-	console.log("예약자 : " + customer);
-	console.log("메뉴코드 : " + mCode);
-	console.log("매장코드 : " + sCode);
-	console.log("디자이너코드 : " + dCode);
-	console.log("ID 값: " + id);
-	console.log("예약날짜 : " + bookingDate);
-	console.log("예약시간 : " + bookingTime);
-	console.log("소요시간 : " + bBeautyTime);
-	
-	// IMP.request_pay(param, callback) 호출
-	IMP.request_pay({ // param
-		pg: "html5_inicis",		 																		// pg사
-		pay_method: payMethod,																	// 결제수단 ( 기본값 : card )
-		merchant_uid: merchantUid, 																// 고유주문번호
-		name: payName,																				// 주문명
-		amount: 100,																						// 결제금액
-		buyer_email: "inulee0213@gmail.com",												// 구매자 Email
-		buyer_name: customer,																		// 구매자 이름
-		buyer_tel: "010-8977-6151",																// 구매자 전화번호
-		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",						// 구매자 주소
-		buyer_postcode: "10310"																	// 구매자 우편번호
+	IMP.request_pay({ 
+		pg: "html5_inicis",		 																		
+		pay_method: payMethod,																	
+		merchant_uid: merchantUid, 																
+		name: payName,																				
+		amount: totalAmount,																		
+		buyer_email: "inulee0213@gmail.com",												
+		buyer_name: customer,																		
+		buyer_tel: "010-8977-6151",																
+		buyer_addr: "경기도 고양시 일산동구 중산로 70, 109동 2204호",						
+		buyer_postcode: "10310"																	
 		
-		}, function (rsp) { // callback : 결제프로세스 종료 후 실행됨
-				console.log(rsp);
+		}, function (rsp) { 
+				
 				var token = $("meta[name='_csrf']").attr("content");
 			 	var header = $("meta[name='_csrf_header']").attr("content");
-				if (rsp.success) { // 결제 성공 시: 결제 승인에 성공한 경우
-			    	// jQuery로 HTTP 요청
+				if (rsp.success) {
 			    	jQuery.ajax({
-						url: "/cndsalon/payments/success", 								// 클라이언트가 요청을 보낼 서버의 URL 주소
+						url: "/cndsalon/payments/success", 								
 						method: "post",
 						dataType:"json",
 						contentType:"application/json",
@@ -374,7 +354,7 @@ function requestPay(){
 							payMethod : rsp.pay_method,
 							paidAmount : rsp.paid_amount,
 							status : rsp.status,
-							paidAt : rsp.paid_at,										// second단위 ,10자리
+							paidAt : rsp.paid_at,										
 							name : rsp.name,
 							buyerName : rsp.buyer_name,
 							buyerEmail : rsp.buyer_email,
@@ -386,16 +366,7 @@ function requestPay(){
 							xhr.setRequestHeader(header, token);
 						}
 					}).done(function (data) {
-				        // 가맹점 서버 결제 API 성공시 로직
-				       console.log(data);
-// 						var msg = '결제가 완료되었습니다.';
-// 	                    msg += '\n고유ID : ' + rsp.imp_uid;
-// 	                    msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-// 	                    msg += '\n결제 금액 : ' + rsp.paid_amount;
-// 	                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
-// 	                    alert(msg);
-
-				       $.ajax({
+				        $.ajax({
 							contentType : "application/json; charset=utf-8",
 							type : "POST",
 							url : "/cndsalon/booking/make-booking",
@@ -415,17 +386,17 @@ function requestPay(){
 								xhr.setRequestHeader(header, token);
 							}
 						}).done(function(){
-							console.log("예약테이블 insert 완료!");
+							
 	 						var msg = '결제가 완료되었습니다.';
 	 	                    msg += '\n고유ID : ' + rsp.imp_uid;
 	 	                    msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 	 	                    msg += '\n결제 금액 : ' + rsp.paid_amount;
 	 	                    msg += '\n카드 승인번호 : ' + rsp.apply_num;
 	 	                    alert(msg);
-// 							location.href="/cndsalon/payments/moveSuccess";
+ 							location.href="/cndsalon/bookinghome/status/0";
 						})
 						.fail(function(){
-							console.log("예약테이블 insert 실패...");
+							alert("예약 실패..");
 						});
 					})
 					.fail(function(){
@@ -436,7 +407,6 @@ function requestPay(){
 			    	
 			    } else {
 					alert("결제에 실패하였습니다. \n에러 내용: " +  rsp.error_msg);
-// 					location.href="/cndsalon/payments/moveFail"
 			    }
 		});
 };

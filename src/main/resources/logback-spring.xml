@@ -6,8 +6,8 @@
 
 
 
-<!--     <property name="LOGS_PATH" value="D:/Log" /> -->
-	<property name="LOGS_PATH" value="/home/ec2-user/cndsalon/log" />
+    <property name="LOGS_PATH" value="D:/Log" />
+<!-- 	<property name="LOGS_PATH" value="/home/ec2-user/cndsalon/log" /> -->
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
