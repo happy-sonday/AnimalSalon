@@ -231,9 +231,11 @@ var move_payments = function() {
 			return;
 		}
 	} else {
+		console.log("메뉴타입확인 : " + $('#mType').val())
 		if ($('#mType').val() == "고양이") {
-			$('#selected_price').val() == $('#defaultPrice').val();
-			$('#selected_btime').val() == $('#defaultBeautyTime').val();
+			$('#selected_price').val($('#defaultPrice').val());
+			$('#selected_btime').val($('#defaultBeautyTime').val());
+			console.log("값, 소요시간 확인 : " + $('#selected_price').val() + " / " + $('#selected_btime').val());
 		}
 		document.formm.action="/cndsalon/payments";
 		document.formm.submit();	
