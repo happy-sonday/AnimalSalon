@@ -21,6 +21,7 @@
 				<div class="col-5 border-right border-gray">
 					<!-- 메뉴정보 -->
 					<div class="media pt-3">
+						<input type="hidden" id="mType" th:value="${menu.mType}" />
 						<input type="hidden" th:value="${menu.mCode}" id="mCode"
 							name="mCode"> <img
 							th:src="@{'/booking/upload_image/' + ${menu.mpPath} + ${menu.mpSysName}}"
