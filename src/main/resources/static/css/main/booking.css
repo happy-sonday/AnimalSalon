@@ -83,3 +83,7 @@ input[type=radio]:disabled + label{
 	color :  #8e8e8ef5;
 	background-color: #c7c7c77d;
 }
+
+#container {
+	min-height:823px;
+}
