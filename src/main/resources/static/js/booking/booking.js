@@ -231,6 +231,10 @@ var move_payments = function() {
 			return;
 		}
 	} else {
+		if ($('#mType').val() == "고양이") {
+			$('#selected_price').val() == $('#defaultPrice').val();
+			$('#selected_btime').val() == $('#defaultBeautyTime').val();
+		}
 		document.formm.action="/cndsalon/payments";
 		document.formm.submit();	
 	}
