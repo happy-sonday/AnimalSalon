@@ -50,7 +50,7 @@
 			window.open('about:blank', '_self');
 			alert("시간이 변경되었습니다.");
 			opener.location.reload();
-			//self.close();
+			self.close();
 		}
 	}
 	
