@@ -50,7 +50,7 @@
 			// 데이터가 전송된 후에 페이지를 닫기 위한 window.open
 			window.open('about:blank', '_self');
 			opener.location.reload();
-			self.close();
+			//self.close();
 		}
 	}
 	
