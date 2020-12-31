@@ -47,8 +47,10 @@
 			
 			document.formm.submit();
 			alert("시간이 변경되었습니다.");
+			// 데이터가 전송된 후에 페이지를 닫기 위한 window.open
+			window.open('about:blank', '_self').close();
 			opener.location.reload();
-		//	self.close();
+			self.close();
 		}
 	}
 	
