@@ -46,9 +46,9 @@
 			$('#selected_time').val(b_time);
 			
 			document.formm.submit();
-			alert("시간이 변경되었습니다.");
 			// 데이터가 전송된 후에 페이지를 닫기 위한 window.open
 			window.open('about:blank', '_self');
+			alert("시간이 변경되었습니다.");
 			opener.location.reload();
 			//self.close();
 		}
