@@ -54,13 +54,13 @@ public class PaymentController {
 	public ModelAndView movePaymentPage(
 			@RequestParam("mCode") String mCode,
 			@RequestParam("sCode") String sCode,
-			@RequestParam("defaultPrice") Integer price,
-			@RequestParam("defaultBeautyTime") Integer workingTime,
+			@RequestParam("selected_price") Integer price,
+			@RequestParam("selected_btime") Integer workingTime,
 			@RequestParam("selected_designer") String dCode,
 			@RequestParam("bookingDate") String bDate,
 			@RequestParam("time_radio") String bTime
 			) throws Exception{
-		ModelAndView mv = new ModelAndView("/payment/paymentForm");
+		ModelAndView mv = new ModelAndView("payment/paymentForm");
 		log.info("결제요청을 받음.. 로직 수행 시작");
 		log.info("메뉴코드 : " + mCode);
 		log.info("매장코드 : " + sCode);

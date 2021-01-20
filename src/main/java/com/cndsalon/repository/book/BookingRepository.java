@@ -9,6 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 import com.cndsalon.domain.book.Booking;
 
+
+/**
+ * <pre>
+ * 개요: Spring-boot-jpa native쿼리 사용
+ * </pre>
+ * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br> 
+ */
 public interface BookingRepository extends JpaRepository<Booking, String>{
 
 	@Query(value = "SELECT * FROM booking b "

@@ -46,6 +46,8 @@
 			$('#selected_time').val(b_time);
 			
 			document.formm.submit();
+			// 데이터가 전송된 후에 페이지를 닫기 위한 window.open
+			window.open('about:blank', '_self');
 			alert("시간이 변경되었습니다.");
 			opener.location.reload();
 			self.close();
@@ -59,51 +61,3 @@
 		"scrollbars=yes, resizable=no, width=700, height=600");
 	}
 	
-	/** bookingCancel.html 예약/결재취소 클릭 시**/
-	var go_cancel_booking = function(bCode){
-		var reason = $('#reasonForCancel option:selected').val();
-		var reason2 = $('#reasonForCancel option:selected').text();
-
-		if (reason == "x") {
-			
-			alert('취소사유를 선택해주세요.');
-		} else {
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			
-				
-			var data = JSON.stringify({
-					bStatus : "2",
-					bCancelReason : reason
-			});
-			var token = $("meta[name='_csrf']").attr("content");
-	 		var header = $("meta[name='_csrf_header']").attr("content");
-		
-			$.ajax({
-				url : "/cndsalon/bookinghome/bookings/" + bCode,
-				type : "PUT",
-				contentType: "application/json; charset=utf-8",
-				data : data,
-				beforeSend : function(xhr){
-				xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"));
-				},
-				success : function(){
-					alert("예약이 취소되었습니다.");	
-					opener.location.reload();
-					self.close();
-				},
-				error : function(){
-					alert("취소 불가한 예약입니다.");
-					self.close();	
-				}
-			});
-		}
-	}

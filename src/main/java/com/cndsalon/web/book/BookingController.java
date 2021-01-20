@@ -25,6 +25,12 @@ import com.cndsalon.web.dto.book.DateTimeDTO;
 import lombok.extern.slf4j.Slf4j;
 
 
+/**
+ * <pre>
+ * 개요: 메뉴화면에서 예약하기 화면까지 사용되는 Booking Controller
+ * </pre>
+ * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br>
+ */
 @Controller
 @RequestMapping("booking")
 @Slf4j

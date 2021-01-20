@@ -13,6 +13,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.cndsalon.domain.book.QBooking.*;
 import static com.cndsalon.domain.book.QBookingView.*;
 
+/**
+ * <pre>
+ * 개요: 예약내역화면에서 사용하는 BookingView테이블을 조회하기 위한 JPA-querydsl
+ * </pre>
+ * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br>
+ */
 @Repository
 public class BookingViewDslRepository {
 	private JPAQueryFactory queryFactory;

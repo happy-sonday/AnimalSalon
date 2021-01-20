@@ -47,8 +47,8 @@ function goBack() {
 /** 금액 및 소요시간 설정 */
 var change_sum_price = function(selected_option) {
 	// 금액 및 소요시간 초기화
-	$('#sumPrice').text($('#defaultPrice').val());
-	$('#sumBeautyTime').text($('#defaultBeautyTime').val());
+	$('#sumPrice').text($('#selected_price').val());
+	$('#sumBeautyTime').text($('#selected_btime').val());
 
 	var mo_index = selected_option.selectedIndex; // 인덱스
 	var mo_value = selected_option.options[mo_index].value; // 해당 인덱스의 value
@@ -217,11 +217,6 @@ var check_time = function(selected_time) {
 }
 
 /** bookingDetail.html에서 결제화면으로 넘어가기 위한 유효성 검사 */
-
-// 예약시 필요한 정보들.
-// Id mCode dCode sCode bDate bTime bBeautyTime bPrice
-// id는 세션의 정보 받아올 것.
-// 2020-12-25 이후 미사용예정 => 유효성 검사용으로만 사용!
 var move_payments = function() {
 
 	
@@ -236,42 +231,13 @@ var move_payments = function() {
 			return;
 		}
 	} else {
+		if ($('#mType').val() == "고양이") {
+			$('#selected_price').val($('#defaultPrice').val());
+			$('#selected_btime').val($('#defaultBeautyTime').val());
+		}
 		document.formm.action="/cndsalon/payments";
 		document.formm.submit();	
 	}
-	
-
-//	var booking = JSON.stringify({
-//		id : 'testId',
-//		mCode : $('#mCode').val(),
-//		dCode : $('#selected_designer').val(),
-//		sCode : $('#sCode').val(),
-//		bDate : $('#selected_date').val(),
-//		bTime : b_time,
-//		bBeautyTime : $('#sumBeautyTime').text().substring(0, $('#sumBeautyTime').text().indexOf("분")) * 1,
-//		bPrice : $('#sumPrice').text().substring(0, $('#sumPrice').text().indexOf("원")) * 1
-//	});
-//
-//	var token = $("meta[name='_csrf']").attr("content");
-// 	var header = $("meta[name='_csrf_header']").attr("content");
-//
-//	$.ajax({
-//		contentType : "application/json; charset=utf-8",
-//		type : "POST",
-//		url : "/cndsalon/booking/make-booking",
-//		datatype:"json",
-//		data : booking,
-//		beforeSend : function(xhr){
-//		xhr.setRequestHeader(header, token);
-//		},
-//		success : function(model){
-//			console.log(model);
-//			alert('예약성공!');
-//		},
-//		error : function(){
-//			alert('예약불가!');
-//		}
-//	});
 
 }
 

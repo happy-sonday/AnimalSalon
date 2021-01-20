@@ -76,7 +76,7 @@
 
            <div class="shop__detail__designer" th:each="dinfo : ${deginerinfo}">
                 <div>
-                <img th:src="@{'/shop/upload_image/'+${dinfo.dPhotopath}+${dinfo.dPhotoname}}" width=200 height=200 alt="상품사진">
+                <img th:src="@{'/shop/upload_image/'+${dinfo.dPhotopath}+${dinfo.dPhotoname}}" width=200 height=200 alt="디자이너사진">
                 <strong th:text="${dinfo.dName}"></strong>
                 </div>
                 

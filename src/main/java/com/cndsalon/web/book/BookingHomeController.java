@@ -20,6 +20,12 @@ import com.cndsalon.service.shop.ShopListService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * <pre>
+ * 개요: 예약내역화면에서 사용하는 BookingHomeController
+ * </pre>
+ * @author <a href="mailto:hkj5455@gmail.com">김진혁</a><br>
+ */
 @Slf4j
 @Controller
 @RequestMapping("bookinghome")

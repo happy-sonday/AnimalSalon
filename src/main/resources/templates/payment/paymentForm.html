@@ -48,8 +48,9 @@
 			<thead>
 				<tr>
 					<th colspan="2">
-					<input type="text" th:value="${bookingDate}" id="bookk">
-					<img src="#" class="img-thumbnail" alt="menuImg"></th>
+							<img
+							th:src="@{'/booking/upload_image/' + ${result.mpPath} + ${result.mpSysName}}"
+							width="100" height="80" alt="메뉴사진" /></th>
 				</tr>
 			</thead>
 			<tbody>

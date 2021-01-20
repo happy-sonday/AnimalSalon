@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>C&D | 애견 전문 헤어샵  </title>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{'/static/css/main/icon-font.css'}">
+        <link rel="stylesheet" th:href="@{'/static/css/main/style.css'}">
+        <link rel="shortcut icon" type="image/png" th:href="@{/static/img/main/favicon.ico}">
+        <script src="https://kit.fontawesome.com/6938c44e7b.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3c9880671d9e20c5afbc27db5eb2beed&libraries=services"></script>
+        <script th:src="@{'/static/js/shop/shop_search_my.js'}" charset="UTF-8"></script>
+        <script th:src="@{'/static/js/main.js'}" defer></script>
+    </head>
+    <body>
+
+        <!-- 메뉴 상단 -->
+        <nav class="navbar">
+            <div class="navbar__logo-box">
+                <img th:src="@{'/static/img/main/logo.png'}" alt="Logo" class="navbar__logo">
+                <a href="#">C&D</a>
+            </div>
+
+            <div class="navbar__menu">
+                <ul class="navbar__menu">
+                    <a style="cursor:pointer" onclick='shop_main_search()'>
+                    <li class="navbar__menu__item">내 주변</li></a>
+                    <a href="#"><li class="navbar__menu__item">입점 문의</li></a>
+                    <a th:href="@{/bookinghome/status/all}"><li class="navbar__menu__item">예약</li></a> 
+                    <a th:href="@{/login}"><li class="navbar__menu__item" id="navbar__login">로그인</li></a>
+                </ul>
+            </div>
+
+            <!-- 토글 버튼 -->
+            <button class="navbar__toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </nav>
+           
+        <!-- 헤더 -->
+        <header class="header">
+
+            <div class="header__text-box">
+                <h1 class="heading-primary">
+                    <span class="heading-primary--main">C&D Hairshop</span>
+                    <span class="heading-primary--sub">give you better life</span>
+                </h1>
+
+
+                <a href="#" class="btn btn--white">예약하기</a>
+
+            </div>
+        </header>
+
+        <!--메인-->
+        <main>
+
+            <!-- 소개 -->
+            <section class="section-about">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">
+                        지상 최고의 서비스를 받아보세요
+                    </h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-1-of-2">
+                        <h3 class="heading-tertiary u-margin-bottom-small">애견의, 애견에 의한, 애견을 위한 서비스</h3>
+                        <p class="paragraph">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet numquam iusto aut dolore unde mollitia natus, deleniti, nostrum vero magnam iure consequuntur, ducimus maxime illo! Debitis earum dolore accusantium nostrum.
+                        </p>
+
+                        <h3 class="heading-tertiary u-margin-bottom-small">화려한 경력으로 무장한 최고의 디자이너들</h3>
+                        <p class="paragraph">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet numquam iusto aut dolore unde mollitia natus, deleniti, nostrum vero magnam iure consequuntur, ducimus maxime illo! Debitis earum dolore accusantium nostrum.
+                        </p>
+
+                        <a href="#" class="btn-text">자세히 알아보기 &rarr;</a>
+                    </div>
+                    <div class="col-1-of-2">
+                        <div class="composition">
+                            <img th:src="@{'/static/img/main/dog3.jpg'}" alt="Photo 1" class="composition__photo composition__photo--p1">
+                            <img th:src="@{'/static/img/main/dog2.jpg'}" alt="Photo 2" class="composition__photo composition__photo--p2">
+                            <img th:src="@{'/static/img/main/dog1.jpg'}" alt="Photo 3" class="composition__photo composition__photo--p3">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 특징 -->
+            <section class="section-features">
+
+                <div class="row">
+
+                    <div class="col-1-of-4">
+                        <div class="feature-box">
+                            <i class="feature-box__icon icon-basic-world"></i>
+                            <h3 class="heading-tertiary u-margin-bottom-small">세계로 뻗어나가자</h3>
+                            <p class="feature-box__text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet numquam iusto aut dolore unde   
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-1-of-4">
+                        <div class="feature-box">
+                            <i class="feature-box__icon icon-basic-compass"></i>
+                            <h3 class="heading-tertiary u-margin-bottom-small">시간은 철저하게</h3>
+                            <p class="feature-box__text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet numquam iusto aut dolore unde   
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-1-of-4">
+                        <div class="feature-box">
+                            <i class="feature-box__icon icon-basic-map"></i>
+                            <h3 class="heading-tertiary u-margin-bottom-small">전국 이용가능</h3>
+                            <p class="feature-box__text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet numquam iusto aut dolore unde   
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-1-of-4">
+                        <div class="feature-box">
+                            <i class="feature-box__icon icon-basic-heart"></i>
+                            <h3 class="heading-tertiary u-margin-bottom-small">애완견에게 사랑을</h3>
+                            <p class="feature-box__text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet numquam iusto aut dolore unde   
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section-designers">
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">
+                        이달의 베스트 디자이너
+                    </h2>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-1-of-3">
+                        <div class="card">
+                            <div class="card__side card__side--front">
+                                <div class="card__picture card__picture--1">
+                                    &nbsp;
+                                </div>
+                                <h3 class="card__heading">
+                                    <span class="card__heading-span--1">
+                                        디자이너 이찬우
+                                    </span>
+                                </h3>
+                                <div class="card__details">
+                                    <ul>
+                                        <li>"제 아이라고 생각해요"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card__side card__side--back card__side--back-1">
+                                <div class="card__cta">
+                                    <div class="card__price-box">
+                                        <p class="card__price-only">Only</p>
+                                        <p class="card__price-value">$200</p>
+                                    </div>
+                                    <a href="#" class="btn btn--white">예약하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                    <div class="col-1-of-3">
+                        <div class="card">
+                            <div class="card__side card__side--front">
+                                <div class="card__picture card__picture--2">
+                                    &nbsp;
+                                </div>
+                                <h3 class="card__heading">
+                                    <span class="card__heading-span--2">
+                                        디자이너 손우섭
+                                    </span>
+                                </h3>
+                                <div class="card__details">
+                                    <ul>
+                                        <li>"생명은 소중하죠"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card__side card__side--back card__side--back-2">
+                                <div class="card__cta">
+                                    <div class="card__price-box">
+                                        <p class="card__price-only">Only</p>
+                                        <p class="card__price-value">$300</p>
+                                    </div>
+                                    <a href="#" class="btn btn--white">예약하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-1-of-3">
+                        <div class="card">
+                            <div class="card__side card__side--front">
+                                <div class="card__picture card__picture--3">
+                                    &nbsp;
+                                </div>
+                                <h3 class="card__heading">
+                                    <span class="card__heading-span--3">
+                                        디자이너 김진혁
+                                    </span>
+                                </h3>
+                                <div class="card__details">
+                                    <ul>
+                                        <li>"생명을 디자인 한다고 생각해요"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card__side card__side--back card__side--back-3">
+                                <div class="card__cta">
+                                    <div class="card__price-box">
+                                        <p class="card__price-only">Only</p>
+                                        <p class="card__price-value">$400</p>
+                                    </div>
+                                    <a href="#" class="btn btn--white">예약하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="u-center-text u-margin-top-huge">
+                    <a href="#" class="btn btn--grey">전체 둘러보기</a>
+                </div>
+
+            </section>
+
+            <section class="section-stories">
+
+                <div class="bg-video">
+                    <video class="bg-video__content" autoplay muted loop>
+                        <source th:src="@{'/static/img/main/video.mp4'}" type="video/mp4">
+                            지원하지 않는 동영상 형식입니다!
+                    </video>
+                </div>
+
+                <div class="u-center-text u-margin-bottom-big">
+                    <h2 class="heading-secondary">
+                        We make people genuinely happy
+                    </h2>
+                </div>
+
+                <div class="row">
+                    <div class="story">
+                        <figure class="story__shape">
+                            <img th:src="@{'/static/img/main/dog1.jpg'}" alt="review" class="story__img">
+                            <figcaption class="story__caption">
+                                Mary Smith
+                            </figcaption>
+                        </figure>
+                        <div class="story__text">
+                            <h3 class="heading-teritary u-margin-bottom-small">I had the best week ever with my family</h3>
+                            <p>
+                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="story">
+                        <figure class="story__shape">
+                            <img th:src="@{'/static/img/main/dog2.jpg'}" alt="review" class="story__img">
+                            <figcaption class="story__caption">
+                                Jack Wilson
+                            </figcaption>
+                        </figure>
+                        <div class="story__text">
+                            <h3 class="heading-teritary u-margin-bottom-small">WOW! My life is completely different now</h3>
+                            <p>
+                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente Facere odio ab possimus natus deserunt labore dolore, quaerat beatae. Quam qui eligendi sapiente 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="u-center-text u-margin-top-huge">
+                    <a href="#" class="btn-text">리뷰 전체보기 &rarr;</a>
+                </div>
+
+            </section>
+
+            <section class="section-business">
+                <div class="row">
+                    <div class="business">
+                        <div class="business__form">
+                            <form action="#" class="form">
+                                <div class="u-center-text u-margin-bottom-medium">
+                                    <h2 class="heading-secondary">
+                                        입점 문의
+                                    </h2>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="text" class="form__input" placeholder="이름" id="name" required>
+                                    <label for="name" class="form__label">이름</label>
+                                </div>
+
+                                <div class="form__group">
+                                    <input type="email" class="form__input" placeholder="이메일 주소" id="email" required>
+                                    <label for="email" class="form__label">이메일 주소</label>
+                                </div>
+
+                                <div class="form__group u-margin-bottom-medium">
+                                    <div class="form__radio-group">
+                                        <input type="radio" class="form__radio-input" id="small" name="size">
+                                        <label for="small" class="form__radio-label">
+                                            <span class="form__radio-button"></span>
+                                            *개인정보 수집 및 이용에 대해 동의합니다.
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form__group">
+                                    <button class="btn btn--grey">제출 &rarr;</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+
+            <div class="footer__logo-box">
+                <a href="#">
+                    <img th:src="@{'/static/img/main/logo.png'}" alt="logo" class="footer__logo">
+                    <h1 class="footer__font">C&D</h1>
+                </a>
+              
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-2">
+                    <div class="footer__navigation">
+                        <ul class="footer__list">
+                            <li class="footer__item"><a href="#" class="footer__link">Company</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Contact us</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Careers</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Privacy policy</a></li>
+                            <li class="footer__item"><a href="#" class="footer__link">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-1-of-2">
+                    <p class="footer__copyright">
+                        This is our final project called C&D Hairshop, Enjoy it! <br/><a href="#" class="footer__link">Copyright &copy; by KJH SWS SHJ LCW JJK</a> 
+                    </p>
+                </div>
+
+            </div>
+            
+        </footer>
+
+        <!-- <section class="grid-test">
+            
+            <div class="row">
+                <div class="col-1-of-2">
+                    Col 1 of 2
+                </div>
+                <div class="col-1-of-2">
+                    Col 1 of 2
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-1-of-3">
+                    Col 1 of 3
+                </div>
+                <div class="col-1-of-3">
+                    Col 1 of 3
+                </div>
+                <div class="col-1-of-3">
+                    Col 1 of 3
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-3">
+                    Col 1 of 3
+                </div>
+                <div class="col-2-of-3">
+                    Col 2 of 3
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-4">
+                    Col 1 of  4
+                </div>
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-2-of-4">
+                    Col 1 of 4
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-2-of-4">
+                    Col 1 of 4
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-1-of-4">
+                    Col 1 of 4
+                </div>
+                <div class="col-1-of-4">
+                    Col 3 of 4
+                </div>
+            </div>
+
+        </section> -->
+        
+        
+    </body>
+</html>
